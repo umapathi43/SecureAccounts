@@ -1,0 +1,117 @@
+<div class="col-lg-12 col-12">
+  <div class="card">
+    <div class="card-header">
+      <h4 class="card-title" *ngIf="!CustomeId">Add User</h4>
+      <h4 class="card-title" *ngIf="CustomeId">Edit User</h4>
+    </div>
+    <div class="card-content">
+      <div class="card-body">
+        <form>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="hidden-label-form-1">Customer Name</label>
+                <input
+                  type="text"
+                  id="hidden-label-form-1"
+                  class="form-control round"
+                  name="cname"
+                />
+              </div>
+              <div class="form-group">
+                <label for="hidden-label-form-2">Mobile Number</label>
+                <input
+                  type="tel"
+                  id="hidden-label-form-2"
+                  class="form-control round"
+                  name="mobile"
+                />
+              </div>
+              <div class="form-group">
+                <label for="hidden-label-form-3">Address1</label>
+                <input
+                  type="text"
+                  id="hidden-label-form-3"
+                  class="form-control round"
+                  name="address1"
+                />
+              </div>
+              <div class="form-group">
+                <label for="hidden-label-form-3">Address2</label>
+                <input
+                  type="text"
+                  id="hidden-label-form-3"
+                  class="form-control round"
+                  name="address2"
+                />
+              </div>
+
+              <div class="form-group position-relative">
+                <label for="hidden-label-form-4">GSTNo</label>
+                <input
+                  type="text"
+                  id="hidden-label-form-4"
+                  class="form-control pickadate round"
+                />
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="hidden-label-form-5">Credit Limit</label>
+                <input
+                  type="number"
+                  id="hidden-label-form-5"
+                  class="form-control round"
+                  name="sname"
+                />
+              </div>
+              <div class="form-group">
+                <label for="hidden-label-form-6">Due Days</label>
+                <input
+                  type="number"
+                  id="hidden-label-form-5"
+                  class="form-control round"
+                  name="sname"
+                />
+              </div>
+              <div class="form-group">
+                <label for="hidden-label-form-7">Opening Balance</label>
+                <input
+                  type="number"
+                  id="hidden-label-form-5"
+                  class="form-control round"
+                  name="sname"
+                />
+              </div>
+              <div class="form-group">
+                <label for="hidden-label-form-8">Opening Balance Date</label>
+                <div class="input-group">
+                  <input
+                    class="form-control round"
+                    placeholder="yyyy-mm-dd"
+                    name="dp"
+                    [(ngModel)]="popupModel"
+                    ngbDatepicker
+                    #d2="ngbDatepicker"
+                  />
+                  <div class="input-group-append">
+                    <div class="input-group-text" (click)="d2.toggle()">
+                      <i class="fa fa-calendar" style="cursor: pointer"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button type="button" class="btn btn-primary mr-2">
+              <i class="ft-check-square mr-1"></i>Save
+            </button>
+            <button type="button" class="btn btn-secondary" (click)="goBack()">
+              <i class="ft-x mr-1"></i>Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
