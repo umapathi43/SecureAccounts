@@ -1,8 +1,8 @@
 <div class="col-lg-12 col-12">
   <div class="card">
     <div class="card-header">
-      <h4 class="card-title" *ngIf="!CustomeId">Add User</h4>
-      <h4 class="card-title" *ngIf="CustomeId">Edit User</h4>
+      <h4 class="card-title" *ngIf="!CustomeId">Add Supplier</h4>
+      <h4 class="card-title" *ngIf="CustomeId">Edit Supplier</h4>
     </div>
     <div class="card-content">
       <div class="card-body">
@@ -10,7 +10,7 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label for="hidden-label-form-1">Customer Name</label>
+                <label for="hidden-label-form-1"> Name</label>
                 <input
                   type="text"
                   id="hidden-label-form-1"
@@ -51,6 +51,14 @@
 
               <div class="form-group position-relative">
                 <label for="hidden-label-form-4">GSTNo</label>
+                <input
+                  type="text"
+                  id="hidden-label-form-4"
+                  class="form-control pickadate round"
+                />
+              </div>
+              <div class="form-group position-relative">
+                <label for="hidden-label-form-4">Credit Days</label>
                 <input
                   type="text"
                   id="hidden-label-form-4"

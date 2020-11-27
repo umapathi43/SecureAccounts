@@ -1,8 +1,8 @@
 <div class="col-lg-12 col-12">
   <div class="card">
     <div class="card-header">
-      <h4 class="card-title" *ngIf="!CustomeId">Add User</h4>
-      <h4 class="card-title" *ngIf="CustomeId">Edit User</h4>
+      <h4 class="card-title" *ngIf="!CustomeId">Add Account</h4>
+      <h4 class="card-title" *ngIf="CustomeId">Edit Account</h4>
     </div>
     <div class="card-content">
       <div class="card-body">
@@ -10,7 +10,7 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label for="hidden-label-form-1">Customer Name</label>
+                <label for="hidden-label-form-1"> Name</label>
                 <input
                   type="text"
                   id="hidden-label-form-1"
@@ -18,80 +18,38 @@
                   name="cname"
                 />
               </div>
-              <div class="form-group">
-                <label for="hidden-label-form-2">Mobile Number</label>
-                <input
-                  type="tel"
-                  id="hidden-label-form-2"
-                  class="form-control round"
-                  name="mobile"
-                />
-              </div>
-              <div class="form-group">
-                <label for="hidden-label-form-3">Address</label>
-                <input
-                  type="text"
-                  id="hidden-label-form-3"
-                  class="form-control round"
-                  name="address1"
-                />
-              </div>
+
               <div class="form-group mb-2">
-                <label for="basic-form-6">GST Type</label>
+                <label for="basic-form-6">Account Head</label>
                 <select
                   id="basic-form-6"
                   name="interested"
                   class="form-control round"
                 >
-                  <option value="none" selected disabled>GST Type</option>
-                  <option value="design">Basic</option>
-                  <option value="development">Special</option>
+                  <option value="none" selected disabled>Account Head</option>
+                  <option value="design">asset</option>
+                  <option value="development">liability</option>
+                  <option value="development">income</option>
+                  <option value="development">expenses</option>
                 </select>
               </div>
-
-              <div class="form-group position-relative">
-                <label for="hidden-label-form-4">GSTNo</label>
-                <input
-                  type="text"
-                  id="hidden-label-form-4"
-                  class="form-control pickadate round"
-                />
+              <div class="form-group mb-2">
+                <label for="basic-form-6">Account Type</label>
+                <select
+                  id="basic-form-6"
+                  name="interested"
+                  class="form-control round"
+                >
+                  <option value="none" selected disabled>Account Type</option>
+                  <option value="bank">bank</option>
+                  <option value="cash">cash</option>
+                  <option value="wallet">wallet</option>
+                  <option value="sundry debtors">sundry debtors</option>
+                </select>
               </div>
             </div>
 
             <div class="col-md-6">
-              <div class="form-group">
-                <label for="hidden-label-form-5">Discount</label>
-                <input
-                  type="number"
-                  id="hidden-label-form-5"
-                  class="form-control round"
-                  name="sname"
-                />
-              </div>
-              <div class="form-group">
-                <label for="hidden-label-form-6">Rate Slab</label>
-                <input
-                  type="number"
-                  id="hidden-label-form-5"
-                  class="form-control round"
-                  name="sname"
-                />
-              </div>
-              <div class="form-group mb-2">
-                <label for="basic-form-6">Mode of Payment</label>
-                <select
-                  id="basic-form-6"
-                  name="interested"
-                  class="form-control round"
-                >
-                  <option value="none" selected disabled>
-                    Mode of Payment
-                  </option>
-                  <option value="design">Cash</option>
-                  <option value="development">Others</option>
-                </select>
-              </div>
               <div class="form-group">
                 <label for="hidden-label-form-7">Opening Balance</label>
                 <input

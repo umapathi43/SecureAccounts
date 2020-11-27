@@ -1,13 +1,76 @@
-import { RouteInfo } from './vertical-menu.metadata';
+import { RouteInfo } from "./vertical-menu.metadata";
 
 //Sidebar menu Routes and data
 export const ROUTES: RouteInfo[] = [
-
   {
-    path: '', title: 'Dashboard', icon: 'ft-home', class: 'has-sub', badge: '2', badgeClass: 'badge badge-pill badge-danger float-right mr-1 mt-1', isExternalLink: false, submenu: [
-      { path: '/dashboard/dashboard1', title: 'Dashboard 1', icon: 'ft-arrow-right submenu-icon', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
-      { path: '/dashboard/dashboard2', title: 'Dashboard 2', icon: 'ft-arrow-right submenu-icon', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
-    ]
+    path: "",
+    title: "Dashboard",
+    icon: "ft-home",
+    class: "has-sub",
+    badge: "2",
+    badgeClass: "badge badge-pill badge-danger float-right mr-1 mt-1",
+    isExternalLink: false,
+    submenu: [
+      {
+        path: "/dashboard/dashboard1",
+        title: "Dashboard 1",
+        icon: "ft-arrow-right submenu-icon",
+        class: "",
+        badge: "",
+        badgeClass: "",
+        isExternalLink: false,
+        submenu: [],
+      },
+      {
+        path: "/dashboard/dashboard2",
+        title: "Dashboard 2",
+        icon: "ft-arrow-right submenu-icon",
+        class: "",
+        badge: "",
+        badgeClass: "",
+        isExternalLink: false,
+        submenu: [],
+      },
+    ],
   },
-  { path: '/users', title: 'Users', icon: 'ft-mail', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+  {
+    path: "/users",
+    title: "Users",
+    icon: "ft-user",
+    class: "",
+    badge: "",
+    badgeClass: "",
+    isExternalLink: false,
+    submenu: [],
+  },
+  {
+    path: "/supplier",
+    title: "Suppliers",
+    icon: "ft-users",
+    class: "",
+    badge: "",
+    badgeClass: "",
+    isExternalLink: false,
+    submenu: [],
+  },
+  {
+    path: "/account",
+    title: "Account",
+    icon: "ft-users",
+    class: "",
+    badge: "",
+    badgeClass: "",
+    isExternalLink: false,
+    submenu: [],
+  },
+  {
+    path: "/area",
+    title: "Area",
+    icon: "ft-users",
+    class: "",
+    badge: "",
+    badgeClass: "",
+    isExternalLink: false,
+    submenu: [],
+  },
 ];

@@ -4,31 +4,27 @@ import swal from "sweetalert2";
 import * as xlsx from "xlsx";
 import * as FileSaver from "file-saver";
 declare var jsPDF: any;
+
 @Component({
-  selector: "app-users",
-  templateUrl: "./users.component.html",
+  selector: "app-account",
+  templateUrl: "./account.component.html",
   styleUrls: [
-    "./users.component.scss",
+    "./account.component.scss",
     "../../assets/sass/libs/datatables.scss",
   ],
   encapsulation: ViewEncapsulation.None,
 })
-export class UsersComponent implements OnInit {
+export class AccountComponent implements OnInit {
   @ViewChild(DatatableComponent) table: DatatableComponent;
   @ViewChild("tableRowDetails") tableRowDetails: any;
   // row data
   public rows = [
     {
       ID: 300,
-      CustomerName: "dean3004",
-      Mobile: "38484858578",
-      Address: "Dean Stanley",
-      GSTType: "Dean Stanley",
-      GSTNo: "234764553d",
-      rateslab: 5000,
-      discount: 4,
+      Name: "dean3004",
+      AccountHead: "38484858578",
+      AccountType: "Dean Stanley",
       OpeningBalance: 2000,
-      modeofpayment: "Cash",
       OpeningBalanceDate: "2020/11/25",
     },
   ];
@@ -47,10 +43,10 @@ export class UsersComponent implements OnInit {
   // column header
   public columns = [
     { name: "ID", prop: "ID" },
-    { name: "CustomerName", prop: "CustomerName" },
-    { name: "Mobile", prop: "Mobile" },
-    { name: "GSTNo", prop: "GSTNo" },
-    { name: "CreditLimit", prop: "CreditLimit" },
+    { name: "Name", prop: "Name" },
+    { name: "AccountHead", prop: "AccountHead" },
+    { name: "AccountType", prop: "AccountType" },
+    { name: "OpeningBalanceDate", prop: "OpeningBalanceDate" },
     { name: "OpeningBalance", prop: "OpeningBalance" },
     { name: "Actions", prop: "Actions" },
   ];
@@ -140,7 +136,7 @@ export class UsersComponent implements OnInit {
   exportPdf() {
     let doc = new jsPDF("l", "pt");
     doc.autoTable(this.exportColumns, this.rows);
-    doc.save("users.pdf");
+    doc.save("accounts.pdf");
   }
 
   exportExcel() {
@@ -150,7 +146,7 @@ export class UsersComponent implements OnInit {
       bookType: "xlsx",
       type: "array",
     });
-    this.saveAsExcelFile(excelBuffer, "users");
+    this.saveAsExcelFile(excelBuffer, "accounts");
   }
 
   saveAsExcelFile(buffer: any, fileName: string): void {
