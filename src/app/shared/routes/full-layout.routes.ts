@@ -36,4 +36,31 @@ export const Full_ROUTES: Routes = [
     loadChildren: () =>
       import("../../users/users.module").then((m) => m.UsersModule),
   },
+  {
+    path: "salesman",
+    loadChildren: () =>
+      import("../../salesman/salesman.module").then((m) => m.SalesmanModule),
+  },
+  {
+    path: "items",
+    loadChildren: () =>
+      import("../../items/items.module").then((m) => m.ItemsModule),
+  },
+  {
+    path: "discountslab",
+    loadChildren: () =>
+      import("../../discountslab/discountslab.module").then(
+        (m) => m.DiscountslabModule
+      ),
+  },
+  {
+    path: "branch",
+    loadChildren: () =>
+      import("../../branch/branch.module").then((m) => m.BranchModule),
+  },
+  {
+    path: "stock",
+    loadChildren: () =>
+      import("../../stock/stock.module").then((m) => m.StockModule),
+  },
 ];

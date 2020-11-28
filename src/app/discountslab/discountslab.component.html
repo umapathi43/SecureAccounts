@@ -5,7 +5,7 @@
       <div class="card">
         <div class="card-header">
           <h4 class="card-title">
-            Suppliers
+            Discount Slab
             <button
               type="button"
               (click)="exportPdf()"
@@ -22,11 +22,11 @@
             </button>
             <button
               type="button"
-              routerLink="/supplier/addsupplier"
+              routerLink="/discountslab/adddiscountslab"
               style="float: right"
               class="btn btn-primary mr-2"
             >
-              Add Supplier
+              Add Discount Slab
             </button>
           </h4>
         </div>
@@ -68,81 +68,26 @@
               [rows]="rows"
               [columns]="columns"
             >
-              <ngx-datatable-row-detail rowHeight="auto">
-                <ng-template
-                  let-row="row"
-                  let-expanded="expanded"
-                  ngx-datatable-row-detail-template
-                >
-                  <div class="ml-5 my-1">
-                    <div><strong>Address : </strong> {{ row.Address }}</div>
-                    <div><strong>GST Type :</strong> {{ row.GSTType }}</div>
-                    <div><strong>discount :</strong> {{ row.discount }}</div>
-                    <div>
-                      <strong>modeofpayment :</strong> {{ row.modeofpayment }}
-                    </div>
-                    <div>
-                      <strong>OpeningBalance Date :</strong>
-                      {{ row.OpeningBalanceDate }}
-                    </div>
-                    <div>
-                      <strong>Credit Days :</strong> {{ row.CreditDays }}
-                    </div>
-
-                    <div><strong>rate slab :</strong> {{ row.rateslab }}</div>
-                  </div>
-                </ng-template>
-              </ngx-datatable-row-detail>
-              <ngx-datatable-column
-                [width]="50"
-                [resizeable]="false"
-                [sortable]="false"
-                [draggable]="false"
-                [canAutoResize]="false"
-              >
-                <ng-template
-                  let-row="row"
-                  let-expanded="expanded"
-                  ngx-datatable-cell-template
-                >
-                  <a
-                    href="javascript:void(0)"
-                    [class.datatable-icon-right]="!expanded"
-                    [class.datatable-icon-down]="expanded"
-                    title="Expand/Collapse Row"
-                    (click)="rowDetailsToggleExpand(row)"
-                  >
-                  </a>
-                </ng-template>
-              </ngx-datatable-column>
               <ngx-datatable-column name="ID" prop="ID" [width]="50">
               </ngx-datatable-column>
               <ngx-datatable-column name="Name" prop="Name" [width]="150">
               </ngx-datatable-column>
               <ngx-datatable-column
-                name="Mobile"
-                prop="Mobile"
+                name="fromamounttoamount"
+                prop="fromamounttoamount"
                 [width]="150"
               ></ngx-datatable-column>
+
               <ngx-datatable-column
-                name="GSTNo"
-                prop="GSTNo"
-                [width]="120"
+                name="discount"
+                prop="discount"
+                [width]="150"
               ></ngx-datatable-column>
-              <ngx-datatable-column
-                name="CreditLimit"
-                prop="CreditLimit"
-                [width]="70"
-              ></ngx-datatable-column>
-              <ngx-datatable-column
-                name="OpeningBalance"
-                prop="OpeningBalance"
-                [width]="70"
-              ></ngx-datatable-column>
+
               <ngx-datatable-column name="Actions" [width]="50">
                 <ng-template let-row="row" ngx-datatable-cell-template>
                   <a
-                    [routerLink]="['/supplier/edit-supplier/', row.ID]"
+                    [routerLink]="['/discountslab/edit-discountslab/', row.ID]"
                     class="mr-1"
                     ><i class="ft-edit text-primary cursor-pointer"></i
                   ></a>

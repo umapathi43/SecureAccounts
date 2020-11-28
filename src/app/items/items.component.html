@@ -5,7 +5,7 @@
       <div class="card">
         <div class="card-header">
           <h4 class="card-title">
-            Suppliers
+            Items
             <button
               type="button"
               (click)="exportPdf()"
@@ -22,11 +22,11 @@
             </button>
             <button
               type="button"
-              routerLink="/supplier/addsupplier"
+              routerLink="/items/additem"
               style="float: right"
               class="btn btn-primary mr-2"
             >
-              Add Supplier
+              Add Item
             </button>
           </h4>
         </div>
@@ -75,21 +75,26 @@
                   ngx-datatable-row-detail-template
                 >
                   <div class="ml-5 my-1">
-                    <div><strong>Address : </strong> {{ row.Address }}</div>
-                    <div><strong>GST Type :</strong> {{ row.GSTType }}</div>
-                    <div><strong>discount :</strong> {{ row.discount }}</div>
+                    <div><strong>Category : </strong> {{ row.Category }}</div>
+                    <div><strong>Schedule :</strong> {{ row.Schedule }}</div>
+                    <div><strong>RackNo :</strong> {{ row.RackNo }}</div>
+                    <div><strong>RackGroup :</strong> {{ row.RackGroup }}</div>
                     <div>
-                      <strong>modeofpayment :</strong> {{ row.modeofpayment }}
+                      <strong>mindiscandmaxdisc :</strong>
+                      {{ row.mindiscandmaxdisc }}
                     </div>
                     <div>
-                      <strong>OpeningBalance Date :</strong>
-                      {{ row.OpeningBalanceDate }}
-                    </div>
-                    <div>
-                      <strong>Credit Days :</strong> {{ row.CreditDays }}
+                      <strong>minqtyandmaxqty :</strong>
+                      {{ row.minqtyandmaxqty }}
                     </div>
 
-                    <div><strong>rate slab :</strong> {{ row.rateslab }}</div>
+                    <div><strong>gst :</strong> {{ row.gst }}</div>
+                    <div><strong>hsnno :</strong> {{ row.hsnno }}</div>
+                    <div><strong>ratea :</strong> {{ row.ratea }}</div>
+                    <div>
+                      <strong>ratebuptoh :</strong> {{ row.ratebuptoh }}
+                    </div>
+                    <div><strong>discslab :</strong> {{ row.discslab }}</div>
                   </div>
                 </ng-template>
               </ngx-datatable-row-detail>
@@ -120,30 +125,28 @@
               <ngx-datatable-column name="Name" prop="Name" [width]="150">
               </ngx-datatable-column>
               <ngx-datatable-column
-                name="Mobile"
-                prop="Mobile"
+                name="Packing"
+                prop="Packing"
                 [width]="150"
               ></ngx-datatable-column>
               <ngx-datatable-column
-                name="GSTNo"
-                prop="GSTNo"
+                name="QtyPerPack"
+                prop="QtyPerPack"
                 [width]="120"
               ></ngx-datatable-column>
               <ngx-datatable-column
-                name="CreditLimit"
-                prop="CreditLimit"
+                name="Mfg"
+                prop="Mfg"
                 [width]="70"
               ></ngx-datatable-column>
               <ngx-datatable-column
-                name="OpeningBalance"
-                prop="OpeningBalance"
+                name="Group"
+                prop="Group"
                 [width]="70"
               ></ngx-datatable-column>
               <ngx-datatable-column name="Actions" [width]="50">
                 <ng-template let-row="row" ngx-datatable-cell-template>
-                  <a
-                    [routerLink]="['/supplier/edit-supplier/', row.ID]"
-                    class="mr-1"
+                  <a [routerLink]="['/items/edit-item/', row.ID]" class="mr-1"
                     ><i class="ft-edit text-primary cursor-pointer"></i
                   ></a>
                   <a (click)="Confirm()"
