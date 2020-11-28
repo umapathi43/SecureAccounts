@@ -1,15 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { FormsModule } from '@angular/forms';
+import { NgxDatatableModule } from "@swimlane/ngx-datatable";
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { StockRoutingModule } from './stock-routing.module';
 import { StockComponent } from './stock.component';
+import { AddstockComponent } from './addstock/addstock.component';
 
 
 @NgModule({
-  declarations: [StockComponent],
+  declarations: [StockComponent, AddstockComponent],
   imports: [
     CommonModule,
-    StockRoutingModule
+    StockRoutingModule,
+    FormsModule,
+    NgxDatatableModule,
+    NgbModule,
   ]
 })
 export class StockModule { }
