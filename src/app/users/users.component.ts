@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
 import { DatatableComponent, ColumnMode } from "@swimlane/ngx-datatable";
+import { UserService } from "../services/user.service";
 import swal from "sweetalert2";
 import * as xlsx from "xlsx";
 import * as FileSaver from "file-saver";
@@ -17,21 +18,7 @@ export class UsersComponent implements OnInit {
   @ViewChild(DatatableComponent) table: DatatableComponent;
   @ViewChild("tableRowDetails") tableRowDetails: any;
   // row data
-  public rows = [
-    {
-      ID: 300,
-      CustomerName: "dean3004",
-      Mobile: "38484858578",
-      Address: "Dean Stanley",
-      GSTType: "Dean Stanley",
-      GSTNo: "234764553d",
-      rateslab: 5000,
-      discount: 4,
-      OpeningBalance: 2000,
-      modeofpayment: "Cash",
-      OpeningBalanceDate: "2020/11/25",
-    },
-  ];
+  public rows = [];
   public ColumnMode = ColumnMode;
   public limitRef = 10;
   exportColumns: any;
@@ -46,19 +33,19 @@ export class UsersComponent implements OnInit {
   }
   // column header
   public columns = [
-    { name: "ID", prop: "ID" },
-    { name: "CustomerName", prop: "CustomerName" },
-    { name: "Mobile", prop: "Mobile" },
-    { name: "GSTNo", prop: "GSTNo" },
-    { name: "CreditLimit", prop: "CreditLimit" },
-    { name: "OpeningBalance", prop: "OpeningBalance" },
+    { name: "ID", prop: "id" },
+    { name: "CustomerName", prop: "customerName" },
+    { name: "Mobile", prop: "mobileNo" },
+    { name: "GSTNo", prop: "gstNo" },
+    { name: "CreditLimit", prop: "creditLimit" },
+    { name: "OpeningBalance", prop: "openingBal" },
     { name: "Actions", prop: "Actions" },
   ];
 
   // private
   private tempData = [];
 
-  constructor() {
+  constructor(private _userService: UserService) {
     this.tempData = this.rows;
   }
 
@@ -92,7 +79,8 @@ export class UsersComponent implements OnInit {
   updateLimit(limit) {
     this.limitRef = limit.target.value;
   }
-  Confirm() {
+  Confirm(data) {
+    let that = this;
     swal
       .fire({
         title: "Are you sure?",
@@ -109,14 +97,22 @@ export class UsersComponent implements OnInit {
         buttonsStyling: false,
       })
       .then(function (result) {
+        console.log(result);
         if (result.value) {
-          swal.fire({
-            icon: "success",
-            title: "Deleted!",
-            text: "Your record has been deleted.",
-            customClass: {
-              confirmButton: "btn btn-success",
-            },
+          const dta = {
+            id: data,
+          };
+          that._userService.deleteUserById(dta).subscribe((ok) => {
+            console.log(ok);
+            swal.fire({
+              icon: "success",
+              title: "Deleted!",
+              text: "Your record has been deleted.",
+              customClass: {
+                confirmButton: "btn btn-success",
+              },
+            });
+            that.getUsers();
           });
         } else if (result.dismiss === swal.DismissReason.cancel) {
           swal.fire({
@@ -131,10 +127,18 @@ export class UsersComponent implements OnInit {
       });
   }
   ngOnInit(): void {
+    this.getUsers();
     this.exportColumns = this.columns.map((col) => ({
       title: col.name,
       dataKey: col.prop,
     }));
+  }
+
+  getUsers() {
+    this._userService.getUsers().subscribe((ok) => {
+      console.log(ok);
+      this.rows = ok;
+    });
   }
 
   exportPdf() {

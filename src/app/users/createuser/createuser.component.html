@@ -6,7 +6,7 @@
     </div>
     <div class="card-content">
       <div class="card-body">
-        <form>
+        <form #userForm="ngForm">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
@@ -16,6 +16,12 @@
                   id="hidden-label-form-1"
                   class="form-control round"
                   name="cname"
+                  [(ngModel)]="model.customerName"
+                  #cname="ngModel"
+                  [ngClass]="{
+                    'is-invalid': userForm.submitted && cname.invalid
+                  }"
+                  required
                 />
               </div>
               <div class="form-group">
@@ -25,6 +31,12 @@
                   id="hidden-label-form-2"
                   class="form-control round"
                   name="mobile"
+                  [(ngModel)]="model.mobileNo"
+                  #mobile="ngModel"
+                  [ngClass]="{
+                    'is-invalid': userForm.submitted && mobile.invalid
+                  }"
+                  required
                 />
               </div>
               <div class="form-group">
@@ -34,14 +46,25 @@
                   id="hidden-label-form-3"
                   class="form-control round"
                   name="address1"
+                  [(ngModel)]="model.address1"
+                  #address1="ngModel"
+                  [ngClass]="{
+                    'is-invalid': userForm.submitted && address1.invalid
+                  }"
+                  required
                 />
               </div>
               <div class="form-group mb-2">
                 <label for="basic-form-6">GST Type</label>
                 <select
                   id="basic-form-6"
-                  name="interested"
                   class="form-control round"
+                  name="gstType"
+                  [(ngModel)]="model.gstType"
+                  #gstType="ngModel"
+                  [ngClass]="{
+                    'is-invalid': userForm.submitted && gstType.invalid
+                  }"
                 >
                   <option value="none" selected disabled>GST Type</option>
                   <option value="design">Basic</option>
@@ -55,6 +78,12 @@
                   type="text"
                   id="hidden-label-form-4"
                   class="form-control pickadate round"
+                  name="gstNo"
+                  [(ngModel)]="model.gstNo"
+                  #gstNo="ngModel"
+                  [ngClass]="{
+                    'is-invalid': userForm.submitted && gstNo.invalid
+                  }"
                 />
               </div>
             </div>
@@ -66,7 +95,12 @@
                   type="number"
                   id="hidden-label-form-5"
                   class="form-control round"
-                  name="sname"
+                  name="discount"
+                  [(ngModel)]="model.discount"
+                  #discount="ngModel"
+                  [ngClass]="{
+                    'is-invalid': userForm.submitted && discount.invalid
+                  }"
                 />
               </div>
               <div class="form-group">
@@ -75,7 +109,12 @@
                   type="number"
                   id="hidden-label-form-5"
                   class="form-control round"
-                  name="sname"
+                  name="rateSlab"
+                  [(ngModel)]="model.rateSlab"
+                  #rateSlab="ngModel"
+                  [ngClass]="{
+                    'is-invalid': userForm.submitted && rateSlab.invalid
+                  }"
                 />
               </div>
               <div class="form-group mb-2">
@@ -84,12 +123,18 @@
                   id="basic-form-6"
                   name="interested"
                   class="form-control round"
+                  name="modeOfPayment"
+                  [(ngModel)]="model.modeOfPayment"
+                  #modeOfPayment="ngModel"
+                  [ngClass]="{
+                    'is-invalid': userForm.submitted && modeOfPayment.invalid
+                  }"
                 >
                   <option value="none" selected disabled>
                     Mode of Payment
                   </option>
-                  <option value="design">Cash</option>
-                  <option value="development">Others</option>
+                  <option value="cash">Cash</option>
+                  <option value="others">Others</option>
                 </select>
               </div>
               <div class="form-group">
@@ -98,7 +143,12 @@
                   type="number"
                   id="hidden-label-form-5"
                   class="form-control round"
-                  name="sname"
+                  name="openingBal"
+                  [(ngModel)]="model.openingBal"
+                  #openingBal="ngModel"
+                  [ngClass]="{
+                    'is-invalid': userForm.submitted && openingBal.invalid
+                  }"
                 />
               </div>
               <div class="form-group">
@@ -120,9 +170,22 @@
                 </div>
               </div>
             </div>
-            <button type="button" class="btn btn-primary mr-2">
-              <i class="ft-check-square mr-1"></i>Save
+            <button
+              type="button"
+              *ngIf="!CustomeId"
+              class="btn btn-primary mr-2"
+              (click)="onSubmit(userForm)"
+            >
+              Save
             </button>
+            <button
+            type="button"
+            *ngIf="CustomeId"
+            class="btn btn-primary mr-2"
+            (click)="onUpdate(userForm)"
+          >
+            Update
+          </button>
             <button type="button" class="btn btn-secondary" (click)="goBack()">
               <i class="ft-x mr-1"></i>Cancel
             </button>

@@ -75,17 +75,17 @@
                   ngx-datatable-row-detail-template
                 >
                   <div class="ml-5 my-1">
-                    <div><strong>Address : </strong> {{ row.Address }}</div>
-                    <div><strong>GST Type :</strong> {{ row.GSTType }}</div>
+                    <div><strong>Address : </strong> {{ row.address1 }}</div>
+                    <div><strong>GST Type :</strong> {{ row.gstType }}</div>
                     <div><strong>discount :</strong> {{ row.discount }}</div>
                     <div>
-                      <strong>modeofpayment :</strong> {{ row.modeofpayment }}
+                      <strong>modeofpayment :</strong> {{ row.modeOfPayment }}
                     </div>
                     <div>
-                      <strong>OpeningBalance Date :</strong>
-                      {{ row.OpeningBalanceDate }}
+                      <strong>Created By :</strong>
+                      {{ row.created_by }}
                     </div>
-                    <div><strong>rate slab :</strong> {{ row.rateslab }}</div>
+                    <div><strong>rate slab :</strong> {{ row.rateSlab }}</div>
                   </div>
                 </ng-template>
               </ngx-datatable-row-detail>
@@ -111,40 +111,40 @@
                   </a>
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="ID" prop="ID" [width]="50">
+              <ngx-datatable-column name="ID" prop="id" [width]="50">
               </ngx-datatable-column>
               <ngx-datatable-column
                 name="CustomerName"
-                prop="CustomerName"
+                prop="customerName"
                 [width]="150"
               >
               </ngx-datatable-column>
               <ngx-datatable-column
                 name="Mobile"
-                prop="Mobile"
+                prop="mobileNo"
                 [width]="150"
               ></ngx-datatable-column>
               <ngx-datatable-column
-                name="GSTNo"
-                prop="GSTNo"
+                name="gstNo"
+                prop="gstNo"
                 [width]="120"
               ></ngx-datatable-column>
               <ngx-datatable-column
                 name="CreditLimit"
-                prop="CreditLimit"
+                prop="creditLimit"
                 [width]="70"
               ></ngx-datatable-column>
               <ngx-datatable-column
                 name="OpeningBalance"
-                prop="OpeningBalance"
+                prop="openingBal"
                 [width]="70"
               ></ngx-datatable-column>
               <ngx-datatable-column name="Actions" [width]="50">
                 <ng-template let-row="row" ngx-datatable-cell-template>
-                  <a [routerLink]="['/users/edit-user/', row.ID]" class="mr-1"
+                  <a [routerLink]="['/users/edit-user/', row.id]" class="mr-1"
                     ><i class="ft-edit text-primary cursor-pointer"></i
                   ></a>
-                  <a (click)="Confirm()"
+                  <a (click)="Confirm(row.id)"
                     ><i class="ft-trash text-danger cursor-pointer"></i
                   ></a>
                 </ng-template>
