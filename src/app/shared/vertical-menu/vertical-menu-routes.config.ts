@@ -132,6 +132,16 @@ export const ROUTES: RouteInfo[] = [
         isExternalLink: false,
         submenu: [],
       },
+      {
+        path: "/packing",
+        title: "packing",
+        icon: "ft-users",
+        class: "",
+        badge: "",
+        badgeClass: "",
+        isExternalLink: false,
+        submenu: [],
+      },
     ],
   },
 ];
