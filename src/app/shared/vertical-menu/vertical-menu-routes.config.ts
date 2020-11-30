@@ -44,7 +44,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: [
       {
         path: "/users",
-        title: "Users",
+        title: "Customer",
         icon: "ft-user",
         class: "",
         badge: "",
