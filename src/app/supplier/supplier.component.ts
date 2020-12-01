@@ -4,6 +4,7 @@ import swal from "sweetalert2";
 import * as xlsx from "xlsx";
 import * as FileSaver from "file-saver";
 declare var jsPDF: any;
+import { SupplierService } from "../services/supplier.service";
 
 @Component({
   selector: "app-supplier",
@@ -18,22 +19,7 @@ export class SupplierComponent implements OnInit {
   @ViewChild(DatatableComponent) table: DatatableComponent;
   @ViewChild("tableRowDetails") tableRowDetails: any;
   // row data
-  public rows = [
-    {
-      ID: 300,
-      Name: "dean3004",
-      Mobile: "38484858578",
-      Address: "Dean Stanley",
-      GSTType: "Dean Stanley",
-      GSTNo: "234764553d",
-      rateslab: 5000,
-      discount: 4,
-      OpeningBalance: 2000,
-      CreditDays: 3,
-      modeofpayment: "Cash",
-      OpeningBalanceDate: "2020/11/25",
-    },
-  ];
+  public rows = [];
   public ColumnMode = ColumnMode;
   public limitRef = 10;
   exportColumns: any;
@@ -46,23 +32,20 @@ export class SupplierComponent implements OnInit {
   rowDetailsToggleExpand(row) {
     this.tableRowDetails.rowDetail.toggleExpandRow(row);
   }
-  // column header
   public columns = [
-    { name: "ID", prop: "ID" },
-    { name: "Name", prop: "Name" },
-    { name: "Mobile", prop: "Mobile" },
-    { name: "GSTNo", prop: "GSTNo" },
-    { name: "CreditLimit", prop: "CreditLimit" },
-    { name: "OpeningBalance", prop: "OpeningBalance" },
+    { name: "ID", prop: "id" },
+    { name: "SupplierName", prop: "supplierName" },
+    { name: "Mobile", prop: "mobileNo" },
+    { name: "GSTNo", prop: "gstNo" },
+    { name: "CreditLimit", prop: "creditLimit" },
+    { name: "OpeningBalance", prop: "openingBal" },
     { name: "Actions", prop: "Actions" },
   ];
 
   // private
   private tempData = [];
 
-  constructor() {
-    this.tempData = this.rows;
-  }
+  constructor(private _supplierService: SupplierService) {}
 
   // Public Methods
   // -----------------------------------------------------------------------------------------------------
@@ -77,7 +60,7 @@ export class SupplierComponent implements OnInit {
 
     // filter our data
     const temp = this.tempData.filter(function (d) {
-      return d.Username.toLowerCase().indexOf(val) !== -1 || !val;
+      return d.supplierName.toLowerCase().indexOf(val) !== -1 || !val;
     });
 
     // update the rows
@@ -94,7 +77,8 @@ export class SupplierComponent implements OnInit {
   updateLimit(limit) {
     this.limitRef = limit.target.value;
   }
-  Confirm() {
+  Confirm(data) {
+    let that = this;
     swal
       .fire({
         title: "Are you sure?",
@@ -112,13 +96,20 @@ export class SupplierComponent implements OnInit {
       })
       .then(function (result) {
         if (result.value) {
-          swal.fire({
-            icon: "success",
-            title: "Deleted!",
-            text: "Your record has been deleted.",
-            customClass: {
-              confirmButton: "btn btn-success",
-            },
+          const dta = {
+            id: data,
+          };
+          that._supplierService.deleteSupplierById(dta).subscribe((ok) => {
+            console.log(ok);
+            swal.fire({
+              icon: "success",
+              title: "Deleted!",
+              text: "Your record has been deleted.",
+              customClass: {
+                confirmButton: "btn btn-success",
+              },
+            });
+            that.getSuppliers();
           });
         } else if (result.dismiss === swal.DismissReason.cancel) {
           swal.fire({
@@ -133,12 +124,19 @@ export class SupplierComponent implements OnInit {
       });
   }
   ngOnInit(): void {
+    this.getSuppliers();
     this.exportColumns = this.columns.map((col) => ({
       title: col.name,
       dataKey: col.prop,
     }));
   }
-
+  getSuppliers() {
+    this._supplierService.getSuppliers().subscribe((ok) => {
+      console.log(ok);
+      this.rows = ok;
+      this.tempData = this.rows;
+    });
+  }
   exportPdf() {
     let doc = new jsPDF("l", "pt");
     doc.autoTable(this.exportColumns, this.rows);

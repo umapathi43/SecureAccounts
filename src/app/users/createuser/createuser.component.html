@@ -67,8 +67,12 @@
                   }"
                 >
                   <option value="none" selected disabled>GST Type</option>
-                  <option value="design">Basic</option>
-                  <option value="development">Special</option>
+                  <option
+                    *ngFor="let item of gstTypeList"
+                    value="{{ item.id }}"
+                  >
+                    {{ item.gstTypeName }}
+                  </option>
                 </select>
               </div>
 
@@ -133,8 +137,12 @@
                   <option value="none" selected disabled>
                     Mode of Payment
                   </option>
-                  <option value="cash">Cash</option>
-                  <option value="others">Others</option>
+                  <option
+                    *ngFor="let item of paymentMethodList"
+                    value="{{ item.id }}"
+                  >
+                    {{ item.paymentModeName }}
+                  </option>
                 </select>
               </div>
               <div class="form-group">
@@ -179,13 +187,13 @@
               Save
             </button>
             <button
-            type="button"
-            *ngIf="CustomeId"
-            class="btn btn-primary mr-2"
-            (click)="onUpdate(userForm)"
-          >
-            Update
-          </button>
+              type="button"
+              *ngIf="CustomeId"
+              class="btn btn-primary mr-2"
+              (click)="onUpdate(userForm)"
+            >
+              Update
+            </button>
             <button type="button" class="btn btn-secondary" (click)="goBack()">
               <i class="ft-x mr-1"></i>Cancel
             </button>

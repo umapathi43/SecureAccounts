@@ -22,7 +22,12 @@ export class UserService {
   deleteUserById(data): Observable<any> {
     return this.http.delete("AccountSetup/deleteCustomer/" + data.id);
   }
-
+  getGstTypes(): Observable<any> {
+    return this.http.get("AccountSetup/getGstType");
+  }
+  getPaymentModes(): Observable<any> {
+    return this.http.get("AccountSetup/getPaymentModes");
+  }
   updateUser(data: any): Observable<any> {
     return this.http.put("AccountSetup/updateCustomer/" + data.id, data);
   }

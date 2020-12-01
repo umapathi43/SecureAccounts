@@ -33,6 +33,8 @@ export class CreateuserComponent implements OnInit {
   popupModel: any;
   CustomeId: any;
   model = new User();
+  gstTypeList: any;
+  paymentMethodList: any;
   // submitted = false;
   constructor(
     private _location: Location,
@@ -46,9 +48,25 @@ export class CreateuserComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getGstTpes();
+    this.getPaymentModes();
+  }
   goBack() {
     this._location.back();
+  }
+  getGstTpes() {
+    this._userService.getGstTypes().subscribe((ok) => {
+      console.log(ok);
+      this.gstTypeList = ok;
+    });
+  }
+
+  getPaymentModes() {
+    this._userService.getPaymentModes().subscribe((ok) => {
+      console.log(ok);
+      this.paymentMethodList = ok;
+    });
   }
   onSubmit(form: any) {
     console.log("clicked");

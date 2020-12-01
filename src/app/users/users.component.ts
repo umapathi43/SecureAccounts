@@ -45,9 +45,7 @@ export class UsersComponent implements OnInit {
   // private
   private tempData = [];
 
-  constructor(private _userService: UserService) {
-    this.tempData = this.rows;
-  }
+  constructor(private _userService: UserService) {}
 
   // Public Methods
   // -----------------------------------------------------------------------------------------------------
@@ -58,11 +56,12 @@ export class UsersComponent implements OnInit {
    * @param event
    */
   filterUpdate(event) {
+    console.log(event);
     const val = event.target.value.toLowerCase();
 
     // filter our data
     const temp = this.tempData.filter(function (d) {
-      return d.Username.toLowerCase().indexOf(val) !== -1 || !val;
+      return d.customerName.toLowerCase().indexOf(val) !== -1 || !val;
     });
 
     // update the rows
@@ -138,6 +137,7 @@ export class UsersComponent implements OnInit {
     this._userService.getUsers().subscribe((ok) => {
       console.log(ok);
       this.rows = ok;
+      this.tempData = this.rows;
     });
   }
 
