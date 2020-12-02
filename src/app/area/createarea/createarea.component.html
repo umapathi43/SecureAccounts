@@ -6,7 +6,7 @@
     </div>
     <div class="card-content">
       <div class="card-body">
-        <form>
+        <form #userForm="ngForm">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
@@ -15,7 +15,13 @@
                   type="text"
                   id="hidden-label-form-1"
                   class="form-control round"
-                  name="cname"
+                  name="aname"
+                  [(ngModel)]="model.areaName"
+                  #aname="ngModel"
+                  [ngClass]="{
+                    'is-invalid': userForm.submitted && aname.invalid
+                  }"
+                  required
                 />
               </div>
             </div>
@@ -25,20 +31,38 @@
                 <label for="basic-form-6">Route</label>
                 <select
                   id="basic-form-6"
-                  name="interested"
+                  name="route"
+                  [(ngModel)]="model.route"
+                  #route="ngModel"
+                  [ngClass]="{
+                    'is-invalid': userForm.submitted && route.invalid
+                  }"
+                  required
                   class="form-control round"
                 >
                   <option value="none" selected disabled>Route</option>
-                  <option value="design">asset</option>
-                  <option value="development">liability</option>
-                  <option value="development">income</option>
-                  <option value="development">expenses</option>
+                  <option *ngFor="let item of routeList" value="{{ item.id }}">
+                    {{ item.routeName }}
+                  </option>
                 </select>
               </div>
             </div>
-            <button type="button" class="btn btn-primary mr-2">
-              <i class="ft-check-square mr-1"></i>Save
-            </button>
+            <button
+            type="button"
+            *ngIf="!CustomeId"
+            class="btn btn-primary mr-2"
+            (click)="onSubmit(userForm)"
+          >
+            Save
+          </button>
+          <button
+            type="button"
+            *ngIf="CustomeId"
+            class="btn btn-primary mr-2"
+            (click)="onUpdate(userForm)"
+          >
+            Update
+          </button>
             <button type="button" class="btn btn-secondary" (click)="goBack()">
               <i class="ft-x mr-1"></i>Cancel
             </button>

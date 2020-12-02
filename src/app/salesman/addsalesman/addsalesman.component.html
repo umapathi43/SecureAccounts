@@ -6,7 +6,7 @@
     </div>
     <div class="card-content">
       <div class="card-body">
-        <form>
+        <form #userForm="ngForm">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
@@ -15,7 +15,13 @@
                   type="text"
                   id="hidden-label-form-1"
                   class="form-control round"
-                  name="cname"
+                  name="sname"
+                  [(ngModel)]="model.salesManName"
+                  #sname="ngModel"
+                  [ngClass]="{
+                    'is-invalid': userForm.submitted && sname.invalid
+                  }"
+                  required
                 />
               </div>
               <div class="form-group">
@@ -24,7 +30,13 @@
                   type="text"
                   id="hidden-label-form-1"
                   class="form-control round"
-                  name="cname"
+                  name="target"
+                  [(ngModel)]="model.target"
+                  #target="ngModel"
+                  [ngClass]="{
+                    'is-invalid': userForm.submitted && target.invalid
+                  }"
+                  required
                 />
               </div>
             </div>
@@ -36,26 +48,50 @@
                   type="number"
                   id="hidden-label-form-1"
                   class="form-control round"
-                  name="cname"
+                  name="incentive"
+                  [(ngModel)]="model.incentive"
+                  #incentive="ngModel"
+                  [ngClass]="{
+                    'is-invalid': userForm.submitted && incentive.invalid
+                  }"
+                  required
                 />
               </div>
               <div class="form-group mb-2">
                 <label for="basic-form-6">Area</label>
                 <select
                   id="basic-form-6"
-                  name="interested"
+                  name="aname"
+                  [(ngModel)]="model.areaCreation.id"
+                  #aname="ngModel"
+                  [ngClass]="{
+                    'is-invalid': userForm.submitted && aname.invalid
+                  }"
+                  required
                   class="form-control round"
                 >
                   <option value="none" selected disabled>Area</option>
-                  <option value="design">asset</option>
-                  <option value="development">liability</option>
-                  <option value="development">income</option>
-                  <option value="development">expenses</option>
+                  <option *ngFor="let item of areaList" value="{{ item.id }}">
+                    {{ item.areaName }}
+                  </option>
                 </select>
               </div>
             </div>
-            <button type="button" class="btn btn-primary mr-2">
-              <i class="ft-check-square mr-1"></i>Save
+            <button
+              type="button"
+              *ngIf="!CustomeId"
+              class="btn btn-primary mr-2"
+              (click)="onSubmit(userForm)"
+            >
+              Save
+            </button>
+            <button
+              type="button"
+              *ngIf="CustomeId"
+              class="btn btn-primary mr-2"
+              (click)="onUpdate(userForm)"
+            >
+              Update
             </button>
             <button type="button" class="btn btn-secondary" (click)="goBack()">
               <i class="ft-x mr-1"></i>Cancel

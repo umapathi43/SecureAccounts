@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
 import { DatatableComponent, ColumnMode } from "@swimlane/ngx-datatable";
+import { SalesmanService } from "app/services/salesman.service";
 import swal from "sweetalert2";
 import * as xlsx from "xlsx";
 import * as FileSaver from "file-saver";
@@ -18,15 +19,7 @@ export class SalesmanComponent implements OnInit {
   @ViewChild(DatatableComponent) table: DatatableComponent;
   @ViewChild("tableRowDetails") tableRowDetails: any;
   // row data
-  public rows = [
-    {
-      ID: 300,
-      Name: "dean3004",
-      Target: "3000",
-      incentive: "10%",
-      area: "hyd",
-    },
-  ];
+  public rows = [];
   public ColumnMode = ColumnMode;
   public limitRef = 10;
   exportColumns: any;
@@ -41,19 +34,17 @@ export class SalesmanComponent implements OnInit {
   }
   // column header
   public columns = [
-    { name: "ID", prop: "ID" },
-    { name: "Name", prop: "Name" },
-    { name: "Target", prop: "Target" },
+    { name: "ID", prop: "id" },
+    { name: "Name", prop: "salesManName" },
+    { name: "Target", prop: "target" },
     { name: "incentive", prop: "incentive" },
-    { name: "area", prop: "area" },
+    { name: "area", prop: "areaCreation.areaName" },
   ];
 
   // private
   private tempData = [];
 
-  constructor() {
-    this.tempData = this.rows;
-  }
+  constructor(private _SalesService: SalesmanService) {}
 
   // Public Methods
   // -----------------------------------------------------------------------------------------------------
@@ -85,7 +76,8 @@ export class SalesmanComponent implements OnInit {
   updateLimit(limit) {
     this.limitRef = limit.target.value;
   }
-  Confirm() {
+  Confirm(data) {
+    let that = this;
     swal
       .fire({
         title: "Are you sure?",
@@ -103,13 +95,20 @@ export class SalesmanComponent implements OnInit {
       })
       .then(function (result) {
         if (result.value) {
-          swal.fire({
-            icon: "success",
-            title: "Deleted!",
-            text: "Your record has been deleted.",
-            customClass: {
-              confirmButton: "btn btn-success",
-            },
+          const dta = {
+            id: data,
+          };
+          that._SalesService.deleteSalesmanById(dta).subscribe((ok) => {
+            console.log(ok);
+            swal.fire({
+              icon: "success",
+              title: "Deleted!",
+              text: "Your record has been deleted.",
+              customClass: {
+                confirmButton: "btn btn-success",
+              },
+            });
+            that.getSaleBoys();
           });
         } else if (result.dismiss === swal.DismissReason.cancel) {
           swal.fire({
@@ -124,12 +123,19 @@ export class SalesmanComponent implements OnInit {
       });
   }
   ngOnInit(): void {
+    this.getSaleBoys();
     this.exportColumns = this.columns.map((col) => ({
       title: col.name,
       dataKey: col.prop,
     }));
   }
-
+  getSaleBoys() {
+    this._SalesService.getSalesman().subscribe((ok) => {
+      console.log(ok);
+      this.rows = ok;
+      this.tempData = this.rows;
+    });
+  }
   exportPdf() {
     let doc = new jsPDF("l", "pt");
     doc.autoTable(this.exportColumns, this.rows);

@@ -68,9 +68,9 @@
               [rows]="rows"
               [columns]="columns"
             >
-              <ngx-datatable-column name="ID" prop="ID" [width]="50">
+              <ngx-datatable-column name="ID" prop="id" [width]="50">
               </ngx-datatable-column>
-              <ngx-datatable-column name="Name" prop="Name" [width]="150">
+              <ngx-datatable-column name="Name" prop="areaName" [width]="150">
               </ngx-datatable-column>
               <ngx-datatable-column
                 name="route"
@@ -80,10 +80,10 @@
 
               <ngx-datatable-column name="Actions" [width]="50">
                 <ng-template let-row="row" ngx-datatable-cell-template>
-                  <a [routerLink]="['/area/edit-area/', row.ID]" class="mr-1"
+                  <a [routerLink]="['/area/edit-area/', row.id]" class="mr-1"
                     ><i class="ft-edit text-primary cursor-pointer"></i
                   ></a>
-                  <a (click)="Confirm()"
+                  <a (click)="Confirm(row.id)"
                     ><i class="ft-trash text-danger cursor-pointer"></i
                   ></a>
                 </ng-template>

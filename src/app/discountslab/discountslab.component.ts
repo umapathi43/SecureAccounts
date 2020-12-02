@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
 import { DatatableComponent, ColumnMode } from "@swimlane/ngx-datatable";
+import { DiscountslabService } from "app/services/discountslab.service";
 import swal from "sweetalert2";
 import * as xlsx from "xlsx";
 import * as FileSaver from "file-saver";
@@ -18,14 +19,7 @@ export class DiscountslabComponent implements OnInit {
   @ViewChild(DatatableComponent) table: DatatableComponent;
   @ViewChild("tableRowDetails") tableRowDetails: any;
   // row data
-  public rows = [
-    {
-      ID: 300,
-      Name: "dean3004",
-      fromamounttoamount: "1000-3000",
-      discount: "10%",
-    },
-  ];
+  public rows = [];
   public ColumnMode = ColumnMode;
   public limitRef = 10;
   exportColumns: any;
@@ -40,18 +34,17 @@ export class DiscountslabComponent implements OnInit {
   }
   // column header
   public columns = [
-    { name: "ID", prop: "ID" },
-    { name: "Name", prop: "Name" },
-    { name: "fromamounttoamount", prop: "fromamounttoamount" },
+    { name: "ID", prop: "id" },
+    { name: "Name", prop: "discountSlabName" },
+    { name: "From Amount", prop: "from_amt" },
+    { name: "To Amount", prop: "to_amt" },
     { name: "discount", prop: "discount" },
   ];
 
   // private
   private tempData = [];
 
-  constructor() {
-    this.tempData = this.rows;
-  }
+  constructor(private _discountService: DiscountslabService) {}
 
   // Public Methods
   // -----------------------------------------------------------------------------------------------------
@@ -83,7 +76,8 @@ export class DiscountslabComponent implements OnInit {
   updateLimit(limit) {
     this.limitRef = limit.target.value;
   }
-  Confirm() {
+  Confirm(data: any) {
+    let that = this;
     swal
       .fire({
         title: "Are you sure?",
@@ -101,13 +95,20 @@ export class DiscountslabComponent implements OnInit {
       })
       .then(function (result) {
         if (result.value) {
-          swal.fire({
-            icon: "success",
-            title: "Deleted!",
-            text: "Your record has been deleted.",
-            customClass: {
-              confirmButton: "btn btn-success",
-            },
+          const dta = {
+            id: data,
+          };
+          that._discountService.deleteDiscountById(dta).subscribe((ok) => {
+            console.log(ok);
+            swal.fire({
+              icon: "success",
+              title: "Deleted!",
+              text: "Your record has been deleted.",
+              customClass: {
+                confirmButton: "btn btn-success",
+              },
+            });
+            that.getDiscounts();
           });
         } else if (result.dismiss === swal.DismissReason.cancel) {
           swal.fire({
@@ -122,12 +123,19 @@ export class DiscountslabComponent implements OnInit {
       });
   }
   ngOnInit(): void {
+    this.getDiscounts();
     this.exportColumns = this.columns.map((col) => ({
       title: col.name,
       dataKey: col.prop,
     }));
   }
-
+  getDiscounts() {
+    this._discountService.getDisconts().subscribe((ok) => {
+      console.log(ok);
+      this.rows = ok;
+      this.tempData = this.rows;
+    });
+  }
   exportPdf() {
     let doc = new jsPDF("l", "pt");
     doc.autoTable(this.exportColumns, this.rows);

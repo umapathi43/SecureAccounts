@@ -3,6 +3,7 @@ import { DatatableComponent, ColumnMode } from "@swimlane/ngx-datatable";
 import swal from "sweetalert2";
 import * as xlsx from "xlsx";
 import * as FileSaver from "file-saver";
+import { AreaService } from "app/services/area.service";
 declare var jsPDF: any;
 
 @Component({
@@ -18,13 +19,7 @@ export class AreaComponent implements OnInit {
   @ViewChild(DatatableComponent) table: DatatableComponent;
   @ViewChild("tableRowDetails") tableRowDetails: any;
   // row data
-  public rows = [
-    {
-      ID: 300,
-      Name: "dean3004",
-      route: "38484858578",
-    },
-  ];
+  public rows = [];
   public ColumnMode = ColumnMode;
   public limitRef = 10;
   exportColumns: any;
@@ -39,17 +34,15 @@ export class AreaComponent implements OnInit {
   }
   // column header
   public columns = [
-    { name: "ID", prop: "ID" },
-    { name: "Name", prop: "Name" },
+    { name: "ID", prop: "id" },
+    { name: "Name", prop: "areaName" },
     { name: "route", prop: "route" },
   ];
 
   // private
   private tempData = [];
 
-  constructor() {
-    this.tempData = this.rows;
-  }
+  constructor(private _areaService: AreaService) {}
 
   // Public Methods
   // -----------------------------------------------------------------------------------------------------
@@ -81,7 +74,8 @@ export class AreaComponent implements OnInit {
   updateLimit(limit) {
     this.limitRef = limit.target.value;
   }
-  Confirm() {
+  Confirm(data) {
+    let that = this;
     swal
       .fire({
         title: "Are you sure?",
@@ -99,13 +93,20 @@ export class AreaComponent implements OnInit {
       })
       .then(function (result) {
         if (result.value) {
-          swal.fire({
-            icon: "success",
-            title: "Deleted!",
-            text: "Your record has been deleted.",
-            customClass: {
-              confirmButton: "btn btn-success",
-            },
+          const dta = {
+            id: data,
+          };
+          that._areaService.deleteAreaById(dta).subscribe((ok) => {
+            console.log(ok);
+            swal.fire({
+              icon: "success",
+              title: "Deleted!",
+              text: "Your record has been deleted.",
+              customClass: {
+                confirmButton: "btn btn-success",
+              },
+            });
+            that.getAreas();
           });
         } else if (result.dismiss === swal.DismissReason.cancel) {
           swal.fire({
@@ -120,6 +121,7 @@ export class AreaComponent implements OnInit {
       });
   }
   ngOnInit(): void {
+    this.getAreas();
     this.exportColumns = this.columns.map((col) => ({
       title: col.name,
       dataKey: col.prop,
@@ -131,7 +133,13 @@ export class AreaComponent implements OnInit {
     doc.autoTable(this.exportColumns, this.rows);
     doc.save("areas.pdf");
   }
-
+  getAreas() {
+    this._areaService.getAreas().subscribe((ok) => {
+      console.log(ok);
+      this.rows = ok;
+      this.tempData = this.rows;
+    });
+  }
   exportExcel() {
     const worksheet = xlsx.utils.json_to_sheet(this.rows);
     const workbook = { Sheets: { data: worksheet }, SheetNames: ["data"] };

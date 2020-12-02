@@ -68,16 +68,24 @@
               [rows]="rows"
               [columns]="columns"
             >
-              <ngx-datatable-column name="ID" prop="ID" [width]="50">
-              </ngx-datatable-column>
-              <ngx-datatable-column name="Name" prop="Name" [width]="150">
+              <ngx-datatable-column name="ID" prop="id" [width]="50">
               </ngx-datatable-column>
               <ngx-datatable-column
-                name="fromamounttoamount"
-                prop="fromamounttoamount"
+                name="Name"
+                prop="discountSlabName"
+                [width]="150"
+              >
+              </ngx-datatable-column>
+              <ngx-datatable-column
+                name="From Amount"
+                prop="from_amt"
                 [width]="150"
               ></ngx-datatable-column>
-
+              <ngx-datatable-column
+                name="To Amount"
+                prop="to_amt"
+                [width]="150"
+              ></ngx-datatable-column>
               <ngx-datatable-column
                 name="discount"
                 prop="discount"
@@ -87,11 +95,11 @@
               <ngx-datatable-column name="Actions" [width]="50">
                 <ng-template let-row="row" ngx-datatable-cell-template>
                   <a
-                    [routerLink]="['/discountslab/edit-discountslab/', row.ID]"
+                    [routerLink]="['/discountslab/edit-discountslab/', row.id]"
                     class="mr-1"
                     ><i class="ft-edit text-primary cursor-pointer"></i
                   ></a>
-                  <a (click)="Confirm()"
+                  <a (click)="Confirm(row.id)"
                     ><i class="ft-trash text-danger cursor-pointer"></i
                   ></a>
                 </ng-template>
