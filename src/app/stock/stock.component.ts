@@ -8,7 +8,9 @@ declare var jsPDF: any;
 @Component({
   selector: 'app-stock',
   templateUrl: './stock.component.html',
-  styleUrls: ['./stock.component.scss'],
+  styleUrls: ['./stock.component.scss',
+  "../../assets/sass/libs/datatables.scss",
+],
   encapsulation: ViewEncapsulation.None,
 })
 export class StockComponent implements OnInit {

@@ -4,13 +4,18 @@ import { CommonModule } from '@angular/common';
 import { PackingRoutingModule } from './packing-routing.module';
 import { PackingComponent } from './packing.component';
 import { CreatepackingComponent } from './createpacking/createpacking.component';
-
+import { NgxDatatableModule } from "@swimlane/ngx-datatable";
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [PackingComponent, CreatepackingComponent],
   imports: [
     CommonModule,
-    PackingRoutingModule
+    PackingRoutingModule,
+    FormsModule,
+    NgxDatatableModule,
+    NgbModule,
   ]
 })
 export class PackingModule { }
