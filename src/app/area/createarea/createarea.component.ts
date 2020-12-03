@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
 import { AreaService } from "app/services/area.service";
+import { ToastrService } from "ngx-toastr";
 export class Area {
   public areaName: string;
   public route: any;
@@ -19,7 +20,8 @@ export class CreateareaComponent implements OnInit {
   constructor(
     private _location: Location,
     private actRoute: ActivatedRoute,
-    private _areaService: AreaService
+    private _areaService: AreaService,
+    private toastr: ToastrService
   ) {
     this.CustomeId = this.actRoute.snapshot.params.id;
     console.log(this.CustomeId);
@@ -48,8 +50,10 @@ export class CreateareaComponent implements OnInit {
     this._areaService.addArea(this.model).subscribe((ok) => {
       console.log(ok);
       if (ok == "OK") {
+        this.toastr.success("Success", "Area Updated");
         this._location.back();
       } else {
+        this.toastr.error("Failed", "Failed to update Area");
       }
     });
   }
@@ -61,8 +65,10 @@ export class CreateareaComponent implements OnInit {
     this._areaService.updateArea(this.model).subscribe((ok) => {
       console.log(ok);
       if (ok == "OK") {
+        this.toastr.success("Success", "Area Updated");
         this._location.back();
       } else {
+        this.toastr.error("Failed", "Failed to update Area");
       }
     });
   }

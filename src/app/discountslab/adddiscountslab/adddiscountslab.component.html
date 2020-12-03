@@ -6,7 +6,7 @@
     </div>
     <div class="card-content">
       <div class="card-body">
-        <form>
+        <form #userForm="ngForm">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
@@ -15,35 +15,79 @@
                   type="text"
                   id="hidden-label-form-1"
                   class="form-control round"
-                  name="cname"
+                  name="aname"
+                  [(ngModel)]="model.discountSlabName"
+                  #dname="ngModel"
+                  [ngClass]="{
+                    'is-invalid': userForm.submitted && dname.invalid
+                  }"
+                  required
                 />
               </div>
               <div class="form-group">
-                <label for="hidden-label-form-1">
-                  Enter From Amount to upto Amount</label
-                >
+                <label for="hidden-label-form-1"> Enter From Amount </label>
                 <input
                   type="text"
                   id="hidden-label-form-1"
                   class="form-control round"
-                  name="cname"
+                  name="from_amt"
+                  [(ngModel)]="model.from_amt"
+                  #from_amt="ngModel"
+                  [ngClass]="{
+                    'is-invalid': userForm.submitted && from_amt.invalid
+                  }"
+                  required
                 />
               </div>
             </div>
 
             <div class="col-md-6">
               <div class="form-group">
+                <label for="hidden-label-form-1"> Enter To Amount </label>
+                <input
+                  type="text"
+                  id="hidden-label-form-1"
+                  class="form-control round"
+                  name="to_amt"
+                  [(ngModel)]="model.to_amt"
+                  #to_amt="ngModel"
+                  [ngClass]="{
+                    'is-invalid': userForm.submitted && to_amt.invalid
+                  }"
+                  required
+                />
+              </div>
+              <div class="form-group">
                 <label for="hidden-label-form-1"> Discount %</label>
                 <input
                   type="number"
                   id="hidden-label-form-1"
                   class="form-control round"
-                  name="cname"
+                  name="discount"
+                  [(ngModel)]="model.discount"
+                  #discount="ngModel"
+                  [ngClass]="{
+                    'is-invalid': userForm.submitted && discount.invalid
+                  }"
+                  required
                 />
               </div>
             </div>
-            <button type="button" class="btn btn-primary mr-2">
-              <i class="ft-check-square mr-1"></i>Save
+            <button
+              type="button"
+              *ngIf="!CustomeId"
+              class="btn btn-primary mr-2"
+              (click)="onSubmit(userForm)"
+            >
+              Save
+            </button>
+            <button
+              type="button"
+              *ngIf="CustomeId"
+              class="btn btn-primary mr-2"
+              (click)="onUpdate(userForm)"
+            >
+              Update
             </button>
             <button type="button" class="btn btn-secondary" (click)="goBack()">
               <i class="ft-x mr-1"></i>Cancel

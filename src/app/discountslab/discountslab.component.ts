@@ -59,7 +59,7 @@ export class DiscountslabComponent implements OnInit {
 
     // filter our data
     const temp = this.tempData.filter(function (d) {
-      return d.Username.toLowerCase().indexOf(val) !== -1 || !val;
+      return d.discountSlabName.toLowerCase().indexOf(val) !== -1 || !val;
     });
 
     // update the rows

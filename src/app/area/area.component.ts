@@ -57,7 +57,7 @@ export class AreaComponent implements OnInit {
 
     // filter our data
     const temp = this.tempData.filter(function (d) {
-      return d.Username.toLowerCase().indexOf(val) !== -1 || !val;
+      return d.areaName.toLowerCase().indexOf(val) !== -1 || !val;
     });
 
     // update the rows

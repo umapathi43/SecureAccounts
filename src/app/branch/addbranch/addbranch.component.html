@@ -6,7 +6,7 @@
     </div>
     <div class="card-content">
       <div class="card-body">
-        <form>
+        <form #userForm="ngForm">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
@@ -15,7 +15,13 @@
                   type="text"
                   id="hidden-label-form-1"
                   class="form-control round"
-                  name="cname"
+                  name="bname"
+                  [(ngModel)]="model.branchName"
+                  #bname="ngModel"
+                  [ngClass]="{
+                    'is-invalid': userForm.submitted && bname.invalid
+                  }"
+                  required
                 />
               </div>
               <div class="form-group">
@@ -24,7 +30,13 @@
                   type="text"
                   id="hidden-label-form-1"
                   class="form-control round"
-                  name="cname"
+                  name="addreess"
+                  [(ngModel)]="model.addreess"
+                  #addreess="ngModel"
+                  [ngClass]="{
+                    'is-invalid': userForm.submitted && addreess.invalid
+                  }"
+                  required
                 />
               </div>
               <div class="form-group">
@@ -33,7 +45,13 @@
                   type="text"
                   id="hidden-label-form-1"
                   class="form-control round"
-                  name="cname"
+                  name="contact_name"
+                  [(ngModel)]="model.contact_name"
+                  #contact_name="ngModel"
+                  [ngClass]="{
+                    'is-invalid': userForm.submitted && contact_name.invalid
+                  }"
+                  required
                 />
               </div>
             </div>
@@ -45,21 +63,46 @@
                   type="tel"
                   id="hidden-label-form-1"
                   class="form-control round"
-                  name="cname"
+                  name="mobileNo"
+                  [(ngModel)]="model.mobileNo"
+                  #mobileNo="ngModel"
+                  [ngClass]="{
+                    'is-invalid': userForm.submitted && mobileNo.invalid
+                  }"
+                  required
                 />
               </div>
               <div class="form-group">
-                <label for="hidden-label-form-1"> Latitude and Langitude</label>
+                <label for="hidden-label-form-1"> Location</label>
                 <input
                   type="text"
                   id="hidden-label-form-1"
                   class="form-control round"
-                  name="cname"
+                  name="location"
+                  [(ngModel)]="model.location"
+                  #location="ngModel"
+                  [ngClass]="{
+                    'is-invalid': userForm.submitted && location.invalid
+                  }"
+                  required
                 />
               </div>
             </div>
-            <button type="button" class="btn btn-primary mr-2">
-              <i class="ft-check-square mr-1"></i>Save
+            <button
+              type="button"
+              *ngIf="!CustomeId"
+              class="btn btn-primary mr-2"
+              (click)="onSubmit(userForm)"
+            >
+              Save
+            </button>
+            <button
+              type="button"
+              *ngIf="CustomeId"
+              class="btn btn-primary mr-2"
+              (click)="onUpdate(userForm)"
+            >
+              Update
             </button>
             <button type="button" class="btn btn-secondary" (click)="goBack()">
               <i class="ft-x mr-1"></i>Cancel

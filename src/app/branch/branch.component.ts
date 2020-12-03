@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
 import { DatatableComponent, ColumnMode } from "@swimlane/ngx-datatable";
+import { BranchService } from "app/services/branch.service";
 import swal from "sweetalert2";
 import * as xlsx from "xlsx";
 import * as FileSaver from "file-saver";
@@ -18,16 +19,7 @@ export class BranchComponent implements OnInit {
   @ViewChild(DatatableComponent) table: DatatableComponent;
   @ViewChild("tableRowDetails") tableRowDetails: any;
   // row data
-  public rows = [
-    {
-      ID: 300,
-      Name: "dean3004",
-      address: "hyd",
-      contactname: "Steven",
-      contactnumber: "123456",
-      lattidueandlongitude: "343242345345",
-    },
-  ];
+  public rows = [];
   public ColumnMode = ColumnMode;
   public limitRef = 10;
   exportColumns: any;
@@ -43,19 +35,17 @@ export class BranchComponent implements OnInit {
   // column header
   public columns = [
     { name: "ID", prop: "ID" },
-    { name: "Name", prop: "Name" },
-    { name: "address", prop: "address" },
-    { name: "contactname", prop: "contactname" },
-    { name: "contactnumber", prop: "contactnumber" },
-    { name: "lattidueandlongitude", prop: "lattidueandlongitude" },
+    { name: "Name", prop: "branchName" },
+    { name: "address", prop: "addreess" },
+    { name: "contactname", prop: "contact_name" },
+    { name: "contactnumber", prop: "mobileNo" },
+    { name: "Location", prop: "location" },
   ];
 
   // private
   private tempData = [];
 
-  constructor() {
-    this.tempData = this.rows;
-  }
+  constructor(private _branchService: BranchService) {}
 
   // Public Methods
   // -----------------------------------------------------------------------------------------------------
@@ -70,7 +60,7 @@ export class BranchComponent implements OnInit {
 
     // filter our data
     const temp = this.tempData.filter(function (d) {
-      return d.Username.toLowerCase().indexOf(val) !== -1 || !val;
+      return d.branchName.toLowerCase().indexOf(val) !== -1 || !val;
     });
 
     // update the rows
@@ -87,7 +77,8 @@ export class BranchComponent implements OnInit {
   updateLimit(limit) {
     this.limitRef = limit.target.value;
   }
-  Confirm() {
+  Confirm(data: any) {
+    let that = this;
     swal
       .fire({
         title: "Are you sure?",
@@ -105,13 +96,20 @@ export class BranchComponent implements OnInit {
       })
       .then(function (result) {
         if (result.value) {
-          swal.fire({
-            icon: "success",
-            title: "Deleted!",
-            text: "Your record has been deleted.",
-            customClass: {
-              confirmButton: "btn btn-success",
-            },
+          const dta = {
+            id: data,
+          };
+          that._branchService.deleteBranchById(dta).subscribe((ok) => {
+            console.log(ok);
+            swal.fire({
+              icon: "success",
+              title: "Deleted!",
+              text: "Your record has been deleted.",
+              customClass: {
+                confirmButton: "btn btn-success",
+              },
+            });
+            that.getBranchs();
           });
         } else if (result.dismiss === swal.DismissReason.cancel) {
           swal.fire({
@@ -126,12 +124,19 @@ export class BranchComponent implements OnInit {
       });
   }
   ngOnInit(): void {
+    this.getBranchs();
     this.exportColumns = this.columns.map((col) => ({
       title: col.name,
       dataKey: col.prop,
     }));
   }
-
+  getBranchs() {
+    this._branchService.getBranchs().subscribe((ok) => {
+      console.log(ok);
+      this.rows = ok;
+      this.tempData = this.rows;
+    });
+  }
   exportPdf() {
     let doc = new jsPDF("l", "pt");
     doc.autoTable(this.exportColumns, this.rows);
