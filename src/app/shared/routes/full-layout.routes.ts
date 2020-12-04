@@ -54,6 +54,40 @@ export const Full_ROUTES: Routes = [
       ),
   },
   {
+    path: "manufacturer",
+    loadChildren: () =>
+      import("../../manufacturer/manufacturer.module").then(
+        (m) => m.ManufacturerModule
+      ),
+  },
+  {
+    path: "group",
+    loadChildren: () =>
+      import("../../group/group.module").then((m) => m.GroupModule),
+  },
+  {
+    path: "storetype",
+    loadChildren: () =>
+      import("../../storetype/storetype.module").then((m) => m.StoretypeModule),
+  },
+  {
+    path: "schedule",
+    loadChildren: () =>
+      import("../../schedule/schedule.module").then((m) => m.ScheduleModule),
+  },
+  {
+    path: "hsnsac",
+    loadChildren: () =>
+      import("../../hsnsac/hsnsac.module").then((m) => m.HsnsacModule),
+  },
+  {
+    path: "composition",
+    loadChildren: () =>
+      import("../../composition/composition.module").then(
+        (m) => m.CompositionModule
+      ),
+  },
+  {
     path: "branch",
     loadChildren: () =>
       import("../../branch/branch.module").then((m) => m.BranchModule),
@@ -63,5 +97,9 @@ export const Full_ROUTES: Routes = [
     loadChildren: () =>
       import("../../stock/stock.module").then((m) => m.StockModule),
   },
-  { path: 'packing', loadChildren: () => import('../../packing/packing.module').then(m => m.PackingModule) },
+  {
+    path: "packing",
+    loadChildren: () =>
+      import("../../packing/packing.module").then((m) => m.PackingModule),
+  },
 ];
