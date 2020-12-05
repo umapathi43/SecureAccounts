@@ -42,7 +42,9 @@ export class AreaComponent implements OnInit {
   // private
   private tempData = [];
 
-  constructor(private _areaService: AreaService) {}
+  constructor(private _areaService: AreaService) {
+    this.getAreas();
+  }
 
   // Public Methods
   // -----------------------------------------------------------------------------------------------------
@@ -121,7 +123,6 @@ export class AreaComponent implements OnInit {
       });
   }
   ngOnInit(): void {
-    this.getAreas();
     this.exportColumns = this.columns.map((col) => ({
       title: col.name,
       dataKey: col.prop,
@@ -138,6 +139,9 @@ export class AreaComponent implements OnInit {
       console.log(ok);
       this.rows = ok;
       this.tempData = this.rows;
+      setTimeout(() => {
+        this.table.element.click(), 500;
+      });
     });
   }
   exportExcel() {

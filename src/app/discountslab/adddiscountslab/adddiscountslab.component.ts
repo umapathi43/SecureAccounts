@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
 import { DiscountslabService } from "app/services/discountslab.service";
+import { ToastrService } from 'ngx-toastr';
 export class DiscountSlab {
   public discountSlabName: string;
   public route: any;
@@ -21,7 +22,8 @@ export class AdddiscountslabComponent implements OnInit {
   constructor(
     private _location: Location,
     private actRoute: ActivatedRoute,
-    private _discountService: DiscountslabService
+    private _discountService: DiscountslabService,
+    private toastr: ToastrService
   ) {
     this.CustomeId = this.actRoute.snapshot.params.id;
     console.log(this.CustomeId);
@@ -43,8 +45,10 @@ export class AdddiscountslabComponent implements OnInit {
     this._discountService.addDiscount(this.model).subscribe((ok) => {
       console.log(ok);
       if (ok == "OK") {
+        this.toastr.success("Success", "Discount Slab Updated");
         this._location.back();
       } else {
+        this.toastr.error("Failed", "Failed to update Discount Slab");
       }
     });
   }
@@ -56,8 +60,10 @@ export class AdddiscountslabComponent implements OnInit {
     this._discountService.updateDiscount(this.model).subscribe((ok) => {
       console.log(ok);
       if (ok == "OK") {
+        this.toastr.success("Success", "Discount Slab Updated");
         this._location.back();
       } else {
+        this.toastr.error("Failed", "Failed to update Discount Slab");
       }
     });
   }

@@ -3,6 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
 import { AreaService } from "app/services/area.service";
 import { SalesmanService } from "app/services/salesman.service";
+import { ToastrService } from 'ngx-toastr';
 export class SalesBoy {
   public salesManName: string;
   public incentive: any;
@@ -24,7 +25,8 @@ export class AddsalesmanComponent implements OnInit {
     private _location: Location,
     private actRoute: ActivatedRoute,
     private _areaService: AreaService,
-    private _salesService: SalesmanService
+    private _salesService: SalesmanService,
+    private toastr: ToastrService
   ) {
     this.CustomeId = this.actRoute.snapshot.params.id;
     console.log(this.CustomeId);
@@ -47,8 +49,10 @@ export class AddsalesmanComponent implements OnInit {
     this._salesService.addSalesman(this.model).subscribe((ok) => {
       console.log(ok);
       if (ok == "OK") {
+        this.toastr.success("Success", "Salesman Updated");
         this._location.back();
       } else {
+        this.toastr.error("Failed", "Failed to update Salesman");
       }
     });
   }
@@ -66,8 +70,10 @@ export class AddsalesmanComponent implements OnInit {
     this._salesService.updateSalesman(this.model).subscribe((ok) => {
       console.log(ok);
       if (ok == "OK") {
+        this.toastr.success("Success", "Salesman Updated");
         this._location.back();
       } else {
+        this.toastr.error("Failed", "Failed to update Salesman");
       }
     });
   }

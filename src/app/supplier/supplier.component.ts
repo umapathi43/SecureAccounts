@@ -135,6 +135,9 @@ export class SupplierComponent implements OnInit {
       console.log(ok);
       this.rows = ok;
       this.tempData = this.rows;
+      setTimeout(() => {
+        this.table.element.click(), 500;
+      });
     });
   }
   exportPdf() {

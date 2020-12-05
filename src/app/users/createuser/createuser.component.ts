@@ -7,6 +7,7 @@ import {
 import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
 import { UserService } from "app/services/user.service";
+import { ToastrService } from "ngx-toastr";
 export class User {
   public customerName: string;
   public mobileNo: string;
@@ -39,7 +40,8 @@ export class CreateuserComponent implements OnInit {
   constructor(
     private _location: Location,
     private actRoute: ActivatedRoute,
-    private _userService: UserService
+    private _userService: UserService,
+    private toastr: ToastrService
   ) {
     this.CustomeId = this.actRoute.snapshot.params.id;
     console.log(this.CustomeId);
@@ -76,8 +78,10 @@ export class CreateuserComponent implements OnInit {
     this._userService.addUser(this.model).subscribe((ok) => {
       console.log(ok);
       if (ok == "OK") {
+        this.toastr.success("Success", "User Updated");
         this._location.back();
       } else {
+        this.toastr.error("Failed", "Failed to update User");
       }
     });
   }
@@ -89,8 +93,10 @@ export class CreateuserComponent implements OnInit {
     this._userService.updateUser(this.model).subscribe((ok) => {
       console.log(ok);
       if (ok == "OK") {
+        this.toastr.success("Success", "User Updated");
         this._location.back();
       } else {
+        this.toastr.error("Failed", "Failed to update User");
       }
     });
   }

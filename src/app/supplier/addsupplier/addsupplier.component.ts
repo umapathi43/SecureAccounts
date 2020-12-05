@@ -4,6 +4,7 @@ import { Location } from "@angular/common";
 import { NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
 import { UserService } from "app/services/user.service";
 import { SupplierService } from "app/services/supplier.service";
+import { ToastrService } from 'ngx-toastr';
 export class Supplier {
   public supplierName: string;
   public mobileNo: string;
@@ -36,7 +37,8 @@ export class AddsupplierComponent implements OnInit {
     private _location: Location,
     private actRoute: ActivatedRoute,
     private _userService: UserService,
-    private _supplierService: SupplierService
+    private _supplierService: SupplierService,
+    private toastr: ToastrService
   ) {
     this.CustomeId = this.actRoute.snapshot.params.id;
     console.log(this.CustomeId);
@@ -73,8 +75,10 @@ export class AddsupplierComponent implements OnInit {
     this._supplierService.addSupplier(this.model).subscribe((ok) => {
       console.log(ok);
       if (ok == "OK") {
+        this.toastr.success("Success", "Supplier Updated");
         this._location.back();
       } else {
+        this.toastr.error("Failed", "Failed to update Supplier");
       }
     });
   }
@@ -86,8 +90,10 @@ export class AddsupplierComponent implements OnInit {
     this._supplierService.updateSupplier(this.model).subscribe((ok) => {
       console.log(ok);
       if (ok == "OK") {
+        this.toastr.success("Success", "Supplier Updated");
         this._location.back();
       } else {
+        this.toastr.error("Failed", "Failed to update Supplier");
       }
     });
   }

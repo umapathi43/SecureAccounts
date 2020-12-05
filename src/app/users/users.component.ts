@@ -18,9 +18,9 @@ export class UsersComponent implements OnInit {
   @ViewChild(DatatableComponent) table: DatatableComponent;
   @ViewChild("tableRowDetails") tableRowDetails: any;
   // row data
-  public rows = [];
-  public ColumnMode = ColumnMode;
-  public limitRef = 10;
+  rows: any[] = [];
+  ColumnMode = ColumnMode;
+  limitRef = 10;
   exportColumns: any;
 
   /**
@@ -32,7 +32,7 @@ export class UsersComponent implements OnInit {
     this.tableRowDetails.rowDetail.toggleExpandRow(row);
   }
   // column header
-  public columns = [
+  columns = [
     { name: "ID", prop: "id" },
     { name: "CustomerName", prop: "customerName" },
     { name: "Mobile", prop: "mobileNo" },
@@ -43,9 +43,11 @@ export class UsersComponent implements OnInit {
   ];
 
   // private
-  private tempData = [];
+  tempData = [];
 
-  constructor(private _userService: UserService) {}
+  constructor(private _userService: UserService) {
+    this.getUsers();
+  }
 
   // Public Methods
   // -----------------------------------------------------------------------------------------------------
@@ -126,7 +128,6 @@ export class UsersComponent implements OnInit {
       });
   }
   ngOnInit(): void {
-    this.getUsers();
     this.exportColumns = this.columns.map((col) => ({
       title: col.name,
       dataKey: col.prop,
@@ -138,6 +139,9 @@ export class UsersComponent implements OnInit {
       console.log(ok);
       this.rows = ok;
       this.tempData = this.rows;
+      setTimeout(() => {
+        this.table.element.click(), 500;
+      });
     });
   }
 
