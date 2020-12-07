@@ -16,13 +16,13 @@ export class ManufactureService {
   }
 
   getManfactureById(data): Observable<any> {
-    return this.http.get("AccountSetup/getManfacture/" + data.id);
+    return this.http.get("AccountSetup/getManufacture/" + data.id);
   }
   deleteManfactureById(data): Observable<any> {
-    return this.http.delete("AccountSetup/deleteManfacture/" + data.id);
+    return this.http.delete("AccountSetup/deleteManufacture/" + data.id);
   }
 
   updateManfacture(data: any): Observable<any> {
-    return this.http.put("AccountSetup/updateManfacture/" + data.id, data);
+    return this.http.put("AccountSetup/updateManufacture/" + data.id, data);
   }
 }

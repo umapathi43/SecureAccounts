@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
 import { ColumnMode, DatatableComponent } from "@swimlane/ngx-datatable";
+import { ManufactureService } from "app/services/manufacture.service";
 import swal from "sweetalert2";
 import * as xlsx from "xlsx";
 import * as FileSaver from "file-saver";
@@ -17,12 +18,7 @@ export class ManufacturerComponent implements OnInit {
   @ViewChild(DatatableComponent) table: DatatableComponent;
   @ViewChild("tableRowDetails") tableRowDetails: any;
   // row data
-  public rows = [
-    {
-      ID: 300,
-      Name: "dean3004",
-    },
-  ];
+  public rows = [];
   public ColumnMode = ColumnMode;
   public limitRef = 10;
   exportColumns: any;
@@ -37,14 +33,14 @@ export class ManufacturerComponent implements OnInit {
   }
   // column header
   public columns = [
-    { name: "ID", prop: "ID" },
-    { name: "Name", prop: "Name" }
+    { name: "ID", prop: "id" },
+    { name: "Name", prop: "manufacturerName" },
   ];
 
   // private
   private tempData = [];
 
-  constructor() {
+  constructor(private _manfServcie: ManufactureService) {
     this.tempData = this.rows;
   }
 
@@ -61,7 +57,7 @@ export class ManufacturerComponent implements OnInit {
 
     // filter our data
     const temp = this.tempData.filter(function (d) {
-      return d.Username.toLowerCase().indexOf(val) !== -1 || !val;
+      return d.manufacturerName.toLowerCase().indexOf(val) !== -1 || !val;
     });
 
     // update the rows
@@ -78,7 +74,8 @@ export class ManufacturerComponent implements OnInit {
   updateLimit(limit) {
     this.limitRef = limit.target.value;
   }
-  Confirm() {
+  Confirm(data) {
+    let that = this;
     swal
       .fire({
         title: "Are you sure?",
@@ -96,13 +93,20 @@ export class ManufacturerComponent implements OnInit {
       })
       .then(function (result) {
         if (result.value) {
-          swal.fire({
-            icon: "success",
-            title: "Deleted!",
-            text: "Your record has been deleted.",
-            customClass: {
-              confirmButton: "btn btn-success",
-            },
+          const dta = {
+            id: data,
+          };
+          that._manfServcie.deleteManfactureById(dta).subscribe((ok) => {
+            console.log(ok);
+            swal.fire({
+              icon: "success",
+              title: "Deleted!",
+              text: "Your record has been deleted.",
+              customClass: {
+                confirmButton: "btn btn-success",
+              },
+            });
+            that.getManufacuters();
           });
         } else if (result.dismiss === swal.DismissReason.cancel) {
           swal.fire({
@@ -117,10 +121,19 @@ export class ManufacturerComponent implements OnInit {
       });
   }
   ngOnInit(): void {
+    this.getManufacuters();
     this.exportColumns = this.columns.map((col) => ({
       title: col.name,
       dataKey: col.prop,
     }));
+  }
+  getManufacuters() {
+    this._manfServcie.getManufactures().subscribe((ok) => {
+      console.log(ok);
+      this.rows = ok;
+      this.tempData = this.rows;
+      this.table.element.click();
+    });
   }
 
   exportPdf() {

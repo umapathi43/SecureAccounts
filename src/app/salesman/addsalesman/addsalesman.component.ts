@@ -3,11 +3,12 @@ import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
 import { AreaService } from "app/services/area.service";
 import { SalesmanService } from "app/services/salesman.service";
-import { ToastrService } from 'ngx-toastr';
+import { ToastrService } from "ngx-toastr";
 export class SalesBoy {
   public salesManName: string;
   public incentive: any;
   public target: number;
+  public id: number;
   public areaCreation: any = {
     id: "",
   };

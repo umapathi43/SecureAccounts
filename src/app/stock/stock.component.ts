@@ -1,30 +1,25 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
 import { DatatableComponent, ColumnMode } from "@swimlane/ngx-datatable";
+import { StockService } from "app/services/stock.service";
 import swal from "sweetalert2";
 import * as xlsx from "xlsx";
 import * as FileSaver from "file-saver";
 declare var jsPDF: any;
 
 @Component({
-  selector: 'app-stock',
-  templateUrl: './stock.component.html',
-  styleUrls: ['./stock.component.scss',
-  "../../assets/sass/libs/datatables.scss",
-],
+  selector: "app-stock",
+  templateUrl: "./stock.component.html",
+  styleUrls: [
+    "./stock.component.scss",
+    "../../assets/sass/libs/datatables.scss",
+  ],
   encapsulation: ViewEncapsulation.None,
 })
 export class StockComponent implements OnInit {
-
   @ViewChild(DatatableComponent) table: DatatableComponent;
   @ViewChild("tableRowDetails") tableRowDetails: any;
   // row data
-  public rows = [
-    {
-      ID: 300,
-      Name: "dean3004",
-      branch:"hyderanad"
-    },
-  ];
+  public rows = [];
   public ColumnMode = ColumnMode;
   public limitRef = 10;
   exportColumns: any;
@@ -39,16 +34,15 @@ export class StockComponent implements OnInit {
   }
   // column header
   public columns = [
-    { name: "ID", prop: "ID" },
-    { name: "Name", prop: "Name" },
-    { name: "barnch", prop: "branch" },
-    
+    { name: "ID", prop: "id" },
+    { name: "Name", prop: "stockName" },
+    { name: "barnch", prop: "barnchCreation.branchName" },
   ];
 
   // private
   private tempData = [];
 
-  constructor() {
+  constructor(private _stockService: StockService) {
     this.tempData = this.rows;
   }
 
@@ -65,7 +59,7 @@ export class StockComponent implements OnInit {
 
     // filter our data
     const temp = this.tempData.filter(function (d) {
-      return d.Username.toLowerCase().indexOf(val) !== -1 || !val;
+      return d.stockName.toLowerCase().indexOf(val) !== -1 || !val;
     });
 
     // update the rows
@@ -82,7 +76,8 @@ export class StockComponent implements OnInit {
   updateLimit(limit) {
     this.limitRef = limit.target.value;
   }
-  Confirm() {
+  Confirm(data) {
+    let that = this;
     swal
       .fire({
         title: "Are you sure?",
@@ -100,33 +95,39 @@ export class StockComponent implements OnInit {
       })
       .then(function (result) {
         if (result.value) {
-          swal.fire({
-            icon: "success",
-            title: "Deleted!",
-            text: "Your record has been deleted.",
-            customClass: {
-              confirmButton: "btn btn-success",
-            },
-          });
-        } else if (result.dismiss === swal.DismissReason.cancel) {
-          swal.fire({
-            title: "Cancelled",
-            text: "Your record is safe :)",
-            icon: "error",
-            customClass: {
-              confirmButton: "btn btn-success",
-            },
+          const dta = {
+            id: data,
+          };
+          that._stockService.deleteStockById(dta).subscribe((ok) => {
+            console.log(ok);
+            swal.fire({
+              icon: "success",
+              title: "Deleted!",
+              text: "Your record has been deleted.",
+              customClass: {
+                confirmButton: "btn btn-success",
+              },
+            });
+            that.getStocks();
           });
         }
       });
   }
   ngOnInit(): void {
+    this.getStocks();
     this.exportColumns = this.columns.map((col) => ({
       title: col.name,
       dataKey: col.prop,
     }));
   }
-
+  getStocks() {
+    this._stockService.getStocks().subscribe((ok) => {
+      console.log(ok);
+      this.rows = ok;
+      this.tempData = this.rows;
+      this.table.element.click();
+    });
+  }
   exportPdf() {
     let doc = new jsPDF("l", "pt");
     doc.autoTable(this.exportColumns, this.rows);
@@ -155,5 +156,4 @@ export class StockComponent implements OnInit {
       fileName + "_export_" + new Date().getTime() + EXCEL_EXTENSION
     );
   }
-
 }
