@@ -76,11 +76,11 @@
               <ngx-datatable-column name="Actions" [width]="50">
                 <ng-template let-row="row" ngx-datatable-cell-template>
                   <a
-                    [routerLink]="['/storetype/edit-storetype/', row.ID]"
+                    [routerLink]="['/storetype/edit-storetype/', row.id]"
                     class="mr-1"
                     ><i class="ft-edit text-primary cursor-pointer"></i
                   ></a>
-                  <a (click)="Confirm()"
+                  <a (click)="Confirm(row.id)"
                     ><i class="ft-trash text-danger cursor-pointer"></i
                   ></a>
                 </ng-template>

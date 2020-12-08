@@ -6,23 +6,42 @@
     </div>
     <div class="card-content">
       <div class="card-body">
-        <form>
+        <form #userForm="ngForm">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label for="hidden-label-form-1">Rack group Name</label>
+                <label for="hidden-label-form-1">Composition Name</label>
                 <input
                   type="text"
                   id="hidden-label-form-1"
                   class="form-control round"
                   name="cname"
+                  [(ngModel)]="model.cName"
+                  #cname="ngModel"
+                  [ngClass]="{
+                    'is-invalid': userForm.submitted && cname.invalid
+                  }"
+                  required
                 />
               </div>
             </div>
             <div class="col-md-6"></div>
 
-            <button type="button" class="btn btn-primary mr-2">
-              <i class="ft-check-square mr-1"></i>Save
+            <button
+              type="button"
+              *ngIf="!CustomeId"
+              class="btn btn-primary mr-2"
+              (click)="onSubmit(userForm)"
+            >
+              Save
+            </button>
+            <button
+              type="button"
+              *ngIf="CustomeId"
+              class="btn btn-primary mr-2"
+              (click)="onUpdate(userForm)"
+            >
+              Update
             </button>
             <button type="button" class="btn btn-secondary" (click)="goBack()">
               <i class="ft-x mr-1"></i>Cancel

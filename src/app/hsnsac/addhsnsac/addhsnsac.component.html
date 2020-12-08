@@ -6,16 +6,22 @@
     </div>
     <div class="card-content">
       <div class="card-body">
-        <form>
+        <form #userForm="ngForm">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label for="hidden-label-form-1"> Number</label>
+                <label for="hidden-label-form-1"> Name</label>
                 <input
                   type="text"
                   id="hidden-label-form-1"
                   class="form-control round"
                   name="cname"
+                  [(ngModel)]="model.hsnName"
+                  #cname="ngModel"
+                  [ngClass]="{
+                    'is-invalid': userForm.submitted && cname.invalid
+                  }"
+                  required
                 />
               </div>
             </div>
@@ -26,7 +32,13 @@
                   type="text"
                   id="hidden-label-form-1"
                   class="form-control round"
-                  name="cname"
+                  name="descirption"
+                  [(ngModel)]="model.descirption"
+                  #descirption="ngModel"
+                  [ngClass]="{
+                    'is-invalid': userForm.submitted && descirption.invalid
+                  }"
+                  required
                 />
               </div>
             </div>
