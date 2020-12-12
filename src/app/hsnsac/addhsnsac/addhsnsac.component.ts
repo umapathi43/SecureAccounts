@@ -71,6 +71,7 @@ export class AddhsnsacComponent implements OnInit {
     this._hsnService.getHSNById(dta).subscribe((ok) => {
       console.log(ok);
       this.model = ok;
+      document.getElementById("cardfrom").click();
     });
   }
 }

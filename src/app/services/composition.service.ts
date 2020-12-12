@@ -13,17 +13,17 @@ export class CompositionService {
   }
 
   addComposition(data: any): Observable<any> {
-    return this.http.post("AccountSetup/CompositionCreate/Composition", data);
+    return this.http.post("AccountSetup/CompostionCreate/Composition", data);
   }
 
   getCompositionById(data): Observable<any> {
-    return this.http.get("AccountSetup/getComposition/" + data.id);
+    return this.http.get("AccountSetup/getCompostion/" + data.id);
   }
   deleteCompositionById(data): Observable<any> {
-    return this.http.delete("AccountSetup/deleteComposition/" + data.id);
+    return this.http.delete("AccountSetup/deleteCompisition/" + data.id);
   }
 
   updateComposition(data: any): Observable<any> {
-    return this.http.put("AccountSetup/updateComposition/" + data.id, data);
+    return this.http.put("AccountSetup/updateCompositionType/" + data.id, data);
   }
 }
