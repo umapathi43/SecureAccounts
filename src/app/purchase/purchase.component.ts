@@ -78,6 +78,26 @@ export class PurchaseComponent implements OnInit {
       netAmt: "",
     },
   ];
+  columns2 = [
+    { name: "name", prop: "name" },
+    { name: "batch", prop: "batch" },
+    { name: "expiryDate", prop: "expiryDate" },
+    { name: "mfgDate", prop: "mfgDate" },
+    { name: "bestBefore", prop: "bestBefore" },
+    { name: "qty", prop: "qty" },
+    { name: "freeQty", prop: "freeQty" },
+    { name: "mrp", prop: "mrp" },
+    { name: "purchaseDate", prop: "purchaseDate" },
+    { name: "discount", prop: "discount" },
+    { name: "discAmount", prop: "discAmount" },
+    { name: "schdiscAmount", prop: "schdiscAmount" },
+    { name: "gst", prop: "gst" },
+    { name: "taxAmount", prop: "taxAmount" },
+    { name: "qpk", prop: "qpk" },
+    { name: "srt", prop: "srt" },
+    { name: "grossAmt", prop: "grossAmt" },
+    { name: "netAmt", prop: "netAmt" },
+  ];
   model = new Purchase();
   ngOnInit(): void {}
   onSubmit(form) {
@@ -104,6 +124,7 @@ export class PurchaseComponent implements OnInit {
       grossAmt: "",
       netAmt: "",
     });
+    this.Items = [...this.Items];
   }
 
   removeItem(i: number) {

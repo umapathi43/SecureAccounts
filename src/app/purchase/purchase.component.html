@@ -2,7 +2,6 @@
   <div class="row">
     <div class="col-12">
       <div class="card">
-
         <div class="card-content">
           <div class="card-body">
             <form
@@ -259,12 +258,348 @@
     </div>
   </div>
 </section>
+<section id="ngx-datatable-filter">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+            <!-- ngx-datatable-filter -->
+            <fieldset class="form-group">
+              <label for="ngx-filter-ref"
+                >Search:
+                <input
+                  id="ngx-filter-ref"
+                  class="form-control form-control-sm d-inline-block width-200"
+                  type="text"
+                  placeholder="Filter the Name column..."
+                />
+              </label>
+            </fieldset>
+            <ngx-datatable
+              class="bootstrap core-bootstrap"
+              style="height: 400px; overflow-y: visible"
+              [columns]="columns2"
+              [columnMode]="ColumnMode.force"
+              [headerHeight]="50"
+              [footerHeight]="50"
+              rowHeight="auto"
+              [rows]="Items"
+              [scrollbarH]="true"
+            >
+              <ngx-datatable-column name="name" prop="name">
+                <ng-template
+                  let-item="row"
+                  ngx-datatable-cell-template
+                  let-rowIndex="rowIndex"
+                >
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="item.name"
+                    name="name{{ rowIndex }}"
+                  />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="batch" prop="batch">
+                <ng-template
+                  let-item="row"
+                  ngx-datatable-cell-template
+                  let-rowIndex="rowIndex"
+                >
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="item.batch"
+                    name="batch{{ rowIndex }}"
+                  />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="expiryDate" prop="expiryDate">
+                <ng-template
+                  let-item="row"
+                  ngx-datatable-cell-template
+                  let-rowIndex="rowIndex"
+                >
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="item.expiryDate"
+                    name="expiryDate{{ rowIndex }}"
+                  />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="mfgDate" prop="mfgDate">
+                <ng-template
+                  let-item="row"
+                  ngx-datatable-cell-template
+                  let-rowIndex="rowIndex"
+                >
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="item.mfgDate"
+                    name="mfgDate{{ rowIndex }}"
+                  />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="bestBefore" prop="bestBefore">
+                <ng-template
+                  let-item="row"
+                  ngx-datatable-cell-template
+                  let-rowIndex="rowIndex"
+                >
+                  <select
+                    id="basic-form-6"
+                    [(ngModel)]="item.bestBefore"
+                    name="bestBefore{{ rowIndex }}"
+                    required
+                    class="form-control"
+                  >
+                    <option value="none" selected disabled>
+                      Interested in
+                    </option>
+                    <option value="design">Design</option>
+                    <option value="development">Development</option>
+                    <option value="illustration">Illustration</option>
+                    <option value="branding">Branding</option>
+                    <option value="video">Video</option>
+                  </select>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="qty" prop="qty" [width]="100">
+                <ng-template
+                  let-item="row"
+                  ngx-datatable-cell-template
+                  let-rowIndex="rowIndex"
+                >
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="item.qty"
+                    name="qty{{ rowIndex }}"
+                  />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="freeQty" prop="freeQty" [width]="100">
+                <ng-template
+                  let-item="row"
+                  ngx-datatable-cell-template
+                  let-rowIndex="rowIndex"
+                >
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="item.freeQty"
+                    name="freeQty{{ rowIndex }}"
+                  />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="mrp" prop="mrp" [width]="100">
+                <ng-template
+                  let-item="row"
+                  ngx-datatable-cell-template
+                  let-rowIndex="rowIndex"
+                >
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="item.mrp"
+                    name="mrp{{ rowIndex }}"
+                  />
+                </ng-template>
+              </ngx-datatable-column>
 
-<section id="tooltip-validation">
+              <ngx-datatable-column name="purchaseDate" prop="purchaseDate">
+                <ng-template
+                  let-item="row"
+                  ngx-datatable-cell-template
+                  let-rowIndex="rowIndex"
+                >
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="item.purchaseDate"
+                    name="purchaseDate{{ rowIndex }}"
+                  />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column
+                name="discount"
+                prop="discount"
+                [width]="100"
+              >
+                <ng-template
+                  let-item="row"
+                  ngx-datatable-cell-template
+                  let-rowIndex="rowIndex"
+                >
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="item.discount"
+                    name="discount{{ rowIndex }}"
+                  />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column
+                name="discAmount"
+                prop="discAmount"
+                [width]="100"
+              >
+                <ng-template
+                  let-item="row"
+                  ngx-datatable-cell-template
+                  let-rowIndex="rowIndex"
+                >
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="item.discAmount"
+                    name="discAmount{{ rowIndex }}"
+                  />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column
+                name="schdiscAmount"
+                prop="schdiscAmount"
+                [width]="100"
+              >
+                <ng-template
+                  let-item="row"
+                  ngx-datatable-cell-template
+                  let-rowIndex="rowIndex"
+                >
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="item.schdiscAmount"
+                    name="schdiscAmount{{ rowIndex }}"
+                  />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="gst" prop="gst" [width]="100">
+                <ng-template
+                  let-item="row"
+                  ngx-datatable-cell-template
+                  let-rowIndex="rowIndex"
+                >
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="item.gst"
+                    name="gst{{ rowIndex }}"
+                  />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column
+                name="taxAmount"
+                prop="taxAmount"
+                [width]="100"
+              >
+                <ng-template
+                  let-item="row"
+                  ngx-datatable-cell-template
+                  let-rowIndex="rowIndex"
+                >
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="item.taxAmount"
+                    name="taxAmount{{ rowIndex }}"
+                  />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="qpk" prop="qpk">
+                <ng-template
+                  let-item="row"
+                  ngx-datatable-cell-template
+                  let-rowIndex="rowIndex"
+                >
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="item.qpk"
+                    name="qpk{{ rowIndex }}"
+                  />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="srt" prop="srt">
+                <ng-template
+                  let-item="row"
+                  ngx-datatable-cell-template
+                  let-rowIndex="rowIndex"
+                >
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="item.srt"
+                    name="srt{{ rowIndex }}"
+                  />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="grossAmt" prop="grossAmt">
+                <ng-template
+                  let-item="row"
+                  ngx-datatable-cell-template
+                  let-rowIndex="rowIndex"
+                >
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="item.grossAmt"
+                    name="grossAmt{{ rowIndex }}"
+                  />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="netAmt" prop="netAmt">
+                <ng-template
+                  let-item="row"
+                  ngx-datatable-cell-template
+                  let-rowIndex="rowIndex"
+                >
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="item.netAmt"
+                    (keydown.Tab)="addItem()"
+                    name="netAmt{{ rowIndex }}"
+                  />
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column name="Actions">
+                <ng-template
+                  let-item="row"
+                  ngx-datatable-cell-template
+                  let-rowIndex="rowIndex"
+                >
+                  <a
+                    *ngIf="rowIndex != Items.length - 1 || Items.length > 1"
+                    (click)="removeItem(rowIndex)"
+                    ><i class="ft-trash text-danger cursor-pointer"></i
+                  ></a>
+                </ng-template>
+              </ngx-datatable-column>
+            </ngx-datatable>
+            <button
+              type="button"
+              class="btn btn-primary btn-sm"
+              (click)="addItem()"
+            >
+              Add Item
+            </button>
+            <!-- ngx-datatable-filter -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- <section id="tooltip-validation">
   <div class="row">
     <div class="col-12">
       <div class="card" *ngFor="let item of Items; let i = index">
-
         <div class="card-content">
           <div class="card-body">
             <form
@@ -493,14 +828,13 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
 
 <section id="basic-form-layouts">
   <div class="row match-height">
     <!-- Basic Form starts -->
     <div class="col-lg-6 col-12">
       <div class="card">
-      
         <div class="card-content">
           <div class="card-body">
             <ngx-datatable
@@ -528,11 +862,11 @@
                 </ng-template>
               </ngx-datatable-row-detail>
               <ngx-datatable-column
-                [width]="50"
                 [resizeable]="false"
                 [sortable]="false"
                 [draggable]="false"
                 [canAutoResize]="false"
+                [width]="50"
               >
                 <ng-template
                   let-row="row"
@@ -575,7 +909,6 @@
     <!-- Hidden Label starts -->
     <div class="col-lg-6 col-12">
       <div class="card">
-
         <div class="card-content">
           <div class="card-body">
             <form>
