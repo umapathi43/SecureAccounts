@@ -34,7 +34,7 @@ export class PurchaseComponent implements OnInit {
     },
   ];
   ColumnMode = ColumnMode;
-  limitRef = 10;
+  //limitRef = 10;
   exportColumns: any;
 
   /**

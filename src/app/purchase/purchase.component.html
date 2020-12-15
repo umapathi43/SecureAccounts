@@ -278,16 +278,17 @@
             </fieldset>
             <ngx-datatable
               class="bootstrap core-bootstrap"
-              style="height: 400px; overflow-y: visible"
+              style="height: 400px"
               [columns]="columns2"
               [columnMode]="ColumnMode.force"
               [headerHeight]="50"
-              [footerHeight]="50"
-              rowHeight="auto"
+              [rowHeight]="50"
               [rows]="Items"
+              [externalPaging]="false"
               [scrollbarH]="true"
+              [scrollbarV]="true"
             >
-              <ngx-datatable-column name="name" prop="name">
+              <ngx-datatable-column name="Name" prop="name">
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -298,10 +299,11 @@
                     class="form-control"
                     [(ngModel)]="item.name"
                     name="name{{ rowIndex }}"
+                    placeholder="Name"
                   />
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="batch" prop="batch">
+              <ngx-datatable-column name="Batch" prop="batch">
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -312,10 +314,11 @@
                     class="form-control"
                     [(ngModel)]="item.batch"
                     name="batch{{ rowIndex }}"
+                    placeholder="Branch"
                   />
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="expiryDate" prop="expiryDate">
+              <ngx-datatable-column name="Expiry Date" prop="expiryDate">
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -326,10 +329,11 @@
                     class="form-control"
                     [(ngModel)]="item.expiryDate"
                     name="expiryDate{{ rowIndex }}"
+                    placeholder="Expiry Date"
                   />
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="mfgDate" prop="mfgDate">
+              <ngx-datatable-column name="Mfg Date" prop="mfgDate">
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -340,10 +344,11 @@
                     class="form-control"
                     [(ngModel)]="item.mfgDate"
                     name="mfgDate{{ rowIndex }}"
+                    placeholder="Mfg Date"
                   />
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="bestBefore" prop="bestBefore">
+              <ngx-datatable-column name="Best Before" prop="bestBefore">
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -367,7 +372,7 @@
                   </select>
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="qty" prop="qty" [width]="100">
+              <ngx-datatable-column name="Qty" prop="qty" [width]="100">
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -378,10 +383,15 @@
                     class="form-control"
                     [(ngModel)]="item.qty"
                     name="qty{{ rowIndex }}"
+                    placeholder="Qty"
                   />
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="freeQty" prop="freeQty" [width]="100">
+              <ngx-datatable-column
+                name="Free Qty"
+                prop="freeQty"
+                [width]="100"
+              >
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -392,10 +402,11 @@
                     class="form-control"
                     [(ngModel)]="item.freeQty"
                     name="freeQty{{ rowIndex }}"
+                    placeholder="Free Qty"
                   />
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="mrp" prop="mrp" [width]="100">
+              <ngx-datatable-column name="MRP" prop="mrp" [width]="100">
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -406,11 +417,12 @@
                     class="form-control"
                     [(ngModel)]="item.mrp"
                     name="mrp{{ rowIndex }}"
+                    placeholder="MRP"
                   />
                 </ng-template>
               </ngx-datatable-column>
 
-              <ngx-datatable-column name="purchaseDate" prop="purchaseDate">
+              <ngx-datatable-column name="Purchase Date" prop="purchaseDate">
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -421,11 +433,12 @@
                     class="form-control"
                     [(ngModel)]="item.purchaseDate"
                     name="purchaseDate{{ rowIndex }}"
+                    placeholder="Purchase Date"
                   />
                 </ng-template>
               </ngx-datatable-column>
               <ngx-datatable-column
-                name="discount"
+                name="Discount"
                 prop="discount"
                 [width]="100"
               >
@@ -439,11 +452,12 @@
                     class="form-control"
                     [(ngModel)]="item.discount"
                     name="discount{{ rowIndex }}"
+                    placeholder="Discount%"
                   />
                 </ng-template>
               </ngx-datatable-column>
               <ngx-datatable-column
-                name="discAmount"
+                name="Disc Amount"
                 prop="discAmount"
                 [width]="100"
               >
@@ -457,11 +471,12 @@
                     class="form-control"
                     [(ngModel)]="item.discAmount"
                     name="discAmount{{ rowIndex }}"
+                    placeholder="Disc Amount"
                   />
                 </ng-template>
               </ngx-datatable-column>
               <ngx-datatable-column
-                name="schdiscAmount"
+                name="Sch Disc Amount"
                 prop="schdiscAmount"
                 [width]="100"
               >
@@ -475,10 +490,11 @@
                     class="form-control"
                     [(ngModel)]="item.schdiscAmount"
                     name="schdiscAmount{{ rowIndex }}"
+                    placeholder="Sch Disc Amount"
                   />
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="gst" prop="gst" [width]="100">
+              <ngx-datatable-column name="GST" prop="gst" [width]="100">
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -489,11 +505,12 @@
                     class="form-control"
                     [(ngModel)]="item.gst"
                     name="gst{{ rowIndex }}"
+                    placeholder="GST"
                   />
                 </ng-template>
               </ngx-datatable-column>
               <ngx-datatable-column
-                name="taxAmount"
+                name="Tax Amount"
                 prop="taxAmount"
                 [width]="100"
               >
@@ -507,10 +524,11 @@
                     class="form-control"
                     [(ngModel)]="item.taxAmount"
                     name="taxAmount{{ rowIndex }}"
+                    placeholder="Tax Amount"
                   />
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="qpk" prop="qpk">
+              <ngx-datatable-column name="QPK" prop="qpk">
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -521,10 +539,11 @@
                     class="form-control"
                     [(ngModel)]="item.qpk"
                     name="qpk{{ rowIndex }}"
+                    placeholder="QPK"
                   />
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="srt" prop="srt">
+              <ngx-datatable-column name="SRT" prop="srt">
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -535,10 +554,11 @@
                     class="form-control"
                     [(ngModel)]="item.srt"
                     name="srt{{ rowIndex }}"
+                    placeholder="SRT"
                   />
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="grossAmt" prop="grossAmt">
+              <ngx-datatable-column name="Gross Amt" prop="grossAmt">
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -549,10 +569,11 @@
                     class="form-control"
                     [(ngModel)]="item.grossAmt"
                     name="grossAmt{{ rowIndex }}"
+                    placeholder="Gross Amt"
                   />
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="netAmt" prop="netAmt">
+              <ngx-datatable-column name="Net Amt" prop="netAmt">
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -564,6 +585,7 @@
                     [(ngModel)]="item.netAmt"
                     (keydown.Tab)="addItem()"
                     name="netAmt{{ rowIndex }}"
+                    placeholder="Net Amt"
                   />
                 </ng-template>
               </ngx-datatable-column>
