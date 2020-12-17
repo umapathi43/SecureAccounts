@@ -4,7 +4,7 @@ import { Location } from "@angular/common";
 import { NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
 import { UserService } from "app/services/user.service";
 import { SupplierService } from "app/services/supplier.service";
-import { ToastrService } from 'ngx-toastr';
+import { ToastrService } from "ngx-toastr";
 export class Supplier {
   public supplierName: string;
   public mobileNo: string;
@@ -104,6 +104,7 @@ export class AddsupplierComponent implements OnInit {
     this._supplierService.getSupplierById(dta).subscribe((ok) => {
       console.log(ok);
       this.model = ok;
+      document.getElementById("frmcard").click();
       this.popupModel = this.fromModel(this.model.openingBalDate);
     });
   }

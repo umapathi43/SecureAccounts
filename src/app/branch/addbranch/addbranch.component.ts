@@ -73,6 +73,7 @@ export class AddbranchComponent implements OnInit {
     this._branchService.getBranchById(dta).subscribe((ok) => {
       console.log(ok);
       this.model = ok;
+      document.getElementById("frmcard").click();
     });
   }
 }

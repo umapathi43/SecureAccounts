@@ -85,6 +85,7 @@ export class AddsalesmanComponent implements OnInit {
     this._salesService.getSalesmanById(dta).subscribe((ok) => {
       console.log(ok);
       this.model = ok;
+      document.getElementById("frmcard").click();
     });
   }
 }

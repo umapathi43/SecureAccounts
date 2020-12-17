@@ -68,9 +68,13 @@
               [rows]="rows"
               [columns]="columns"
             >
-              <ngx-datatable-column name="ID" prop="ID" [width]="50">
+              <ngx-datatable-column name="ID" prop="id" [width]="50">
               </ngx-datatable-column>
-              <ngx-datatable-column name="Name" prop="Name" [width]="150">
+              <ngx-datatable-column
+                name="Name"
+                prop="storeTypeName"
+                [width]="150"
+              >
               </ngx-datatable-column>
 
               <ngx-datatable-column name="Actions" [width]="50">

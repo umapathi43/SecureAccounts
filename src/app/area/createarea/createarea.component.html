@@ -4,7 +4,7 @@
       <h4 class="card-title" *ngIf="!CustomeId">Add Area</h4>
       <h4 class="card-title" *ngIf="CustomeId">Edit Area</h4>
     </div>
-    <div class="card-content">
+    <div class="card-content" id="frmcard">
       <div class="card-body">
         <form #userForm="ngForm">
           <div class="row">
@@ -48,21 +48,21 @@
               </div>
             </div>
             <button
-            type="button"
-            *ngIf="!CustomeId"
-            class="btn btn-primary mr-2"
-            (click)="onSubmit(userForm)"
-          >
-            Save
-          </button>
-          <button
-            type="button"
-            *ngIf="CustomeId"
-            class="btn btn-primary mr-2"
-            (click)="onUpdate(userForm)"
-          >
-            Update
-          </button>
+              type="button"
+              *ngIf="!CustomeId"
+              class="btn btn-primary mr-2"
+              (click)="onSubmit(userForm)"
+            >
+              Save
+            </button>
+            <button
+              type="button"
+              *ngIf="CustomeId"
+              class="btn btn-primary mr-2"
+              (click)="onUpdate(userForm)"
+            >
+              Update
+            </button>
             <button type="button" class="btn btn-secondary" (click)="goBack()">
               <i class="ft-x mr-1"></i>Cancel
             </button>

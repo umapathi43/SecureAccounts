@@ -74,6 +74,7 @@ export class AdddiscountslabComponent implements OnInit {
     this._discountService.getDiscountById(dta).subscribe((ok) => {
       console.log(ok);
       this.model = ok;
+      document.getElementById("frmcard").click();
     });
   }
 }

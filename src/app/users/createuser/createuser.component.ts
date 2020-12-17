@@ -107,6 +107,7 @@ export class CreateuserComponent implements OnInit {
     this._userService.getUserById(dta).subscribe((ok) => {
       console.log(ok);
       this.model = ok;
+      document.getElementById("frmcard").click();
     });
   }
   fromModel(value: string | null): NgbDateStruct | null {

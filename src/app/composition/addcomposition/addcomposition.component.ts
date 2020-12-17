@@ -70,6 +70,7 @@ export class AddcompositionComponent implements OnInit {
     this._compositionService.getCompositionById(dta).subscribe((ok) => {
       console.log(ok);
       this.model = ok;
+      document.getElementById("frmcard").click();
     });
   }
 }

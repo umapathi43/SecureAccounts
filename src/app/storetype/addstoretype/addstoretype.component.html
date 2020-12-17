@@ -4,9 +4,9 @@
       <h4 class="card-title" *ngIf="!CustomeId">Add Storetype</h4>
       <h4 class="card-title" *ngIf="CustomeId">Edit Storetype</h4>
     </div>
-    <div class="card-content">
+    <div class="card-content" id="frmcard">
       <div class="card-body">
-        <form>
+        <form #userForm="ngForm">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
@@ -15,14 +15,33 @@
                   type="text"
                   id="hidden-label-form-1"
                   class="form-control round"
-                  name="cname"
+                  name="sname"
+                  [(ngModel)]="model.storeTypeName"
+                  #sname="ngModel"
+                  [ngClass]="{
+                    'is-invalid': userForm.submitted && sname.invalid
+                  }"
+                  required
                 />
               </div>
             </div>
             <div class="col-md-6"></div>
 
-            <button type="button" class="btn btn-primary mr-2">
-              <i class="ft-check-square mr-1"></i>Save
+            <button
+              type="button"
+              *ngIf="!CustomeId"
+              class="btn btn-primary mr-2"
+              (click)="onSubmit(userForm)"
+            >
+              Save
+            </button>
+            <button
+              type="button"
+              *ngIf="CustomeId"
+              class="btn btn-primary mr-2"
+              (click)="onUpdate(userForm)"
+            >
+              Update
             </button>
             <button type="button" class="btn btn-secondary" (click)="goBack()">
               <i class="ft-x mr-1"></i>Cancel
