@@ -1,30 +1,25 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
 import { DatatableComponent, ColumnMode } from "@swimlane/ngx-datatable";
+import { PackingService } from "app/services/packing.service";
 import swal from "sweetalert2";
 import * as xlsx from "xlsx";
 import * as FileSaver from "file-saver";
 declare var jsPDF: any;
 
-
 @Component({
-  selector: 'app-packing',
-  templateUrl: './packing.component.html',
-  styleUrls: ['./packing.component.scss',
-  "../../assets/sass/libs/datatables.scss",
-]
+  selector: "app-packing",
+  templateUrl: "./packing.component.html",
+  styleUrls: [
+    "./packing.component.scss",
+    "../../assets/sass/libs/datatables.scss",
+  ],
+  encapsulation: ViewEncapsulation.None,
 })
 export class PackingComponent implements OnInit {
-
   @ViewChild(DatatableComponent) table: DatatableComponent;
   @ViewChild("tableRowDetails") tableRowDetails: any;
   // row data
-  public rows = [
-    {
-      ID: 300,
-      Name: "dean3004",
-      Quantity:"10"
-    },
-  ];
+  public rows = [];
   public ColumnMode = ColumnMode;
   public limitRef = 10;
   exportColumns: any;
@@ -39,16 +34,15 @@ export class PackingComponent implements OnInit {
   }
   // column header
   public columns = [
-    { name: "ID", prop: "ID" },
-    { name: "Name", prop: "Name" },
-    { name: "Quantity", prop: "Quantity" },
-    
+    { name: "ID", prop: "id" },
+    { name: "Name", prop: "packName" },
+    { name: "Quantity", prop: "qty" },
   ];
 
   // private
   private tempData = [];
 
-  constructor() {
+  constructor(private _PackService: PackingService) {
     this.tempData = this.rows;
   }
 
@@ -65,7 +59,7 @@ export class PackingComponent implements OnInit {
 
     // filter our data
     const temp = this.tempData.filter(function (d) {
-      return d.Username.toLowerCase().indexOf(val) !== -1 || !val;
+      return d.packName.toLowerCase().indexOf(val) !== -1 || !val;
     });
 
     // update the rows
@@ -82,7 +76,8 @@ export class PackingComponent implements OnInit {
   updateLimit(limit) {
     this.limitRef = limit.target.value;
   }
-  Confirm() {
+  Confirm(data) {
+    let that = this;
     swal
       .fire({
         title: "Are you sure?",
@@ -100,13 +95,20 @@ export class PackingComponent implements OnInit {
       })
       .then(function (result) {
         if (result.value) {
-          swal.fire({
-            icon: "success",
-            title: "Deleted!",
-            text: "Your record has been deleted.",
-            customClass: {
-              confirmButton: "btn btn-success",
-            },
+          const dta = {
+            id: data,
+          };
+          that._PackService.deletePackById(dta).subscribe((ok) => {
+            console.log(ok);
+            swal.fire({
+              icon: "success",
+              title: "Deleted!",
+              text: "Your record has been deleted.",
+              customClass: {
+                confirmButton: "btn btn-success",
+              },
+            });
+            that.getPackings();
           });
         } else if (result.dismiss === swal.DismissReason.cancel) {
           swal.fire({
@@ -121,12 +123,20 @@ export class PackingComponent implements OnInit {
       });
   }
   ngOnInit(): void {
+    this.getPackings();
     this.exportColumns = this.columns.map((col) => ({
       title: col.name,
       dataKey: col.prop,
     }));
   }
-
+  getPackings() {
+    this._PackService.getPacks().subscribe((ok) => {
+      console.log(ok);
+      this.rows = ok;
+      this.tempData = this.rows;
+      this.table.element.click(), 500;
+    });
+  }
   exportPdf() {
     let doc = new jsPDF("l", "pt");
     doc.autoTable(this.exportColumns, this.rows);
@@ -155,5 +165,4 @@ export class PackingComponent implements OnInit {
       fileName + "_export_" + new Date().getTime() + EXCEL_EXTENSION
     );
   }
-
 }

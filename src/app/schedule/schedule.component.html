@@ -72,7 +72,15 @@
               </ngx-datatable-column>
               <ngx-datatable-column
                 name="Name"
-                prop="scheduleName"
+                prop="schedulerName"
+                [width]="150"
+              >
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Warning" prop="warning" [width]="150">
+              </ngx-datatable-column>
+              <ngx-datatable-column
+                name="Message"
+                prop="waringMsg"
                 [width]="150"
               >
               </ngx-datatable-column>

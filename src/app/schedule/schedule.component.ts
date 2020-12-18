@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
+import { SchedulerService } from "app/services/scheduler.service";
 import swal from "sweetalert2";
 import * as xlsx from "xlsx";
 import * as FileSaver from "file-saver";
@@ -17,12 +18,7 @@ export class ScheduleComponent implements OnInit {
   @ViewChild(DatatableComponent) table: DatatableComponent;
   @ViewChild("tableRowDetails") tableRowDetails: any;
   // row data
-  public rows = [
-    {
-      id: 300,
-      scheduleName: "dean3004",
-    },
-  ];
+  public rows = [];
   public ColumnMode = ColumnMode;
   public limitRef = 10;
   exportColumns: any;
@@ -37,14 +33,16 @@ export class ScheduleComponent implements OnInit {
   }
   // column header
   public columns = [
-    { name: "ID", prop: "ID" },
-    { name: "Name", prop: "scheduleName" },
+    { name: "ID", prop: "id" },
+    { name: "Name", prop: "schedulerName" },
+    { name: "Warning Message", prop: "waringMsg" },
+    { name: "Waring", prop: "warning" },
   ];
 
   // private
   private tempData = [];
 
-  constructor() {
+  constructor(private _schedulerService: SchedulerService) {
     this.tempData = this.rows;
   }
 
@@ -117,12 +115,20 @@ export class ScheduleComponent implements OnInit {
       });
   }
   ngOnInit(): void {
+    this.getSchedules();
     this.exportColumns = this.columns.map((col) => ({
       title: col.name,
       dataKey: col.prop,
     }));
   }
-
+  getSchedules() {
+    this._schedulerService.getSchedulers().subscribe((ok) => {
+      console.log(ok);
+      this.rows = ok;
+      this.tempData = this.rows;
+      this.table.element.click(), 500;
+    });
+  }
   exportPdf() {
     let doc = new jsPDF("l", "pt");
     doc.autoTable(this.exportColumns, this.rows);
