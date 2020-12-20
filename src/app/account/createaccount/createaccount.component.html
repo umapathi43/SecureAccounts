@@ -1,0 +1,92 @@
+<div class="col-lg-12 col-12">
+  <div class="card">
+    <div class="card-header">
+      <h4 class="card-title" *ngIf="!CustomeId">Add Account</h4>
+      <h4 class="card-title" *ngIf="CustomeId">Edit Account</h4>
+    </div>
+    <div class="card-content">
+      <div class="card-body">
+        <form>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="hidden-label-form-1"> Name</label>
+                <input
+                  type="text"
+                  id="hidden-label-form-1"
+                  class="form-control round"
+                  name="cname"
+                />
+              </div>
+
+              <div class="form-group mb-2">
+                <label for="basic-form-6">Account Head</label>
+                <select
+                  id="basic-form-6"
+                  name="interested"
+                  class="form-control round"
+                >
+                  <option value="none" selected disabled>Account Head</option>
+                  <option value="design">asset</option>
+                  <option value="development">liability</option>
+                  <option value="development">income</option>
+                  <option value="development">expenses</option>
+                </select>
+              </div>
+              <div class="form-group mb-2">
+                <label for="basic-form-6">Account Type</label>
+                <select
+                  id="basic-form-6"
+                  name="interested"
+                  class="form-control round"
+                >
+                  <option value="none" selected disabled>Account Type</option>
+                  <option value="bank">bank</option>
+                  <option value="cash">cash</option>
+                  <option value="wallet">wallet</option>
+                  <option value="sundry debtors">sundry debtors</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="hidden-label-form-7">Opening Balance</label>
+                <input
+                  type="number"
+                  id="hidden-label-form-5"
+                  class="form-control round"
+                  name="sname"
+                />
+              </div>
+              <div class="form-group">
+                <label for="hidden-label-form-8">Opening Balance Date</label>
+                <div class="input-group">
+                  <input
+                    class="form-control round"
+                    placeholder="yyyy-mm-dd"
+                    name="dp"
+                    [(ngModel)]="popupModel"
+                    ngbDatepicker
+                    #d2="ngbDatepicker"
+                  />
+                  <div class="input-group-append">
+                    <div class="input-group-text" (click)="d2.toggle()">
+                      <i class="fa fa-calendar" style="cursor: pointer"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button type="button" class="btn btn-primary mr-2">
+              <i class="ft-check-square mr-1"></i>Save
+            </button>
+            <button type="button" class="btn btn-secondary" (click)="goBack()">
+              <i class="ft-x mr-1"></i>Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

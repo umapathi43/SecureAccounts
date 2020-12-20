@@ -1,0 +1,104 @@
+<div class="col-lg-12 col-12">
+  <div class="card">
+    <div class="card-header">
+      <h4 class="card-title" *ngIf="!CustomeId">Add Salesman</h4>
+      <h4 class="card-title" *ngIf="CustomeId">Edit Salesman</h4>
+    </div>
+    <div class="card-content" id="frmcard">
+      <div class="card-body">
+        <form #userForm="ngForm">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="hidden-label-form-1"> Name</label>
+                <input
+                  type="text"
+                  id="hidden-label-form-1"
+                  class="form-control round"
+                  name="sname"
+                  [(ngModel)]="model.salesManName"
+                  #sname="ngModel"
+                  [ngClass]="{
+                    'is-invalid': userForm.submitted && sname.invalid
+                  }"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="hidden-label-form-1"> Target</label>
+                <input
+                  type="text"
+                  id="hidden-label-form-1"
+                  class="form-control round"
+                  name="target"
+                  [(ngModel)]="model.target"
+                  #target="ngModel"
+                  [ngClass]="{
+                    'is-invalid': userForm.submitted && target.invalid
+                  }"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="hidden-label-form-1"> Incentive %</label>
+                <input
+                  type="number"
+                  id="hidden-label-form-1"
+                  class="form-control round"
+                  name="incentive"
+                  [(ngModel)]="model.incentive"
+                  #incentive="ngModel"
+                  [ngClass]="{
+                    'is-invalid': userForm.submitted && incentive.invalid
+                  }"
+                  required
+                />
+              </div>
+              <div class="form-group mb-2">
+                <label for="basic-form-6">Area</label>
+                <select
+                  id="basic-form-6"
+                  name="aname"
+                  [(ngModel)]="model.areaCreation.id"
+                  #aname="ngModel"
+                  [ngClass]="{
+                    'is-invalid': userForm.submitted && aname.invalid
+                  }"
+                  required
+                  class="form-control round"
+                >
+                  <option value="none" selected disabled>Area</option>
+                  <option *ngFor="let item of areaList" value="{{ item.id }}">
+                    {{ item.areaName }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <button
+              type="button"
+              *ngIf="!CustomeId"
+              class="btn btn-primary mr-2"
+              (click)="onSubmit(userForm)"
+            >
+              Save
+            </button>
+            <button
+              type="button"
+              *ngIf="CustomeId"
+              class="btn btn-primary mr-2"
+              (click)="onUpdate(userForm)"
+            >
+              Update
+            </button>
+            <button type="button" class="btn btn-secondary" (click)="goBack()">
+              <i class="ft-x mr-1"></i>Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

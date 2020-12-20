@@ -1,0 +1,115 @@
+<div class="col-lg-12 col-12">
+  <div class="card">
+    <div class="card-header">
+      <h4 class="card-title" *ngIf="!CustomeId">Add Branch</h4>
+      <h4 class="card-title" *ngIf="CustomeId">Edit Branch</h4>
+    </div>
+    <div class="card-content" id="frmcard">
+      <div class="card-body">
+        <form #userForm="ngForm">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="hidden-label-form-1"> Name</label>
+                <input
+                  type="text"
+                  id="hidden-label-form-1"
+                  class="form-control round"
+                  name="bname"
+                  [(ngModel)]="model.branchName"
+                  #bname="ngModel"
+                  [ngClass]="{
+                    'is-invalid': userForm.submitted && bname.invalid
+                  }"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="hidden-label-form-1"> Address</label>
+                <input
+                  type="text"
+                  id="hidden-label-form-1"
+                  class="form-control round"
+                  name="addreess"
+                  [(ngModel)]="model.addreess"
+                  #addreess="ngModel"
+                  [ngClass]="{
+                    'is-invalid': userForm.submitted && addreess.invalid
+                  }"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="hidden-label-form-1"> Contact Name</label>
+                <input
+                  type="text"
+                  id="hidden-label-form-1"
+                  class="form-control round"
+                  name="contact_name"
+                  [(ngModel)]="model.contact_name"
+                  #contact_name="ngModel"
+                  [ngClass]="{
+                    'is-invalid': userForm.submitted && contact_name.invalid
+                  }"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="hidden-label-form-1"> Contact Number</label>
+                <input
+                  type="tel"
+                  id="hidden-label-form-1"
+                  class="form-control round"
+                  name="mobileNo"
+                  [(ngModel)]="model.mobileNo"
+                  #mobileNo="ngModel"
+                  [ngClass]="{
+                    'is-invalid': userForm.submitted && mobileNo.invalid
+                  }"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="hidden-label-form-1"> Location</label>
+                <input
+                  type="text"
+                  id="hidden-label-form-1"
+                  class="form-control round"
+                  name="location"
+                  [(ngModel)]="model.location"
+                  #location="ngModel"
+                  [ngClass]="{
+                    'is-invalid': userForm.submitted && location.invalid
+                  }"
+                  required
+                />
+              </div>
+            </div>
+            <button
+              type="button"
+              *ngIf="!CustomeId"
+              class="btn btn-primary mr-2"
+              (click)="onSubmit(userForm)"
+            >
+              Save
+            </button>
+            <button
+              type="button"
+              *ngIf="CustomeId"
+              class="btn btn-primary mr-2"
+              (click)="onUpdate(userForm)"
+            >
+              Update
+            </button>
+            <button type="button" class="btn btn-secondary" (click)="goBack()">
+              <i class="ft-x mr-1"></i>Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
