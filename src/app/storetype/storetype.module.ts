@@ -6,13 +6,14 @@ import { StoretypeComponent } from './storetype.component';
 import { FormsModule } from "@angular/forms";
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { AddstoretypeComponent } from './addstoretype/addstoretype.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [StoretypeComponent, AddstoretypeComponent],
   imports: [
     CommonModule,
     StoretypeRoutingModule,
-    FormsModule, NgxDatatableModule
+    FormsModule, NgxDatatableModule, NgxSpinnerModule
   ]
 })
 export class StoretypeModule { }

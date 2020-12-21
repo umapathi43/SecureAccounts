@@ -4,6 +4,7 @@ import { PackingService } from "app/services/packing.service";
 import swal from "sweetalert2";
 import * as xlsx from "xlsx";
 import * as FileSaver from "file-saver";
+import { NgxSpinnerService } from "ngx-spinner";
 declare var jsPDF: any;
 
 @Component({
@@ -42,7 +43,7 @@ export class PackingComponent implements OnInit {
   // private
   private tempData = [];
 
-  constructor(private _PackService: PackingService) {
+  constructor(private _PackService: PackingService,private spinner: NgxSpinnerService) {
     this.tempData = this.rows;
   }
 
@@ -130,11 +131,16 @@ export class PackingComponent implements OnInit {
     }));
   }
   getPackings() {
+    this.spinner.show(undefined, {
+      type: "ball-triangle-path",
+      size: "medium",
+    });
     this._PackService.getPacks().subscribe((ok) => {
       console.log(ok);
       this.rows = ok;
       this.tempData = this.rows;
       this.table.element.click(), 500;
+      this.spinner.hide();
     });
   }
   exportPdf() {

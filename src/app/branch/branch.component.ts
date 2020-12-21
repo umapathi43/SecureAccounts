@@ -4,6 +4,7 @@ import { BranchService } from "app/services/branch.service";
 import swal from "sweetalert2";
 import * as xlsx from "xlsx";
 import * as FileSaver from "file-saver";
+import { NgxSpinnerService } from "ngx-spinner";
 declare var jsPDF: any;
 
 @Component({
@@ -45,7 +46,10 @@ export class BranchComponent implements OnInit {
   // private
   private tempData = [];
 
-  constructor(private _branchService: BranchService) {}
+  constructor(
+    private _branchService: BranchService,
+    private spinner: NgxSpinnerService
+  ) {}
 
   // Public Methods
   // -----------------------------------------------------------------------------------------------------
@@ -131,13 +135,17 @@ export class BranchComponent implements OnInit {
     }));
   }
   getBranchs() {
+    this.spinner.show(undefined, {
+      type: "ball-triangle-path",
+      size: "medium",
+    });
     this._branchService.getBranchs().subscribe((ok) => {
       console.log(ok);
       this.rows = ok;
       this.tempData = this.rows;
-      setTimeout(() => {
-        this.table.element.click(), 500;
-      });
+
+      this.table.element.click();
+      this.spinner.hide();
     });
   }
   exportPdf() {

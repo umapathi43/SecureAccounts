@@ -7,6 +7,7 @@ import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { FormsModule } from "@angular/forms";
 import { AdddiscountslabComponent } from './adddiscountslab/adddiscountslab.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [DiscountslabComponent, AdddiscountslabComponent],
@@ -16,6 +17,7 @@ import { AdddiscountslabComponent } from './adddiscountslab/adddiscountslab.comp
     DiscountslabRoutingModule,
     NgxDatatableModule,
     NgbModule,
+    NgxSpinnerModule
   ]
 })
 export class DiscountslabModule { }

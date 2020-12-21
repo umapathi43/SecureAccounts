@@ -4,6 +4,7 @@ import { DiscountslabService } from "app/services/discountslab.service";
 import swal from "sweetalert2";
 import * as xlsx from "xlsx";
 import * as FileSaver from "file-saver";
+import { NgxSpinnerService } from "ngx-spinner";
 declare var jsPDF: any;
 
 @Component({
@@ -44,7 +45,10 @@ export class DiscountslabComponent implements OnInit {
   // private
   private tempData = [];
 
-  constructor(private _discountService: DiscountslabService) {}
+  constructor(
+    private _discountService: DiscountslabService,
+    private spinner: NgxSpinnerService
+  ) {}
 
   // Public Methods
   // -----------------------------------------------------------------------------------------------------
@@ -130,13 +134,16 @@ export class DiscountslabComponent implements OnInit {
     }));
   }
   getDiscounts() {
+    this.spinner.show(undefined, {
+      type: "ball-triangle-path",
+      size: "medium",
+    });
     this._discountService.getDisconts().subscribe((ok) => {
       console.log(ok);
       this.rows = ok;
       this.tempData = this.rows;
-      setTimeout(() => {
-        this.table.element.click(), 500;
-      });
+      this.table.element.click();
+      this.spinner.hide();
     });
   }
   exportPdf() {

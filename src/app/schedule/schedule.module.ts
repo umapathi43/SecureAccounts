@@ -6,7 +6,8 @@ import { ScheduleComponent } from "./schedule.component";
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { FormsModule } from "@angular/forms";
-import { AddscheduleComponent } from './addschedule/addschedule.component';
+import { AddscheduleComponent } from "./addschedule/addschedule.component";
+import { NgxSpinnerModule } from "ngx-spinner";
 
 @NgModule({
   declarations: [ScheduleComponent, AddscheduleComponent],
@@ -16,6 +17,7 @@ import { AddscheduleComponent } from './addschedule/addschedule.component';
     NgxDatatableModule,
     NgbModule,
     FormsModule,
+    NgxSpinnerModule,
   ],
 })
 export class ScheduleModule {}

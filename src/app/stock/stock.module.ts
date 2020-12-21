@@ -6,6 +6,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { StockRoutingModule } from './stock-routing.module';
 import { StockComponent } from './stock.component';
 import { AddstockComponent } from './addstock/addstock.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { AddstockComponent } from './addstock/addstock.component';
     FormsModule,
     NgxDatatableModule,
     NgbModule,
+    NgxSpinnerModule
   ]
 })
 export class StockModule { }

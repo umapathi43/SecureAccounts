@@ -4,6 +4,7 @@ import swal from "sweetalert2";
 import * as xlsx from "xlsx";
 import * as FileSaver from "file-saver";
 import { AreaService } from "app/services/area.service";
+import { NgxSpinnerService } from "ngx-spinner";
 declare var jsPDF: any;
 
 @Component({
@@ -42,7 +43,10 @@ export class AreaComponent implements OnInit {
   // private
   private tempData = [];
 
-  constructor(private _areaService: AreaService) {
+  constructor(
+    private _areaService: AreaService,
+    private spinner: NgxSpinnerService
+  ) {
     this.getAreas();
   }
 
@@ -135,13 +139,16 @@ export class AreaComponent implements OnInit {
     doc.save("areas.pdf");
   }
   getAreas() {
+    this.spinner.show(undefined, {
+      type: "ball-triangle-path",
+      size: "medium",
+    });
     this._areaService.getAreas().subscribe((ok) => {
       console.log(ok);
       this.rows = ok;
       this.tempData = this.rows;
-      setTimeout(() => {
-        this.table.element.click(), 500;
-      });
+      this.table.element.click();
+      this.spinner.hide();
     });
   }
   exportExcel() {

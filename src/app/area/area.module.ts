@@ -7,6 +7,7 @@ import { CreateareaComponent } from "./createarea/createarea.component";
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { FormsModule } from "@angular/forms";
+import { NgxSpinnerModule } from "ngx-spinner";
 
 @NgModule({
   declarations: [AreaComponent, CreateareaComponent],
@@ -16,6 +17,7 @@ import { FormsModule } from "@angular/forms";
     AreaRoutingModule,
     NgxDatatableModule,
     NgbModule,
+    NgxSpinnerModule,
   ],
 })
 export class AreaModule {}

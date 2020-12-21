@@ -4,6 +4,7 @@ import { SalesmanService } from "app/services/salesman.service";
 import swal from "sweetalert2";
 import * as xlsx from "xlsx";
 import * as FileSaver from "file-saver";
+import { NgxSpinnerService } from "ngx-spinner";
 declare var jsPDF: any;
 
 @Component({
@@ -44,7 +45,10 @@ export class SalesmanComponent implements OnInit {
   // private
   private tempData = [];
 
-  constructor(private _SalesService: SalesmanService) {}
+  constructor(
+    private _SalesService: SalesmanService,
+    private spinner: NgxSpinnerService
+  ) {}
 
   // Public Methods
   // -----------------------------------------------------------------------------------------------------
@@ -130,13 +134,17 @@ export class SalesmanComponent implements OnInit {
     }));
   }
   getSaleBoys() {
+    this.spinner.show(undefined, {
+      type: "ball-triangle-path",
+      size: "medium",
+    });
     this._SalesService.getSalesman().subscribe((ok) => {
       console.log(ok);
       this.rows = ok;
       this.tempData = this.rows;
-      setTimeout(() => {
-        this.table.element.click(), 500;
-      });
+
+      this.table.element.click();
+      this.spinner.hide();
     });
   }
   exportPdf() {

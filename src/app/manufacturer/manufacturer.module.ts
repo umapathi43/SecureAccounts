@@ -5,7 +5,8 @@ import { ManufacturerRoutingModule } from "./manufacturer-routing.module";
 import { ManufacturerComponent } from "./manufacturer.component";
 import { FormsModule } from "@angular/forms";
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
-import { AddmanufacturerComponent } from './addmanufacturer/addmanufacturer.component';
+import { AddmanufacturerComponent } from "./addmanufacturer/addmanufacturer.component";
+import { NgxSpinnerModule } from "ngx-spinner";
 
 @NgModule({
   declarations: [ManufacturerComponent, AddmanufacturerComponent],
@@ -14,6 +15,7 @@ import { AddmanufacturerComponent } from './addmanufacturer/addmanufacturer.comp
     ManufacturerRoutingModule,
     FormsModule,
     NgxDatatableModule,
+    NgxSpinnerModule,
   ],
 })
 export class ManufacturerModule {}

@@ -4,6 +4,7 @@ import { CompositionService } from "app/services/composition.service";
 import swal from "sweetalert2";
 import * as xlsx from "xlsx";
 import * as FileSaver from "file-saver";
+import { NgxSpinnerService } from "ngx-spinner";
 declare var jsPDF: any;
 @Component({
   selector: "app-composition",
@@ -40,7 +41,10 @@ export class CompositionComponent implements OnInit {
   // private
   private tempData = [];
 
-  constructor(private _compositionService: CompositionService) {
+  constructor(
+    private _compositionService: CompositionService,
+    private spinner: NgxSpinnerService
+  ) {
     this.tempData = this.rows;
   }
 
@@ -130,13 +134,16 @@ export class CompositionComponent implements OnInit {
     }));
   }
   getCompositions() {
+    this.spinner.show(undefined, {
+      type: "ball-triangle-path",
+      size: "medium",
+    });
     this._compositionService.getCompositions().subscribe((ok) => {
       console.log(ok);
       this.rows = ok;
       this.tempData = this.rows;
-      setTimeout(() => {
-        this.table.element.click(), 500;
-      });
+      this.table.element.click();
+      this.spinner.hide();
     });
   }
   exportPdf() {

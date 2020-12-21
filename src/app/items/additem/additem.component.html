@@ -18,7 +18,8 @@
                   name="cname"
                 />
               </div>
-
+            </div>
+            <div class="col-md-6">
               <div class="form-group mb-2">
                 <label for="basic-form-6">Packing</label>
                 <select
@@ -33,6 +34,8 @@
                   <option value="development">expenses</option>
                 </select>
               </div>
+            </div>
+            <div class="col-md-4">
               <div class="form-group">
                 <label for="hidden-label-form-1">Qty Per Pack</label>
                 <input
@@ -42,6 +45,8 @@
                   name="cname"
                 />
               </div>
+            </div>
+            <div class="col-md-4">
               <div class="form-group mb-2">
                 <label for="basic-form-6">Mfg</label>
                 <select
@@ -56,7 +61,8 @@
                   <option value="sundry debtors">sundry debtors</option>
                 </select>
               </div>
-
+            </div>
+            <div class="col-md-4">
               <div class="form-group mb-2">
                 <label for="basic-form-6">Group</label>
                 <select
@@ -71,20 +77,24 @@
                   <option value="sundry debtors">sundry debtors</option>
                 </select>
               </div>
+            </div>
+            <div class="col-md-4">
               <div class="form-group mb-2">
-                <label for="basic-form-6">Category</label>
+                <label for="basic-form-6">Store Type</label>
                 <select
                   id="basic-form-6"
                   name="interested"
                   class="form-control round"
                 >
-                  <option value="none" selected disabled>Category</option>
+                  <option value="none" selected disabled>Store Type</option>
                   <option value="bank">bank</option>
                   <option value="cash">cash</option>
                   <option value="wallet">wallet</option>
                   <option value="sundry debtors">sundry debtors</option>
                 </select>
               </div>
+            </div>
+            <div class="col-md-4">
               <div class="form-group mb-2">
                 <label for="basic-form-6">Schedule</label>
                 <select
@@ -99,54 +109,67 @@
                   <option value="sundry debtors">sundry debtors</option>
                 </select>
               </div>
-              <div class="form-group">
-                <label for="hidden-label-form-1">Rack No</label>
-                <input
-                  type="number"
-                  id="hidden-label-form-1"
-                  class="form-control round"
-                  name="cname"
-                />
-              </div>
             </div>
-
-            <div class="col-md-6">
+            <div class="col-md-4">
               <div class="form-group mb-2">
-                <label for="basic-form-6">Rack Group</label>
+                <label for="basic-form-6">Composition</label>
                 <select
                   id="basic-form-6"
                   name="interested"
                   class="form-control round"
                 >
-                  <option value="none" selected disabled>Rack Group</option>
+                  <option value="none" selected disabled>Composition</option>
                   <option value="bank">bank</option>
                   <option value="cash">cash</option>
                   <option value="wallet">wallet</option>
                   <option value="sundry debtors">sundry debtors</option>
                 </select>
               </div>
-              <div class="form-group">
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group row">
                 <label for="hidden-label-form-7"
                   >Min Discount - Max Discount</label
                 >
                 <input
                   type="number"
                   id="hidden-label-form-5"
-                  class="form-control round"
+                  class="form-control round col-md-6"
                   name="sname"
+                  placeholder="Min Dis"
+                />
+                <input
+                  type="number"
+                  id="hidden-label-form-5"
+                  class="form-control round col-md-6"
+                  name="sname"
+                  placeholder="Max Dis"
                 />
               </div>
-              <div class="form-group">
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row">
                 <label for="hidden-label-form-7"
                   >Min Quantity - Max quantity</label
                 >
                 <input
                   type="number"
                   id="hidden-label-form-5"
-                  class="form-control round"
+                  class="form-control round col-md-6"
                   name="sname"
+                  placeholder="min"
+                />
+                <input
+                  type="number"
+                  id="hidden-label-form-5"
+                  class="form-control round col-md-6"
+                  name="sname"
+                  placeholder="max"
                 />
               </div>
+            </div>
+            <div class="col-md-4">
               <div class="form-group mb-2">
                 <label for="basic-form-6">GST</label>
                 <select
@@ -161,8 +184,26 @@
                   <option value="sundry debtors">sundry debtors</option>
                 </select>
               </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group mb-2">
+                <label for="basic-form-6">HSN</label>
+                <select
+                  id="basic-form-6"
+                  name="interested"
+                  class="form-control round"
+                >
+                  <option value="none" selected disabled>HSN</option>
+                  <option value="bank">bank</option>
+                  <option value="cash">cash</option>
+                  <option value="wallet">wallet</option>
+                  <option value="sundry debtors">sundry debtors</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-4">
               <div class="form-group">
-                <label for="hidden-label-form-7">hsn no</label>
+                <label for="hidden-label-form-7">Rate a</label>
                 <input
                   type="number"
                   id="hidden-label-form-5"
@@ -170,8 +211,10 @@
                   name="sname"
                 />
               </div>
+            </div>
+            <div class="col-md-4">
               <div class="form-group">
-                <label for="hidden-label-form-7">rate a</label>
+                <label for="hidden-label-form-7">Rate b</label>
                 <input
                   type="number"
                   id="hidden-label-form-5"
@@ -179,8 +222,10 @@
                   name="sname"
                 />
               </div>
+            </div>
+            <div class="col-md-4">
               <div class="form-group">
-                <label for="hidden-label-form-7">rate b upto h</label>
+                <label for="hidden-label-form-7">Rate c</label>
                 <input
                   type="number"
                   id="hidden-label-form-5"
@@ -188,6 +233,19 @@
                   name="sname"
                 />
               </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="hidden-label-form-7">Rate d</label>
+                <input
+                  type="number"
+                  id="hidden-label-form-5"
+                  class="form-control round"
+                  name="sname"
+                />
+              </div>
+            </div>
+            <div class="col-md-4">
               <div class="form-group mb-2">
                 <label for="basic-form-6">Discount Slab</label>
                 <select
@@ -203,13 +261,13 @@
                 </select>
               </div>
             </div>
-            <button type="button" class="btn btn-primary mr-2">
-              <i class="ft-check-square mr-1"></i>Save
-            </button>
-            <button type="button" class="btn btn-secondary" (click)="goBack()">
-              <i class="ft-x mr-1"></i>Cancel
-            </button>
           </div>
+          <button type="button" class="btn btn-primary mr-2">
+            <i class="ft-check-square mr-1"></i>Save
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="goBack()">
+            <i class="ft-x mr-1"></i>Cancel
+          </button>
         </form>
       </div>
     </div>

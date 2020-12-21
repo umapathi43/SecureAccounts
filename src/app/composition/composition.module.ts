@@ -6,6 +6,7 @@ import { CompositionComponent } from './composition.component';
 import { FormsModule } from "@angular/forms";
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { AddcompositionComponent } from './addcomposition/addcomposition.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [CompositionComponent, AddcompositionComponent],
@@ -13,7 +14,8 @@ import { AddcompositionComponent } from './addcomposition/addcomposition.compone
     CommonModule,
     CompositionRoutingModule,
     FormsModule,
-    NgxDatatableModule
+    NgxDatatableModule,
+    NgxSpinnerModule
   ]
 })
 export class CompositionModule { }

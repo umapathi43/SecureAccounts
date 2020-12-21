@@ -7,6 +7,7 @@ import { AddsupplierComponent } from './addsupplier/addsupplier.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     SupplierRoutingModule,
     NgxDatatableModule,
-    NgbModule
+    NgbModule,
+    NgxSpinnerModule
   ]
 })
 export class SupplierModule { }

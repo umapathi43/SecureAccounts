@@ -7,6 +7,7 @@ import { CreatepackingComponent } from './createpacking/createpacking.component'
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { FormsModule } from "@angular/forms";
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [PackingComponent, CreatepackingComponent],
@@ -16,6 +17,7 @@ import { FormsModule } from "@angular/forms";
     FormsModule,
     NgxDatatableModule,
     NgbModule,
+    NgxSpinnerModule
   ]
 })
 export class PackingModule { }

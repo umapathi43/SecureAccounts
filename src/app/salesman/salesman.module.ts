@@ -7,6 +7,7 @@ import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { FormsModule } from "@angular/forms";
 import { AddsalesmanComponent } from './addsalesman/addsalesman.component';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 @NgModule({
   declarations: [SalesmanComponent, AddsalesmanComponent],
@@ -16,6 +17,7 @@ import { AddsalesmanComponent } from './addsalesman/addsalesman.component';
     SalesmanRoutingModule,
     NgxDatatableModule,
     NgbModule,
+    NgxSpinnerModule
   ],
 })
 export class SalesmanModule {}

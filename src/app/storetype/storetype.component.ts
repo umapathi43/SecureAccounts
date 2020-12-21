@@ -5,6 +5,7 @@ import * as xlsx from "xlsx";
 import * as FileSaver from "file-saver";
 declare var jsPDF: any;
 import { StoretypeService } from "app/services/storetype.service";
+import { NgxSpinnerService } from "ngx-spinner";
 @Component({
   selector: "app-storetype",
   templateUrl: "./storetype.component.html",
@@ -40,7 +41,10 @@ export class StoretypeComponent implements OnInit {
   // private
   private tempData = [];
 
-  constructor(private _storeService: StoretypeService) {
+  constructor(
+    private _storeService: StoretypeService,
+    private spinner: NgxSpinnerService
+  ) {
     this.tempData = this.rows;
   }
 
@@ -128,11 +132,16 @@ export class StoretypeComponent implements OnInit {
     }));
   }
   getStoreTYpes() {
+    this.spinner.show(undefined, {
+      type: "ball-triangle-path",
+      size: "medium",
+    });
     this._storeService.getStoreTypes().subscribe((ok) => {
       console.log(ok);
       this.rows = ok;
       this.tempData = this.rows;
       this.table.element.click();
+      this.spinner.hide();
     });
   }
   exportPdf() {

@@ -4,6 +4,7 @@ import { ManufactureService } from "app/services/manufacture.service";
 import swal from "sweetalert2";
 import * as xlsx from "xlsx";
 import * as FileSaver from "file-saver";
+import { NgxSpinnerService } from "ngx-spinner";
 declare var jsPDF: any;
 @Component({
   selector: "app-manufacturer",
@@ -40,7 +41,10 @@ export class ManufacturerComponent implements OnInit {
   // private
   private tempData = [];
 
-  constructor(private _manfServcie: ManufactureService) {
+  constructor(
+    private _manfServcie: ManufactureService,
+    private spinner: NgxSpinnerService
+  ) {
     this.tempData = this.rows;
   }
 
@@ -128,11 +132,16 @@ export class ManufacturerComponent implements OnInit {
     }));
   }
   getManufacuters() {
+    this.spinner.show(undefined, {
+      type: "ball-triangle-path",
+      size: "medium",
+    });
     this._manfServcie.getManufactures().subscribe((ok) => {
       console.log(ok);
       this.rows = ok;
       this.tempData = this.rows;
       this.table.element.click();
+      this.spinner.hide();
     });
   }
 

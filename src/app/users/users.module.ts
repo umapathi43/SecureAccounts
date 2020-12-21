@@ -6,6 +6,7 @@ import { UsersComponent } from './users.component';
 import { CreateuserComponent } from './createuser/createuser.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     UsersRoutingModule,
     NgxDatatableModule,
-    NgbModule
+    NgbModule,
+    NgxSpinnerModule
   ]
 })
 export class UsersModule { }

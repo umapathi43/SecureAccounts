@@ -4,6 +4,7 @@ import swal from "sweetalert2";
 import * as xlsx from "xlsx";
 import * as FileSaver from "file-saver";
 import { ColumnMode, DatatableComponent } from "@swimlane/ngx-datatable";
+import { NgxSpinnerService } from "ngx-spinner";
 declare var jsPDF: any;
 @Component({
   selector: "app-schedule",
@@ -42,7 +43,10 @@ export class ScheduleComponent implements OnInit {
   // private
   private tempData = [];
 
-  constructor(private _schedulerService: SchedulerService) {
+  constructor(
+    private _schedulerService: SchedulerService,
+    private spinner: NgxSpinnerService
+  ) {
     this.tempData = this.rows;
   }
 
@@ -130,11 +134,16 @@ export class ScheduleComponent implements OnInit {
     }));
   }
   getSchedules() {
+    this.spinner.show(undefined, {
+      type: "ball-triangle-path",
+      size: "medium",
+    });
     this._schedulerService.getSchedulers().subscribe((ok) => {
       console.log(ok);
       this.rows = ok;
       this.tempData = this.rows;
-      this.table.element.click(), 500;
+      this.table.element.click();
+      this.spinner.hide();
     });
   }
   exportPdf() {

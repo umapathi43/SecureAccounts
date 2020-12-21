@@ -4,6 +4,7 @@ import { StockService } from "app/services/stock.service";
 import swal from "sweetalert2";
 import * as xlsx from "xlsx";
 import * as FileSaver from "file-saver";
+import { NgxSpinnerService } from "ngx-spinner";
 declare var jsPDF: any;
 
 @Component({
@@ -42,7 +43,7 @@ export class StockComponent implements OnInit {
   // private
   private tempData = [];
 
-  constructor(private _stockService: StockService) {
+  constructor(private _stockService: StockService, private spinner: NgxSpinnerService) {
     this.tempData = this.rows;
   }
 
@@ -121,11 +122,16 @@ export class StockComponent implements OnInit {
     }));
   }
   getStocks() {
+    this.spinner.show(undefined, {
+      type: "ball-triangle-path",
+      size: "medium",
+    });
     this._stockService.getStocks().subscribe((ok) => {
       console.log(ok);
       this.rows = ok;
       this.tempData = this.rows;
       this.table.element.click();
+      this.spinner.hide();
     });
   }
   exportPdf() {

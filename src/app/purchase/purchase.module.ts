@@ -5,6 +5,7 @@ import { PurchaseRoutingModule } from './purchase-routing.module';
 import { PurchaseComponent } from './purchase.component';
 import { FormsModule } from '@angular/forms';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     CommonModule,
     PurchaseRoutingModule,
     FormsModule,
-    NgxDatatableModule
+    NgxDatatableModule,
+    NgxSpinnerModule
   ]
 })
 export class PurchaseModule { }

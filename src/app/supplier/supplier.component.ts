@@ -5,6 +5,7 @@ import * as xlsx from "xlsx";
 import * as FileSaver from "file-saver";
 declare var jsPDF: any;
 import { SupplierService } from "../services/supplier.service";
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: "app-supplier",
@@ -45,7 +46,10 @@ export class SupplierComponent implements OnInit {
   // private
   private tempData = [];
 
-  constructor(private _supplierService: SupplierService) {}
+  constructor(
+    private _supplierService: SupplierService,
+    private spinner: NgxSpinnerService
+  ) {}
 
   // Public Methods
   // -----------------------------------------------------------------------------------------------------
@@ -131,13 +135,17 @@ export class SupplierComponent implements OnInit {
     }));
   }
   getSuppliers() {
+    this.spinner.show(undefined, {
+      type: "ball-triangle-path",
+      size: "medium",
+    });
     this._supplierService.getSuppliers().subscribe((ok) => {
       console.log(ok);
       this.rows = ok;
       this.tempData = this.rows;
-      setTimeout(() => {
-        this.table.element.click(), 500;
-      });
+
+      this.table.element.click();
+      this.spinner.hide();
     });
   }
   exportPdf() {
