@@ -6,7 +6,7 @@
     </div>
     <div class="card-content">
       <div class="card-body">
-        <form>
+        <form #itmForm="ngForm">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
@@ -22,17 +22,18 @@
             <div class="col-md-6">
               <div class="form-group mb-2">
                 <label for="basic-form-6">Packing</label>
-                <select
-                  id="basic-form-6"
-                  name="interested"
-                  class="form-control round"
+                <ng-select
+                  [items]="packList"
+                  bindLabel="packName"
+                  bindValue="id"
+                  [(ngModel)]="selectedPack"
+                  name="packn"
+                  #packn="ngModel"
+                  (keyup.enter)="AddPack()"
+                  (search)="OnPackChange()"
+                  placeholder="No Packing selected"
                 >
-                  <option value="none" selected disabled>Packing</option>
-                  <option value="design">asset</option>
-                  <option value="development">liability</option>
-                  <option value="development">income</option>
-                  <option value="development">expenses</option>
-                </select>
+                </ng-select>
               </div>
             </div>
             <div class="col-md-4">
@@ -49,17 +50,18 @@
             <div class="col-md-4">
               <div class="form-group mb-2">
                 <label for="basic-form-6">Mfg</label>
-                <select
-                  id="basic-form-6"
-                  name="interested"
-                  class="form-control round"
+                <ng-select
+                  [items]="manfList"
+                  bindLabel="manufacturerName"
+                  bindValue="id"
+                  [(ngModel)]="selectedManf"
+                  name="packn"
+                  #packn="ngModel"
+                  (keyup.enter)="AddManf()"
+                  (search)="OnPackChange()"
+                  placeholder="No Nfg selected"
                 >
-                  <option value="none" selected disabled>Mfg</option>
-                  <option value="bank">bank</option>
-                  <option value="cash">cash</option>
-                  <option value="wallet">wallet</option>
-                  <option value="sundry debtors">sundry debtors</option>
-                </select>
+                </ng-select>
               </div>
             </div>
             <div class="col-md-4">
@@ -97,33 +99,35 @@
             <div class="col-md-4">
               <div class="form-group mb-2">
                 <label for="basic-form-6">Schedule</label>
-                <select
-                  id="basic-form-6"
-                  name="interested"
-                  class="form-control round"
+                <ng-select
+                  [items]="schList"
+                  bindLabel="schedulerName"
+                  bindValue="id"
+                  [(ngModel)]="selectedSch"
+                  name="packn"
+                  #packn="ngModel"
+                  (keyup.enter)="AddSch()"
+                  (search)="OnPackChange()"
+                  placeholder="No Schedule selected"
                 >
-                  <option value="none" selected disabled>Schedule</option>
-                  <option value="bank">bank</option>
-                  <option value="cash">cash</option>
-                  <option value="wallet">wallet</option>
-                  <option value="sundry debtors">sundry debtors</option>
-                </select>
+                </ng-select>
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group mb-2">
                 <label for="basic-form-6">Composition</label>
-                <select
-                  id="basic-form-6"
-                  name="interested"
-                  class="form-control round"
+                <ng-select
+                  [items]="compList"
+                  bindLabel="cName"
+                  bindValue="id"
+                  [(ngModel)]="selectedComp"
+                  name="packn"
+                  #packn="ngModel"
+                  (keyup.enter)="AddComp()"
+                  (search)="OnPackChange()"
+                  placeholder="No Composition selected"
                 >
-                  <option value="none" selected disabled>Composition</option>
-                  <option value="bank">bank</option>
-                  <option value="cash">cash</option>
-                  <option value="wallet">wallet</option>
-                  <option value="sundry debtors">sundry debtors</option>
-                </select>
+                </ng-select>
               </div>
             </div>
 
