@@ -1,8 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
 import { PackingService } from "app/services/packing.service";
 import { ToastrService } from "ngx-toastr";
+import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 export class Packing {
   public id: any;
   public packName: any;
@@ -17,11 +18,15 @@ export class Packing {
 export class CreatepackingComponent implements OnInit {
   CustomeId: any;
   model = new Packing();
+  @Input() id: number;
+  @Input() data: any;
+  isModal: boolean;
   constructor(
     private _location: Location,
     private actRoute: ActivatedRoute,
     private _packService: PackingService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    public activeModal: NgbActiveModal
   ) {
     this.CustomeId = this.actRoute.snapshot.params.id;
     console.log(this.CustomeId);
@@ -30,9 +35,19 @@ export class CreatepackingComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.id == 0) {
+      this.isModal = true;
+      console.log(this.data);
+      this.model.packName = this.data.packName;
+    }
+  }
   goBack() {
-    this._location.back();
+    if (this.isModal) {
+      this.activeModal.close(this.model.packName);
+    } else {
+      this._location.back();
+    }
   }
 
   onSubmit(form: any) {
@@ -44,7 +59,11 @@ export class CreatepackingComponent implements OnInit {
       console.log(ok);
       if (ok == "OK") {
         this.toastr.success("Success", "Pack Added");
-        this._location.back();
+        if (this.isModal) {
+          this.activeModal.close(this.model.packName);
+        } else {
+          this._location.back();
+        }
       } else {
         this.toastr.error("Failed", "Failed to update Pack");
       }

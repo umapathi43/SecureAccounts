@@ -10,6 +10,7 @@ import { SchedulerService } from "app/services/scheduler.service";
 import { AddscheduleComponent } from "app/schedule/addschedule/addschedule.component";
 import { CompositionService } from "app/services/composition.service";
 import { AddcompositionComponent } from "app/composition/addcomposition/addcomposition.component";
+import { DiscountslabService } from "app/services/discountslab.service";
 @Component({
   selector: "app-additem",
   templateUrl: "./additem.component.html",
@@ -26,6 +27,8 @@ export class AdditemComponent implements OnInit {
   selectedSch: any;
   compList: any;
   selectedComp: any;
+  packName: any;
+  discountList: any;
   constructor(
     private _location: Location,
     private actRoute: ActivatedRoute,
@@ -33,7 +36,8 @@ export class AdditemComponent implements OnInit {
     private modalService: NgbModal,
     private _manfService: ManufactureService,
     private _scheduleService: SchedulerService,
-    private _compositionService: CompositionService
+    private _compositionService: CompositionService,
+    private _discountService: DiscountslabService
   ) {
     this.CustomeId = this.actRoute.snapshot.params.id;
     console.log(this.CustomeId);
@@ -44,21 +48,19 @@ export class AdditemComponent implements OnInit {
     this.getManufacture();
     this.getSchedules();
     this.getComposition();
+    this.getDiscountSlabs();
   }
   goBack() {
     this._location.back();
   }
-  AddPack() {
+  AddPack(event) {
+    console.log(event);
     const modalRef = this.modalService.open(CreatepackingComponent);
-    // modalRef.componentInstance.id = task.taskId; // should be the id
-    // modalRef.componentInstance.data = {
-    //   title: task.taskTitle,
-    //   message: task.taskMessage,
-    //   type: task.status,
-    // }; // should be the data
-
+    modalRef.componentInstance.id = 0; // should be the id
+    modalRef.componentInstance.data = { packName: this.packName }; // should be the data
     modalRef.result
       .then((result) => {
+        console.log(result);
         this.getPackings();
       })
       .catch((error) => {
@@ -113,6 +115,7 @@ export class AdditemComponent implements OnInit {
 
     modalRef.result
       .then((result) => {
+        this.packName = result;
         this.getPackings();
       })
       .catch((error) => {
@@ -120,14 +123,22 @@ export class AdditemComponent implements OnInit {
       });
   }
 
-  OnPackChange() {
-    console.log(this.selectedPack);
+  OnPackChange(event) {
+    console.log(event);
+    this.packName = event.term;
   }
 
   getPackings() {
+    console.log(this.packName);
     this._packService.getPacks().subscribe((ok) => {
       console.log(ok);
       this.packList = ok;
+      if (this.packName) {
+        this.selectedPack = this.packList.find(
+          (x) => x.packName === this.packName
+        ).id;
+        console.log(this.selectedPack);
+      }
     });
   }
   getManufacture() {
@@ -150,4 +161,12 @@ export class AdditemComponent implements OnInit {
       this.compList = ok;
     });
   }
+
+  getDiscountSlabs(){
+    this._discountService.getDisconts().subscribe((ok) => {
+      console.log(ok);
+      this.discountList = ok;
+    })
+  }
+
 }

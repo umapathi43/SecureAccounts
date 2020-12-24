@@ -14,7 +14,7 @@
                 <input
                   type="text"
                   id="hidden-label-form-1"
-                  class="form-control round"
+                  class="form-control"
                   name="cname"
                 />
               </div>
@@ -29,8 +29,8 @@
                   [(ngModel)]="selectedPack"
                   name="packn"
                   #packn="ngModel"
-                  (keyup.enter)="AddPack()"
-                  (search)="OnPackChange()"
+                  (keyup.enter)="AddPack($event)"
+                  (search)="OnPackChange($event)"
                   placeholder="No Packing selected"
                 >
                 </ng-select>
@@ -42,7 +42,7 @@
                 <input
                   type="number"
                   id="hidden-label-form-1"
-                  class="form-control round"
+                  class="form-control"
                   name="cname"
                 />
               </div>
@@ -59,7 +59,7 @@
                   #packn="ngModel"
                   (keyup.enter)="AddManf()"
                   (search)="OnPackChange()"
-                  placeholder="No Nfg selected"
+                  placeholder="No Mfg selected"
                 >
                 </ng-select>
               </div>
@@ -67,33 +67,35 @@
             <div class="col-md-4">
               <div class="form-group mb-2">
                 <label for="basic-form-6">Group</label>
-                <select
-                  id="basic-form-6"
-                  name="interested"
-                  class="form-control round"
+                <ng-select
+                  [items]="manfList"
+                  bindLabel="manufacturerName"
+                  bindValue="id"
+                  [(ngModel)]="selectedManf"
+                  name="packn"
+                  #packn="ngModel"
+                  (keyup.enter)="AddManf()"
+                  (search)="OnPackChange()"
+                  placeholder="No Group selected"
                 >
-                  <option value="none" selected disabled>Group</option>
-                  <option value="bank">bank</option>
-                  <option value="cash">cash</option>
-                  <option value="wallet">wallet</option>
-                  <option value="sundry debtors">sundry debtors</option>
-                </select>
+                </ng-select>
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group mb-2">
                 <label for="basic-form-6">Store Type</label>
-                <select
-                  id="basic-form-6"
-                  name="interested"
-                  class="form-control round"
+                <ng-select
+                  [items]="manfList"
+                  bindLabel="manufacturerName"
+                  bindValue="id"
+                  [(ngModel)]="selectedManf"
+                  name="packn"
+                  #packn="ngModel"
+                  (keyup.enter)="AddManf()"
+                  (search)="OnPackChange()"
+                  placeholder="No Store Type selected"
                 >
-                  <option value="none" selected disabled>Store Type</option>
-                  <option value="bank">bank</option>
-                  <option value="cash">cash</option>
-                  <option value="wallet">wallet</option>
-                  <option value="sundry debtors">sundry debtors</option>
-                </select>
+                </ng-select>
               </div>
             </div>
             <div class="col-md-4">
@@ -139,14 +141,14 @@
                 <input
                   type="number"
                   id="hidden-label-form-5"
-                  class="form-control round col-md-6"
+                  class="form-control col-md-6"
                   name="sname"
                   placeholder="Min Dis"
                 />
                 <input
                   type="number"
                   id="hidden-label-form-5"
-                  class="form-control round col-md-6"
+                  class="form-control col-md-6"
                   name="sname"
                   placeholder="Max Dis"
                 />
@@ -160,14 +162,14 @@
                 <input
                   type="number"
                   id="hidden-label-form-5"
-                  class="form-control round col-md-6"
+                  class="form-control col-md-6"
                   name="sname"
                   placeholder="min"
                 />
                 <input
                   type="number"
                   id="hidden-label-form-5"
-                  class="form-control round col-md-6"
+                  class="form-control col-md-6"
                   name="sname"
                   placeholder="max"
                 />
@@ -176,33 +178,35 @@
             <div class="col-md-4">
               <div class="form-group mb-2">
                 <label for="basic-form-6">GST</label>
-                <select
-                  id="basic-form-6"
-                  name="interested"
-                  class="form-control round"
+                <ng-select
+                  [items]="manfList"
+                  bindLabel="manufacturerName"
+                  bindValue="id"
+                  [(ngModel)]="selectedManf"
+                  name="packn"
+                  #packn="ngModel"
+                  (keyup.enter)="AddManf()"
+                  (search)="OnPackChange()"
+                  placeholder="No GST selected"
                 >
-                  <option value="none" selected disabled>gst</option>
-                  <option value="bank">bank</option>
-                  <option value="cash">cash</option>
-                  <option value="wallet">wallet</option>
-                  <option value="sundry debtors">sundry debtors</option>
-                </select>
+                </ng-select>
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group mb-2">
                 <label for="basic-form-6">HSN</label>
-                <select
-                  id="basic-form-6"
-                  name="interested"
-                  class="form-control round"
+                <ng-select
+                  [items]="manfList"
+                  bindLabel="manufacturerName"
+                  bindValue="id"
+                  [(ngModel)]="selectedManf"
+                  name="packn"
+                  #packn="ngModel"
+                  (keyup.enter)="AddManf()"
+                  (search)="OnPackChange()"
+                  placeholder="No HSN selected"
                 >
-                  <option value="none" selected disabled>HSN</option>
-                  <option value="bank">bank</option>
-                  <option value="cash">cash</option>
-                  <option value="wallet">wallet</option>
-                  <option value="sundry debtors">sundry debtors</option>
-                </select>
+                </ng-select>
               </div>
             </div>
             <div class="col-md-4">
@@ -211,7 +215,7 @@
                 <input
                   type="number"
                   id="hidden-label-form-5"
-                  class="form-control round"
+                  class="form-control"
                   name="sname"
                 />
               </div>
@@ -222,7 +226,7 @@
                 <input
                   type="number"
                   id="hidden-label-form-5"
-                  class="form-control round"
+                  class="form-control"
                   name="sname"
                 />
               </div>
@@ -233,7 +237,7 @@
                 <input
                   type="number"
                   id="hidden-label-form-5"
-                  class="form-control round"
+                  class="form-control"
                   name="sname"
                 />
               </div>
@@ -244,7 +248,7 @@
                 <input
                   type="number"
                   id="hidden-label-form-5"
-                  class="form-control round"
+                  class="form-control"
                   name="sname"
                 />
               </div>
@@ -252,17 +256,18 @@
             <div class="col-md-4">
               <div class="form-group mb-2">
                 <label for="basic-form-6">Discount Slab</label>
-                <select
-                  id="basic-form-6"
-                  name="interested"
-                  class="form-control round"
+                <ng-select
+                  [items]="discountList"
+                  bindLabel="discountSlabName"
+                  bindValue="id"
+                  [(ngModel)]="selectedManf"
+                  name="packn"
+                  #packn="ngModel"
+                  (keyup.enter)="AddManf()"
+                  (search)="OnPackChange()"
+                  placeholder="No Discount Slab selected"
                 >
-                  <option value="none" selected disabled>Discount Slab</option>
-                  <option value="bank">bank</option>
-                  <option value="cash">cash</option>
-                  <option value="wallet">wallet</option>
-                  <option value="sundry debtors">sundry debtors</option>
-                </select>
+                </ng-select>
               </div>
             </div>
           </div>
