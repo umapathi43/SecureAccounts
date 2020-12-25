@@ -11,6 +11,10 @@ import { AddscheduleComponent } from "app/schedule/addschedule/addschedule.compo
 import { CompositionService } from "app/services/composition.service";
 import { AddcompositionComponent } from "app/composition/addcomposition/addcomposition.component";
 import { DiscountslabService } from "app/services/discountslab.service";
+import { AdddiscountslabComponent } from "app/discountslab/adddiscountslab/adddiscountslab.component";
+import { HsnandsacService } from "app/services/hsnandsac.service";
+import { AddhsnsacComponent } from "app/hsnsac/addhsnsac/addhsnsac.component";
+import { UserService } from "app/services/user.service";
 @Component({
   selector: "app-additem",
   templateUrl: "./additem.component.html",
@@ -27,8 +31,14 @@ export class AdditemComponent implements OnInit {
   selectedSch: any;
   compList: any;
   selectedComp: any;
+  selectedDisc: any;
   packName: any;
   discountList: any;
+  discountSlabName: any;
+  hsnList: any;
+  selectedHSN: any;
+  hsnName: any;
+  gstTypeList: any;
   constructor(
     private _location: Location,
     private actRoute: ActivatedRoute,
@@ -37,7 +47,9 @@ export class AdditemComponent implements OnInit {
     private _manfService: ManufactureService,
     private _scheduleService: SchedulerService,
     private _compositionService: CompositionService,
-    private _discountService: DiscountslabService
+    private _discountService: DiscountslabService,
+    private _hsnService: HsnandsacService,
+    private _userService: UserService
   ) {
     this.CustomeId = this.actRoute.snapshot.params.id;
     console.log(this.CustomeId);
@@ -49,12 +61,20 @@ export class AdditemComponent implements OnInit {
     this.getSchedules();
     this.getComposition();
     this.getDiscountSlabs();
+    this.getHsns();
+    this.getGstTpes();
+  }
+
+  getGstTpes() {
+    this._userService.getGstTypes().subscribe((ok) => {
+      console.log("GST TYPES >>", ok);
+      this.gstTypeList = ok;
+    });
   }
   goBack() {
     this._location.back();
   }
-  AddPack(event) {
-    console.log(event);
+  AddPack() {
     const modalRef = this.modalService.open(CreatepackingComponent);
     modalRef.componentInstance.id = 0; // should be the id
     modalRef.componentInstance.data = { packName: this.packName }; // should be the data
@@ -62,6 +82,38 @@ export class AdditemComponent implements OnInit {
       .then((result) => {
         console.log(result);
         this.getPackings();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  AddDiscountSlab() {
+    const modalRef = this.modalService.open(AdddiscountslabComponent);
+    modalRef.componentInstance.id = 0; // should be the id
+    modalRef.componentInstance.data = {
+      discountSlabName: this.discountSlabName,
+    }; // should be the data
+    modalRef.result
+      .then((result) => {
+        console.log(result);
+        this.getDiscountSlabs();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  Addhsn() {
+    const modalRef = this.modalService.open(AddhsnsacComponent);
+    modalRef.componentInstance.id = 0; // should be the id
+    modalRef.componentInstance.data = {
+      hsnName: this.hsnName,
+    }; // should be the data
+    modalRef.result
+      .then((result) => {
+        console.log(result);
+        this.getHsns();
       })
       .catch((error) => {
         console.log(error);
@@ -128,6 +180,16 @@ export class AdditemComponent implements OnInit {
     this.packName = event.term;
   }
 
+  OnDiscChange(event) {
+    console.log(event);
+    this.discountSlabName = event.term;
+  }
+
+  OnHsnChange(event) {
+    console.log(event);
+    this.hsnName = event.term;
+  }
+
   getPackings() {
     console.log(this.packName);
     this._packService.getPacks().subscribe((ok) => {
@@ -162,11 +224,29 @@ export class AdditemComponent implements OnInit {
     });
   }
 
-  getDiscountSlabs(){
+  getDiscountSlabs() {
     this._discountService.getDisconts().subscribe((ok) => {
       console.log(ok);
       this.discountList = ok;
-    })
+      if (this.discountSlabName) {
+        this.selectedDisc = this.discountList.find(
+          (x) => x.discountSlabName === this.discountSlabName
+        ).id;
+        console.log(this.selectedDisc);
+      }
+    });
   }
 
+  getHsns() {
+    this._hsnService.getHSNs().subscribe((ok) => {
+      console.log(ok);
+      this.hsnList = ok;
+      if (this.hsnName) {
+        this.selectedHSN = this.hsnList.find(
+          (x) => x.hsnName === this.hsnName
+        ).id;
+        console.log(this.selectedHSN);
+      }
+    });
+  }
 }

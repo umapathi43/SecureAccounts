@@ -29,7 +29,7 @@
                   [(ngModel)]="selectedPack"
                   name="packn"
                   #packn="ngModel"
-                  (keyup.enter)="AddPack($event)"
+                  (keyup.enter)="AddPack()"
                   (search)="OnPackChange($event)"
                   placeholder="No Packing selected"
                 >
@@ -58,7 +58,7 @@
                   name="packn"
                   #packn="ngModel"
                   (keyup.enter)="AddManf()"
-                  (search)="OnPackChange()"
+                  (search)="OnPackChange($event)"
                   placeholder="No Mfg selected"
                 >
                 </ng-select>
@@ -75,7 +75,7 @@
                   name="packn"
                   #packn="ngModel"
                   (keyup.enter)="AddManf()"
-                  (search)="OnPackChange()"
+                  (search)="OnPackChange($event)"
                   placeholder="No Group selected"
                 >
                 </ng-select>
@@ -92,7 +92,7 @@
                   name="packn"
                   #packn="ngModel"
                   (keyup.enter)="AddManf()"
-                  (search)="OnPackChange()"
+                  (search)="OnPackChange($event)"
                   placeholder="No Store Type selected"
                 >
                 </ng-select>
@@ -109,7 +109,7 @@
                   name="packn"
                   #packn="ngModel"
                   (keyup.enter)="AddSch()"
-                  (search)="OnPackChange()"
+                  (search)="OnPackChange($event)"
                   placeholder="No Schedule selected"
                 >
                 </ng-select>
@@ -126,7 +126,7 @@
                   name="packn"
                   #packn="ngModel"
                   (keyup.enter)="AddComp()"
-                  (search)="OnPackChange()"
+                  (search)="OnPackChange($event)"
                   placeholder="No Composition selected"
                 >
                 </ng-select>
@@ -179,14 +179,12 @@
               <div class="form-group mb-2">
                 <label for="basic-form-6">GST</label>
                 <ng-select
-                  [items]="manfList"
-                  bindLabel="manufacturerName"
+                  [items]="gstTypeList"
+                  bindLabel="gstTypeName"
                   bindValue="id"
                   [(ngModel)]="selectedManf"
-                  name="packn"
-                  #packn="ngModel"
-                  (keyup.enter)="AddManf()"
-                  (search)="OnPackChange()"
+                  name="gstn"
+                  #gstn="ngModel"
                   placeholder="No GST selected"
                 >
                 </ng-select>
@@ -196,14 +194,14 @@
               <div class="form-group mb-2">
                 <label for="basic-form-6">HSN</label>
                 <ng-select
-                  [items]="manfList"
-                  bindLabel="manufacturerName"
+                  [items]="hsnList"
+                  bindLabel="hsnName"
                   bindValue="id"
-                  [(ngModel)]="selectedManf"
-                  name="packn"
-                  #packn="ngModel"
-                  (keyup.enter)="AddManf()"
-                  (search)="OnPackChange()"
+                  [(ngModel)]="selectedHSN"
+                  name="hsnn"
+                  #hsnn="ngModel"
+                  (keyup.enter)="Addhsn()"
+                  (search)="OnHsnChange($event)"
                   placeholder="No HSN selected"
                 >
                 </ng-select>
@@ -260,11 +258,11 @@
                   [items]="discountList"
                   bindLabel="discountSlabName"
                   bindValue="id"
-                  [(ngModel)]="selectedManf"
-                  name="packn"
-                  #packn="ngModel"
-                  (keyup.enter)="AddManf()"
-                  (search)="OnPackChange()"
+                  [(ngModel)]="selectedDisc"
+                  name="discn"
+                  #discn="ngModel"
+                  (keyup.enter)="AddDiscountSlab()"
+                  (search)="OnDiscChange($event)"
                   placeholder="No Discount Slab selected"
                 >
                 </ng-select>

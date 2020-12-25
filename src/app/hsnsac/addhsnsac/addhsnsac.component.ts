@@ -1,8 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { HsnandsacService } from "app/services/hsnandsac.service";
 import { Location } from "@angular/common";
 import { ToastrService } from "ngx-toastr";
+import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 export class HsnSac {
   public id: number;
   public hsnName: string;
@@ -16,11 +17,15 @@ export class HsnSac {
 export class AddhsnsacComponent implements OnInit {
   CustomeId: any;
   model = new HsnSac();
+  @Input() id: number;
+  @Input() data: any;
+  isModal: boolean;
   constructor(
     private _location: Location,
     private actRoute: ActivatedRoute,
     private toastr: ToastrService,
-    private _hsnService: HsnandsacService
+    private _hsnService: HsnandsacService,
+    public activeModal: NgbActiveModal
   ) {
     this.CustomeId = this.actRoute.snapshot.params.id;
     console.log(this.CustomeId);
@@ -29,9 +34,19 @@ export class AddhsnsacComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.id == 0) {
+      this.isModal = true;
+      console.log(this.data);
+      this.model.hsnName = this.data.hsnName;
+    }
+  }
   goBack() {
-    this._location.back();
+    if (this.isModal) {
+      this.activeModal.close(this.model.hsnName);
+    } else {
+      this._location.back();
+    }
   }
 
   onSubmit(form: any) {
@@ -43,7 +58,11 @@ export class AddhsnsacComponent implements OnInit {
       console.log(ok);
       if (ok == "OK") {
         this.toastr.success("Success", "HSN Added");
-        this._location.back();
+        if (this.isModal) {
+          this.activeModal.close(this.model.hsnName);
+        } else {
+          this._location.back();
+        }
       } else {
         this.toastr.error("Failed", "Failed to add HSN");
       }
