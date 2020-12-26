@@ -1,8 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
 import { SchedulerService } from "app/services/scheduler.service";
 import { ToastrService } from "ngx-toastr";
+import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 export class Schedule {
   public schedulerName: string;
   public waringMsg: any;
@@ -18,11 +19,15 @@ export class AddscheduleComponent implements OnInit {
   model = new Schedule();
   CustomeId: any;
   warningList: any;
+  @Input() id: number;
+  @Input() data: any;
+  isModal: boolean;
   constructor(
     private _location: Location,
     private actRoute: ActivatedRoute,
     private toastr: ToastrService,
-    private _scheduleService: SchedulerService
+    private _scheduleService: SchedulerService,
+    public activeModal: NgbActiveModal
   ) {
     this.CustomeId = this.actRoute.snapshot.params.id;
     console.log(this.CustomeId);
@@ -33,9 +38,18 @@ export class AddscheduleComponent implements OnInit {
 
   ngOnInit(): void {
     this.getWarningDetails();
+    if (this.id == 0) {
+      this.isModal = true;
+      console.log(this.data);
+      this.model.schedulerName = this.data.schedulerName;
+    }
   }
   goBack() {
-    this._location.back();
+    if (this.isModal) {
+      this.activeModal.close(this.model.schedulerName);
+    } else {
+      this._location.back();
+    }
   }
 
   getWarningDetails() {
@@ -52,7 +66,11 @@ export class AddscheduleComponent implements OnInit {
       console.log(ok);
       if (ok == "OK") {
         this.toastr.success("Success", "Schedule Added");
-        this._location.back();
+        if (this.isModal) {
+          this.activeModal.close(this.model.schedulerName);
+        } else {
+          this._location.back();
+        }
       } else {
         this.toastr.error("Failed", "Failed to update Schedule");
       }

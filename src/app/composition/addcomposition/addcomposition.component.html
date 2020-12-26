@@ -1,3 +1,14 @@
+<div class="modal-header" *ngIf="isModal">
+  <h4 class="modal-title">Add Composition</h4>
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="activeModal.dismiss('Cross click')"
+  >
+    x
+  </button>
+</div>
 <div class="col-lg-12 col-12">
   <div class="card">
     <div class="card-header">

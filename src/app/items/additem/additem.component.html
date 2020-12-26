@@ -5,7 +5,7 @@
       <h4 class="card-title" *ngIf="CustomeId">Edit Item</h4>
     </div>
     <div class="card-content">
-      <div class="card-body">
+      <div class="card-body" id="frmcard">
         <form #itmForm="ngForm">
           <div class="row">
             <div class="col-md-6">
@@ -29,8 +29,6 @@
                   [(ngModel)]="selectedPack"
                   name="packn"
                   #packn="ngModel"
-                  (keyup.enter)="AddPack()"
-                  (search)="OnPackChange($event)"
                   placeholder="No Packing selected"
                 >
                 </ng-select>
@@ -55,10 +53,10 @@
                   bindLabel="manufacturerName"
                   bindValue="id"
                   [(ngModel)]="selectedManf"
-                  name="packn"
-                  #packn="ngModel"
+                  name="mafnn"
+                  #mafnnn="ngModel"
                   (keyup.enter)="AddManf()"
-                  (search)="OnPackChange($event)"
+                  (search)="OnManfChange($event)"
                   placeholder="No Mfg selected"
                 >
                 </ng-select>
@@ -68,14 +66,14 @@
               <div class="form-group mb-2">
                 <label for="basic-form-6">Group</label>
                 <ng-select
-                  [items]="manfList"
-                  bindLabel="manufacturerName"
+                  [items]="grpList"
+                  bindLabel="groupName"
                   bindValue="id"
-                  [(ngModel)]="selectedManf"
+                  [(ngModel)]="selectedGrp"
                   name="packn"
                   #packn="ngModel"
-                  (keyup.enter)="AddManf()"
-                  (search)="OnPackChange($event)"
+                  (keyup.enter)="AddGrp()"
+                  (search)="OnGrpChange($event)"
                   placeholder="No Group selected"
                 >
                 </ng-select>
@@ -85,14 +83,14 @@
               <div class="form-group mb-2">
                 <label for="basic-form-6">Store Type</label>
                 <ng-select
-                  [items]="manfList"
-                  bindLabel="manufacturerName"
+                  [items]="strTypeList"
+                  bindLabel="storeTypeName"
                   bindValue="id"
-                  [(ngModel)]="selectedManf"
+                  [(ngModel)]="selectedStrtype"
                   name="packn"
                   #packn="ngModel"
-                  (keyup.enter)="AddManf()"
-                  (search)="OnPackChange($event)"
+                  (keyup.enter)="AddStrType()"
+                  (search)="OnStrTypeChange($event)"
                   placeholder="No Store Type selected"
                 >
                 </ng-select>
@@ -109,7 +107,7 @@
                   name="packn"
                   #packn="ngModel"
                   (keyup.enter)="AddSch()"
-                  (search)="OnPackChange($event)"
+                  (search)="OnSchChange($event)"
                   placeholder="No Schedule selected"
                 >
                 </ng-select>
@@ -123,10 +121,10 @@
                   bindLabel="cName"
                   bindValue="id"
                   [(ngModel)]="selectedComp"
-                  name="packn"
-                  #packn="ngModel"
+                  name="cmpn"
+                  #cmpn="ngModel"
                   (keyup.enter)="AddComp()"
-                  (search)="OnPackChange($event)"
+                  (search)="OnCmpChange($event)"
                   placeholder="No Composition selected"
                 >
                 </ng-select>

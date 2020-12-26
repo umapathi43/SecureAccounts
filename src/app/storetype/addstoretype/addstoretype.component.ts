@@ -1,8 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
 import { StoretypeService } from "app/services/storetype.service";
 import { ToastrService } from "ngx-toastr";
+import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 export class storeType {
   public storeTypeName: string;
   public id: number;
@@ -15,11 +16,15 @@ export class storeType {
 export class AddstoretypeComponent implements OnInit {
   CustomeId: any;
   model = new storeType();
+  @Input() id: number;
+  @Input() data: any;
+  isModal: boolean;
   constructor(
     private _location: Location,
     private actRoute: ActivatedRoute,
     private _storeService: StoretypeService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    public activeModal: NgbActiveModal
   ) {
     this.CustomeId = this.actRoute.snapshot.params.id;
     console.log(this.CustomeId);
@@ -28,9 +33,19 @@ export class AddstoretypeComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.id == 0) {
+      this.isModal = true;
+      console.log(this.data);
+      this.model.storeTypeName = this.data.storeTypeName;
+    }
+  }
   goBack() {
-    this._location.back();
+    if (this.isModal) {
+      this.activeModal.close(this.model.storeTypeName);
+    } else {
+      this._location.back();
+    }
   }
   onSubmit(form: any) {
     console.log("clicked");
@@ -41,7 +56,11 @@ export class AddstoretypeComponent implements OnInit {
       console.log(ok);
       if (ok == "OK") {
         this.toastr.success("Success", "Storetype Added");
-        this._location.back();
+        if (this.isModal) {
+          this.activeModal.close(this.model.storeTypeName);
+        } else {
+          this._location.back();
+        }
       } else {
         this.toastr.error("Failed", "Failed to update Storetype");
       }

@@ -15,6 +15,10 @@ import { AdddiscountslabComponent } from "app/discountslab/adddiscountslab/adddi
 import { HsnandsacService } from "app/services/hsnandsac.service";
 import { AddhsnsacComponent } from "app/hsnsac/addhsnsac/addhsnsac.component";
 import { UserService } from "app/services/user.service";
+import { GroupService } from "app/services/group.service";
+import { AddgroupComponent } from "app/group/addgroup/addgroup.component";
+import { AddstoretypeComponent } from "app/storetype/addstoretype/addstoretype.component";
+import { StoretypeService } from "app/services/storetype.service";
 @Component({
   selector: "app-additem",
   templateUrl: "./additem.component.html",
@@ -39,6 +43,15 @@ export class AdditemComponent implements OnInit {
   selectedHSN: any;
   hsnName: any;
   gstTypeList: any;
+  manufacturerName: any;
+  selectedGrp: any;
+  grpList: any;
+  groupName: any;
+  storeTypeName: any;
+  strTypeList: any;
+  selectedStrtype: any;
+  schedulerName: any;
+  cName: any;
   constructor(
     private _location: Location,
     private actRoute: ActivatedRoute,
@@ -49,7 +62,9 @@ export class AdditemComponent implements OnInit {
     private _compositionService: CompositionService,
     private _discountService: DiscountslabService,
     private _hsnService: HsnandsacService,
-    private _userService: UserService
+    private _userService: UserService,
+    private _grpService: GroupService,
+    private _strService: StoretypeService
   ) {
     this.CustomeId = this.actRoute.snapshot.params.id;
     console.log(this.CustomeId);
@@ -63,6 +78,8 @@ export class AdditemComponent implements OnInit {
     this.getDiscountSlabs();
     this.getHsns();
     this.getGstTpes();
+    this.getGroups();
+    this.getStoreTypes();
   }
 
   getGstTpes() {
@@ -70,6 +87,72 @@ export class AdditemComponent implements OnInit {
       console.log("GST TYPES >>", ok);
       this.gstTypeList = ok;
     });
+  }
+
+  getGroups() {
+    this._grpService.getGroups().subscribe((ok) => {
+      console.log("GroupList >>", ok);
+      this.grpList = ok;
+      if (this.packName) {
+        this.selectedGrp = this.grpList.find(
+          (x) => x.groupName === this.groupName
+        ).id;
+        document.getElementById("frmcard").click();
+        console.log(this.selectedPack);
+      }
+    });
+  }
+
+  AddGrp() {
+    const modalRef = this.modalService.open(AddgroupComponent);
+    modalRef.componentInstance.id = 0; // should be the id
+    modalRef.componentInstance.data = { groupName: this.groupName }; // should be the data
+    modalRef.result
+      .then((result) => {
+        console.log(result);
+        this.getGroups();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  OnGrpChange(event) {
+    console.log(event);
+    this.groupName = event.term;
+  }
+
+  getStoreTypes() {
+    this._strService.getStoreTypes().subscribe((ok) => {
+      console.log("store types >>", ok);
+      this.strTypeList = ok;
+      if (this.storeTypeName) {
+        this.selectedStrtype = this.strTypeList.find(
+          (x) => x.storeTypeName === this.storeTypeName
+        ).id;
+        document.getElementById("frmcard").click();
+        console.log(this.selectedStrtype);
+      }
+    });
+  }
+
+  AddStrType() {
+    const modalRef = this.modalService.open(AddstoretypeComponent);
+    modalRef.componentInstance.id = 0; // should be the id
+    modalRef.componentInstance.data = { storeTypeName: this.storeTypeName }; // should be the data
+    modalRef.result
+      .then((result) => {
+        console.log(result);
+        this.getStoreTypes();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  OnStrTypeChange(event) {
+    console.log(event);
+    this.storeTypeName = event.term;
   }
   goBack() {
     this._location.back();
@@ -122,16 +205,14 @@ export class AdditemComponent implements OnInit {
 
   AddManf() {
     const modalRef = this.modalService.open(AddmanufacturerComponent);
-    // modalRef.componentInstance.id = task.taskId; // should be the id
-    // modalRef.componentInstance.data = {
-    //   title: task.taskTitle,
-    //   message: task.taskMessage,
-    //   type: task.status,
-    // }; // should be the data
-
+    modalRef.componentInstance.id = 0; // should be the id
+    modalRef.componentInstance.data = {
+      manufacturerName: this.manufacturerName,
+    }; // should be the data
     modalRef.result
       .then((result) => {
-        this.getPackings();
+        console.log(result);
+        this.getManufacture();
       })
       .catch((error) => {
         console.log(error);
@@ -140,16 +221,14 @@ export class AdditemComponent implements OnInit {
 
   AddSch() {
     const modalRef = this.modalService.open(AddscheduleComponent);
-    // modalRef.componentInstance.id = task.taskId; // should be the id
-    // modalRef.componentInstance.data = {
-    //   title: task.taskTitle,
-    //   message: task.taskMessage,
-    //   type: task.status,
-    // }; // should be the data
+    modalRef.componentInstance.id = 0; // should be the id
+    modalRef.componentInstance.data = {
+      schedulerName: this.schedulerName,
+    };
 
     modalRef.result
       .then((result) => {
-        this.getPackings();
+        this.getSchedules();
       })
       .catch((error) => {
         console.log(error);
@@ -158,17 +237,15 @@ export class AdditemComponent implements OnInit {
 
   AddComp() {
     const modalRef = this.modalService.open(AddcompositionComponent);
-    // modalRef.componentInstance.id = task.taskId; // should be the id
-    // modalRef.componentInstance.data = {
-    //   title: task.taskTitle,
-    //   message: task.taskMessage,
-    //   type: task.status,
-    // }; // should be the data
+    modalRef.componentInstance.id = 0; // should be the id
+    modalRef.componentInstance.data = {
+      cName: this.cName,
+    };
 
     modalRef.result
       .then((result) => {
-        this.packName = result;
-        this.getPackings();
+        this.cName = result;
+        this.getComposition();
       })
       .catch((error) => {
         console.log(error);
@@ -190,6 +267,21 @@ export class AdditemComponent implements OnInit {
     this.hsnName = event.term;
   }
 
+  OnManfChange(event) {
+    console.log(event);
+    this.manufacturerName = event.term;
+  }
+
+  OnSchChange(event) {
+    console.log(event);
+    this.schedulerName = event.term;
+  }
+
+  OnCmpChange(event) {
+    console.log(event);
+    this.cName = event.term;
+  }
+
   getPackings() {
     console.log(this.packName);
     this._packService.getPacks().subscribe((ok) => {
@@ -207,6 +299,13 @@ export class AdditemComponent implements OnInit {
     this._manfService.getManufactures().subscribe((ok) => {
       console.log(ok);
       this.manfList = ok;
+      if (this.manufacturerName) {
+        this.selectedManf = this.manfList.find(
+          (x) => x.manufacturerName === this.manufacturerName
+        ).id;
+        document.getElementById("frmcard").click();
+        console.log(this.selectedManf);
+      }
     });
   }
 
@@ -214,6 +313,13 @@ export class AdditemComponent implements OnInit {
     this._scheduleService.getSchedulers().subscribe((ok) => {
       console.log(ok);
       this.schList = ok;
+      if (this.schedulerName) {
+        this.selectedSch = this.schList.find(
+          (x) => x.schedulerName === this.schedulerName
+        ).id;
+        document.getElementById("frmcard").click();
+        console.log(this.selectedSch);
+      }
     });
   }
 
@@ -221,6 +327,13 @@ export class AdditemComponent implements OnInit {
     this._compositionService.getCompositions().subscribe((ok) => {
       console.log(ok);
       this.compList = ok;
+      if (this.cName) {
+        this.selectedComp = this.compList.find(
+          (x) => x.cName === this.cName
+        ).id;
+        document.getElementById("frmcard").click();
+        console.log(this.selectedSch);
+      }
     });
   }
 

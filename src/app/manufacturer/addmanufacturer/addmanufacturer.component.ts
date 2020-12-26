@@ -1,8 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
 import { ManufactureService } from "app/services/manufacture.service";
 import { ToastrService } from "ngx-toastr";
+import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 export class Manufacturer {
   public id: number;
   public manufacturerName: string;
@@ -15,11 +16,15 @@ export class Manufacturer {
 export class AddmanufacturerComponent implements OnInit {
   CustomeId: any;
   model = new Manufacturer();
+  @Input() id: number;
+  @Input() data: any;
+  isModal: boolean;
   constructor(
     private _location: Location,
     private actRoute: ActivatedRoute,
     private _manfService: ManufactureService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    public activeModal: NgbActiveModal
   ) {
     this.CustomeId = this.actRoute.snapshot.params.id;
     console.log(this.CustomeId);
@@ -28,9 +33,19 @@ export class AddmanufacturerComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.id == 0) {
+      this.isModal = true;
+      console.log(this.data);
+      this.model.manufacturerName = this.data.manufacturerName;
+    }
+  }
   goBack() {
-    this._location.back();
+    if (this.isModal) {
+      this.activeModal.close(this.model.manufacturerName);
+    } else {
+      this._location.back();
+    }
   }
   onSubmit(form: any) {
     console.log("clicked");
@@ -41,7 +56,11 @@ export class AddmanufacturerComponent implements OnInit {
       console.log(ok);
       if (ok == "OK") {
         this.toastr.success("Success", "Stock Updated");
-        this._location.back();
+        if (this.isModal) {
+          this.activeModal.close(this.model.manufacturerName);
+        } else {
+          this._location.back();
+        }
       } else {
         this.toastr.error("Failed", "Failed to update Stock");
       }
