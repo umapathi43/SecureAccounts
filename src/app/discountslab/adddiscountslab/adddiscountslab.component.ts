@@ -1,4 +1,9 @@
-import { Component, Input, OnInit } from "@angular/core";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
 import { DiscountslabService } from "app/services/discountslab.service";
@@ -16,6 +21,7 @@ export class DiscountSlab {
   selector: "app-adddiscountslab",
   templateUrl: "./adddiscountslab.component.html",
   styleUrls: ["./adddiscountslab.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AdddiscountslabComponent implements OnInit {
   CustomeId: any;

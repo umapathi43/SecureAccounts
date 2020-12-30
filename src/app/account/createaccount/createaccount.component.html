@@ -4,9 +4,9 @@
       <h4 class="card-title" *ngIf="!CustomeId">Add Account</h4>
       <h4 class="card-title" *ngIf="CustomeId">Edit Account</h4>
     </div>
-    <div class="card-content">
+    <div class="card-content" id="frmcard">
       <div class="card-body">
-        <form>
+        <form #account="ngForm">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
@@ -16,6 +16,9 @@
                   id="hidden-label-form-1"
                   class="form-control round"
                   name="cname"
+                  [(ngModel)]="model.actName"
+                  #cname="ngModel"
+                  required
                 />
               </div>
 
@@ -23,28 +26,38 @@
                 <label for="basic-form-6">Account Head</label>
                 <select
                   id="basic-form-6"
-                  name="interested"
+                  name="group"
                   class="form-control round"
+                  [(ngModel)]="model.actGroup"
+                  #group="ngModel"
+                  required
                 >
                   <option value="none" selected disabled>Account Head</option>
-                  <option value="design">asset</option>
-                  <option value="development">liability</option>
-                  <option value="development">income</option>
-                  <option value="development">expenses</option>
+                  <option
+                    *ngFor="let item of accHeadArray"
+                    value="{{ item.accountHeadName }}"
+                  >
+                    {{ item.accountHeadName }}
+                  </option>
                 </select>
               </div>
               <div class="form-group mb-2">
                 <label for="basic-form-6">Account Type</label>
                 <select
                   id="basic-form-6"
-                  name="interested"
+                  name="tye"
                   class="form-control round"
+                  [(ngModel)]="model.actType"
+                  #type="ngModel"
+                  required
                 >
                   <option value="none" selected disabled>Account Type</option>
-                  <option value="bank">bank</option>
-                  <option value="cash">cash</option>
-                  <option value="wallet">wallet</option>
-                  <option value="sundry debtors">sundry debtors</option>
+                  <option
+                    *ngFor="let item of accTypeArray"
+                    value="{{ item.accountTypeName }}"
+                  >
+                    {{ item.accountTypeName }}
+                  </option>
                 </select>
               </div>
             </div>
@@ -56,7 +69,10 @@
                   type="number"
                   id="hidden-label-form-5"
                   class="form-control round"
-                  name="sname"
+                  name="balance"
+                  [(ngModel)]="model.openingBal"
+                  #balance="ngModel"
+                  required
                 />
               </div>
               <div class="form-group">
@@ -66,9 +82,11 @@
                     class="form-control round"
                     placeholder="yyyy-mm-dd"
                     name="dp"
+                    #dp="ngModel"
                     [(ngModel)]="popupModel"
                     ngbDatepicker
                     #d2="ngbDatepicker"
+                    required
                   />
                   <div class="input-group-append">
                     <div class="input-group-text" (click)="d2.toggle()">
@@ -78,8 +96,21 @@
                 </div>
               </div>
             </div>
-            <button type="button" class="btn btn-primary mr-2">
+            <button
+              type="button"
+              class="btn btn-primary mr-2"
+              *ngIf="!CustomeId"
+              (click)="createAcount()"
+            >
               <i class="ft-check-square mr-1"></i>Save
+            </button>
+            <button
+              type="button"
+              *ngIf="CustomeId"
+              class="btn btn-primary mr-2"
+              (click)="onUpdate(account)"
+            >
+              Update
             </button>
             <button type="button" class="btn btn-secondary" (click)="goBack()">
               <i class="ft-x mr-1"></i>Cancel

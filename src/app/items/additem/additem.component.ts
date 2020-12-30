@@ -30,6 +30,7 @@ export class AdditemComponent implements OnInit {
   packList: any;
   selectedPack: any;
   selectedManf: any;
+  selectedGST: any;
   manfList: any;
   schList: any;
   selectedSch: any;

@@ -1,8 +1,11 @@
+import { AccountService } from "./../services/account.service";
 import { Component, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
 import { DatatableComponent, ColumnMode } from "@swimlane/ngx-datatable";
 import swal from "sweetalert2";
 import * as xlsx from "xlsx";
 import * as FileSaver from "file-saver";
+import { NgxSpinnerService } from "ngx-spinner";
+
 declare var jsPDF: any;
 
 @Component({
@@ -42,19 +45,22 @@ export class AccountComponent implements OnInit {
   }
   // column header
   public columns = [
-    { name: "ID", prop: "ID" },
-    { name: "Name", prop: "Name" },
-    { name: "AccountHead", prop: "AccountHead" },
-    { name: "AccountType", prop: "AccountType" },
-    { name: "OpeningBalanceDate", prop: "OpeningBalanceDate" },
-    { name: "OpeningBalance", prop: "OpeningBalance" },
+    { name: "ID", prop: "id" },
+    { name: "Name", prop: "actName" },
+    { name: "AccountHead", prop: "actGroup" },
+    { name: "AccountType", prop: "actType" },
+    { name: "OpeningBalanceDate", prop: "openingBalDate" },
+    { name: "OpeningBalance", prop: "openingBal" },
     { name: "Actions", prop: "Actions" },
   ];
 
   // private
   private tempData = [];
 
-  constructor() {
+  constructor(
+    public account_service: AccountService,
+    private spinner: NgxSpinnerService
+  ) {
     this.tempData = this.rows;
   }
 
@@ -88,7 +94,8 @@ export class AccountComponent implements OnInit {
   updateLimit(limit) {
     this.limitRef = limit.target.value;
   }
-  Confirm() {
+  Confirm(data: any) {
+    let that = this;
     swal
       .fire({
         title: "Are you sure?",
@@ -106,13 +113,20 @@ export class AccountComponent implements OnInit {
       })
       .then(function (result) {
         if (result.value) {
-          swal.fire({
-            icon: "success",
-            title: "Deleted!",
-            text: "Your record has been deleted.",
-            customClass: {
-              confirmButton: "btn btn-success",
-            },
+          const dta = {
+            id: data,
+          };
+          that.account_service.deleteAccountById(dta).subscribe((ok) => {
+            console.log(ok);
+            swal.fire({
+              icon: "success",
+              title: "Deleted!",
+              text: "Your record has been deleted.",
+              customClass: {
+                confirmButton: "btn btn-success",
+              },
+            });
+            that.getAccountdetails();
           });
         } else if (result.dismiss === swal.DismissReason.cancel) {
           swal.fire({
@@ -127,12 +141,24 @@ export class AccountComponent implements OnInit {
       });
   }
   ngOnInit(): void {
+    this.getAccountdetails();
     this.exportColumns = this.columns.map((col) => ({
       title: col.name,
       dataKey: col.prop,
     }));
   }
-
+  getAccountdetails() {
+    this.spinner.show(undefined, {
+      type: "ball-triangle-path",
+      size: "medium",
+    });
+    this.account_service.getAccounts().subscribe((ok) => {
+      this.rows = ok;
+      this.tempData = this.rows;
+      this.table.element.click();
+      this.spinner.hide();
+    });
+  }
   exportPdf() {
     let doc = new jsPDF("l", "pt");
     doc.autoTable(this.exportColumns, this.rows);

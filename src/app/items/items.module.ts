@@ -16,7 +16,7 @@ import { NgSelectModule } from "@ng-select/ng-select";
     ItemsRoutingModule,
     NgxDatatableModule,
     NgbModule,
-    NgSelectModule
+    NgSelectModule,
   ],
 })
 export class ItemsModule {}

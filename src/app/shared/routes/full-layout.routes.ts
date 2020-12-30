@@ -103,8 +103,15 @@ export const Full_ROUTES: Routes = [
       import("../../packing/packing.module").then((m) => m.PackingModule),
   },
   {
-    path: "purchase",
+    path: "purchase-entry",
     loadChildren: () =>
       import("../../purchase/purchase.module").then((m) => m.PurchaseModule),
+  },
+  {
+    path: "payment-entry",
+    loadChildren: () =>
+      import("../../paymententry/paymententry.module").then(
+        (m) => m.PaymententryModule
+      ),
   },
 ];
