@@ -114,4 +114,18 @@ export const Full_ROUTES: Routes = [
         (m) => m.PaymententryModule
       ),
   },
+  {
+    path: "purchase-order",
+    loadChildren: () =>
+      import("../../purchase-order/purchase-order.module").then(
+        (m) => m.PurchaseOrderModule
+      ),
+  },
+  {
+    path: "order-generation",
+    loadChildren: () =>
+      import("../../order-generation/order-generation.module").then(
+        (m) => m.OrderGenerationModule
+      ),
+  },
 ];
