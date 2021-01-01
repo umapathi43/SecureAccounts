@@ -128,4 +128,18 @@ export const Full_ROUTES: Routes = [
         (m) => m.OrderGenerationModule
       ),
   },
+  {
+    path: "opening-stock-entry",
+    loadChildren: () =>
+      import("../../opening-stock-entry/opening-stock-entry.module").then(
+        (m) => m.OpeningStockEntryModule
+      ),
+  },
+  {
+    path: "batch-details",
+    loadChildren: () =>
+      import("../../batch-details/batch-details.module").then(
+        (m) => m.BatchDetailsModule
+      ),
+  },
 ];

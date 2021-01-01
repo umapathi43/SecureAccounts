@@ -1,0 +1,89 @@
+<section id="tooltip-validation">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+            <form
+              class="needs-validation"
+              #orderForm="ngForm"
+              (ngSubmit)="orderForm.form.valid && onSubmit(orderForm)"
+            >
+              <div class="form-row">
+                <div class="col-md-4 mb-1 form-group">
+                  <label for="validationTooltip01">Select Iteam</label>
+                  <select
+                    name="fname"
+                    class="form-control round"
+                    id="validationTooltip01"
+                    [(ngModel)]="model.orderDate"
+                    #fname="ngModel"
+                    [ngClass]="{
+                      'is-invalid': orderForm.submitted && fname.invalid,
+                      'is-valid': orderForm.submitted && !fname.invalid
+                    }"
+                    required
+                  >
+                    <option value="10">Select Iteam</option>
+                  </select>
+                  <div
+                    *ngIf="orderForm.submitted && !fname.errors?.required"
+                    class="valid-tooltip"
+                  >
+                    Looks good!
+                  </div>
+                </div>
+
+                <div class="col-md-4 mb-1 form-group">
+                  <label for="validationTooltip01">Select Batch</label>
+                  <select
+                    name="fname"
+                    class="form-control round"
+                    id="validationTooltip01"
+                    [(ngModel)]="model.orderDate"
+                    #fname="ngModel"
+                    [ngClass]="{
+                      'is-invalid': orderForm.submitted && fname.invalid,
+                      'is-valid': orderForm.submitted && !fname.invalid
+                    }"
+                    required
+                  >
+                    <option value="10">Select Batch</option>
+                  </select>
+                </div>
+                <div class="col-md-4 mb-1 mt-3 form-group">
+                  <label for="validationTooltip01">Quantity Per Pack</label>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col-md-4 mb-1 form-group">
+                  <label for="validationTooltip01">Batch No</label>
+                </div>
+                <div class="col-md-4 mb-1 form-group">
+                  <label for="validationTooltip01">Expiry</label>
+                </div>
+                <div class="col-md-4 mb-1 form-group">
+                  <label for="validationTooltip01">MRP</label>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col-md-4 mb-1 form-group">
+                  <label for="validationTooltip01">Purchase Rate</label>
+                </div>
+                <div class="col-md-4 mb-1 form-group">
+                  <label for="validationTooltip01">Sale Rate</label>
+                </div>
+                <!-- <div class="col-md-3 mb-1 form-group">
+                  <label for="validationTooltip01">Special Sale Rate</label>
+                </div> -->
+                <div class="col-md-4 mb-1 form-group">
+                  <label for="validationTooltip01">Available Stock</label>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
