@@ -128,7 +128,7 @@
                   />
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="Order Qty" prop="orderQty">
+              <ngx-datatable-column name="Order Qty" prop="orderQty" s>
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -136,7 +136,7 @@
                 >
                   <input
                     type="text"
-                    class="form-control"
+                    class="form-control qtyWidth"
                     [(ngModel)]="item.orderQty"
                     name="batch{{ rowIndex }}"
                     placeholder="OrderQty"
@@ -151,7 +151,7 @@
                 >
                   <input
                     type="text"
-                    class="form-control"
+                    class="form-control qtyWidth"
                     [(ngModel)]="item.minQty"
                     name="minQty{{ rowIndex }}"
                     placeholder="min Qty"
@@ -166,7 +166,7 @@
                 >
                   <input
                     type="text"
-                    class="form-control"
+                    class="form-control qtyWidth"
                     [(ngModel)]="item.maxQty"
                     name="maxQty{{ rowIndex }}"
                     placeholder="max Qty"
@@ -184,7 +184,7 @@
                     class="form-control"
                     [(ngModel)]="item.stock"
                     name="stock{{ rowIndex }}"
-                    placeholder="max Qty"
+                    placeholder="Stock"
                   />
                 </ng-template>
               </ngx-datatable-column>
@@ -199,7 +199,7 @@
                     class="form-control"
                     [(ngModel)]="item.ysale"
                     name="y.sale{{ rowIndex }}"
-                    placeholder="Qty"
+                    placeholder="Y>sale"
                   />
                 </ng-template>
               </ngx-datatable-column>

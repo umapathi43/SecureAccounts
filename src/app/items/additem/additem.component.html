@@ -8,7 +8,7 @@
       <div class="card-body" id="frmcard">
         <form #itmForm="ngForm">
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
               <div class="form-group">
                 <label for="hidden-label-form-1"> Name</label>
                 <input
@@ -19,7 +19,7 @@
                 />
               </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
               <div class="form-group mb-2">
                 <label for="basic-form-6">Packing</label>
                 <ng-select
@@ -30,6 +30,9 @@
                   name="packn"
                   #packn="ngModel"
                   placeholder="No Packing selected"
+                  (keyup.enter)="AddPack()"
+                  (search)="OnPackChange($event)"
+                  (ngModelChange)="qtyChange(selectedPack)"
                 >
                 </ng-select>
               </div>
@@ -42,6 +45,7 @@
                   id="hidden-label-form-1"
                   class="form-control"
                   name="cname"
+                  [(ngModel)]="qytPerPack"
                 />
               </div>
             </div>
@@ -130,64 +134,6 @@
                 </ng-select>
               </div>
             </div>
-
-            <div class="col-md-4">
-              <div class="form-group row">
-                <label for="hidden-label-form-7"
-                  >Min Discount - Max Discount</label
-                >
-                <input
-                  type="number"
-                  id="hidden-label-form-5"
-                  class="form-control col-md-6"
-                  name="sname"
-                  placeholder="Min Dis"
-                />
-                <input
-                  type="number"
-                  id="hidden-label-form-5"
-                  class="form-control col-md-6"
-                  name="sname"
-                  placeholder="Max Dis"
-                />
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group row">
-                <label for="hidden-label-form-7"
-                  >Min Quantity - Max quantity</label
-                >
-                <input
-                  type="number"
-                  id="hidden-label-form-5"
-                  class="form-control col-md-6"
-                  name="sname"
-                  placeholder="min"
-                />
-                <input
-                  type="number"
-                  id="hidden-label-form-5"
-                  class="form-control col-md-6"
-                  name="sname"
-                  placeholder="max"
-                />
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group mb-2">
-                <label for="basic-form-6">GST</label>
-                <ng-select
-                  [items]="gstTypeList"
-                  bindLabel="gstTypeName"
-                  bindValue="id"
-                  [(ngModel)]="selectedGST"
-                  name="gstn"
-                  #gstn="ngModel"
-                  placeholder="No GST selected"
-                >
-                </ng-select>
-              </div>
-            </div>
             <div class="col-md-4">
               <div class="form-group mb-2">
                 <label for="basic-form-6">HSN</label>
@@ -205,7 +151,61 @@
                 </ng-select>
               </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="hidden-label-form-7align-items-center"
+                  >Min Discount
+                </label>
+                <input
+                  type="number"
+                  id="hidden-label-form-5"
+                  class="form-control"
+                  name="sname"
+                  placeholder="Min Dis"
+                />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="hidden-label-form-7align-items-center">
+                  Max Discount</label
+                >
+
+                <input
+                  type="number"
+                  id="hidden-label-form-5"
+                  class="form-control"
+                  name="sname"
+                  placeholder="Max Dis"
+                />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="hidden-label-form-7">Min Quantity</label>
+                <input
+                  type="number"
+                  id="hidden-label-form-5"
+                  class="form-control"
+                  name="sname"
+                  placeholder="min"
+                />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="hidden-label-form-7"> Max quantity</label>
+                <input
+                  type="number"
+                  id="hidden-label-form-5"
+                  class="form-control"
+                  name="sname"
+                  placeholder="max"
+                />
+              </div>
+            </div>
+
+            <div class="col-md-3">
               <div class="form-group">
                 <label for="hidden-label-form-7">Rate a</label>
                 <input
@@ -216,7 +216,7 @@
                 />
               </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
               <div class="form-group">
                 <label for="hidden-label-form-7">Rate b</label>
                 <input
@@ -227,7 +227,7 @@
                 />
               </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
               <div class="form-group">
                 <label for="hidden-label-form-7">Rate c</label>
                 <input
@@ -238,7 +238,7 @@
                 />
               </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
               <div class="form-group">
                 <label for="hidden-label-form-7">Rate d</label>
                 <input
@@ -247,6 +247,21 @@
                   class="form-control"
                   name="sname"
                 />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group mb-2">
+                <label for="basic-form-6">GST</label>
+                <ng-select
+                  [items]="gstTypeList"
+                  bindLabel="gstTypeName"
+                  bindValue="id"
+                  [(ngModel)]="selectedGST"
+                  name="gstn"
+                  #gstn="ngModel"
+                  placeholder="No GST selected"
+                >
+                </ng-select>
               </div>
             </div>
             <div class="col-md-4">

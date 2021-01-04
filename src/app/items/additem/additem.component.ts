@@ -1,3 +1,4 @@
+import { filter } from "rxjs/operators";
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
@@ -53,6 +54,15 @@ export class AdditemComponent implements OnInit {
   selectedStrtype: any;
   schedulerName: any;
   cName: any;
+  qytPerPack: any;
+  addMFG: boolean;
+  groupFlag: boolean;
+  stroeFlag: boolean;
+  schedulFlag: boolean;
+  compFlag: boolean;
+  hsnFlag: boolean;
+  discountFlag: boolean;
+  packageFlag: boolean;
   constructor(
     private _location: Location,
     private actRoute: ActivatedRoute,
@@ -105,22 +115,30 @@ export class AdditemComponent implements OnInit {
   }
 
   AddGrp() {
-    const modalRef = this.modalService.open(AddgroupComponent);
-    modalRef.componentInstance.id = 0; // should be the id
-    modalRef.componentInstance.data = { groupName: this.groupName }; // should be the data
-    modalRef.result
-      .then((result) => {
-        console.log(result);
-        this.getGroups();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (this.groupFlag) {
+      const modalRef = this.modalService.open(AddgroupComponent);
+      modalRef.componentInstance.id = 0; // should be the id
+      modalRef.componentInstance.data = { groupName: this.groupName }; // should be the data
+      modalRef.result
+        .then((result) => {
+          console.log(result);
+          this.getGroups();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }
 
   OnGrpChange(event) {
+    debugger;
     console.log(event);
     this.groupName = event.term;
+    if (event.items.length == 0) {
+      this.groupFlag = true;
+    } else {
+      this.groupFlag = false;
+    }
   }
 
   getStoreTypes() {
@@ -138,149 +156,174 @@ export class AdditemComponent implements OnInit {
   }
 
   AddStrType() {
-    const modalRef = this.modalService.open(AddstoretypeComponent);
-    modalRef.componentInstance.id = 0; // should be the id
-    modalRef.componentInstance.data = { storeTypeName: this.storeTypeName }; // should be the data
-    modalRef.result
-      .then((result) => {
-        console.log(result);
-        this.getStoreTypes();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (this.stroeFlag) {
+      const modalRef = this.modalService.open(AddstoretypeComponent);
+      modalRef.componentInstance.id = 0; // should be the id
+      modalRef.componentInstance.data = { storeTypeName: this.storeTypeName }; // should be the data
+      modalRef.result
+        .then((result) => {
+          console.log(result);
+          this.getStoreTypes();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }
 
   OnStrTypeChange(event) {
     console.log(event);
     this.storeTypeName = event.term;
+    this.stroeFlag = event.items.length == 0 ? true : false;
   }
   goBack() {
     this._location.back();
   }
   AddPack() {
-    const modalRef = this.modalService.open(CreatepackingComponent);
-    modalRef.componentInstance.id = 0; // should be the id
-    modalRef.componentInstance.data = { packName: this.packName }; // should be the data
-    modalRef.result
-      .then((result) => {
-        console.log(result);
-        this.getPackings();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (this.packageFlag) {
+      const modalRef = this.modalService.open(CreatepackingComponent);
+      modalRef.componentInstance.id = 0; // should be the id
+      modalRef.componentInstance.data = { packName: this.packName }; // should be the data
+      modalRef.result
+        .then((result) => {
+          console.log(result);
+          this.getPackings();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }
 
   AddDiscountSlab() {
-    const modalRef = this.modalService.open(AdddiscountslabComponent);
-    modalRef.componentInstance.id = 0; // should be the id
-    modalRef.componentInstance.data = {
-      discountSlabName: this.discountSlabName,
-    }; // should be the data
-    modalRef.result
-      .then((result) => {
-        console.log(result);
-        this.getDiscountSlabs();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (this.discountFlag) {
+      const modalRef = this.modalService.open(AdddiscountslabComponent);
+      modalRef.componentInstance.id = 0; // should be the id
+      modalRef.componentInstance.data = {
+        discountSlabName: this.discountSlabName,
+      }; // should be the data
+      modalRef.result
+        .then((result) => {
+          console.log(result);
+          this.getDiscountSlabs();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }
 
   Addhsn() {
-    const modalRef = this.modalService.open(AddhsnsacComponent);
-    modalRef.componentInstance.id = 0; // should be the id
-    modalRef.componentInstance.data = {
-      hsnName: this.hsnName,
-    }; // should be the data
-    modalRef.result
-      .then((result) => {
-        console.log(result);
-        this.getHsns();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (this.hsnFlag) {
+      const modalRef = this.modalService.open(AddhsnsacComponent);
+      modalRef.componentInstance.id = 0; // should be the id
+      modalRef.componentInstance.data = {
+        hsnName: this.hsnName,
+      }; // should be the data
+      modalRef.result
+        .then((result) => {
+          console.log(result);
+          this.getHsns();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }
 
   AddManf() {
-    const modalRef = this.modalService.open(AddmanufacturerComponent);
-    modalRef.componentInstance.id = 0; // should be the id
-    modalRef.componentInstance.data = {
-      manufacturerName: this.manufacturerName,
-    }; // should be the data
-    modalRef.result
-      .then((result) => {
-        console.log(result);
-        this.getManufacture();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (this.addMFG) {
+      const modalRef = this.modalService.open(AddmanufacturerComponent);
+      modalRef.componentInstance.id = 0; // should be the id
+      modalRef.componentInstance.data = {
+        manufacturerName: this.manufacturerName,
+      }; // should be the data
+      modalRef.result
+        .then((result) => {
+          console.log(result);
+          this.getManufacture();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }
 
   AddSch() {
-    const modalRef = this.modalService.open(AddscheduleComponent);
-    modalRef.componentInstance.id = 0; // should be the id
-    modalRef.componentInstance.data = {
-      schedulerName: this.schedulerName,
-    };
+    if (this.schedulFlag) {
+      const modalRef = this.modalService.open(AddscheduleComponent);
+      modalRef.componentInstance.id = 0; // should be the id
+      modalRef.componentInstance.data = {
+        schedulerName: this.schedulerName,
+      };
 
-    modalRef.result
-      .then((result) => {
-        this.getSchedules();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      modalRef.result
+        .then((result) => {
+          this.getSchedules();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }
 
   AddComp() {
-    const modalRef = this.modalService.open(AddcompositionComponent);
-    modalRef.componentInstance.id = 0; // should be the id
-    modalRef.componentInstance.data = {
-      cName: this.cName,
-    };
+    if (this.compFlag) {
+      const modalRef = this.modalService.open(AddcompositionComponent);
+      modalRef.componentInstance.id = 0; // should be the id
+      modalRef.componentInstance.data = {
+        cName: this.cName,
+      };
 
-    modalRef.result
-      .then((result) => {
-        this.cName = result;
-        this.getComposition();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      modalRef.result
+        .then((result) => {
+          this.cName = result;
+          this.getComposition();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }
 
   OnPackChange(event) {
     console.log(event);
     this.packName = event.term;
+    this.packageFlag = event.items.length == 0 ? true : false;
   }
 
   OnDiscChange(event) {
     console.log(event);
     this.discountSlabName = event.term;
+    this.discountFlag = event.items.length == 0 ? true : false;
   }
 
   OnHsnChange(event) {
     console.log(event);
     this.hsnName = event.term;
+    this.hsnFlag = event.items.length == 0 ? true : false;
   }
 
   OnManfChange(event) {
     console.log(event);
     this.manufacturerName = event.term;
+    if (event.items.length == 0) {
+      this.addMFG = true;
+    } else {
+      this.addMFG = false;
+    }
   }
 
   OnSchChange(event) {
     console.log(event);
     this.schedulerName = event.term;
+    this.schedulFlag = event.items.length == 0 ? true : false;
   }
 
   OnCmpChange(event) {
     console.log(event);
     this.cName = event.term;
+    this.compFlag = event.items.length == 0 ? true : false;
   }
 
   getPackings() {
@@ -293,6 +336,7 @@ export class AdditemComponent implements OnInit {
           (x) => x.packName === this.packName
         ).id;
         console.log(this.selectedPack);
+        this.qtyChange(this.selectedPack);
       }
     });
   }
@@ -362,5 +406,14 @@ export class AdditemComponent implements OnInit {
         console.log(this.selectedHSN);
       }
     });
+  }
+  qtyChange(action) {
+    if (action) {
+      this.packList.filter((t) => {
+        if (t.id == action) {
+          this.qytPerPack = t.qty;
+        }
+      });
+    }
   }
 }
