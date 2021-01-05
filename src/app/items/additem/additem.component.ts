@@ -20,12 +20,34 @@ import { GroupService } from "app/services/group.service";
 import { AddgroupComponent } from "app/group/addgroup/addgroup.component";
 import { AddstoretypeComponent } from "app/storetype/addstoretype/addstoretype.component";
 import { StoretypeService } from "app/services/storetype.service";
+export class addItem {
+  public itemName: string;
+  public selectedPack: any;
+  public qytPerPack: any;
+  public selectedManf: any;
+  public selectedGrp: any;
+  public selectedStrtype: any;
+  public selectedSch: any;
+  public selectedComp: any;
+  public selectedHSN: any;
+  public minDis: any;
+  public maxDis: any;
+  public minQty: any;
+  public maxQty: any;
+  public rateA: any;
+  public rateB: any;
+  public rateC: any;
+  public rateD: any;
+  public selectedDisc: any;
+  public selectedGST: any;
+}
 @Component({
   selector: "app-additem",
   templateUrl: "./additem.component.html",
   styleUrls: ["./additem.component.scss"],
 })
 export class AdditemComponent implements OnInit {
+  model = new addItem();
   popupModel: Date;
   CustomeId: any;
   packList: any;
@@ -102,14 +124,12 @@ export class AdditemComponent implements OnInit {
 
   getGroups() {
     this._grpService.getGroups().subscribe((ok) => {
-      console.log("GroupList >>", ok);
       this.grpList = ok;
-      if (this.packName) {
-        this.selectedGrp = this.grpList.find(
+      if (this.groupName) {
+        this.model.selectedGrp = this.grpList.find(
           (x) => x.groupName === this.groupName
         ).id;
         document.getElementById("frmcard").click();
-        console.log(this.selectedPack);
       }
     });
   }
@@ -131,8 +151,6 @@ export class AdditemComponent implements OnInit {
   }
 
   OnGrpChange(event) {
-    debugger;
-    console.log(event);
     this.groupName = event.term;
     if (event.items.length == 0) {
       this.groupFlag = true;
@@ -146,11 +164,10 @@ export class AdditemComponent implements OnInit {
       console.log("store types >>", ok);
       this.strTypeList = ok;
       if (this.storeTypeName) {
-        this.selectedStrtype = this.strTypeList.find(
+        this.model.selectedStrtype = this.strTypeList.find(
           (x) => x.storeTypeName === this.storeTypeName
         ).id;
         document.getElementById("frmcard").click();
-        console.log(this.selectedStrtype);
       }
     });
   }
@@ -332,24 +349,23 @@ export class AdditemComponent implements OnInit {
       console.log(ok);
       this.packList = ok;
       if (this.packName) {
-        this.selectedPack = this.packList.find(
+        this.model.selectedPack = this.packList.find(
           (x) => x.packName === this.packName
         ).id;
         console.log(this.selectedPack);
-        this.qtyChange(this.selectedPack);
+        this.qtyChange(this.model.selectedPack);
+        document.getElementById("frmcard").click();
       }
     });
   }
   getManufacture() {
     this._manfService.getManufactures().subscribe((ok) => {
-      console.log(ok);
       this.manfList = ok;
       if (this.manufacturerName) {
-        this.selectedManf = this.manfList.find(
+        this.model.selectedManf = this.manfList.find(
           (x) => x.manufacturerName === this.manufacturerName
         ).id;
         document.getElementById("frmcard").click();
-        console.log(this.selectedManf);
       }
     });
   }
@@ -359,59 +375,54 @@ export class AdditemComponent implements OnInit {
       console.log(ok);
       this.schList = ok;
       if (this.schedulerName) {
-        this.selectedSch = this.schList.find(
+        this.model.selectedSch = this.schList.find(
           (x) => x.schedulerName === this.schedulerName
         ).id;
         document.getElementById("frmcard").click();
-        console.log(this.selectedSch);
       }
     });
   }
 
   getComposition() {
     this._compositionService.getCompositions().subscribe((ok) => {
-      console.log(ok);
       this.compList = ok;
       if (this.cName) {
-        this.selectedComp = this.compList.find(
+        this.model.selectedComp = this.compList.find(
           (x) => x.cName === this.cName
         ).id;
         document.getElementById("frmcard").click();
-        console.log(this.selectedSch);
       }
     });
   }
 
   getDiscountSlabs() {
     this._discountService.getDisconts().subscribe((ok) => {
-      console.log(ok);
       this.discountList = ok;
       if (this.discountSlabName) {
-        this.selectedDisc = this.discountList.find(
+        this.model.selectedDisc = this.discountList.find(
           (x) => x.discountSlabName === this.discountSlabName
         ).id;
-        console.log(this.selectedDisc);
       }
+      document.getElementById("frmcard").click();
     });
   }
 
   getHsns() {
     this._hsnService.getHSNs().subscribe((ok) => {
-      console.log(ok);
       this.hsnList = ok;
       if (this.hsnName) {
-        this.selectedHSN = this.hsnList.find(
+        this.model.selectedHSN = this.hsnList.find(
           (x) => x.hsnName === this.hsnName
         ).id;
-        console.log(this.selectedHSN);
       }
+      document.getElementById("frmcard").click();
     });
   }
   qtyChange(action) {
     if (action) {
       this.packList.filter((t) => {
         if (t.id == action) {
-          this.qytPerPack = t.qty;
+          this.model.qytPerPack = t.qty;
         }
       });
     }

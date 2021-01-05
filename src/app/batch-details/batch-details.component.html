@@ -4,8 +4,11 @@
       <div class="card">
         <div class="card-content">
           <div class="card-body">
+            <div class="row mb-3 d-flex justify-content-end">
+              <span style="float: right"> <b>Ref No:</b> 1234567890</span>
+            </div>
             <form
-              class="needs-validation"
+              class="needs-validation mt-2"
               #orderForm="ngForm"
               (ngSubmit)="orderForm.form.valid && onSubmit(orderForm)"
             >
@@ -51,32 +54,89 @@
                     <option value="10">Select Batch</option>
                   </select>
                 </div>
-                <div class="col-md-4 mb-1 mt-3 form-group">
-                  <label for="validationTooltip01">Quantity Per Pack</label>
+
+                <div class="col-md-4 mb-1 form-group">
+                  <div class="form-group">
+                    <label for="validationTooltip01">Quantity Per Pack</label>
+                    <input
+                      type="number"
+                      id="hidden-label-form-5"
+                      class="form-control round"
+                      name="QtyPerPack"
+                      [(ngModel)]="model.QtyPerPack"
+                      #QtyPerPack="ngModel"
+                      required
+                    />
+                  </div>
                 </div>
               </div>
               <div class="form-row">
                 <div class="col-md-4 mb-1 form-group">
                   <label for="validationTooltip01">Batch No</label>
+                  <input
+                    type="number"
+                    id="hidden-label-form-5"
+                    class="form-control round"
+                    name="batchNo"
+                    [(ngModel)]="model.batchNo"
+                    #batchNo="ngModel"
+                    required
+                  />
                 </div>
                 <div class="col-md-4 mb-1 form-group">
                   <label for="validationTooltip01">Expiry</label>
+                  <input
+                    type="number"
+                    id="hidden-label-form-5"
+                    class="form-control round"
+                    name="expiry"
+                    [(ngModel)]="model.expiry"
+                    #expiry="ngModel"
+                    required
+                  />
                 </div>
                 <div class="col-md-4 mb-1 form-group">
                   <label for="validationTooltip01">MRP</label>
+                  <input
+                    type="number"
+                    id="hidden-label-form-5"
+                    class="form-control round"
+                    name="mrp"
+                    [(ngModel)]="model.mrp"
+                    #mrp="ngModel"
+                    required
+                  />
                 </div>
               </div>
               <div class="form-row">
                 <div class="col-md-4 mb-1 form-group">
                   <label for="validationTooltip01">Purchase Rate</label>
+                  <input
+                    type="number"
+                    id="hidden-label-form-5"
+                    class="form-control round"
+                    name="purchaseRate"
+                    [(ngModel)]="model.purchaseRate"
+                    #purchaseRate="ngModel"
+                    required
+                  />
                 </div>
                 <div class="col-md-4 mb-1 form-group">
                   <label for="validationTooltip01">Sale Rate</label>
+                  <input
+                    type="number"
+                    id="hidden-label-form-5"
+                    class="form-control round"
+                    name="saleRate"
+                    [(ngModel)]="model.saleRate"
+                    #saleRate="ngModel"
+                    required
+                  />
                 </div>
                 <!-- <div class="col-md-3 mb-1 form-group">
                   <label for="validationTooltip01">Special Sale Rate</label>
                 </div> -->
-                <div class="col-md-4 mb-1 form-group">
+                <div class="col-md- mb-1 mt-3 form-group">
                   <label for="validationTooltip01">Available Stock</label>
                 </div>
               </div>

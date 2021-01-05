@@ -13,9 +13,11 @@
                 <label for="hidden-label-form-1"> Name</label>
                 <input
                   type="text"
+                  [(ngModel)]="model.itemName"
                   id="hidden-label-form-1"
                   class="form-control"
-                  name="cname"
+                  name="itemname"
+                  #itemname="ngModel"
                 />
               </div>
             </div>
@@ -26,13 +28,13 @@
                   [items]="packList"
                   bindLabel="packName"
                   bindValue="id"
-                  [(ngModel)]="selectedPack"
+                  [(ngModel)]="model.selectedPack"
                   name="packn"
                   #packn="ngModel"
                   placeholder="No Packing selected"
                   (keyup.enter)="AddPack()"
                   (search)="OnPackChange($event)"
-                  (ngModelChange)="qtyChange(selectedPack)"
+                  (ngModelChange)="qtyChange(model.selectedPack)"
                 >
                 </ng-select>
               </div>
@@ -44,8 +46,9 @@
                   type="number"
                   id="hidden-label-form-1"
                   class="form-control"
-                  name="cname"
-                  [(ngModel)]="qytPerPack"
+                  name="qytPerPack"
+                  #qytPerPack="ngModel"
+                  [(ngModel)]="model.qytPerPack"
                 />
               </div>
             </div>
@@ -56,7 +59,7 @@
                   [items]="manfList"
                   bindLabel="manufacturerName"
                   bindValue="id"
-                  [(ngModel)]="selectedManf"
+                  [(ngModel)]="model.selectedManf"
                   name="mafnn"
                   #mafnnn="ngModel"
                   (keyup.enter)="AddManf()"
@@ -73,9 +76,9 @@
                   [items]="grpList"
                   bindLabel="groupName"
                   bindValue="id"
-                  [(ngModel)]="selectedGrp"
-                  name="packn"
-                  #packn="ngModel"
+                  [(ngModel)]="model.selectedGrp"
+                  name="groupname"
+                  #groupname="ngModel"
                   (keyup.enter)="AddGrp()"
                   (search)="OnGrpChange($event)"
                   placeholder="No Group selected"
@@ -90,9 +93,9 @@
                   [items]="strTypeList"
                   bindLabel="storeTypeName"
                   bindValue="id"
-                  [(ngModel)]="selectedStrtype"
-                  name="packn"
-                  #packn="ngModel"
+                  [(ngModel)]="model.selectedStrtype"
+                  name="storeTypeName"
+                  #storeTypeName="ngModel"
                   (keyup.enter)="AddStrType()"
                   (search)="OnStrTypeChange($event)"
                   placeholder="No Store Type selected"
@@ -107,9 +110,9 @@
                   [items]="schList"
                   bindLabel="schedulerName"
                   bindValue="id"
-                  [(ngModel)]="selectedSch"
-                  name="packn"
-                  #packn="ngModel"
+                  [(ngModel)]="model.selectedSch"
+                  name="schedulerName"
+                  #schedulerName="ngModel"
                   (keyup.enter)="AddSch()"
                   (search)="OnSchChange($event)"
                   placeholder="No Schedule selected"
@@ -124,9 +127,9 @@
                   [items]="compList"
                   bindLabel="cName"
                   bindValue="id"
-                  [(ngModel)]="selectedComp"
-                  name="cmpn"
-                  #cmpn="ngModel"
+                  [(ngModel)]="model.selectedComp"
+                  name="cName"
+                  #cName="ngModel"
                   (keyup.enter)="AddComp()"
                   (search)="OnCmpChange($event)"
                   placeholder="No Composition selected"
@@ -141,7 +144,7 @@
                   [items]="hsnList"
                   bindLabel="hsnName"
                   bindValue="id"
-                  [(ngModel)]="selectedHSN"
+                  [(ngModel)]="model.selectedHSN"
                   name="hsnn"
                   #hsnn="ngModel"
                   (keyup.enter)="Addhsn()"
@@ -160,7 +163,9 @@
                   type="number"
                   id="hidden-label-form-5"
                   class="form-control"
-                  name="sname"
+                  name="minDis"
+                  #minDis="ngModel"
+                  [(ngModel)]="model.minDis"
                   placeholder="Min Dis"
                 />
               </div>
@@ -175,7 +180,9 @@
                   type="number"
                   id="hidden-label-form-5"
                   class="form-control"
-                  name="sname"
+                  name="maxDis"
+                  #maxDis="ngModel"
+                  [(ngModel)]="model.maxDis"
                   placeholder="Max Dis"
                 />
               </div>
@@ -187,7 +194,9 @@
                   type="number"
                   id="hidden-label-form-5"
                   class="form-control"
-                  name="sname"
+                  name="minQty"
+                  #minQty="ngModel"
+                  [(ngModel)]="model.minQty"
                   placeholder="min"
                 />
               </div>
@@ -199,7 +208,9 @@
                   type="number"
                   id="hidden-label-form-5"
                   class="form-control"
-                  name="sname"
+                  name="maxQty"
+                  maxQty="ngModel"
+                  [(ngModel)]="model.maxQty"
                   placeholder="max"
                 />
               </div>
@@ -212,7 +223,9 @@
                   type="number"
                   id="hidden-label-form-5"
                   class="form-control"
-                  name="sname"
+                  [(ngModel)]="model.rateA"
+                  name="rateA"
+                  #rateA="ngModel"
                 />
               </div>
             </div>
@@ -223,7 +236,9 @@
                   type="number"
                   id="hidden-label-form-5"
                   class="form-control"
-                  name="sname"
+                  [(ngModel)]="model.rateB"
+                  name="rateB"
+                  #rateB="ngModel"
                 />
               </div>
             </div>
@@ -234,7 +249,9 @@
                   type="number"
                   id="hidden-label-form-5"
                   class="form-control"
-                  name="sname"
+                  [(ngModel)]="model.rateC"
+                  name="rateC"
+                  #rateC="ngModel"
                 />
               </div>
             </div>
@@ -245,7 +262,9 @@
                   type="number"
                   id="hidden-label-form-5"
                   class="form-control"
-                  name="sname"
+                  [(ngModel)]="model.rateD"
+                  name="rateD"
+                  #rateD="ngModel"
                 />
               </div>
             </div>
@@ -256,7 +275,7 @@
                   [items]="gstTypeList"
                   bindLabel="gstTypeName"
                   bindValue="id"
-                  [(ngModel)]="selectedGST"
+                  [(ngModel)]="model.selectedGST"
                   name="gstn"
                   #gstn="ngModel"
                   placeholder="No GST selected"
@@ -271,7 +290,7 @@
                   [items]="discountList"
                   bindLabel="discountSlabName"
                   bindValue="id"
-                  [(ngModel)]="selectedDisc"
+                  [(ngModel)]="model.selectedDisc"
                   name="discn"
                   #discn="ngModel"
                   (keyup.enter)="AddDiscountSlab()"

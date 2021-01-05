@@ -14,7 +14,7 @@ export class Group {
   selector: "app-addgroup",
   templateUrl: "./addgroup.component.html",
   styleUrls: ["./addgroup.component.scss"],
-  providers: [NgbActiveModal],
+  // providers: [NgbActiveModal],
 })
 export class AddgroupComponent implements OnInit {
   CustomeId: any;

@@ -3,6 +3,12 @@ import { ColumnMode, DatatableComponent } from "@swimlane/ngx-datatable";
 
 export class OrderGeneration {
   public orderDate: string;
+  public QtyPerPack: string;
+  public batchNo: string;
+  public expiry: string;
+  public mrp: string;
+  public purchaseRate: string;
+  public saleRate: string;
 }
 @Component({
   selector: "app-batch-details",
