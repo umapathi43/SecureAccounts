@@ -32,7 +32,7 @@
                   name="packn"
                   #packn="ngModel"
                   placeholder="No Packing selected"
-                  (keyup.enter)="AddPack()"
+                  (keyup.enter)="AddPack(model.selectedPack)"
                   (search)="OnPackChange($event)"
                   (ngModelChange)="qtyChange(model.selectedPack)"
                 >
@@ -62,7 +62,7 @@
                   [(ngModel)]="model.selectedManf"
                   name="mafnn"
                   #mafnnn="ngModel"
-                  (keyup.enter)="AddManf()"
+                  (keyup.enter)="AddManf(model.selectedManf)"
                   (search)="OnManfChange($event)"
                   placeholder="No Mfg selected"
                 >
@@ -79,7 +79,7 @@
                   [(ngModel)]="model.selectedGrp"
                   name="groupname"
                   #groupname="ngModel"
-                  (keyup.enter)="AddGrp()"
+                  (keyup.enter)="AddGrp(model.selectedGrp)"
                   (search)="OnGrpChange($event)"
                   placeholder="No Group selected"
                 >
@@ -96,7 +96,7 @@
                   [(ngModel)]="model.selectedStrtype"
                   name="storeTypeName"
                   #storeTypeName="ngModel"
-                  (keyup.enter)="AddStrType()"
+                  (keyup.enter)="AddStrType(model.selectedStrtype)"
                   (search)="OnStrTypeChange($event)"
                   placeholder="No Store Type selected"
                 >
@@ -113,7 +113,7 @@
                   [(ngModel)]="model.selectedSch"
                   name="schedulerName"
                   #schedulerName="ngModel"
-                  (keyup.enter)="AddSch()"
+                  (keyup.enter)="AddSch(model.selectedSch)"
                   (search)="OnSchChange($event)"
                   placeholder="No Schedule selected"
                 >
@@ -130,7 +130,7 @@
                   [(ngModel)]="model.selectedComp"
                   name="cName"
                   #cName="ngModel"
-                  (keyup.enter)="AddComp()"
+                  (keyup.enter)="AddComp(model.selectedComp)"
                   (search)="OnCmpChange($event)"
                   placeholder="No Composition selected"
                 >
@@ -147,7 +147,7 @@
                   [(ngModel)]="model.selectedHSN"
                   name="hsnn"
                   #hsnn="ngModel"
-                  (keyup.enter)="Addhsn()"
+                  (keyup.enter)="Addhsn(model.selectedHSN)"
                   (search)="OnHsnChange($event)"
                   placeholder="No HSN selected"
                 >
@@ -293,7 +293,7 @@
                   [(ngModel)]="model.selectedDisc"
                   name="discn"
                   #discn="ngModel"
-                  (keyup.enter)="AddDiscountSlab()"
+                  (keyup.enter)="AddDiscountSlab(model.selectedDisc)"
                   (search)="OnDiscChange($event)"
                   placeholder="No Discount Slab selected"
                 >

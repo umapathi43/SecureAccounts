@@ -65,7 +65,7 @@
               [footerHeight]="50"
               rowHeight="auto"
               [limit]="10"
-              [rows]="rows"
+              [rows]="item"
               [columns]="columns"
             >
               <ngx-datatable-row-detail rowHeight="auto">
@@ -76,7 +76,7 @@
                 >
                   <div class="ml-5 my-1">
                     <div><strong>Category : </strong> {{ row.Category }}</div>
-                    <div><strong>Schedule :</strong> {{ row.Schedule }}</div>
+                    <div><strong>Schedule :</strong> {{ row.scheduler }}</div>
                     <div><strong>RackNo :</strong> {{ row.RackNo }}</div>
                     <div><strong>RackGroup :</strong> {{ row.RackGroup }}</div>
                     <div>
@@ -120,28 +120,28 @@
                   </a>
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="ID" prop="ID" [width]="50">
+              <ngx-datatable-column name="ID" prop="id" [width]="50">
               </ngx-datatable-column>
-              <ngx-datatable-column name="Name" prop="Name" [width]="150">
+              <ngx-datatable-column name="Name" prop="itemName" [width]="150">
               </ngx-datatable-column>
               <ngx-datatable-column
                 name="Packing"
-                prop="Packing"
+                prop="packName"
                 [width]="150"
               ></ngx-datatable-column>
               <ngx-datatable-column
                 name="QtyPerPack"
-                prop="QtyPerPack"
+                prop="qty_per_pack"
                 [width]="120"
               ></ngx-datatable-column>
               <ngx-datatable-column
                 name="Mfg"
-                prop="Mfg"
+                prop="mgf"
                 [width]="70"
               ></ngx-datatable-column>
               <ngx-datatable-column
                 name="Group"
-                prop="Group"
+                prop="group"
                 [width]="70"
               ></ngx-datatable-column>
               <ngx-datatable-column name="Actions" [width]="50">

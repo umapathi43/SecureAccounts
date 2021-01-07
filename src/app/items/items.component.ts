@@ -1,3 +1,5 @@
+import { filter } from "rxjs/operators";
+import { ItemService } from "./../services/item.service";
 import { Component, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
 import { DatatableComponent, ColumnMode } from "@swimlane/ngx-datatable";
 import swal from "sweetalert2";
@@ -15,30 +17,32 @@ export class ItemsComponent implements OnInit {
   @ViewChild(DatatableComponent) table: DatatableComponent;
   @ViewChild("tableRowDetails") tableRowDetails: any;
   // row data
-  public rows = [
-    {
-      ID: 300,
-      Name: "dean3004",
-      Packing: "38484858578",
-      QtyPerPack: "Dean Stanley",
-      Mfg: "Dean Stanley",
-      Group: "234764553d",
-      Category: 5000,
-      Schedule: 4,
-      RackNo: 2000,
-      RackGroup: 3,
-      mindiscandmaxdisc: "10-20",
-      minqtyandmaxqty: "100-500",
-      gst: "100",
-      hsnno: "234",
-      ratea: "334",
-      ratebuptoh: "344",
-      discslab: "10",
-    },
-  ];
+  public rows: any[];
+  //   = [
+  //   {
+  //     ID: 300,
+  //     Name: "dean3004",
+  //     Packing: "38484858578",
+  //     QtyPerPack: "Dean Stanley",
+  //     Mfg: "Dean Stanley",
+  //     Group: "234764553d",
+  //     Category: 5000,
+  //     Schedule: 4,
+  //     RackNo: 2000,
+  //     RackGroup: 3,
+  //     mindiscandmaxdisc: "10-20",
+  //     minqtyandmaxqty: "100-500",
+  //     gst: "100",
+  //     hsnno: "234",
+  //     ratea: "334",
+  //     ratebuptoh: "344",
+  //     discslab: "10",
+  //   },
+  // ];
   public ColumnMode = ColumnMode;
   public limitRef = 10;
   exportColumns: any;
+  item: any;
 
   /**
    * rowDetailsToggleExpand
@@ -50,14 +54,14 @@ export class ItemsComponent implements OnInit {
   }
   // column header
   public columns = [
-    { name: "ID", prop: "ID" },
-    { name: "Name", prop: "Name" },
-    { name: "Packing", prop: "Packing" },
-    { name: "QtyPerPack", prop: "QtyPerPack" },
-    { name: "Mfg", prop: "Mfg" },
-    { name: "Group", prop: "Group" },
+    { name: "ID", prop: "Id" },
+    { name: "Name", prop: "itemName" },
+    { name: "Packing", prop: "packName" },
+    { name: "QtyPerPack", prop: "qty_per_pack" },
+    { name: "Mfg", prop: "mgf" },
+    { name: "Group", prop: "gropu" },
     { name: "Category", prop: "Category" },
-    { name: "Schedule", prop: "Schedule" },
+    { name: "Schedule", prop: "scheduler" },
     { name: "RackNo", prop: "RackNo" },
     { name: "RackGroup", prop: "RackGroup" },
     { name: "mindiscandmaxdisc", prop: "mindiscandmaxdisc" },
@@ -73,8 +77,9 @@ export class ItemsComponent implements OnInit {
   // private
   private tempData = [];
 
-  constructor() {
-    this.tempData = this.rows;
+  constructor(public itenService: ItemService) {
+    // this.getItemDetails();
+    // this.tempData = this.rows;
   }
 
   // Public Methods
@@ -146,26 +151,44 @@ export class ItemsComponent implements OnInit {
       });
   }
   ngOnInit(): void {
+    this.getItemDetails();
     this.exportColumns = this.columns.map((col) => ({
       title: col.name,
       dataKey: col.prop,
     }));
   }
-
+  getItemDetails() {
+    this.itenService.getItemDetails().subscribe((ok: any) => {
+      this.item = ok.filter((t) => t.status == "A");
+      this.rows = ok.filter((t) => t.status == "A");
+      this.rows.forEach((e) => {
+        e["mgf"] = e.manufactureEntity.manufacturerName;
+        e["group"] = e.groupEntity.groupName;
+        e["scheduler"] = e.scheduleEntity.schedulerName;
+        e["mindiscandmaxdisc"] = e.min_amt + "-" + e.max_amt;
+        e["minqtyandmaxqty"] = e.min_qty + "-" + e.max_qty;
+        e["ratea"] = e.rateA;
+        e["discslab"] = e.discSalbEntity.discountSlabName;
+      });
+      this.tempData = this.rows;
+      this.table.element.click();
+      console.log(this.item, "tennnnn");
+    });
+  }
   exportPdf() {
     let doc = new jsPDF("l", "pt");
     doc.autoTable(this.exportColumns, this.rows);
-    doc.save("suppliers.pdf");
+    doc.save("Item.pdf");
   }
 
   exportExcel() {
-    const worksheet = xlsx.utils.json_to_sheet(this.rows);
+    const worksheet = xlsx.utils.json_to_sheet(this.item);
     const workbook = { Sheets: { data: worksheet }, SheetNames: ["data"] };
     const excelBuffer: any = xlsx.write(workbook, {
       bookType: "xlsx",
       type: "array",
     });
-    this.saveAsExcelFile(excelBuffer, "suppliers");
+    this.saveAsExcelFile(excelBuffer, "Item");
   }
 
   saveAsExcelFile(buffer: any, fileName: string): void {
