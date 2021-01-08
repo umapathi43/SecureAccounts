@@ -27,14 +27,14 @@
                 <ng-select
                   [items]="packList"
                   bindLabel="packName"
-                  bindValue="id"
-                  [(ngModel)]="model.selectedPack"
+                  bindValue="packName"
+                  [(ngModel)]="model.packName"
                   name="packn"
                   #packn="ngModel"
                   placeholder="No Packing selected"
-                  (keyup.enter)="AddPack(model.selectedPack)"
+                  (keyup.enter)="AddPack(model.packName)"
                   (search)="OnPackChange($event)"
-                  (ngModelChange)="qtyChange(model.selectedPack)"
+                  (ngModelChange)="qtyChange(model.packName)"
                 >
                 </ng-select>
               </div>
@@ -48,7 +48,7 @@
                   class="form-control"
                   name="qytPerPack"
                   #qytPerPack="ngModel"
-                  [(ngModel)]="model.qytPerPack"
+                  [(ngModel)]="model.qty_per_pack"
                 />
               </div>
             </div>
@@ -59,10 +59,10 @@
                   [items]="manfList"
                   bindLabel="manufacturerName"
                   bindValue="id"
-                  [(ngModel)]="model.selectedManf"
+                  [(ngModel)]="model.manufactureEntity.id"
                   name="mafnn"
                   #mafnnn="ngModel"
-                  (keyup.enter)="AddManf(model.selectedManf)"
+                  (keyup.enter)="AddManf(model.manufactureEntity.id)"
                   (search)="OnManfChange($event)"
                   placeholder="No Mfg selected"
                 >
@@ -76,10 +76,10 @@
                   [items]="grpList"
                   bindLabel="groupName"
                   bindValue="id"
-                  [(ngModel)]="model.selectedGrp"
+                  [(ngModel)]="model.groupEntity.id"
                   name="groupname"
                   #groupname="ngModel"
-                  (keyup.enter)="AddGrp(model.selectedGrp)"
+                  (keyup.enter)="AddGrp(model.groupEntity.id)"
                   (search)="OnGrpChange($event)"
                   placeholder="No Group selected"
                 >
@@ -93,10 +93,10 @@
                   [items]="strTypeList"
                   bindLabel="storeTypeName"
                   bindValue="id"
-                  [(ngModel)]="model.selectedStrtype"
+                  [(ngModel)]="model.storeTypeEntity.id"
                   name="storeTypeName"
                   #storeTypeName="ngModel"
-                  (keyup.enter)="AddStrType(model.selectedStrtype)"
+                  (keyup.enter)="AddStrType(model.storeTypeEntity.id)"
                   (search)="OnStrTypeChange($event)"
                   placeholder="No Store Type selected"
                 >
@@ -110,10 +110,10 @@
                   [items]="schList"
                   bindLabel="schedulerName"
                   bindValue="id"
-                  [(ngModel)]="model.selectedSch"
+                  [(ngModel)]="model.scheduleEntity.id"
                   name="schedulerName"
                   #schedulerName="ngModel"
-                  (keyup.enter)="AddSch(model.selectedSch)"
+                  (keyup.enter)="AddSch(model.scheduleEntity.id)"
                   (search)="OnSchChange($event)"
                   placeholder="No Schedule selected"
                 >
@@ -127,10 +127,10 @@
                   [items]="compList"
                   bindLabel="cName"
                   bindValue="id"
-                  [(ngModel)]="model.selectedComp"
+                  [(ngModel)]="model.compositionEntity.id"
                   name="cName"
                   #cName="ngModel"
-                  (keyup.enter)="AddComp(model.selectedComp)"
+                  (keyup.enter)="AddComp(model.compositionEntity.id)"
                   (search)="OnCmpChange($event)"
                   placeholder="No Composition selected"
                 >
@@ -144,10 +144,10 @@
                   [items]="hsnList"
                   bindLabel="hsnName"
                   bindValue="id"
-                  [(ngModel)]="model.selectedHSN"
+                  [(ngModel)]="model.hsnsac.id"
                   name="hsnn"
                   #hsnn="ngModel"
-                  (keyup.enter)="Addhsn(model.selectedHSN)"
+                  (keyup.enter)="Addhsn(model.hsnsac.id)"
                   (search)="OnHsnChange($event)"
                   placeholder="No HSN selected"
                 >
@@ -165,7 +165,7 @@
                   class="form-control"
                   name="minDis"
                   #minDis="ngModel"
-                  [(ngModel)]="model.minDis"
+                  [(ngModel)]="model.min_amt"
                   placeholder="Min Dis"
                 />
               </div>
@@ -182,8 +182,10 @@
                   class="form-control"
                   name="maxDis"
                   #maxDis="ngModel"
-                  [(ngModel)]="model.maxDis"
+                  [(ngModel)]="model.max_amt"
                   placeholder="Max Dis"
+                  pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+                  step="0.01"
                 />
               </div>
             </div>
@@ -196,7 +198,7 @@
                   class="form-control"
                   name="minQty"
                   #minQty="ngModel"
-                  [(ngModel)]="model.minQty"
+                  [(ngModel)]="model.min_qty"
                   placeholder="min"
                 />
               </div>
@@ -210,7 +212,7 @@
                   class="form-control"
                   name="maxQty"
                   maxQty="ngModel"
-                  [(ngModel)]="model.maxQty"
+                  [(ngModel)]="model.max_qty"
                   placeholder="max"
                 />
               </div>
@@ -274,8 +276,8 @@
                 <ng-select
                   [items]="gstTypeList"
                   bindLabel="gstTypeName"
-                  bindValue="id"
-                  [(ngModel)]="model.selectedGST"
+                  bindValue="gstTypeName"
+                  [(ngModel)]="model.gst"
                   name="gstn"
                   #gstn="ngModel"
                   placeholder="No GST selected"
@@ -290,10 +292,10 @@
                   [items]="discountList"
                   bindLabel="discountSlabName"
                   bindValue="id"
-                  [(ngModel)]="model.selectedDisc"
+                  [(ngModel)]="model.discSalbEntity.id"
                   name="discn"
                   #discn="ngModel"
-                  (keyup.enter)="AddDiscountSlab(model.selectedDisc)"
+                  (keyup.enter)="AddDiscountSlab(model.discSalbEntity.id)"
                   (search)="OnDiscChange($event)"
                   placeholder="No Discount Slab selected"
                 >
@@ -301,8 +303,21 @@
               </div>
             </div>
           </div>
-          <button type="button" class="btn btn-primary mr-2">
+          <button
+            type="button"
+            class="btn btn-primary mr-2"
+            *ngIf="!CustomeId"
+            (click)="createItem(itmForm)"
+          >
             <i class="ft-check-square mr-1"></i>Save
+          </button>
+          <button
+            type="button"
+            *ngIf="CustomeId"
+            class="btn btn-primary mr-2"
+            (click)="updateItem(itmForm)"
+          >
+            Update
           </button>
           <button type="button" class="btn btn-secondary" (click)="goBack()">
             <i class="ft-x mr-1"></i>Cancel

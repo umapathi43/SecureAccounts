@@ -1,3 +1,5 @@
+import { NgForm } from "@angular/forms";
+import { ItemService } from "./../../services/item.service";
 import { filter } from "rxjs/operators";
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
@@ -20,27 +22,48 @@ import { GroupService } from "app/services/group.service";
 import { AddgroupComponent } from "app/group/addgroup/addgroup.component";
 import { AddstoretypeComponent } from "app/storetype/addstoretype/addstoretype.component";
 import { StoretypeService } from "app/services/storetype.service";
+import { ToastrService } from "ngx-toastr";
 export class addItem {
   public itemName: string;
-  public selectedPack: any;
-  public qytPerPack: any;
-  public selectedManf: any;
-  public selectedGrp: any;
-  public selectedStrtype: any;
-  public selectedSch: any;
-  public selectedComp: any;
-  public selectedHSN: any;
-  public minDis: any;
-  public maxDis: any;
-  public minQty: any;
-  public maxQty: any;
+  public packName: any;
+  public qty_per_pack: any;
+  public manufactureEntity: any = {
+    id: "",
+  };
+  public groupEntity: any = {
+    id: "",
+  };
+  public storeTypeEntity: any = {
+    id: "",
+  };
+  public scheduleEntity: any = {
+    id: "",
+  };
+  public compositionEntity: any = {
+    id: "",
+  };
+  public hsnsac: any = {
+    id: "",
+  };
+  public min_amt: any;
+  public max_amt: any;
+  public min_qty: any;
+  public max_qty: any;
   public rateA: any;
   public rateB: any;
   public rateC: any;
   public rateD: any;
-  public selectedDisc: any;
-  public selectedGST: any;
+  public discSalbEntity: any = {
+    id: "",
+  };
+  public gst: any;
 }
+export class manufactureEntity {
+  id: any;
+  manufacturerName: any;
+  status: "A";
+}
+
 @Component({
   selector: "app-additem",
   templateUrl: "./additem.component.html",
@@ -85,6 +108,7 @@ export class AdditemComponent implements OnInit {
   hsnFlag: boolean;
   discountFlag: boolean;
   packageFlag: boolean;
+  editItem: any;
   constructor(
     private _location: Location,
     private actRoute: ActivatedRoute,
@@ -97,10 +121,15 @@ export class AdditemComponent implements OnInit {
     private _hsnService: HsnandsacService,
     private _userService: UserService,
     private _grpService: GroupService,
-    private _strService: StoretypeService
+    private _strService: StoretypeService,
+    private itemService: ItemService,
+    private toastr: ToastrService
   ) {
     this.CustomeId = this.actRoute.snapshot.params.id;
     console.log(this.CustomeId);
+    if (this.CustomeId) {
+      this.getItemDetailsById();
+    }
   }
 
   ngOnInit(): void {
@@ -114,7 +143,12 @@ export class AdditemComponent implements OnInit {
     this.getGroups();
     this.getStoreTypes();
   }
-
+  getItemDetailsById() {
+    this.itemService.getItemDetailsById(this.CustomeId).subscribe((ok: any) => {
+      this.editItem = ok;
+      this.model = this.editItem;
+    });
+  }
   getGstTpes() {
     this._userService.getGstTypes().subscribe((ok) => {
       console.log("GST TYPES >>", ok);
@@ -126,7 +160,7 @@ export class AdditemComponent implements OnInit {
     this._grpService.getGroups().subscribe((ok) => {
       this.grpList = ok;
       if (this.groupName) {
-        this.model.selectedGrp = this.grpList.find(
+        this.model.groupEntity.id = this.grpList.find(
           (x) => x.groupName === this.groupName
         ).id;
         document.getElementById("frmcard").click();
@@ -164,7 +198,7 @@ export class AdditemComponent implements OnInit {
       console.log("store types >>", ok);
       this.strTypeList = ok;
       if (this.storeTypeName) {
-        this.model.selectedStrtype = this.strTypeList.find(
+        this.model.storeTypeEntity.id = this.strTypeList.find(
           (x) => x.storeTypeName === this.storeTypeName
         ).id;
         document.getElementById("frmcard").click();
@@ -349,11 +383,11 @@ export class AdditemComponent implements OnInit {
       console.log(ok);
       this.packList = ok;
       if (this.packName) {
-        this.model.selectedPack = this.packList.find(
+        this.model.packName = this.packList.find(
           (x) => x.packName === this.packName
         ).id;
         console.log(this.selectedPack);
-        this.qtyChange(this.model.selectedPack);
+        this.qtyChange(this.model.packName);
         document.getElementById("frmcard").click();
       }
     });
@@ -362,7 +396,7 @@ export class AdditemComponent implements OnInit {
     this._manfService.getManufactures().subscribe((ok) => {
       this.manfList = ok;
       if (this.manufacturerName) {
-        this.model.selectedManf = this.manfList.find(
+        this.model.manufactureEntity.id = this.manfList.find(
           (x) => x.manufacturerName === this.manufacturerName
         ).id;
         document.getElementById("frmcard").click();
@@ -375,7 +409,7 @@ export class AdditemComponent implements OnInit {
       console.log(ok);
       this.schList = ok;
       if (this.schedulerName) {
-        this.model.selectedSch = this.schList.find(
+        this.model.scheduleEntity.id = this.schList.find(
           (x) => x.schedulerName === this.schedulerName
         ).id;
         document.getElementById("frmcard").click();
@@ -387,7 +421,7 @@ export class AdditemComponent implements OnInit {
     this._compositionService.getCompositions().subscribe((ok) => {
       this.compList = ok;
       if (this.cName) {
-        this.model.selectedComp = this.compList.find(
+        this.model.compositionEntity.id = this.compList.find(
           (x) => x.cName === this.cName
         ).id;
         document.getElementById("frmcard").click();
@@ -399,7 +433,7 @@ export class AdditemComponent implements OnInit {
     this._discountService.getDisconts().subscribe((ok) => {
       this.discountList = ok;
       if (this.discountSlabName) {
-        this.model.selectedDisc = this.discountList.find(
+        this.model.discSalbEntity.id = this.discountList.find(
           (x) => x.discountSlabName === this.discountSlabName
         ).id;
       }
@@ -411,7 +445,7 @@ export class AdditemComponent implements OnInit {
     this._hsnService.getHSNs().subscribe((ok) => {
       this.hsnList = ok;
       if (this.hsnName) {
-        this.model.selectedHSN = this.hsnList.find(
+        this.model.hsnsac.id = this.hsnList.find(
           (x) => x.hsnName === this.hsnName
         ).id;
       }
@@ -421,10 +455,32 @@ export class AdditemComponent implements OnInit {
   qtyChange(action) {
     if (action) {
       this.packList.filter((t) => {
-        if (t.id == action) {
-          this.model.qytPerPack = t.qty;
+        if (t.packName == action) {
+          this.model.qty_per_pack = t.qty;
         }
       });
     }
+  }
+  createItem(form: NgForm) {
+    this.itemService.createItem(this.model).subscribe((ok: any) => {
+      if (ok == "OK") {
+        this.toastr.success("Success", "Item Created");
+        this._location.back();
+      } else {
+        this.toastr.error("Failed", "Failed to update Item");
+      }
+    });
+  }
+  updateItem(form: NgForm) {
+    this.itemService
+      .updateItemDetailsById(this.CustomeId, this.model)
+      .subscribe((ok) => {
+        if (ok == "OK") {
+          this.toastr.success("Success", "Item Updated");
+          this._location.back();
+        } else {
+          this.toastr.error("Failed", "Failed to update Item");
+        }
+      });
   }
 }

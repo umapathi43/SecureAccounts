@@ -112,7 +112,8 @@ export class ItemsComponent implements OnInit {
   updateLimit(limit) {
     this.limitRef = limit.target.value;
   }
-  Confirm() {
+  Confirm(id) {
+    let that = this;
     swal
       .fire({
         title: "Are you sure?",
@@ -130,13 +131,19 @@ export class ItemsComponent implements OnInit {
       })
       .then(function (result) {
         if (result.value) {
-          swal.fire({
-            icon: "success",
-            title: "Deleted!",
-            text: "Your record has been deleted.",
-            customClass: {
-              confirmButton: "btn btn-success",
-            },
+          const req = {
+            status: "D",
+          };
+          that.itenService.deleteItem(id, req).subscribe((ok) => {
+            swal.fire({
+              icon: "success",
+              title: "Deleted!",
+              text: "Your record has been deleted.",
+              customClass: {
+                confirmButton: "btn btn-success",
+              },
+            });
+            that.getItemDetails();
           });
         } else if (result.dismiss === swal.DismissReason.cancel) {
           swal.fire({
