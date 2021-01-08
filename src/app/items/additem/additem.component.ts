@@ -169,7 +169,7 @@ export class AdditemComponent implements OnInit {
   }
 
   AddGrp(action) {
-    if (this.groupFlag && action == undefined) {
+    if (this.groupFlag && (action == undefined || action == "")) {
       const modalRef = this.modalService.open(AddgroupComponent);
       modalRef.componentInstance.id = 0; // should be the id
       modalRef.componentInstance.data = { groupName: this.groupName }; // should be the data
@@ -207,7 +207,7 @@ export class AdditemComponent implements OnInit {
   }
 
   AddStrType(action) {
-    if (this.stroeFlag && action == undefined) {
+    if (this.stroeFlag && (action == undefined || action == "")) {
       const modalRef = this.modalService.open(AddstoretypeComponent);
       modalRef.componentInstance.id = 0; // should be the id
       modalRef.componentInstance.data = { storeTypeName: this.storeTypeName }; // should be the data
@@ -231,7 +231,7 @@ export class AdditemComponent implements OnInit {
     this._location.back();
   }
   AddPack(action) {
-    if (this.packageFlag && action == undefined) {
+    if (this.packageFlag && (action == undefined || action == "")) {
       const modalRef = this.modalService.open(CreatepackingComponent);
       modalRef.componentInstance.id = 0; // should be the id
       modalRef.componentInstance.data = { packName: this.packName }; // should be the data
@@ -247,7 +247,7 @@ export class AdditemComponent implements OnInit {
   }
 
   AddDiscountSlab(action) {
-    if (this.discountFlag && action == undefined) {
+    if (this.discountFlag && (action == undefined || action == "")) {
       const modalRef = this.modalService.open(AdddiscountslabComponent);
       modalRef.componentInstance.id = 0; // should be the id
       modalRef.componentInstance.data = {
@@ -265,7 +265,7 @@ export class AdditemComponent implements OnInit {
   }
 
   Addhsn(action) {
-    if (this.hsnFlag && action == undefined) {
+    if (this.hsnFlag && (action == undefined || action == "")) {
       const modalRef = this.modalService.open(AddhsnsacComponent);
       modalRef.componentInstance.id = 0; // should be the id
       modalRef.componentInstance.data = {
@@ -283,7 +283,7 @@ export class AdditemComponent implements OnInit {
   }
 
   AddManf(action) {
-    if (this.addMFG && action == undefined) {
+    if (this.addMFG && (action == undefined || action == "")) {
       const modalRef = this.modalService.open(AddmanufacturerComponent);
       modalRef.componentInstance.id = 0; // should be the id
       modalRef.componentInstance.data = {
@@ -301,7 +301,7 @@ export class AdditemComponent implements OnInit {
   }
 
   AddSch(action) {
-    if (this.schedulFlag && action == undefined) {
+    if (this.schedulFlag && (action == undefined || action == "")) {
       const modalRef = this.modalService.open(AddscheduleComponent);
       modalRef.componentInstance.id = 0; // should be the id
       modalRef.componentInstance.data = {
@@ -319,7 +319,7 @@ export class AdditemComponent implements OnInit {
   }
 
   AddComp(action) {
-    if (this.compFlag && action == undefined) {
+    if (this.compFlag && (action == undefined || action == "")) {
       const modalRef = this.modalService.open(AddcompositionComponent);
       modalRef.componentInstance.id = 0; // should be the id
       modalRef.componentInstance.data = {

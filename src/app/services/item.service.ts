@@ -18,7 +18,7 @@ export class ItemService {
     return this.http.put("AccountSetup/updateItemDetails/" + id, item);
   }
   deleteItem(id, value): Observable<any> {
-    return this.http.post("AccountSetup/updateItemDetails/" + id, value);
+    return this.http.put("AccountSetup/updateItemDetails/" + id, value);
   }
   createItem(value): Observable<any> {
     return this.http.post("AccountSetup/itemCreate/Item", value);
