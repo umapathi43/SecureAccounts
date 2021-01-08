@@ -112,7 +112,7 @@ export class ItemsComponent implements OnInit {
   updateLimit(limit) {
     this.limitRef = limit.target.value;
   }
-  Confirm(id) {
+  Confirm(action) {
     let that = this;
     swal
       .fire({
@@ -131,10 +131,10 @@ export class ItemsComponent implements OnInit {
       })
       .then(function (result) {
         if (result.value) {
-          const req = {
-            status: "D",
-          };
-          that.itenService.deleteItem(id, req).subscribe((ok) => {
+          let req;
+          req = action;
+          req["status"] = "D";
+          that.itenService.deleteItem(action.id, req).subscribe((ok) => {
             swal.fire({
               icon: "success",
               title: "Deleted!",

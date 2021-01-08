@@ -57,13 +57,8 @@ export class addItem {
     id: "",
   };
   public gst: any;
+  public status: "A";
 }
-export class manufactureEntity {
-  id: any;
-  manufacturerName: any;
-  status: "A";
-}
-
 @Component({
   selector: "app-additem",
   templateUrl: "./additem.component.html",
@@ -385,7 +380,7 @@ export class AdditemComponent implements OnInit {
       if (this.packName) {
         this.model.packName = this.packList.find(
           (x) => x.packName === this.packName
-        ).id;
+        ).packName;
         console.log(this.selectedPack);
         this.qtyChange(this.model.packName);
         document.getElementById("frmcard").click();
@@ -462,6 +457,7 @@ export class AdditemComponent implements OnInit {
     }
   }
   createItem(form: NgForm) {
+    this.model["status"] = "A";
     this.itemService.createItem(this.model).subscribe((ok: any) => {
       if (ok == "OK") {
         this.toastr.success("Success", "Item Created");
@@ -472,6 +468,7 @@ export class AdditemComponent implements OnInit {
     });
   }
   updateItem(form: NgForm) {
+    this.model["status"] = "A";
     this.itemService
       .updateItemDetailsById(this.CustomeId, this.model)
       .subscribe((ok) => {
