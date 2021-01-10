@@ -1,10 +1,24 @@
+import { UserService } from "app/services/user.service";
+import { SupplierService } from "./../services/supplier.service";
 import { Component, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
 import { ColumnMode, DatatableComponent } from "@swimlane/ngx-datatable";
+import { NgxSpinnerService } from "ngx-spinner";
+import { NgbCalendar, NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
+
 export class Purchase {
   public sname: string;
   public saddress: string;
   public GSTNo: string;
   public MobileNo: string;
+}
+export class AmountDetails {
+  public invoiceDate: string;
+  public entrydate: string;
+  public discount: string;
+  public dueday: string;
+  public srtMargin: string;
+  public duedate: string;
+  public invoiceNo: string;
 }
 
 @Component({
@@ -17,8 +31,21 @@ export class Purchase {
   encapsulation: ViewEncapsulation.None,
 })
 export class PurchaseComponent implements OnInit {
+  duedateCurrent: NgbDateStruct;
   showFields: any;
-  constructor() {}
+  duedateInvoice: any;
+  inVoiceDate: any;
+  entrydateInvoice: any;
+  readonly DELIMITER = "-";
+  supplierdata: any;
+  supplierName: any;
+  gstTypeList: any;
+  constructor(
+    private spinner: NgxSpinnerService,
+    private _supplierService: SupplierService,
+    private _userService: UserService,
+    private calendar: NgbCalendar
+  ) {}
   @ViewChild(DatatableComponent) table: DatatableComponent;
   @ViewChild("tableRowDetails") tableRowDetails: any;
   // row data
@@ -99,9 +126,24 @@ export class PurchaseComponent implements OnInit {
     { name: "netAmt", prop: "netAmt" },
   ];
   model = new Purchase();
-  ngOnInit(): void {}
+  invoice = new AmountDetails();
+  ngOnInit(): void {
+    this.getSuppliers();
+    this.getGstTpes();
+  }
   onSubmit(form) {
     console.log(form.value);
+  }
+  getSuppliers() {
+    this.spinner.show(undefined, {
+      type: "ball-triangle-path",
+      size: "medium",
+    });
+    this._supplierService.getSuppliers().subscribe((ok) => {
+      console.log(ok);
+      this.supplierdata = ok;
+      this.spinner.hide();
+    });
   }
   addItem() {
     this.Items.push({
@@ -134,5 +176,37 @@ export class PurchaseComponent implements OnInit {
   DisplayFileds(index) {
     this.showFields = index;
     console.log(this.showFields);
+  }
+  OnSupplierChange(event) {
+    this.supplierName = event.term;
+    // this.schedulFlag = event.items.length == 0 ? true : false;
+  }
+  supplierAddress(action) {
+    if (action) {
+      this.supplierdata.forEach((e) => {
+        if (e.id == action) {
+          this.model.saddress = e.address1 + "" + e.address2;
+          this.model.MobileNo = e.mobileNo;
+          this.model.GSTNo = e.gstType;
+        }
+      });
+    }
+  }
+  getGstTpes() {
+    this._userService.getGstTypes().subscribe((ok) => {
+      console.log("GST TYPES >>", ok);
+      this.gstTypeList = ok;
+    });
+  }
+  toModel(date: NgbDateStruct | null): string | null {
+    return date
+      ? date.day + this.DELIMITER + date.month + this.DELIMITER + date.year
+      : null;
+  }
+  duedateChange(action) {
+    var date = new Date();
+    let act = +action;
+    date.setDate(date.getDate() + act);
+    this.duedateCurrent = this.calendar.getToday();
   }
 }
