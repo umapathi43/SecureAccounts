@@ -24,20 +24,6 @@
                     (ngModelChange)="supplierAddress(model.sname)"
                   >
                   </ng-select>
-                  <!-- <input
-                    type="text"
-                    name=""
-                    class="form-control round"
-                    id="validationTooltip01"
-                    [(ngModel)]="model.sname"
-                    (change)="supplierAddress()"
-                    #fname="ngModel"
-                    [ngClass]="{
-                      'is-invalid': userForm.submitted && fname.invalid,
-                      'is-valid': userForm.submitted && !fname.invalid
-                    }"
-                    required
-                  /> -->
                   <div
                     *ngIf="userForm.submitted && !fname.errors?.required"
                     class="valid-tooltip"
@@ -72,7 +58,6 @@
                   <ng-select
                     [items]="gstTypeList"
                     bindLabel="gstTypeName"
-                    class="form-control round"
                     bindValue="gstTypeName"
                     [(ngModel)]="model.GSTNo"
                     name="gstn"
@@ -80,18 +65,7 @@
                     placeholder="No GST selected"
                   >
                   </ng-select>
-                  <!-- <input
-                    type="text"
-                    name="city"
-                    class="form-control round"
-                    [(ngModel)]="model.GSTNo"
-                    #city="ngModel"
-                    [ngClass]="{
-                      'is-invalid': userForm.submitted && city.invalid,
-                      'is-valid': userForm.submitted && !city.invalid
-                    }"
-                    required
-                  /> -->
+
                   <div
                     *ngIf="
                       userForm.submitted &&
@@ -189,18 +163,6 @@
                       </div>
                     </div>
                   </div>
-                  <!-- <input
-                    type="text"
-                    name="indate"
-                    class="form-control round"
-                    [(ngModel)]="invoice.invoiceDate"
-                    #indate="ngModel"
-                    [ngClass]="{
-                      'is-invalid': userForm.submitted && indate.invalid,
-                      'is-valid': userForm.submitted && !indate.invalid
-                    }"
-                    required
-                  /> -->
                   <div
                     *ngIf="
                       userForm.submitted &&
@@ -221,11 +183,11 @@
                       #entrydate="ngModel"
                       [(ngModel)]="entrydateInvoice"
                       ngbDatepicker
-                      #d2="ngbDatepicker"
+                      #d="ngbDatepicker"
                       required
                     />
                     <div class="input-group-append">
-                      <div class="input-group-text" (click)="d2.toggle()">
+                      <div class="input-group-text" (click)="d.toggle()">
                         <i class="fa fa-calendar" style="cursor: pointer"></i>
                       </div>
                     </div>
@@ -312,11 +274,11 @@
                       #duedate="ngModel"
                       [(ngModel)]="duedateInvoice"
                       ngbDatepicker
-                      #d2="ngbDatepicker"
+                      #t="ngbDatepicker"
                       required
                     />
                     <div class="input-group-append">
-                      <div class="input-group-text" (click)="d2.toggle()">
+                      <div class="input-group-text" (click)="t.toggle()">
                         <i class="fa fa-calendar" style="cursor: pointer"></i>
                       </div>
                     </div>
@@ -405,19 +367,48 @@
               [scrollbarH]="true"
               [scrollbarV]="true"
             >
-              <ngx-datatable-column name="Name" prop="name">
+              <ngx-datatable-column name="Name" prop="name" [width]="130">
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
                   let-rowIndex="rowIndex"
                 >
-                  <input
+                  <!-- <ng-select
+                    [items]="itemArray"
+                    bindLabel="itemName"
+                    bindValue="id"
+                    [(ngModel)]="item.name"
+                    name="itemName{{ rowIndex }} "
+                    #itemName="ngModel"
+                    placeholder="No Item selected"
+                    style="width: 119px"
+                  >
+                  </ng-select> -->
+                  <ng-select
+                    #MyNgSelect
+                    bindLabel="name"
+                    placeholder="Select item"
+                    appendTo="body"
+                    [searchable]="true"
+                    [clearable]="true"
+                    [closeOnSelect]="false"
+                    [(ngModel)]="item.name"
+                    style="width: 119px"
+                    name="itemName{{ rowIndex }} "
+                    #itemName="ngModel"
+                    placeholder="No Item selected"
+                  >
+                    <ng-option [value]="item.id" *ngFor="let item of itemArray">
+                      {{ item.itemName }}
+                    </ng-option>
+                  </ng-select>
+                  <!-- <input
                     type="text"
                     class="form-control"
                     [(ngModel)]="item.name"
                     name="name{{ rowIndex }}"
                     placeholder="Name"
-                  />
+                  /> -->
                 </ng-template>
               </ngx-datatable-column>
               <ngx-datatable-column name="Batch" prop="batch">
@@ -442,12 +433,22 @@
                   let-rowIndex="rowIndex"
                 >
                   <input
+                    [(ngModel)]="item.expiryDate"
+                    ngbDatepicker
+                    class="form-control"
+                    #d2="ngbDatepicker"
+                    name="expiryDate{{ rowIndex }}"
+                    placeholder="mm-yyyy"
+                    required
+                    (change)="mgdChange(item.expiryDate, rowIndex)"
+                  />
+                  <!-- <input
                     type="text"
                     class="form-control"
                     [(ngModel)]="item.expiryDate"
                     name="expiryDate{{ rowIndex }}"
                     placeholder="Expiry Date"
-                  />
+                  /> -->
                 </ng-template>
               </ngx-datatable-column>
               <ngx-datatable-column name="Mfg Date" prop="mfgDate">
@@ -457,12 +458,28 @@
                   let-rowIndex="rowIndex"
                 >
                   <input
+                    class="form-control"
+                    placeholder="yyyy-mm-dd"
+                    name="mfgDate{{ rowIndex }}"
+                    [(ngModel)]="item.mfgDate"
+                    ngbDatepicker
+                    #m="ngbDatepicker"
+                    (click)="m.toggle()"
+                    required
+                    [maxDate]="item.maxdate"
+                  />
+                  <!-- <div class="input-group-append">
+                    <div class="input-group-text" (click)="m.toggle()">
+                      <i class="fa fa-calendar" style="cursor: pointer"></i>
+                    </div>
+                  </div> -->
+                  <!-- <input
                     type="text"
                     class="form-control"
                     [(ngModel)]="item.mfgDate"
                     name="mfgDate{{ rowIndex }}"
                     placeholder="Mfg Date"
-                  />
+                  /> -->
                 </ng-template>
               </ngx-datatable-column>
               <ngx-datatable-column name="Best Before" prop="bestBefore">

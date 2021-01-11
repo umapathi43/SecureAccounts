@@ -1,3 +1,4 @@
+import { ItemService } from "./../services/item.service";
 import { UserService } from "app/services/user.service";
 import { SupplierService } from "./../services/supplier.service";
 import { Component, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
@@ -40,11 +41,14 @@ export class PurchaseComponent implements OnInit {
   supplierdata: any;
   supplierName: any;
   gstTypeList: any;
+  itemArray: any;
+  maxdate: { year: number; month: number; day: number };
   constructor(
     private spinner: NgxSpinnerService,
     private _supplierService: SupplierService,
     private _userService: UserService,
-    private calendar: NgbCalendar
+    private calendar: NgbCalendar,
+    public itenService: ItemService
   ) {}
   @ViewChild(DatatableComponent) table: DatatableComponent;
   @ViewChild("tableRowDetails") tableRowDetails: any;
@@ -100,6 +104,7 @@ export class PurchaseComponent implements OnInit {
       gst: "",
       taxAmount: "",
       qpk: "",
+      maxdate: "",
       srt: "",
       grossAmt: "",
       netAmt: "",
@@ -130,6 +135,7 @@ export class PurchaseComponent implements OnInit {
   ngOnInit(): void {
     this.getSuppliers();
     this.getGstTpes();
+    this.getItemDetails();
   }
   onSubmit(form) {
     console.log(form.value);
@@ -162,6 +168,7 @@ export class PurchaseComponent implements OnInit {
       gst: "",
       taxAmount: "",
       qpk: "",
+      maxdate: "",
       srt: "",
       grossAmt: "",
       netAmt: "",
@@ -204,9 +211,39 @@ export class PurchaseComponent implements OnInit {
       : null;
   }
   duedateChange(action) {
+    var current = {
+      day: 0,
+      month: 0,
+      year: 0,
+    };
     var date = new Date();
     let act = +action;
     date.setDate(date.getDate() + act);
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
     this.duedateCurrent = this.calendar.getToday();
+    current.day = day;
+    current.month = month;
+    current.year = year;
+    this.duedateInvoice = current;
+  }
+  getItemDetails() {
+    this.itenService.getItemDetails().subscribe((ok: any) => {
+      this.itemArray = ok.filter((t) => t.status == "A");
+    });
+  }
+  mgdChange(date, ind) {
+    let arr = date.split("-");
+    var l = { year: 0, month: 0, day: 0 };
+    l.day = 1;
+    arr[0].substring(1);
+    l.month = +arr[0];
+    l.year = +arr[1];
+    this.Items.forEach((v, i) => {
+      if (i == ind) {
+        v.maxdate = l;
+      }
+    });
   }
 }
