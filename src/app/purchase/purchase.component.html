@@ -308,7 +308,7 @@
                 <div class="col-md-6 mb-1 form-group">
                   <label for="validationTooltip03">SRT Margin %</label>
                   <input
-                    type="text"
+                    type="number"
                     name="srtMargin"
                     class="form-control round"
                     [(ngModel)]="invoice.srtMargin"
@@ -466,7 +466,7 @@
                     #m="ngbDatepicker"
                     (click)="m.toggle()"
                     required
-                    [maxDate]="item.maxdate"
+                    [disabled]="item.mfgdateFlag === true"
                   />
                   <!-- <div class="input-group-append">
                     <div class="input-group-text" (click)="m.toggle()">
@@ -494,6 +494,7 @@
                     name="bestBefore{{ rowIndex }}"
                     required
                     class="form-control"
+                    [disabled]="item.mfgdateFlag === true"
                   >
                     <option value="none" selected disabled>
                       Interested in
@@ -513,11 +514,17 @@
                   let-rowIndex="rowIndex"
                 >
                   <input
-                    type="text"
+                    type="number"
                     class="form-control"
                     [(ngModel)]="item.qty"
                     name="qty{{ rowIndex }}"
-                    placeholder="Qty"
+                    placeholder="00.00"
+                    (change)="
+                      limitDecimalPlaces($event, 2);
+                      discountAmountChange(item, rowIndex);
+                      grossAmount(item, rowIndex);
+                      taxAmount(item, rowIndex)
+                    "
                   />
                 </ng-template>
               </ngx-datatable-column>
@@ -532,11 +539,12 @@
                   let-rowIndex="rowIndex"
                 >
                   <input
-                    type="text"
+                    type="number"
                     class="form-control"
                     [(ngModel)]="item.freeQty"
                     name="freeQty{{ rowIndex }}"
                     placeholder="Free Qty"
+                    (change)="limitDecimalPlaces($event, 2)"
                   />
                 </ng-template>
               </ngx-datatable-column>
@@ -547,27 +555,34 @@
                   let-rowIndex="rowIndex"
                 >
                   <input
-                    type="text"
+                    type="number"
                     class="form-control"
                     [(ngModel)]="item.mrp"
                     name="mrp{{ rowIndex }}"
                     placeholder="MRP"
+                    (change)="limitDecimalPlaces($event, 2)"
                   />
                 </ng-template>
               </ngx-datatable-column>
 
-              <ngx-datatable-column name="Purchase Date" prop="purchaseDate">
+              <ngx-datatable-column name="Purchase Rate" prop="purchaseRate">
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
                   let-rowIndex="rowIndex"
                 >
                   <input
-                    type="text"
+                    type="number"
                     class="form-control"
-                    [(ngModel)]="item.purchaseDate"
-                    name="purchaseDate{{ rowIndex }}"
-                    placeholder="Purchase Date"
+                    [(ngModel)]="item.purchaseRate"
+                    name="purchaseRate{{ rowIndex }}"
+                    placeholder="Purchase Rate"
+                    (change)="
+                      discountAmountChange(item, rowIndex);
+                      taxAmount(item, rowIndex);
+                      srtAmount(item, rowIndex);
+                      grossAmount(item, rowIndex)
+                    "
                   />
                 </ng-template>
               </ngx-datatable-column>
@@ -582,18 +597,22 @@
                   let-rowIndex="rowIndex"
                 >
                   <input
-                    type="text"
+                    type="number"
                     class="form-control"
                     [(ngModel)]="item.discount"
                     name="discount{{ rowIndex }}"
                     placeholder="Discount%"
+                    (change)="
+                      discountAmountChange(item, rowIndex);
+                      taxAmount(item, rowIndex)
+                    "
                   />
                 </ng-template>
               </ngx-datatable-column>
               <ngx-datatable-column
                 name="Disc Amount"
                 prop="discAmount"
-                [width]="100"
+                [width]="115"
               >
                 <ng-template
                   let-item="row"
@@ -601,11 +620,12 @@
                   let-rowIndex="rowIndex"
                 >
                   <input
-                    type="text"
+                    type="number"
                     class="form-control"
                     [(ngModel)]="item.discAmount"
                     name="discAmount{{ rowIndex }}"
                     placeholder="Disc Amount"
+                    (change)="netAmount(item, rowIndex)"
                   />
                 </ng-template>
               </ngx-datatable-column>
@@ -620,11 +640,14 @@
                   let-rowIndex="rowIndex"
                 >
                   <input
-                    type="text"
+                    type="number"
                     class="form-control"
                     [(ngModel)]="item.schdiscAmount"
                     name="schdiscAmount{{ rowIndex }}"
                     placeholder="Sch Disc Amount"
+                    (change)="
+                      limitDecimalPlaces($event, 2); netAmount(item, rowIndex)
+                    "
                   />
                 </ng-template>
               </ngx-datatable-column>
@@ -634,19 +657,38 @@
                   ngx-datatable-cell-template
                   let-rowIndex="rowIndex"
                 >
-                  <input
+                  <ng-select
+                    #MyNgSelect
+                    bindLabel="gstTypeName"
+                    appendTo="body"
+                    [searchable]="true"
+                    [clearable]="true"
+                    [closeOnSelect]="false"
+                    style="width: 70px"
+                    [(ngModel)]="item.gst"
+                    name="gst{{ rowIndex }}"
+                    (change)="taxAmount(item, rowIndex)"
+                  >
+                    <ng-option
+                      [value]="item.gstTypeName"
+                      *ngFor="let item of gstTypeList"
+                    >
+                      {{ item.gstTypeName }}
+                    </ng-option>
+                  </ng-select>
+                  <!-- <input
                     type="text"
                     class="form-control"
                     [(ngModel)]="item.gst"
                     name="gst{{ rowIndex }}"
                     placeholder="GST"
-                  />
+                  /> -->
                 </ng-template>
               </ngx-datatable-column>
               <ngx-datatable-column
                 name="Tax Amount"
                 prop="taxAmount"
-                [width]="100"
+                [width]="115"
               >
                 <ng-template
                   let-item="row"
@@ -654,11 +696,12 @@
                   let-rowIndex="rowIndex"
                 >
                   <input
-                    type="text"
+                    type="number"
                     class="form-control"
                     [(ngModel)]="item.taxAmount"
                     name="taxAmount{{ rowIndex }}"
                     placeholder="Tax Amount"
+                    (change)="netAmount(item, rowIndex)"
                   />
                 </ng-template>
               </ngx-datatable-column>
@@ -704,6 +747,7 @@
                     [(ngModel)]="item.grossAmt"
                     name="grossAmt{{ rowIndex }}"
                     placeholder="Gross Amt"
+                    (change)="netAmount(item, rowIndex)"
                   />
                 </ng-template>
               </ngx-datatable-column>

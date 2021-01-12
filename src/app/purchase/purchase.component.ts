@@ -43,6 +43,7 @@ export class PurchaseComponent implements OnInit {
   gstTypeList: any;
   itemArray: any;
   maxdate: { year: number; month: number; day: number };
+  mfgDate: boolean;
   constructor(
     private spinner: NgxSpinnerService,
     private _supplierService: SupplierService,
@@ -97,7 +98,7 @@ export class PurchaseComponent implements OnInit {
       qty: "",
       freeQty: "",
       mrp: "",
-      purchaseDate: "",
+      purchaseRate: "",
       discount: "",
       discAmount: "",
       schdiscAmount: "",
@@ -108,6 +109,7 @@ export class PurchaseComponent implements OnInit {
       srt: "",
       grossAmt: "",
       netAmt: "",
+      mfgdateFlag: "",
     },
   ];
   columns2 = [
@@ -119,7 +121,7 @@ export class PurchaseComponent implements OnInit {
     { name: "qty", prop: "qty" },
     { name: "freeQty", prop: "freeQty" },
     { name: "mrp", prop: "mrp" },
-    { name: "purchaseDate", prop: "purchaseDate" },
+    { name: "purchaseRate", prop: "purchaseRate" },
     { name: "discount", prop: "discount" },
     { name: "discAmount", prop: "discAmount" },
     { name: "schdiscAmount", prop: "schdiscAmount" },
@@ -161,7 +163,7 @@ export class PurchaseComponent implements OnInit {
       qty: "",
       freeQty: "",
       mrp: "",
-      purchaseDate: "",
+      purchaseRate: "",
       discount: "",
       discAmount: "",
       schdiscAmount: "",
@@ -172,6 +174,7 @@ export class PurchaseComponent implements OnInit {
       srt: "",
       grossAmt: "",
       netAmt: "",
+      mfgdateFlag: "",
     });
     this.Items = [...this.Items];
   }
@@ -234,16 +237,103 @@ export class PurchaseComponent implements OnInit {
     });
   }
   mgdChange(date, ind) {
-    let arr = date.split("-");
-    var l = { year: 0, month: 0, day: 0 };
-    l.day = 1;
-    arr[0].substring(1);
-    l.month = +arr[0];
-    l.year = +arr[1];
-    this.Items.forEach((v, i) => {
-      if (i == ind) {
-        v.maxdate = l;
+    // let arr = date.split("-");
+    // var l = { year: 0, month: 0, day: 0 };
+    // l.day = 1;
+    // arr[0].substring(1);
+    // l.month = +arr[0];
+    // l.year = +arr[1];
+    // this.Items.forEach((v, i) => {
+    //   if (i == ind) {
+    //     v.maxdate = l;
+    //   }
+    // });
+    if (date) {
+      this.Items.forEach((v, i) => {
+        if (i == ind) {
+          v.mfgdateFlag = true;
+        }
+      });
+    } else {
+      this.Items.forEach((v, i) => {
+        if (i == ind) {
+          v.mfgdateFlag = false;
+        }
+      });
+    }
+  }
+  limitDecimalPlaces(e, count) {
+    if (e.target.value.indexOf(".") == -1) {
+      return;
+    }
+    if (e.target.value.length - e.target.value.indexOf(".") > count) {
+      e.target.value = parseFloat(e.target.value).toFixed(count);
+    }
+  }
+  discountAmountChange(action, ind) {
+    if (action) {
+      if (action.qty && action.purchaseRate && action.discount) {
+        this.Items.forEach((e, i) => {
+          if (i == ind) {
+            e.discAmount = (e.qty * e.purchaseRate * e.discount) / 100;
+          }
+        });
       }
-    });
+    }
+  }
+  taxAmount(action, ind) {
+    if (action) {
+      if (
+        action.qty &&
+        action.purchaseRate &&
+        action.discAmount &&
+        action.gst
+      ) {
+        this.Items.forEach((e, i) => {
+          if (i == ind) {
+            e.taxAmount = (e.qty * e.purchaseRate - e.discAmount) * e.gst;
+          }
+        });
+      }
+    }
+  }
+  srtAmount(action, ind) {
+    if (action) {
+      if (action.purchaseRate && this.invoice.srtMargin) {
+        this.Items.forEach((e, i) => {
+          if (i == ind) {
+            e.srt = e.purchaseRate + +this.invoice.srtMargin / 100;
+          }
+        });
+      }
+    }
+  }
+  grossAmount(action, ind) {
+    if (action) {
+      if (action.purchaseRate && action.qty) {
+        this.Items.forEach((e, i) => {
+          if (i == ind) {
+            e.grossAmt = e.purchaseRate * e.qty;
+          }
+        });
+      }
+    }
+  }
+  netAmount(action, ind) {
+    if (action) {
+      if (
+        action.discAmount &&
+        action.schdiscAmount &&
+        action.grossAmt &&
+        action.taxAmount
+      ) {
+        this.Items.forEach((e, i) => {
+          if (i == ind) {
+            e.netAmt =
+              e.grossAmt - e.discAmount - e.schdiscAmount + e.taxAmount;
+          }
+        });
+      }
+    }
   }
 }
