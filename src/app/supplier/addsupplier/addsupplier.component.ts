@@ -1,7 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
-import { NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
+import { NgbActiveModal, NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
 import { UserService } from "app/services/user.service";
 import { SupplierService } from "app/services/supplier.service";
 import { ToastrService } from "ngx-toastr";
@@ -30,15 +30,19 @@ export class AddsupplierComponent implements OnInit {
   readonly DELIMITER = "-";
   popupModel: any;
   CustomeId: any;
+  @Input() data: any;
+  @Input() id: number;
   model = new Supplier();
   gstTypeList: any;
   paymentMethodList: any;
+  isModal: boolean;
   constructor(
     private _location: Location,
     private actRoute: ActivatedRoute,
     private _userService: UserService,
     private _supplierService: SupplierService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    public activeModal: NgbActiveModal
   ) {
     this.CustomeId = this.actRoute.snapshot.params.id;
     console.log(this.CustomeId);
@@ -48,11 +52,21 @@ export class AddsupplierComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    debugger;
+    if (this.id == 0) {
+      this.isModal = true;
+      console.log(this.data);
+      this.model.supplierName = this.data.hsnName;
+    }
     this.getGstTpes();
     this.getPaymentModes();
   }
   goBack() {
-    this._location.back();
+    if (this.isModal) {
+      this.activeModal.close(this.model.supplierName);
+    } else {
+      this._location.back();
+    }
   }
   getGstTpes() {
     this._userService.getGstTypes().subscribe((ok) => {
@@ -76,7 +90,11 @@ export class AddsupplierComponent implements OnInit {
       console.log(ok);
       if (ok == "OK") {
         this.toastr.success("Success", "Supplier Updated");
-        this._location.back();
+        if (this.isModal) {
+          this.activeModal.close(this.model.supplierName);
+        } else {
+          this._location.back();
+        }
       } else {
         this.toastr.error("Failed", "Failed to update Supplier");
       }

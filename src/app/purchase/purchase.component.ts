@@ -1,10 +1,15 @@
+import { AddsupplierComponent } from "./../supplier/addsupplier/addsupplier.component";
 import { ItemService } from "./../services/item.service";
 import { UserService } from "app/services/user.service";
 import { SupplierService } from "./../services/supplier.service";
 import { Component, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
 import { ColumnMode, DatatableComponent } from "@swimlane/ngx-datatable";
 import { NgxSpinnerService } from "ngx-spinner";
-import { NgbCalendar, NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
+import {
+  NgbCalendar,
+  NgbDateStruct,
+  NgbModal,
+} from "@ng-bootstrap/ng-bootstrap";
 
 export class Purchase {
   public sname: string;
@@ -52,12 +57,15 @@ export class PurchaseComponent implements OnInit {
   maxdate: { year: number; month: number; day: number };
   mfgDate: boolean;
   beforeDetails: any[];
+  supFlag: boolean;
+  supplierNameId: any;
   constructor(
     private spinner: NgxSpinnerService,
     private _supplierService: SupplierService,
     private _userService: UserService,
     private calendar: NgbCalendar,
-    public itenService: ItemService
+    public itenService: ItemService,
+    private modalService: NgbModal
   ) {}
   @ViewChild(DatatableComponent) table: DatatableComponent;
   @ViewChild("tableRowDetails") tableRowDetails: any;
@@ -159,6 +167,13 @@ export class PurchaseComponent implements OnInit {
     this._supplierService.getSuppliers().subscribe((ok) => {
       console.log(ok);
       this.supplierdata = ok;
+      if (this.supplierName) {
+        this.model.sname = this.supplierdata.find(
+          (x) => x.supplierName === this.supplierName
+        ).supplierName;
+        document.getElementById("frmcard").click();
+        this.supplierAddress(this.model.sname);
+      }
       this.spinner.hide();
     });
   }
@@ -198,12 +213,12 @@ export class PurchaseComponent implements OnInit {
   }
   OnSupplierChange(event) {
     this.supplierName = event.term;
-    // this.schedulFlag = event.items.length == 0 ? true : false;
+    this.supFlag = event.items.length == 0 ? true : false;
   }
   supplierAddress(action) {
     if (action) {
       this.supplierdata.forEach((e) => {
-        if (e.id == action) {
+        if (e.supplierName == action) {
           this.model.saddress = e.address1 + "" + e.address2;
           this.model.MobileNo = e.mobileNo;
           this.model.GSTNo = e.gstType;
@@ -293,6 +308,23 @@ export class PurchaseComponent implements OnInit {
           }
         });
       }
+    }
+  }
+  addsupplierPop(action) {
+    if (this.supFlag && (action == undefined || action == "")) {
+      const modalRef = this.modalService.open(AddsupplierComponent);
+      modalRef.componentInstance.id = 0; // should be the id
+      modalRef.componentInstance.data = {
+        hsnName: this.supplierName,
+      }; // should be the data
+      modalRef.result
+        .then((result) => {
+          console.log(result);
+          this.getSuppliers();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   }
   taxAmount(action, ind) {

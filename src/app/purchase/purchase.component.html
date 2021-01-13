@@ -1,5 +1,5 @@
 <section id="tooltip-validation">
-  <div class="row">
+  <div class="row" id="frmcard">
     <div class="col-6">
       <div class="card">
         <div class="card-content">
@@ -15,12 +15,13 @@
                   <ng-select
                     [items]="supplierdata"
                     bindLabel="supplierName"
-                    bindValue="id"
+                    bindValue="supplierName"
                     [(ngModel)]="model.sname"
                     name="fname"
                     #fname="ngModel"
                     placeholder="Select Suppliers"
                     (search)="OnSupplierChange($event)"
+                    (keyup.enter)="addsupplierPop(model.sname)"
                     (ngModelChange)="supplierAddress(model.sname)"
                   >
                   </ng-select>
