@@ -31,4 +31,7 @@ export class UserService {
   updateUser(data: any): Observable<any> {
     return this.http.put("AccountSetup/updateCustomer/" + data.id, data);
   }
+  getBestBeforeDetails(): Observable<any> {
+    return this.http.get("AccountSetup/getBestBeforeDetails");
+  }
 }

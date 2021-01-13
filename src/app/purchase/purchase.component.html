@@ -496,14 +496,12 @@
                     class="form-control"
                     [disabled]="item.mfgdateFlag === true"
                   >
-                    <option value="none" selected disabled>
-                      Interested in
+                    <option
+                      value="{{ best.id }}"
+                      *ngFor="let best of beforeDetails"
+                    >
+                      {{ best.bestBefore }}
                     </option>
-                    <option value="design">Design</option>
-                    <option value="development">Development</option>
-                    <option value="illustration">Illustration</option>
-                    <option value="branding">Branding</option>
-                    <option value="video">Video</option>
                   </select>
                 </ng-template>
               </ngx-datatable-column>
@@ -1119,7 +1117,9 @@
                     type="text"
                     id="form-1"
                     class="form-control round"
-                    name="cname"
+                    name="grossAmounts"
+                    #grossAmounts="ngModel"
+                    [(ngModel)]="invoice.grossAmounts"
                   />
                 </div>
                 <div class="col-md-4 form-group">
@@ -1128,7 +1128,9 @@
                     type="text"
                     id="form-2"
                     class="form-control round"
-                    name="ename"
+                    name="discAmount"
+                    #discAmount="ngModel"
+                    [(ngModel)]="invoice.discAmount"
                   />
                 </div>
                 <div class="col-md-4 form-group">
@@ -1137,16 +1139,29 @@
                     type="number"
                     id="form-3"
                     class="form-control round"
-                    name="eid"
+                    name="noItems"
+                    #noItems="ngModel"
+                    [(ngModel)]="invoice.noItems"
                   />
                 </div>
                 <div class="col-md-4 form-group position-relative">
                   <label for="form-4">Date</label>
                   <input
-                    type="text"
-                    id="form-4"
-                    class="form-control pickadate round"
+                    placeholder="yyyy-mm-dd"
+                    name="footerdate"
+                    class="form-control round"
+                    #footerdate="ngModel"
+                    [(ngModel)]="invoice.footerDate"
+                    ngbDatepicker
+                    #f="ngbDatepicker"
+                    (click)="f.toggle()"
+                    required
                   />
+                  <!-- <div class="input-group-append">
+                    <div class="input-group-text" (click)="f.toggle()">
+                      <i class="fa fa-calendar" style="cursor: pointer"></i>
+                    </div>
+                  </div> -->
                 </div>
                 <div class="col-md-4 form-group">
                   <label for="form-5">GST Amount</label>
@@ -1154,7 +1169,9 @@
                     type="text"
                     id="form-5"
                     class="form-control round"
-                    name="sname"
+                    name="gstamount"
+                    #gstamount="ngModel"
+                    [(ngModel)]="invoice.gstamount"
                   />
                 </div>
 
@@ -1164,7 +1181,9 @@
                     type="text"
                     id="form-7"
                     class="form-control round"
-                    name="sign"
+                    name="roundAmount"
+                    #roundAmount="ngModel"
+                    [(ngModel)]="invoice.roundAmount"
                   />
                 </div>
               </div>

@@ -6,11 +6,15 @@ import swal from "sweetalert2";
 import * as xlsx from "xlsx";
 import * as FileSaver from "file-saver";
 declare var jsPDF: any;
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: "app-items",
   templateUrl: "./items.component.html",
-  styleUrls: ["./items.component.scss"],
+  styleUrls: [
+    "./items.component.scss",
+    "../../assets/sass/libs/datatables.scss",
+  ],
   encapsulation: ViewEncapsulation.None,
 })
 export class ItemsComponent implements OnInit {
@@ -77,7 +81,10 @@ export class ItemsComponent implements OnInit {
   // private
   private tempData = [];
 
-  constructor(public itenService: ItemService) {
+  constructor(
+    public itenService: ItemService,
+    private spinner: NgxSpinnerService
+  ) {
     // this.getItemDetails();
     // this.tempData = this.rows;
   }
@@ -165,6 +172,10 @@ export class ItemsComponent implements OnInit {
     }));
   }
   getItemDetails() {
+    this.spinner.show(undefined, {
+      type: "ball-triangle-path",
+      size: "medium",
+    });
     this.itenService.getItemDetails().subscribe((ok: any) => {
       this.item = ok.filter((t) => t.status == "A");
       this.rows = ok.filter((t) => t.status == "A");
@@ -179,7 +190,7 @@ export class ItemsComponent implements OnInit {
       });
       this.tempData = this.rows;
       this.table.element.click();
-      console.log(this.item, "tennnnn");
+      this.spinner.hide();
     });
   }
   exportPdf() {

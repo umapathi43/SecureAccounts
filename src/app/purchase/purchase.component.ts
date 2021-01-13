@@ -20,6 +20,12 @@ export class AmountDetails {
   public srtMargin: string;
   public duedate: string;
   public invoiceNo: string;
+  public grossAmounts: string;
+  public discAmount: string;
+  public noItems: string;
+  public gstamount: string;
+  public roundAmount: string;
+  public footerDate: string;
 }
 
 @Component({
@@ -36,6 +42,7 @@ export class PurchaseComponent implements OnInit {
   showFields: any;
   duedateInvoice: any;
   inVoiceDate: any;
+  footerdate: any;
   entrydateInvoice: any;
   readonly DELIMITER = "-";
   supplierdata: any;
@@ -44,6 +51,7 @@ export class PurchaseComponent implements OnInit {
   itemArray: any;
   maxdate: { year: number; month: number; day: number };
   mfgDate: boolean;
+  beforeDetails: any[];
   constructor(
     private spinner: NgxSpinnerService,
     private _supplierService: SupplierService,
@@ -138,6 +146,7 @@ export class PurchaseComponent implements OnInit {
     this.getSuppliers();
     this.getGstTpes();
     this.getItemDetails();
+    this.getBestBeforeDetails();
   }
   onSubmit(form) {
     console.log(form.value);
@@ -201,6 +210,11 @@ export class PurchaseComponent implements OnInit {
         }
       });
     }
+  }
+  getBestBeforeDetails() {
+    this._userService.getBestBeforeDetails().subscribe((ok: any) => {
+      this.beforeDetails = ok;
+    });
   }
   getGstTpes() {
     this._userService.getGstTypes().subscribe((ok) => {

@@ -167,6 +167,8 @@
                   #minDis="ngModel"
                   [(ngModel)]="model.min_amt"
                   placeholder="Min Dis"
+                  (change)="limitDecimalPlaces($event, 2)"
+                  ;
                 />
               </div>
             </div>
@@ -186,6 +188,8 @@
                   placeholder="Max Dis"
                   pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
                   step="0.01"
+                  (change)="limitDecimalPlaces($event, 2)"
+                  ;
                 />
               </div>
             </div>
@@ -200,6 +204,8 @@
                   #minQty="ngModel"
                   [(ngModel)]="model.min_qty"
                   placeholder="min"
+                  (change)="limitDecimalPlaces($event, 2)"
+                  ;
                 />
               </div>
             </div>
@@ -214,6 +220,8 @@
                   maxQty="ngModel"
                   [(ngModel)]="model.max_qty"
                   placeholder="max"
+                  (change)="limitDecimalPlaces($event, 2)"
+                  ;
                 />
               </div>
             </div>
@@ -228,6 +236,8 @@
                   [(ngModel)]="model.rateA"
                   name="rateA"
                   #rateA="ngModel"
+                  (change)="limitDecimalPlaces($event, 2)"
+                  ;
                 />
               </div>
             </div>
@@ -241,6 +251,8 @@
                   [(ngModel)]="model.rateB"
                   name="rateB"
                   #rateB="ngModel"
+                  (change)="limitDecimalPlaces($event, 2)"
+                  ;
                 />
               </div>
             </div>
@@ -254,6 +266,8 @@
                   [(ngModel)]="model.rateC"
                   name="rateC"
                   #rateC="ngModel"
+                  (change)="limitDecimalPlaces($event, 2)"
+                  ;
                 />
               </div>
             </div>
@@ -267,6 +281,8 @@
                   [(ngModel)]="model.rateD"
                   name="rateD"
                   #rateD="ngModel"
+                  (change)="limitDecimalPlaces($event, 2)"
+                  ;
                 />
               </div>
             </div>

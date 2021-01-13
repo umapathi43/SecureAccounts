@@ -480,4 +480,12 @@ export class AdditemComponent implements OnInit {
         }
       });
   }
+  limitDecimalPlaces(e, count) {
+    if (e.target.value.indexOf(".") == -1) {
+      return;
+    }
+    if (e.target.value.length - e.target.value.indexOf(".") > count) {
+      e.target.value = parseFloat(e.target.value).toFixed(count);
+    }
+  }
 }
