@@ -164,7 +164,7 @@ export class AdditemComponent implements OnInit {
   }
 
   AddGrp(action) {
-    if (this.groupFlag && (action == undefined || action == "")) {
+    if (this.groupFlag) {
       const modalRef = this.modalService.open(AddgroupComponent);
       modalRef.componentInstance.id = 0; // should be the id
       modalRef.componentInstance.data = { groupName: this.groupName }; // should be the data
@@ -172,6 +172,7 @@ export class AdditemComponent implements OnInit {
         .then((result) => {
           console.log(result);
           this.getGroups();
+          this.groupFlag = false;
         })
         .catch((error) => {
           console.log(error);
@@ -202,7 +203,7 @@ export class AdditemComponent implements OnInit {
   }
 
   AddStrType(action) {
-    if (this.stroeFlag && (action == undefined || action == "")) {
+    if (this.stroeFlag) {
       const modalRef = this.modalService.open(AddstoretypeComponent);
       modalRef.componentInstance.id = 0; // should be the id
       modalRef.componentInstance.data = { storeTypeName: this.storeTypeName }; // should be the data
@@ -210,6 +211,7 @@ export class AdditemComponent implements OnInit {
         .then((result) => {
           console.log(result);
           this.getStoreTypes();
+          this.stroeFlag = false;
         })
         .catch((error) => {
           console.log(error);
@@ -226,7 +228,7 @@ export class AdditemComponent implements OnInit {
     this._location.back();
   }
   AddPack(action) {
-    if (this.packageFlag && (action == undefined || action == "")) {
+    if (this.packageFlag) {
       const modalRef = this.modalService.open(CreatepackingComponent);
       modalRef.componentInstance.id = 0; // should be the id
       modalRef.componentInstance.data = { packName: this.packName }; // should be the data
@@ -234,6 +236,7 @@ export class AdditemComponent implements OnInit {
         .then((result) => {
           console.log(result);
           this.getPackings();
+          this.packageFlag = false;
         })
         .catch((error) => {
           console.log(error);
@@ -242,7 +245,7 @@ export class AdditemComponent implements OnInit {
   }
 
   AddDiscountSlab(action) {
-    if (this.discountFlag && (action == undefined || action == "")) {
+    if (this.discountFlag) {
       const modalRef = this.modalService.open(AdddiscountslabComponent);
       modalRef.componentInstance.id = 0; // should be the id
       modalRef.componentInstance.data = {
@@ -252,6 +255,7 @@ export class AdditemComponent implements OnInit {
         .then((result) => {
           console.log(result);
           this.getDiscountSlabs();
+          this.discountFlag = false;
         })
         .catch((error) => {
           console.log(error);
@@ -260,7 +264,7 @@ export class AdditemComponent implements OnInit {
   }
 
   Addhsn(action) {
-    if (this.hsnFlag && (action == undefined || action == "")) {
+    if (this.hsnFlag) {
       const modalRef = this.modalService.open(AddhsnsacComponent);
       modalRef.componentInstance.id = 0; // should be the id
       modalRef.componentInstance.data = {
@@ -270,6 +274,7 @@ export class AdditemComponent implements OnInit {
         .then((result) => {
           console.log(result);
           this.getHsns();
+          this.hsnFlag = false;
         })
         .catch((error) => {
           console.log(error);
@@ -278,7 +283,7 @@ export class AdditemComponent implements OnInit {
   }
 
   AddManf(action) {
-    if (this.addMFG && (action == undefined || action == "")) {
+    if (this.addMFG) {
       const modalRef = this.modalService.open(AddmanufacturerComponent);
       modalRef.componentInstance.id = 0; // should be the id
       modalRef.componentInstance.data = {
@@ -288,6 +293,7 @@ export class AdditemComponent implements OnInit {
         .then((result) => {
           console.log(result);
           this.getManufacture();
+          this.addMFG = false;
         })
         .catch((error) => {
           console.log(error);
@@ -296,7 +302,7 @@ export class AdditemComponent implements OnInit {
   }
 
   AddSch(action) {
-    if (this.schedulFlag && (action == undefined || action == "")) {
+    if (this.schedulFlag) {
       const modalRef = this.modalService.open(AddscheduleComponent);
       modalRef.componentInstance.id = 0; // should be the id
       modalRef.componentInstance.data = {
@@ -306,6 +312,7 @@ export class AdditemComponent implements OnInit {
       modalRef.result
         .then((result) => {
           this.getSchedules();
+          this.schedulFlag = false;
         })
         .catch((error) => {
           console.log(error);
@@ -314,7 +321,7 @@ export class AdditemComponent implements OnInit {
   }
 
   AddComp(action) {
-    if (this.compFlag && (action == undefined || action == "")) {
+    if (this.compFlag) {
       const modalRef = this.modalService.open(AddcompositionComponent);
       modalRef.componentInstance.id = 0; // should be the id
       modalRef.componentInstance.data = {
@@ -325,6 +332,7 @@ export class AdditemComponent implements OnInit {
         .then((result) => {
           this.cName = result;
           this.getComposition();
+          this.compFlag = false;
         })
         .catch((error) => {
           console.log(error);

@@ -35,6 +35,8 @@
                   (keyup.enter)="AddPack(model.packName)"
                   (search)="OnPackChange($event)"
                   (ngModelChange)="qtyChange(model.packName)"
+                  #select2
+                  (change)="select2.blur()"
                 >
                 </ng-select>
               </div>
@@ -62,9 +64,11 @@
                   [(ngModel)]="model.manufactureEntity.id"
                   name="mafnn"
                   #mafnnn="ngModel"
+                  #select1
                   (keyup.enter)="AddManf(model.manufactureEntity.id)"
                   (search)="OnManfChange($event)"
                   placeholder="No Mfg selected"
+                  (change)="select1.blur()"
                 >
                 </ng-select>
               </div>
@@ -82,6 +86,8 @@
                   (keyup.enter)="AddGrp(model.groupEntity.id)"
                   (search)="OnGrpChange($event)"
                   placeholder="No Group selected"
+                  #select3
+                  (change)="select3.blur()"
                 >
                 </ng-select>
               </div>
@@ -99,6 +105,8 @@
                   (keyup.enter)="AddStrType(model.storeTypeEntity.id)"
                   (search)="OnStrTypeChange($event)"
                   placeholder="No Store Type selected"
+                  #select4
+                  (change)="select4.blur()"
                 >
                 </ng-select>
               </div>
@@ -116,6 +124,8 @@
                   (keyup.enter)="AddSch(model.scheduleEntity.id)"
                   (search)="OnSchChange($event)"
                   placeholder="No Schedule selected"
+                  #select5
+                  (change)="select5.blur()"
                 >
                 </ng-select>
               </div>
@@ -133,6 +143,8 @@
                   (keyup.enter)="AddComp(model.compositionEntity.id)"
                   (search)="OnCmpChange($event)"
                   placeholder="No Composition selected"
+                  #select6
+                  (change)="select6.blur()"
                 >
                 </ng-select>
               </div>
@@ -150,6 +162,8 @@
                   (keyup.enter)="Addhsn(model.hsnsac.id)"
                   (search)="OnHsnChange($event)"
                   placeholder="No HSN selected"
+                  #select7
+                  (change)="select7.blur()"
                 >
                 </ng-select>
               </div>
@@ -289,6 +303,8 @@
                   name="gstn"
                   #gstn="ngModel"
                   placeholder="No GST selected"
+                  #select8
+                  (change)="select8.blur()"
                 >
                 </ng-select>
               </div>
@@ -306,6 +322,8 @@
                   (keyup.enter)="AddDiscountSlab(model.discSalbEntity.id)"
                   (search)="OnDiscChange($event)"
                   placeholder="No Discount Slab selected"
+                  #select9
+                  (change)="select9.blur()"
                 >
                 </ng-select>
               </div>
