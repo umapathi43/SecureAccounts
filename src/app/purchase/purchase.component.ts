@@ -2,7 +2,13 @@ import { AddsupplierComponent } from "./../supplier/addsupplier/addsupplier.comp
 import { ItemService } from "./../services/item.service";
 import { UserService } from "app/services/user.service";
 import { SupplierService } from "./../services/supplier.service";
-import { Component, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation,
+} from "@angular/core";
 import { ColumnMode, DatatableComponent } from "@swimlane/ngx-datatable";
 import { NgxSpinnerService } from "ngx-spinner";
 import {
@@ -65,7 +71,8 @@ export class PurchaseComponent implements OnInit {
     private _userService: UserService,
     private calendar: NgbCalendar,
     public itenService: ItemService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private el: ElementRef
   ) {}
   @ViewChild(DatatableComponent) table: DatatableComponent;
   @ViewChild("tableRowDetails") tableRowDetails: any;
@@ -381,5 +388,39 @@ export class PurchaseComponent implements OnInit {
         });
       }
     }
+  }
+  mfgDateChange(action, ind) {
+    if (action.mfgDate && action.bestBefore) {
+      let dat: Date;
+      let arr: any;
+      this.Items.forEach((e, i) => {
+        if (i == ind) {
+          var datt =
+            e.mfgDate.year + "-" + e.mfgDate.month + "-" + e.mfgDate.day;
+          dat = new Date(datt);
+          arr = e.bestBefore.split(" ");
+          if (arr[1] == "Days") {
+            dat.setDate(dat.getDate() + +arr[0]);
+          } else if (arr[1] == "Months") {
+            dat.setMonth(dat.getMonth() + +arr[0]);
+          } else if (arr[1] == "Years") {
+            dat.setFullYear(dat.getFullYear() + +arr[0]);
+          }
+          var moth = new String(dat.getMonth());
+          if (moth.length == 1) {
+            moth = "0" + moth;
+          }
+          var year = new String(dat.getFullYear());
+          e.expiryDate = moth + "-" + year;
+          // e.mfgDate.day = dat.getDate();
+          // e.mfgDate.month = dat.getMonth();
+          // e.mfgDate.year = dat.getFullYear();
+        }
+      });
+    }
+  }
+  test(event) {
+    this.el.nativeElement.focus();
+    event.preventDefault();
   }
 }

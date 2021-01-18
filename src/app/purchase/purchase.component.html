@@ -293,21 +293,24 @@
                   ngx-datatable-cell-template
                   let-rowIndex="rowIndex"
                 >
-                  <!-- <ng-select
+                  <ng-select
                     [items]="itemArray"
                     bindLabel="itemName"
                     bindValue="id"
+                    appendTo="body"
                     [(ngModel)]="item.name"
                     name="itemName{{ rowIndex }} "
                     #itemName="ngModel"
                     placeholder="No Item selected"
                     style="width: 119px"
+                    #select9
+                    (keydown.enter)="test($event)"
+                    (change)="select9.blur()"
                   >
-                  </ng-select> -->
-                  <ng-select
+                  </ng-select>
+                  <!-- <ng-select
                     #MyNgSelect
                     bindLabel="name"
-                    placeholder="Select item"
                     appendTo="body"
                     [searchable]="true"
                     [clearable]="true"
@@ -317,11 +320,12 @@
                     name="itemName{{ rowIndex }} "
                     #itemName="ngModel"
                     placeholder="No Item selected"
+                    keydown.Tab
                   >
                     <ng-option [value]="item.id" *ngFor="let item of itemArray">
                       {{ item.itemName }}
                     </ng-option>
-                  </ng-select>
+                  </ng-select> -->
                   <!-- <input
                     type="text"
                     class="form-control"
@@ -354,9 +358,7 @@
                 >
                   <input
                     [(ngModel)]="item.expiryDate"
-                    ngbDatepicker
                     class="form-control"
-                    #d2="ngbDatepicker"
                     name="expiryDate{{ rowIndex }}"
                     placeholder="mm-yyyy"
                     required
@@ -386,6 +388,7 @@
                     #m="ngbDatepicker"
                     (click)="m.toggle()"
                     required
+                    (ngModelChange)="mfgDateChange(item, rowIndex)"
                     [disabled]="item.mfgdateFlag === true"
                   />
                   <!-- <div class="input-group-append">
@@ -415,9 +418,10 @@
                     required
                     class="form-control"
                     [disabled]="item.mfgdateFlag === true"
+                    (change)="mfgDateChange(item, rowIndex)"
                   >
                     <option
-                      value="{{ best.id }}"
+                      value="{{ best.bestBefore }}"
                       *ngFor="let best of beforeDetails"
                     >
                       {{ best.bestBefore }}
