@@ -306,15 +306,30 @@ export class PurchaseComponent implements OnInit {
       e.target.value = parseFloat(e.target.value).toFixed(count);
     }
   }
-  discountAmountChange(action, ind) {
-    if (action) {
-      if (action.qty && action.purchaseRate && action.discount) {
-        this.Items.forEach((e, i) => {
-          if (i == ind) {
-            e.discAmount = (e.qty * e.purchaseRate * e.discount) / 100;
-          }
-        });
+  discountAmountChange(action, ind, val) {
+    if (action.purchaseRate) {
+      if (action.discAmount || action.discount) {
+        if (val == "amt" || val == "rate" || val == "qyt") {
+          this.Items.forEach((e, i) => {
+            if (i == ind) {
+              e.discount = (e.discAmount * 100) / (e.qty * e.purchaseRate);
+            }
+          });
+        } else if (val == "dis" || val == "rate" || val == "qyt") {
+          this.Items.forEach((e, i) => {
+            if (i == ind) {
+              e.discAmount = (e.qty * e.purchaseRate * e.discount) / 100;
+            }
+          });
+        }
       }
+      // if (action.qty && action.purchaseRate && action.discount) {
+      //   this.Items.forEach((e, i) => {
+      //     if (i == ind) {
+      //       e.discAmount = (e.qty * e.purchaseRate * e.discount) / 100;
+      //     }
+      //   });
+      // }
     }
   }
   addsupplierPop(action) {
@@ -415,6 +430,31 @@ export class PurchaseComponent implements OnInit {
           // e.mfgDate.day = dat.getDate();
           // e.mfgDate.month = dat.getMonth();
           // e.mfgDate.year = dat.getFullYear();
+        }
+      });
+    }
+  }
+
+  keytab(event) {
+    let element = event.srcElement.nextElementSibling; // get the sibling element
+    const myEl = <HTMLElement>event.srcElement;
+    const nextElement = <HTMLElement>myEl.nextElementSibling;
+    if (element == null)
+      // check if its null
+      element.focus();
+    // return;
+    else element.focus(); // focus if not null
+  }
+  packageChange(action, ind) {
+    if (action.name) {
+      this.Items.forEach((e, i) => {
+        if (i == ind) {
+          this.itemArray.forEach((p) => {
+            if (p.id == e.name) {
+              e.qty = p.qty_per_pack;
+              e.gst = p.gst;
+            }
+          });
         }
       });
     }

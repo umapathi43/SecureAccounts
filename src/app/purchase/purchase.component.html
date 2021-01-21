@@ -298,14 +298,16 @@
                     bindLabel="itemName"
                     bindValue="id"
                     appendTo="body"
+                    autofocus
                     [(ngModel)]="item.name"
                     name="itemName{{ rowIndex }} "
                     #itemName="ngModel"
                     placeholder="No Item selected"
                     style="width: 119px"
                     #select9
-                    (keydown.enter)="test($event)"
                     (change)="select9.blur()"
+                    (ngModelChange)="packageChange(item, rowIndex)"
+                    (keyup.enter)="keytab($event)"
                   >
                   </ng-select>
                   <!-- <ng-select
@@ -343,6 +345,7 @@
                 >
                   <input
                     type="text"
+                    autofocus
                     class="form-control"
                     [(ngModel)]="item.batch"
                     name="batch{{ rowIndex }}"
@@ -357,6 +360,7 @@
                   let-rowIndex="rowIndex"
                 >
                   <input
+                    autofocus
                     [(ngModel)]="item.expiryDate"
                     class="form-control"
                     name="expiryDate{{ rowIndex }}"
@@ -443,7 +447,7 @@
                     placeholder="00.00"
                     (change)="
                       limitDecimalPlaces($event, 2);
-                      discountAmountChange(item, rowIndex);
+                      discountAmountChange(item, rowIndex, 'qyt');
                       grossAmount(item, rowIndex);
                       taxAmount(item, rowIndex)
                     "
@@ -500,7 +504,7 @@
                     name="purchaseRate{{ rowIndex }}"
                     placeholder="Purchase Rate"
                     (change)="
-                      discountAmountChange(item, rowIndex);
+                      discountAmountChange(item, rowIndex, 'rate');
                       taxAmount(item, rowIndex);
                       srtAmount(item, rowIndex);
                       grossAmount(item, rowIndex)
@@ -509,7 +513,7 @@
                 </ng-template>
               </ngx-datatable-column>
               <ngx-datatable-column
-                name="Discount"
+                name="Discount%"
                 prop="discount"
                 [width]="100"
               >
@@ -525,7 +529,7 @@
                     name="discount{{ rowIndex }}"
                     placeholder="Discount%"
                     (change)="
-                      discountAmountChange(item, rowIndex);
+                      discountAmountChange(item, rowIndex, 'dis');
                       taxAmount(item, rowIndex)
                     "
                   />
@@ -547,7 +551,10 @@
                     [(ngModel)]="item.discAmount"
                     name="discAmount{{ rowIndex }}"
                     placeholder="Disc Amount"
-                    (change)="netAmount(item, rowIndex)"
+                    (change)="
+                      netAmount(item, rowIndex);
+                      discountAmountChange(item, rowIndex, 'amt');taxAmount(item, rowIndex)
+                    "
                   />
                 </ng-template>
               </ngx-datatable-column>
@@ -669,7 +676,7 @@
                     [(ngModel)]="item.grossAmt"
                     name="grossAmt{{ rowIndex }}"
                     placeholder="Gross Amt"
-                    (change)="netAmount(item, rowIndex)"
+                    (ngModelChange)="netAmount(item, rowIndex)"
                   />
                 </ng-template>
               </ngx-datatable-column>
