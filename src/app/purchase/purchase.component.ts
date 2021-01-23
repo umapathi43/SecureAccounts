@@ -31,12 +31,14 @@ export class AmountDetails {
   public srtMargin: string;
   public duedate: string;
   public invoiceNo: string;
-  public grossAmounts: string;
-  public discAmount: string;
-  public noItems: string;
-  public gstamount: string;
-  public roundAmount: string;
+  public grossAmounts: number;
+  public discAmount: number;
+  public noItems: number;
+  public gstamount: number;
+  public roundAmount: number;
   public footerDate: string;
+  public disPercentage: number;
+  public netAmount: number;
 }
 
 @Component({
@@ -323,13 +325,6 @@ export class PurchaseComponent implements OnInit {
           });
         }
       }
-      // if (action.qty && action.purchaseRate && action.discount) {
-      //   this.Items.forEach((e, i) => {
-      //     if (i == ind) {
-      //       e.discAmount = (e.qty * e.purchaseRate * e.discount) / 100;
-      //     }
-      //   });
-      // }
     }
   }
   addsupplierPop(action) {
@@ -351,15 +346,12 @@ export class PurchaseComponent implements OnInit {
   }
   taxAmount(action, ind) {
     if (action) {
-      if (
-        action.qty &&
-        action.purchaseRate &&
-        action.discAmount &&
-        action.gst
-      ) {
+      if (action.qty && action.purchaseRate) {
         this.Items.forEach((e, i) => {
           if (i == ind) {
-            e.taxAmount = (e.qty * e.purchaseRate - e.discAmount) * e.gst;
+            e.discAmount = e.discAmount ? e.discAmount : 0;
+            e.taxAmount =
+              (e.qty * e.purchaseRate - e.discAmount) * (e.gst / 100);
           }
         });
       }
@@ -367,10 +359,19 @@ export class PurchaseComponent implements OnInit {
   }
   srtAmount(action, ind) {
     if (action) {
-      if (action.purchaseRate && this.invoice.srtMargin) {
+      if (action.purchaseRate) {
         this.Items.forEach((e, i) => {
           if (i == ind) {
-            e.srt = e.purchaseRate + +this.invoice.srtMargin / 100;
+            this.invoice.srtMargin = this.invoice.srtMargin
+              ? this.invoice.srtMargin
+              : "0";
+            e.srt =
+              e.purchaseRate +
+              e.purchaseRate * (e.gst / 100) +
+              (e.purchaseRate +
+                e.purchaseRate *
+                  (e.gst / 100) *
+                  (+this.invoice.srtMargin / 100));
           }
         });
       }
@@ -387,16 +388,13 @@ export class PurchaseComponent implements OnInit {
       }
     }
   }
-  netAmount(action, ind) {
+  netAmountChange(action, ind) {
     if (action) {
-      if (
-        action.discAmount &&
-        action.schdiscAmount &&
-        action.grossAmt &&
-        action.taxAmount
-      ) {
+      if (action.grossAmt && action.taxAmount) {
         this.Items.forEach((e, i) => {
           if (i == ind) {
+            e.discAmount = e.discAmount ? e.discAmount : 0;
+            e.schdiscAmount = e.schdiscAmount ? e.schdiscAmount : 0;
             e.netAmt =
               e.grossAmt - e.discAmount - e.schdiscAmount + e.taxAmount;
           }
@@ -434,16 +432,25 @@ export class PurchaseComponent implements OnInit {
       });
     }
   }
-
-  keytab(event) {
-    let element = event.srcElement.nextElementSibling; // get the sibling element
-    const myEl = <HTMLElement>event.srcElement;
-    const nextElement = <HTMLElement>myEl.nextElementSibling;
-    if (element == null)
-      // check if its null
-      element.focus();
-    // return;
-    else element.focus(); // focus if not null
+  totalGross() {
+    let gross = 0;
+    let disAmount = 0;
+    let gstAmt = 0;
+    let netAmt = 0;
+    if (this.Items.length > 0) {
+      this.Items.forEach((e) => {
+        e.discAmount = e.discAmount ? e.discAmount : 0;
+        gross = gross + e.grossAmt;
+        disAmount = disAmount + e.discAmount;
+        gstAmt = gstAmt + e.taxAmount;
+        netAmt = netAmt + e.netAmt;
+      });
+      this.invoice.grossAmounts = gross;
+      this.invoice.discAmount = disAmount;
+      this.invoice.gstamount = gstAmt;
+      this.invoice.netAmount = netAmt;
+      this.invoice.noItems = this.Items.length;
+    }
   }
   packageChange(action, ind) {
     if (action.name) {
@@ -451,7 +458,7 @@ export class PurchaseComponent implements OnInit {
         if (i == ind) {
           this.itemArray.forEach((p) => {
             if (p.id == e.name) {
-              e.qty = p.qty_per_pack;
+              e.qpk = p.qty_per_pack;
               e.gst = p.gst;
             }
           });
@@ -459,8 +466,7 @@ export class PurchaseComponent implements OnInit {
       });
     }
   }
-  test(event) {
-    this.el.nativeElement.focus();
-    event.preventDefault();
+  roundOffAmt() {
+    this.invoice.netAmount = +this.invoice.netAmount - this.invoice.roundAmount;
   }
 }

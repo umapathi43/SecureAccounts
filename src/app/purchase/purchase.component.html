@@ -305,9 +305,7 @@
                     placeholder="No Item selected"
                     style="width: 119px"
                     #select9
-                    (change)="select9.blur()"
                     (ngModelChange)="packageChange(item, rowIndex)"
-                    (keyup.enter)="keytab($event)"
                   >
                   </ng-select>
                   <!-- <ng-select
@@ -507,7 +505,8 @@
                       discountAmountChange(item, rowIndex, 'rate');
                       taxAmount(item, rowIndex);
                       srtAmount(item, rowIndex);
-                      grossAmount(item, rowIndex)
+                      grossAmount(item, rowIndex);
+                      netAmountChange(item, rowIndex)
                     "
                   />
                 </ng-template>
@@ -552,8 +551,9 @@
                     name="discAmount{{ rowIndex }}"
                     placeholder="Disc Amount"
                     (change)="
-                      netAmount(item, rowIndex);
-                      discountAmountChange(item, rowIndex, 'amt');taxAmount(item, rowIndex)
+                      netAmountChange(item, rowIndex);
+                      discountAmountChange(item, rowIndex, 'amt');
+                      taxAmount(item, rowIndex)
                     "
                   />
                 </ng-template>
@@ -575,7 +575,8 @@
                     name="schdiscAmount{{ rowIndex }}"
                     placeholder="Sch Disc Amount"
                     (change)="
-                      limitDecimalPlaces($event, 2); netAmount(item, rowIndex)
+                      limitDecimalPlaces($event, 2);
+                      netAmountChange(item, rowIndex)
                     "
                   />
                 </ng-template>
@@ -630,7 +631,7 @@
                     [(ngModel)]="item.taxAmount"
                     name="taxAmount{{ rowIndex }}"
                     placeholder="Tax Amount"
-                    (change)="netAmount(item, rowIndex)"
+                    (change)="netAmountChange(item, rowIndex)"
                   />
                 </ng-template>
               </ngx-datatable-column>
@@ -676,7 +677,7 @@
                     [(ngModel)]="item.grossAmt"
                     name="grossAmt{{ rowIndex }}"
                     placeholder="Gross Amt"
-                    (ngModelChange)="netAmount(item, rowIndex)"
+                    (ngModelChange)="netAmountChange(item, rowIndex)"
                   />
                 </ng-template>
               </ngx-datatable-column>
@@ -693,6 +694,7 @@
                     (keydown.Tab)="addItem()"
                     name="netAmt{{ rowIndex }}"
                     placeholder="Net Amt"
+                    (focusout)="totalGross()"
                   />
                 </ng-template>
               </ngx-datatable-column>
@@ -1045,7 +1047,8 @@
                 <div class="col-md-4 form-group">
                   <label for="form-1">Gross Amount</label>
                   <input
-                    type="text"
+                    (click)="totalGross()"
+                    type="number"
                     id="form-1"
                     class="form-control round"
                     name="grossAmounts"
@@ -1056,7 +1059,7 @@
                 <div class="col-md-4 form-group">
                   <label for="form-2">Disc Amount</label>
                   <input
-                    type="text"
+                    type="number"
                     id="form-2"
                     class="form-control round"
                     name="discAmount"
@@ -1076,17 +1079,14 @@
                   />
                 </div>
                 <div class="col-md-4 form-group position-relative">
-                  <label for="form-4">Date</label>
+                  <label for="form-4">Discount%</label>
                   <input
-                    placeholder="yyyy-mm-dd"
-                    name="footerdate"
+                    type="number"
+                    id="form-9"
                     class="form-control round"
-                    #footerdate="ngModel"
-                    [(ngModel)]="invoice.footerDate"
-                    ngbDatepicker
-                    #f="ngbDatepicker"
-                    (click)="f.toggle()"
-                    required
+                    name="dicper"
+                    #dicper="ngModel"
+                    [(ngModel)]="invoice.disPercentage"
                   />
                   <!-- <div class="input-group-append">
                     <div class="input-group-text" (click)="f.toggle()">
@@ -1097,7 +1097,7 @@
                 <div class="col-md-4 form-group">
                   <label for="form-5">GST Amount</label>
                   <input
-                    type="text"
+                    type="number"
                     id="form-5"
                     class="form-control round"
                     name="gstamount"
@@ -1109,12 +1109,24 @@
                 <div class="col-md-4 form-group">
                   <label for="form-7">Round Off Amount</label>
                   <input
-                    type="text"
+                    type="number"
                     id="form-7"
                     class="form-control round"
                     name="roundAmount"
                     #roundAmount="ngModel"
                     [(ngModel)]="invoice.roundAmount"
+                    (focusout)="roundOffAmt()"
+                  />
+                </div>
+                <div class="col-md-4 form-group">
+                  <label for="form-7">Net Amount</label>
+                  <input
+                    type="number"
+                    id="form-8"
+                    class="form-control round"
+                    name="netAmount"
+                    #netAmount="ngModel"
+                    [(ngModel)]="invoice.netAmount"
                   />
                 </div>
               </div>

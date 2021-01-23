@@ -4,3 +4,9 @@
 ::ng-deep .datatable-body-row {
   width: 0px !important;
 }
+::ng-deep .ng-clear-wrapper .ng-clear {
+  display: none !important;
+  font-size: 18px;
+  line-height: 1;
+  pointer-events: none;
+}
