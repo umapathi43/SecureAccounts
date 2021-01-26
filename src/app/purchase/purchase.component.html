@@ -229,6 +229,7 @@
                       'is-invalid': userForm.submitted && srtMargin.invalid,
                       'is-valid': userForm.submitted && !srtMargin.invalid
                     }"
+                    (change)="srtMarginValue(invoice.srtMargin)"
                     required
                   />
                   <div
@@ -272,6 +273,7 @@
                   class="form-control form-control-sm d-inline-block width-200"
                   type="text"
                   placeholder="Filter the Name column..."
+                  (keyup)="filterUpdate($event)"
                 />
               </label>
             </fieldset>
@@ -529,7 +531,8 @@
                     placeholder="Discount%"
                     (change)="
                       discountAmountChange(item, rowIndex, 'dis');
-                      taxAmount(item, rowIndex)
+                      taxAmount(item, rowIndex);
+                      netAmountChange(item, rowIndex)
                     "
                   />
                 </ng-template>
@@ -597,7 +600,9 @@
                     style="width: 70px"
                     [(ngModel)]="item.gst"
                     name="gst{{ rowIndex }}"
-                    (change)="taxAmount(item, rowIndex)"
+                    (change)="
+                      taxAmount(item, rowIndex); netAmountChange(item, rowIndex)
+                    "
                   >
                     <ng-option
                       [value]="item.gstTypeName"

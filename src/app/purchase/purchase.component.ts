@@ -67,6 +67,7 @@ export class PurchaseComponent implements OnInit {
   beforeDetails: any[];
   supFlag: boolean;
   supplierNameId: any;
+  itemFilter: any[];
   constructor(
     private spinner: NgxSpinnerService,
     private _supplierService: SupplierService,
@@ -164,6 +165,7 @@ export class PurchaseComponent implements OnInit {
     this.getGstTpes();
     this.getItemDetails();
     this.getBestBeforeDetails();
+    this.itemFilter = this.Items;
   }
   onSubmit(form) {
     console.log(form.value);
@@ -210,10 +212,12 @@ export class PurchaseComponent implements OnInit {
       mfgdateFlag: "",
     });
     this.Items = [...this.Items];
+    this.itemFilter = this.Items;
   }
 
   removeItem(i: number) {
     this.Items.splice(i, 1);
+    this.itemFilter = this.Items;
   }
 
   DisplayFileds(index) {
@@ -377,6 +381,16 @@ export class PurchaseComponent implements OnInit {
       }
     }
   }
+  srtMarginValue(action) {
+    this.Items.forEach((e, i) => {
+      if (e.purchaseRate) {
+        e.srt =
+          e.purchaseRate +
+          e.purchaseRate * (e.gst / 100) +
+          (e.purchaseRate + e.purchaseRate * (e.gst / 100) * (+action / 100));
+      }
+    });
+  }
   grossAmount(action, ind) {
     if (action) {
       if (action.purchaseRate && action.qty) {
@@ -419,7 +433,7 @@ export class PurchaseComponent implements OnInit {
           } else if (arr[1] == "Years") {
             dat.setFullYear(dat.getFullYear() + +arr[0]);
           }
-          var moth = new String(dat.getMonth());
+          var moth = new String(dat.getMonth() + 1);
           if (moth.length == 1) {
             moth = "0" + moth;
           }
@@ -460,6 +474,7 @@ export class PurchaseComponent implements OnInit {
             if (p.id == e.name) {
               e.qpk = p.qty_per_pack;
               e.gst = p.gst;
+              e["itemName"] = p.itemName;
             }
           });
         }
@@ -468,5 +483,24 @@ export class PurchaseComponent implements OnInit {
   }
   roundOffAmt() {
     this.invoice.netAmount = +this.invoice.netAmount - this.invoice.roundAmount;
+  }
+  filterUpdate(event) {
+    const val = event.target.value.toLowerCase()
+      ? event.target.value.toLowerCase()
+      : "";
+
+    // filter our data
+    const temp = this.Items.filter((d) => {
+      return d.itemName.toLowerCase().indexOf(val) !== -1 || !val;
+    });
+
+    // update the rows
+    if (temp.length > 0 && val != "") {
+      this.Items = temp;
+    } else {
+      this.Items = this.itemFilter;
+    }
+    // Whenever the filter changes, always go back to the first page
+    this.table.offset = 0;
   }
 }
