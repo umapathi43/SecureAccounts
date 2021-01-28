@@ -79,6 +79,7 @@ export class PurchaseComponent implements OnInit {
   size: any;
   itemSelect: any[];
   itemName: any;
+  itemNameSelect: any;
   constructor(
     private spinner: NgxSpinnerService,
     private _supplierService: SupplierService,
