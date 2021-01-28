@@ -5,7 +5,10 @@ import { SupplierService } from "./../services/supplier.service";
 import {
   Component,
   ElementRef,
+  EventEmitter,
   OnInit,
+  Output,
+  Renderer2,
   ViewChild,
   ViewEncapsulation,
 } from "@angular/core";
@@ -38,6 +41,7 @@ export class AmountDetails {
   public roundAmount: number;
   public footerDate: string;
   public disPercentage: number;
+  public otherExp: number;
   public netAmount: number;
 }
 
@@ -51,6 +55,7 @@ export class AmountDetails {
   encapsulation: ViewEncapsulation.None,
 })
 export class PurchaseComponent implements OnInit {
+  public templateConf: ITemplateConfig = this.setConfigValue();
   duedateCurrent: NgbDateStruct;
   showFields: any;
   duedateInvoice: any;
@@ -68,6 +73,12 @@ export class PurchaseComponent implements OnInit {
   supFlag: boolean;
   supplierNameId: any;
   itemFilter: any[];
+  isBgImageDisplay: boolean = true;
+  isOpen = true;
+  public config: any = {};
+  size: any;
+  itemSelect: any[];
+  itemName: any;
   constructor(
     private spinner: NgxSpinnerService,
     private _supplierService: SupplierService,
@@ -75,10 +86,55 @@ export class PurchaseComponent implements OnInit {
     private calendar: NgbCalendar,
     public itenService: ItemService,
     private modalService: NgbModal,
-    private el: ElementRef
-  ) {}
+    private el: ElementRef,
+    private renderer: Renderer2
+  ) {
+    this.config = this.templateConf;
+    this.isOpen = !this.config.layout.customizer.hidden;
+
+    if (this.config.layout.sidebar.size) {
+      this.size = this.config.layout.sidebar.size;
+    }
+  }
+  @Output() directionEvent = new EventEmitter<Object>();
   @ViewChild(DatatableComponent) table: DatatableComponent;
   @ViewChild("tableRowDetails") tableRowDetails: any;
+  @ViewChild("customizer") customizer: ElementRef;
+  setConfigValue() {
+    return (this.templateConf = {
+      layout: {
+        variant: "Light",
+        menuPosition: "Side",
+        customizer: {
+          hidden: true,
+        },
+        navbar: {
+          type: "Static",
+        },
+        sidebar: {
+          collapsed: false,
+          size: "sidebar-md",
+          backgroundColor: "man-of-steel",
+          backgroundImage: true,
+          backgroundImageURL: "assets/img/sidebar-bg/01.jpg",
+        },
+      },
+    });
+  }
+  toggleCustomizer() {
+    if (this.isOpen) {
+      this.renderer.removeClass(this.customizer.nativeElement, "open");
+      this.isOpen = false;
+    } else {
+      this.renderer.addClass(this.customizer.nativeElement, "open");
+      this.isOpen = true;
+    }
+  }
+
+  closeCustomizer() {
+    this.renderer.removeClass(this.customizer.nativeElement, "open");
+    this.isOpen = false;
+  }
   // row data
   rows: any[] = [
     {
@@ -166,6 +222,25 @@ export class PurchaseComponent implements OnInit {
     this.getItemDetails();
     this.getBestBeforeDetails();
     this.itemFilter = this.Items;
+    this.itemSelect = [
+      { itemName: "Item Name", id: 1 },
+      { itemName: "Batch", id: 2 },
+      { itemName: "Expiry Date", id: 3 },
+      { itemName: "MFG Date", id: 4 },
+      { itemName: "Best Before", id: 5 },
+      { itemName: "Quantty", id: 6 },
+      { itemName: "free Qty", id: 7 },
+      { itemName: "MRP", id: 8 },
+      { itemName: "Purchase Rate", id: 9 },
+      { itemName: "Discount", id: 10 },
+      { itemName: "Discount Amount", id: 11 },
+      { itemName: "Schedule Discount Amount", id: 12 },
+      { itemName: "Tax Amount", id: 13 },
+      { itemName: "quantity per Pack", id: 14 },
+      { itemName: "SRT", id: 15 },
+      { itemName: "Gross Amount", id: 16 },
+      { itemName: "Net Amount", id: 17 },
+    ];
   }
   onSubmit(form) {
     console.log(form.value);
@@ -187,6 +262,9 @@ export class PurchaseComponent implements OnInit {
       }
       this.spinner.hide();
     });
+  }
+  OnpriorityChange(event) {
+    this.itemName = event.term;
   }
   addItem() {
     this.Items.push({
@@ -218,6 +296,7 @@ export class PurchaseComponent implements OnInit {
   removeItem(i: number) {
     this.Items.splice(i, 1);
     this.itemFilter = this.Items;
+    this.totalGross();
   }
 
   DisplayFileds(index) {
@@ -482,7 +561,14 @@ export class PurchaseComponent implements OnInit {
     }
   }
   roundOffAmt() {
-    this.invoice.netAmount = +this.invoice.netAmount - this.invoice.roundAmount;
+    this.invoice.otherExp = this.invoice.otherExp ? this.invoice.otherExp : 0;
+    this.invoice.roundAmount = this.invoice.roundAmount
+      ? this.invoice.roundAmount
+      : 0;
+    this.invoice.netAmount =
+      +this.invoice.netAmount +
+      this.invoice.roundAmount +
+      this.invoice.otherExp;
   }
   filterUpdate(event) {
     const val = event.target.value.toLowerCase()
@@ -503,4 +589,29 @@ export class PurchaseComponent implements OnInit {
     // Whenever the filter changes, always go back to the first page
     this.table.offset = 0;
   }
+}
+
+export interface ITemplateConfig {
+  layout: {
+    variant: string; // options: Dark, Light & Transparent
+    menuPosition: string; // options: Side, Top (Note: Use 'Side' for Vertical Menu & 'Top' for Horizontal Menu )
+    customizer: {
+      hidden: boolean; // options: true, false
+    };
+    navbar: {
+      type: string; // options: Static & Fixed
+    };
+    sidebar: {
+      //Options for Vertical Side menu
+      collapsed: boolean; // options: true, false
+      size: string; // Options: 'sidebar-lg', 'sidebar-md', 'sidebar-sm'
+      backgroundColor: string; // Options: 'black', 'pomegranate', 'king-yna', 'ibiza-sunset', 'flickr', 'purple-bliss', 'man-of-steel', 'purple-love'
+
+      /* If you want transparent layout add any of the following mentioned classes to backgroundColor of sidebar option :
+              bg-glass-1, bg-glass-2, bg-glass-3, bg-glass-4, bg-hibiscus, bg-purple-pizzaz, bg-blue-lagoon, bg-electric-viloet, bg-protage, bg-tundora
+            */
+      backgroundImage: boolean; // Options: true, false | Set true to show background image
+      backgroundImageURL: string;
+    };
+  };
 }

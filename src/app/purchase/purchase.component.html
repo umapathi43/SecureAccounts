@@ -242,13 +242,58 @@
                     Please provide a valid SRT Margin.
                   </div>
                 </div>
-                <div class="col-md-6 mb-1 mt-1 form-group">
+              </div>
+              <div class="d-flex">
+                <div class="p-2 ml-1">
                   <button class="btn btn-primary mr-2" type="submit">
                     Import from CSV
                   </button>
+                </div>
+                <div class="p-2">
                   <button class="btn btn-primary ml-2" type="submit">
                     Load PO
                   </button>
+                </div>
+                <div class="ml-auto p-2">
+                  <div
+                    #customizer
+                    class="customizer d-none d-lg-none mt-5 d-xl-block"
+                    [ngClass]="{ open: isOpen }"
+                  >
+                    <a class="customizer-close" (click)="closeCustomizer()">
+                      <i class="ft-x font-medium-3"></i></a
+                    ><a
+                      class="customizer-toggle bg-primary"
+                      id="customizer-toggle-icon"
+                      (click)="toggleCustomizer()"
+                    >
+                      <i
+                        class="ft-settings font-medium-1 spinner white align-middle"
+                      ></i>
+                    </a>
+                    <div
+                      class="customizer-content p-3 ps-container ps-theme-dark"
+                      data-ps-id="df6a5ce4-a175-9172-4402-dabd98fc9c0a"
+                    >
+                      <h4 class="text-uppercase">Select Default</h4>
+                      <hr />
+                      <p>Net Amount: Default</p>
+                      <div>
+                        <label for="validationTo">Select Priority </label>
+                        <ng-select
+                          [items]="itemSelect"
+                          bindLabel="itemName"
+                          bindValue="itemName"
+                          [(ngModel)]="itemNameSelect"
+                          name="itemNameSelec"
+                          #itemNameSelec="ngModel"
+                          placeholder="Select priority"
+                          (search)="OnpriorityChange($event)"
+                        >
+                        </ng-select>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </form>
@@ -1120,7 +1165,19 @@
                     name="roundAmount"
                     #roundAmount="ngModel"
                     [(ngModel)]="invoice.roundAmount"
-                    (focusout)="roundOffAmt()"
+                    (change)="roundOffAmt()"
+                  />
+                </div>
+                <div class="col-md-4 form-group">
+                  <label for="form-7">Other Expenses</label>
+                  <input
+                    type="number"
+                    id="form-7"
+                    class="form-control round"
+                    name="otherExp"
+                    #otherExp="ngModel"
+                    [(ngModel)]="invoice.otherExp"
+                    (change)="roundOffAmt()"
                   />
                 </div>
                 <div class="col-md-4 form-group">
