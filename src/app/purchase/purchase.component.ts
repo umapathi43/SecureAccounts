@@ -79,7 +79,8 @@ export class PurchaseComponent implements OnInit {
   size: any;
   itemSelect: any[];
   itemName: any;
-  itemNameSelect: any;
+  itemNameSelect: any = "Net Amount";
+  popUpselect: boolean = false;
   constructor(
     private spinner: NgxSpinnerService,
     private _supplierService: SupplierService,
@@ -241,6 +242,7 @@ export class PurchaseComponent implements OnInit {
       { itemName: "SRT", id: 15 },
       { itemName: "Gross Amount", id: 16 },
       { itemName: "Net Amount", id: 17 },
+      { itemName: "GST", id: 18 },
     ];
   }
   onSubmit(form) {
@@ -412,6 +414,7 @@ export class PurchaseComponent implements OnInit {
     }
   }
   addsupplierPop(action) {
+    // this.popUpselect = true;
     if (this.supFlag && (action == undefined || action == "")) {
       const modalRef = this.modalService.open(AddsupplierComponent);
       modalRef.componentInstance.id = 0; // should be the id
@@ -589,6 +592,11 @@ export class PurchaseComponent implements OnInit {
     }
     // Whenever the filter changes, always go back to the first page
     this.table.offset = 0;
+  }
+  defaultChange(action) {
+    if (action == this.itemNameSelect) {
+      this.addItem();
+    }
   }
 }
 

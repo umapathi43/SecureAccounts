@@ -275,23 +275,33 @@
                       class="customizer-content p-3 ps-container ps-theme-dark"
                       data-ps-id="df6a5ce4-a175-9172-4402-dabd98fc9c0a"
                     >
-                      <h4 class="text-uppercase">Select Default</h4>
-                      <hr />
-                      <p>Net Amount: Default</p>
-                      <div>
-                        <label for="validationTo">Select Priority </label>
-                        <ng-select
-                          [items]="itemSelect"
-                          bindLabel="itemName"
-                          bindValue="itemName"
-                          [(ngModel)]="itemNameSelect"
-                          name="itemNameSelec"
-                          #itemNameSelec="ngModel"
-                          placeholder="Select priority"
-                          (search)="OnpriorityChange($event)"
-                        >
-                        </ng-select>
-                      </div>
+                      <ng-container>
+                        <h4 class="text-uppercase" style="color: #757575">
+                          Select Default
+                        </h4>
+                        <hr />
+                        <h6>
+                          <span>Net Amount: Default</span>
+                        </h6>
+                        <!-- <p>Net Amount: Default</p> -->
+                        <div>
+                          <label for="validationTo">Select Priority </label>
+                          <ng-select
+                            [items]="itemSelect"
+                            bindLabel="itemName"
+                            bindValue="itemName"
+                            [(ngModel)]="itemNameSelect"
+                            name="itemNameSelec"
+                            #itemNameSelec="ngModel"
+                            placeholder="Select priority"
+                            (search)="OnpriorityChange($event)"
+                          >
+                          </ng-select>
+                        </div>
+                      </ng-container>
+                      <!-- <ng-container *ngIf="popUpselect">
+                        <app-addsupplier></app-addsupplier>
+                      </ng-container> -->
                     </div>
                   </div>
                 </div>
@@ -352,6 +362,7 @@
                     placeholder="No Item selected"
                     style="width: 119px"
                     #select9
+                    (keydown.Tab)="defaultChange('Item Name')"
                     (ngModelChange)="packageChange(item, rowIndex)"
                   >
                   </ng-select>
@@ -373,13 +384,6 @@
                       {{ item.itemName }}
                     </ng-option>
                   </ng-select> -->
-                  <!-- <input
-                    type="text"
-                    class="form-control"
-                    [(ngModel)]="item.name"
-                    name="name{{ rowIndex }}"
-                    placeholder="Name"
-                  /> -->
                 </ng-template>
               </ngx-datatable-column>
               <ngx-datatable-column name="Batch" prop="batch">
@@ -395,6 +399,7 @@
                     [(ngModel)]="item.batch"
                     name="batch{{ rowIndex }}"
                     placeholder="Branch"
+                    (keydown.Tab)="defaultChange('Batch')"
                   />
                 </ng-template>
               </ngx-datatable-column>
@@ -411,6 +416,7 @@
                     name="expiryDate{{ rowIndex }}"
                     placeholder="mm-yyyy"
                     required
+                    (keydown.Tab)="defaultChange('Expiry Date')"
                     (change)="mgdChange(item.expiryDate, rowIndex)"
                   />
                   <!-- <input
@@ -437,6 +443,7 @@
                     #m="ngbDatepicker"
                     (click)="m.toggle()"
                     required
+                    (keydown.Tab)="defaultChange('MFG Date')"
                     (ngModelChange)="mfgDateChange(item, rowIndex)"
                     [disabled]="item.mfgdateFlag === true"
                   />
@@ -468,6 +475,7 @@
                     class="form-control"
                     [disabled]="item.mfgdateFlag === true"
                     (change)="mfgDateChange(item, rowIndex)"
+                    (keydown.Tab)="defaultChange('Best Before')"
                   >
                     <option
                       value="{{ best.bestBefore }}"
@@ -490,6 +498,7 @@
                     [(ngModel)]="item.qty"
                     name="qty{{ rowIndex }}"
                     placeholder="00.00"
+                    (keydown.Tab)="defaultChange('Quantty')"
                     (change)="
                       limitDecimalPlaces($event, 2);
                       discountAmountChange(item, rowIndex, 'qyt');
@@ -515,6 +524,7 @@
                     [(ngModel)]="item.freeQty"
                     name="freeQty{{ rowIndex }}"
                     placeholder="Free Qty"
+                    (keydown.Tab)="defaultChange('free Qty')"
                     (change)="limitDecimalPlaces($event, 2)"
                   />
                 </ng-template>
@@ -531,6 +541,7 @@
                     [(ngModel)]="item.mrp"
                     name="mrp{{ rowIndex }}"
                     placeholder="MRP"
+                    (keydown.Tab)="defaultChange('MRP')"
                     (change)="limitDecimalPlaces($event, 2)"
                   />
                 </ng-template>
@@ -548,6 +559,7 @@
                     [(ngModel)]="item.purchaseRate"
                     name="purchaseRate{{ rowIndex }}"
                     placeholder="Purchase Rate"
+                    (keydown.Tab)="defaultChange('Purchase Rate')"
                     (change)="
                       discountAmountChange(item, rowIndex, 'rate');
                       taxAmount(item, rowIndex);
@@ -574,6 +586,7 @@
                     [(ngModel)]="item.discount"
                     name="discount{{ rowIndex }}"
                     placeholder="Discount%"
+                    (keydown.Tab)="defaultChange('Discount')"
                     (change)="
                       discountAmountChange(item, rowIndex, 'dis');
                       taxAmount(item, rowIndex);
@@ -598,6 +611,7 @@
                     [(ngModel)]="item.discAmount"
                     name="discAmount{{ rowIndex }}"
                     placeholder="Disc Amount"
+                    (keydown.Tab)="defaultChange('Discount Amount')"
                     (change)="
                       netAmountChange(item, rowIndex);
                       discountAmountChange(item, rowIndex, 'amt');
@@ -622,6 +636,7 @@
                     [(ngModel)]="item.schdiscAmount"
                     name="schdiscAmount{{ rowIndex }}"
                     placeholder="Sch Disc Amount"
+                    (keydown.Tab)="defaultChange('Schedule Discount Amount')"
                     (change)="
                       limitDecimalPlaces($event, 2);
                       netAmountChange(item, rowIndex)
@@ -645,6 +660,7 @@
                     style="width: 70px"
                     [(ngModel)]="item.gst"
                     name="gst{{ rowIndex }}"
+                    (keydown.Tab)="defaultChange('GST')"
                     (change)="
                       taxAmount(item, rowIndex); netAmountChange(item, rowIndex)
                     "
@@ -682,6 +698,7 @@
                     name="taxAmount{{ rowIndex }}"
                     placeholder="Tax Amount"
                     (change)="netAmountChange(item, rowIndex)"
+                    (keydown.Tab)="defaultChange('Tax Amount')"
                   />
                 </ng-template>
               </ngx-datatable-column>
@@ -697,6 +714,7 @@
                     [(ngModel)]="item.qpk"
                     name="qpk{{ rowIndex }}"
                     placeholder="QPK"
+                    (keydown.Tab)="defaultChange('quantity per Pack')"
                   />
                 </ng-template>
               </ngx-datatable-column>
@@ -712,6 +730,7 @@
                     [(ngModel)]="item.srt"
                     name="srt{{ rowIndex }}"
                     placeholder="SRT"
+                    (keydown.Tab)="defaultChange('SRT')"
                   />
                 </ng-template>
               </ngx-datatable-column>
@@ -727,6 +746,7 @@
                     [(ngModel)]="item.grossAmt"
                     name="grossAmt{{ rowIndex }}"
                     placeholder="Gross Amt"
+                    (keydown.Tab)="defaultChange('Gross Amount')"
                     (ngModelChange)="netAmountChange(item, rowIndex)"
                   />
                 </ng-template>
@@ -741,7 +761,7 @@
                     type="text"
                     class="form-control"
                     [(ngModel)]="item.netAmt"
-                    (keydown.Tab)="addItem()"
+                    (keydown.Tab)="defaultChange('Net Amount')"
                     name="netAmt{{ rowIndex }}"
                     placeholder="Net Amt"
                     (focusout)="totalGross()"
