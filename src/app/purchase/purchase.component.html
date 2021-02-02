@@ -254,57 +254,6 @@
                     Load PO
                   </button>
                 </div>
-                <div class="ml-auto p-2">
-                  <div
-                    #customizer
-                    class="customizer d-none d-lg-none mt-5 d-xl-block"
-                    [ngClass]="{ open: isOpen }"
-                  >
-                    <a class="customizer-close" (click)="closeCustomizer()">
-                      <i class="ft-x font-medium-3"></i></a
-                    ><a
-                      class="customizer-toggle bg-primary"
-                      id="customizer-toggle-icon"
-                      (click)="toggleCustomizer()"
-                    >
-                      <i
-                        class="ft-settings font-medium-1 spinner white align-middle"
-                      ></i>
-                    </a>
-                    <div
-                      class="customizer-content p-3 ps-container ps-theme-dark"
-                      data-ps-id="df6a5ce4-a175-9172-4402-dabd98fc9c0a"
-                    >
-                      <ng-container>
-                        <h4 class="text-uppercase" style="color: #757575">
-                          Select Default
-                        </h4>
-                        <hr />
-                        <h6>
-                          <span>Net Amount: Default</span>
-                        </h6>
-                        <!-- <p>Net Amount: Default</p> -->
-                        <div>
-                          <label for="validationTo">Select Priority </label>
-                          <ng-select
-                            [items]="itemSelect"
-                            bindLabel="itemName"
-                            bindValue="itemName"
-                            [(ngModel)]="itemNameSelect"
-                            name="itemNameSelec"
-                            #itemNameSelec="ngModel"
-                            placeholder="Select priority"
-                            (search)="OnpriorityChange($event)"
-                          >
-                          </ng-select>
-                        </div>
-                      </ng-container>
-                      <!-- <ng-container *ngIf="popUpselect">
-                        <app-addsupplier></app-addsupplier>
-                      </ng-container> -->
-                    </div>
-                  </div>
-                </div>
               </div>
             </form>
           </div>
@@ -1226,3 +1175,54 @@
     <!-- Hidden Label ends -->
   </div>
 </section>
+<div
+  div
+  class="wrapper"
+  [ngClass]="{ 'show-overlay': !isNavbarSeachTextEmpty }"
+  (click)="onWrapperClick()"
+>
+  <div
+    #customizer
+    class="customizer d-none d-lg-none d-xl-block"
+    [ngClass]="{ open: isOpen }"
+  >
+    <a class="customizer-close" (click)="closeCustomizer()">
+      <i class="ft-x font-medium-3"></i></a
+    ><a
+      class="customizer-toggle bg-primary"
+      id="customizer-toggle-icon"
+      (click)="toggleCustomizer()"
+    >
+      <i class="ft-settings font-medium-1 spinner white align-middle"></i>
+    </a>
+    <div
+      class="customizer-content p-3 ps-container ps-theme-dark"
+      data-ps-id="df6a5ce4-a175-9172-4402-dabd98fc9c0a"
+    >
+      <ng-container *ngIf="!popUpselect">
+        <h4 class="text-uppercase" style="color: #757575">Select Default</h4>
+        <hr />
+        <h6>
+          <span>Net Amount: Default</span>
+        </h6>
+        <div>
+          <label for="validationTo">Select Priority </label>
+          <ng-select
+            [items]="itemSelect"
+            bindLabel="itemName"
+            bindValue="itemName"
+            [(ngModel)]="itemNameSelect"
+            name="itemNameSelec"
+            #itemNameSelec="ngModel"
+            placeholder="Select priority"
+            (search)="OnpriorityChange($event)"
+          >
+          </ng-select>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="popUpselect" class="mt-3">
+        <app-add-supplier [add_supplier]="model.sname"></app-add-supplier>
+      </ng-container>
+    </div>
+  </div>
+</div>

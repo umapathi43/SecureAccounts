@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit, ViewEncapsulation } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
 import { NgbActiveModal, NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
@@ -22,11 +22,12 @@ export class Supplier {
   public id: number;
 }
 @Component({
-  selector: "app-addsupplier",
+  selector: "app-add-supplier",
   templateUrl: "./addsupplier.component.html",
   styleUrls: ["./addsupplier.component.scss"],
 })
 export class AddsupplierComponent implements OnInit {
+  @Input() add_supplier: any;
   readonly DELIMITER = "-";
   popupModel: any;
   CustomeId: any;
@@ -57,6 +58,9 @@ export class AddsupplierComponent implements OnInit {
       this.isModal = true;
       console.log(this.data);
       this.model.supplierName = this.data.hsnName;
+    }
+    if (this.add_supplier) {
+      this.model.supplierName = this.add_supplier;
     }
     this.getGstTpes();
     this.getPaymentModes();

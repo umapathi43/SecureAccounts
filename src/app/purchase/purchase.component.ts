@@ -81,6 +81,7 @@ export class PurchaseComponent implements OnInit {
   itemName: any;
   itemNameSelect: any = "Net Amount";
   popUpselect: boolean = false;
+  isNavbarSeachTextEmpty: boolean;
   constructor(
     private spinner: NgxSpinnerService,
     private _supplierService: SupplierService,
@@ -135,7 +136,7 @@ export class PurchaseComponent implements OnInit {
 
   closeCustomizer() {
     this.renderer.removeClass(this.customizer.nativeElement, "open");
-    this.isOpen = false;
+    this.isOpen = this.popUpselect = false;
   }
   // row data
   rows: any[] = [
@@ -413,23 +414,28 @@ export class PurchaseComponent implements OnInit {
       }
     }
   }
+  onWrapperClick() {
+    this.isNavbarSeachTextEmpty = true;
+  }
   addsupplierPop(action) {
-    // this.popUpselect = true;
-    if (this.supFlag && (action == undefined || action == "")) {
-      const modalRef = this.modalService.open(AddsupplierComponent);
-      modalRef.componentInstance.id = 0; // should be the id
-      modalRef.componentInstance.data = {
-        hsnName: this.supplierName,
-      }; // should be the data
-      modalRef.result
-        .then((result) => {
-          console.log(result);
-          this.getSuppliers();
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
+    this.popUpselect = true;
+    this.toggleCustomizer();
+    this.model.sname = this.supplierName;
+    // if (this.supFlag && (action == undefined || action == "")) {
+    //   const modalRef = this.modalService.open(AddsupplierComponent);
+    //   modalRef.componentInstance.id = 0; // should be the id
+    //   modalRef.componentInstance.data = {
+    //     hsnName: this.supplierName,
+    //   }; // should be the data
+    //   modalRef.result
+    //     .then((result) => {
+    //       console.log(result);
+    //       this.getSuppliers();
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // }
   }
   taxAmount(action, ind) {
     if (action) {

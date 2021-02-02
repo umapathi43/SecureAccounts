@@ -1,3 +1,4 @@
+import { SupplierModule } from "./../supplier/supplier.module";
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 
@@ -19,6 +20,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
     NgxSpinnerModule,
     NgSelectModule,
     NgbModule,
+    SupplierModule,
   ],
 })
 export class PurchaseModule {}
