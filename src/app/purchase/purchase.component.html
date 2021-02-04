@@ -1176,15 +1176,14 @@
   </div>
 </section>
 <div
-  div
-  class="wrapper"
+  class=""
   [ngClass]="{ 'show-overlay': !isNavbarSeachTextEmpty }"
   (click)="onWrapperClick()"
 >
   <div
     #customizer
-    class="customizer d-none d-lg-none d-xl-block"
-    [ngClass]="{ open: isOpen }"
+    class="customizer d-none d-lg-none d-xl-block mt-5"
+    [ngClass]="{ open: isOpen, customizer11: popUpselect }"
   >
     <a class="customizer-close" (click)="closeCustomizer()">
       <i class="ft-x font-medium-3"></i></a
@@ -1196,7 +1195,7 @@
       <i class="ft-settings font-medium-1 spinner white align-middle"></i>
     </a>
     <div
-      class="customizer-content p-3 ps-container ps-theme-dark"
+      class="customizer-content p-3 ps-container ps-theme-dark mb-3"
       data-ps-id="df6a5ce4-a175-9172-4402-dabd98fc9c0a"
     >
       <ng-container *ngIf="!popUpselect">
@@ -1221,7 +1220,10 @@
         </div>
       </ng-container>
       <ng-container *ngIf="popUpselect" class="mt-3">
-        <app-add-supplier [add_supplier]="model.sname"></app-add-supplier>
+        <app-add-supplier
+          [add_supplier]="model.sname"
+          (backbutton)="backtoNormal($event)"
+        ></app-add-supplier>
       </ng-container>
     </div>
   </div>

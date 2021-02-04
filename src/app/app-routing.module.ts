@@ -28,8 +28,6 @@ const appRoutes: Routes = [
     data: { title: "content Views" },
     children: CONTENT_ROUTES,
   },
-  { path: 'paymententry', loadChildren: () => import('./paymententry/paymententry.module').then(m => m.PaymententryModule) },
-
   {
     path: "**",
     redirectTo: "pages/error",

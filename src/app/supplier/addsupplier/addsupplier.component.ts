@@ -1,4 +1,11 @@
-import { Component, Input, OnInit, ViewEncapsulation } from "@angular/core";
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewEncapsulation,
+} from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
 import { NgbActiveModal, NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
@@ -27,6 +34,7 @@ export class Supplier {
   styleUrls: ["./addsupplier.component.scss"],
 })
 export class AddsupplierComponent implements OnInit {
+  @Output() backbutton = new EventEmitter();
   @Input() add_supplier: any;
   readonly DELIMITER = "-";
   popupModel: any;
@@ -53,7 +61,6 @@ export class AddsupplierComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    debugger;
     if (this.id == 0) {
       this.isModal = true;
       console.log(this.data);
@@ -68,6 +75,8 @@ export class AddsupplierComponent implements OnInit {
   goBack() {
     if (this.isModal) {
       this.activeModal.close(this.model.supplierName);
+    } else if (this.add_supplier) {
+      this.backbutton.emit(false);
     } else {
       this._location.back();
     }
@@ -96,6 +105,8 @@ export class AddsupplierComponent implements OnInit {
         this.toastr.success("Success", "Supplier Updated");
         if (this.isModal) {
           this.activeModal.close(this.model.supplierName);
+        } else if (this.add_supplier) {
+          this.backbutton.emit(true);
         } else {
           this._location.back();
         }

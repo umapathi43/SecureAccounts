@@ -3,6 +3,7 @@ import { ItemService } from "./../services/item.service";
 import { UserService } from "app/services/user.service";
 import { SupplierService } from "./../services/supplier.service";
 import {
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   EventEmitter,
@@ -53,6 +54,7 @@ export class AmountDetails {
     "../../assets/sass/libs/datatables.scss",
   ],
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PurchaseComponent implements OnInit {
   public templateConf: ITemplateConfig = this.setConfigValue();
@@ -262,7 +264,7 @@ export class PurchaseComponent implements OnInit {
           (x) => x.supplierName === this.supplierName
         ).supplierName;
         document.getElementById("frmcard").click();
-        this.supplierAddress(this.model.sname);
+        // this.supplierAddress(this.model.sname);
       }
       this.spinner.hide();
     });
@@ -418,6 +420,7 @@ export class PurchaseComponent implements OnInit {
     this.isNavbarSeachTextEmpty = true;
   }
   addsupplierPop(action) {
+    this.closeCustomizer();
     this.popUpselect = true;
     this.toggleCustomizer();
     this.model.sname = this.supplierName;
@@ -603,6 +606,12 @@ export class PurchaseComponent implements OnInit {
     if (action == this.itemNameSelect) {
       this.addItem();
     }
+  }
+  backtoNormal(event) {
+    if (event) {
+      this.getSuppliers();
+    }
+    this.closeCustomizer();
   }
 }
 
