@@ -56,34 +56,46 @@ export class AddgroupComponent implements OnInit {
 
     console.log(this.model);
     // this.submitted = true;
-    this._grpService.addGroup(this.model).subscribe((ok) => {
-      console.log(ok);
-      if (ok == "OK") {
-        this.toastr.success("Success", "Group Added");
-        if (this.isModal) {
-          this.activeModal.close(this.model.groupName);
+    this._grpService.addGroup(this.model).subscribe(
+      (ok) => {
+        console.log(ok);
+        if (ok == "OK") {
+          this.toastr.success("Success", "Group Added");
+          if (this.isModal) {
+            this.activeModal.close(this.model.groupName);
+          } else {
+            this._location.back();
+          }
         } else {
-          this._location.back();
+          this.toastr.error("Failed", "Failed to add Group");
         }
-      } else {
-        this.toastr.error("Failed", "Failed to add Group");
+      },
+      (err) => {
+        console.log(err);
+        this.toastr.error("Failed", err.error.message);
       }
-    });
+    );
   }
   onUpdate(form: any) {
     console.log("clicked");
 
     console.log(this.model);
     // this.submitted = true;
-    this._grpService.updateGroup(this.model).subscribe((ok) => {
-      console.log(ok);
-      if (ok == "OK") {
-        this.toastr.success("Success", "Group Updated");
-        this._location.back();
-      } else {
-        this.toastr.error("Failed", "Failed to update Group");
+    this._grpService.updateGroup(this.model).subscribe(
+      (ok) => {
+        console.log(ok);
+        if (ok == "OK") {
+          this.toastr.success("Success", "Group Updated");
+          this._location.back();
+        } else {
+          this.toastr.error("Failed", "Failed to update Group");
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.toastr.error("Failed", err.error.message);
       }
-    });
+    );
   }
   getGroupById() {
     const dta = {

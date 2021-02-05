@@ -47,15 +47,21 @@ export class AddsalesmanComponent implements OnInit {
 
     console.log(this.model);
     // this.submitted = true;
-    this._salesService.addSalesman(this.model).subscribe((ok) => {
-      console.log(ok);
-      if (ok == "OK") {
-        this.toastr.success("Success", "Salesman Updated");
-        this._location.back();
-      } else {
-        this.toastr.error("Failed", "Failed to update Salesman");
+    this._salesService.addSalesman(this.model).subscribe(
+      (ok) => {
+        console.log(ok);
+        if (ok == "OK") {
+          this.toastr.success("Success", "Salesman Updated");
+          this._location.back();
+        } else {
+          this.toastr.error("Failed", "Failed to update Salesman");
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.toastr.error("Failed", err.error.message);
       }
-    });
+    );
   }
   getAreas() {
     this._areaService.getAreas().subscribe((ok) => {
@@ -68,15 +74,21 @@ export class AddsalesmanComponent implements OnInit {
 
     console.log(this.model);
     // this.submitted = true;
-    this._salesService.updateSalesman(this.model).subscribe((ok) => {
-      console.log(ok);
-      if (ok == "OK") {
-        this.toastr.success("Success", "Salesman Updated");
-        this._location.back();
-      } else {
-        this.toastr.error("Failed", "Failed to update Salesman");
+    this._salesService.updateSalesman(this.model).subscribe(
+      (ok) => {
+        console.log(ok);
+        if (ok == "OK") {
+          this.toastr.success("Success", "Salesman Updated");
+          this._location.back();
+        } else {
+          this.toastr.error("Failed", "Failed to update Salesman");
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.toastr.error("Failed", err.error.message);
       }
-    });
+    );
   }
   getSalesBoyById() {
     const dta = {

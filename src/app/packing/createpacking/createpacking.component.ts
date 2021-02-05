@@ -67,6 +67,9 @@ export class CreatepackingComponent implements OnInit {
       } else {
         this.toastr.error("Failed", "Failed to update Pack");
       }
+    },(err) => {
+      console.log(err);
+      this.toastr.error("Failed", err.error.message);
     });
   }
 
@@ -83,6 +86,9 @@ export class CreatepackingComponent implements OnInit {
       } else {
         this.toastr.error("Failed", "Failed to update Pack");
       }
+    },(err) => {
+      console.log(err);
+      this.toastr.error("Failed", err.error.message);
     });
   }
   getPackById() {

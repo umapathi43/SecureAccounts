@@ -466,27 +466,39 @@ export class AdditemComponent implements OnInit {
   }
   createItem(form: NgForm) {
     this.model["status"] = "A";
-    this.itemService.createItem(this.model).subscribe((ok: any) => {
-      if (ok == "OK") {
-        this.toastr.success("Success", "Item Created");
-        this._location.back();
-      } else {
-        this.toastr.error("Failed", "Failed to update Item");
+    this.itemService.createItem(this.model).subscribe(
+      (ok: any) => {
+        if (ok == "OK") {
+          this.toastr.success("Success", "Item Created");
+          this._location.back();
+        } else {
+          this.toastr.error("Failed", "Failed to update Item");
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.toastr.error("Failed", err.error.message);
       }
-    });
+    );
   }
   updateItem(form: NgForm) {
     this.model["status"] = "A";
     this.itemService
       .updateItemDetailsById(this.CustomeId, this.model)
-      .subscribe((ok) => {
-        if (ok == "OK") {
-          this.toastr.success("Success", "Item Updated");
-          this._location.back();
-        } else {
-          this.toastr.error("Failed", "Failed to update Item");
+      .subscribe(
+        (ok) => {
+          if (ok == "OK") {
+            this.toastr.success("Success", "Item Updated");
+            this._location.back();
+          } else {
+            this.toastr.error("Failed", "Failed to update Item");
+          }
+        },
+        (err) => {
+          console.log(err);
+          this.toastr.error("Failed", err.error.message);
         }
-      });
+      );
   }
   limitDecimalPlaces(e, count) {
     if (e.target.value.indexOf(".") == -1) {

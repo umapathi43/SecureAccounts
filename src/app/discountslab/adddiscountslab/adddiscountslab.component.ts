@@ -63,34 +63,46 @@ export class AdddiscountslabComponent implements OnInit {
 
     console.log(this.model);
     // this.submitted = true;
-    this._discountService.addDiscount(this.model).subscribe((ok) => {
-      console.log(ok);
-      if (ok == "OK") {
-        this.toastr.success("Success", "Discount Slab Updated");
-        if (this.isModal) {
-          this.activeModal.close(this.model.discountSlabName);
+    this._discountService.addDiscount(this.model).subscribe(
+      (ok) => {
+        console.log(ok);
+        if (ok == "OK") {
+          this.toastr.success("Success", "Discount Slab Updated");
+          if (this.isModal) {
+            this.activeModal.close(this.model.discountSlabName);
+          } else {
+            this._location.back();
+          }
         } else {
-          this._location.back();
+          this.toastr.error("Failed", "Failed to update Discount Slab");
         }
-      } else {
-        this.toastr.error("Failed", "Failed to update Discount Slab");
+      },
+      (err) => {
+        console.log(err);
+        this.toastr.error("Failed", err.error.message);
       }
-    });
+    );
   }
   onUpdate(form: any) {
     console.log("clicked");
 
     console.log(this.model);
     // this.submitted = true;
-    this._discountService.updateDiscount(this.model).subscribe((ok) => {
-      console.log(ok);
-      if (ok == "OK") {
-        this.toastr.success("Success", "Discount Slab Updated");
-        this._location.back();
-      } else {
-        this.toastr.error("Failed", "Failed to update Discount Slab");
+    this._discountService.updateDiscount(this.model).subscribe(
+      (ok) => {
+        console.log(ok);
+        if (ok == "OK") {
+          this.toastr.success("Success", "Discount Slab Updated");
+          this._location.back();
+        } else {
+          this.toastr.error("Failed", "Failed to update Discount Slab");
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.toastr.error("Failed", err.error.message);
       }
-    });
+    );
   }
   getDiscountslabById() {
     const dta = {

@@ -62,19 +62,25 @@ export class AddscheduleComponent implements OnInit {
 
     console.log(this.model);
     // this.submitted = true;
-    this._scheduleService.addScheduler(this.model).subscribe((ok) => {
-      console.log(ok);
-      if (ok == "OK") {
-        this.toastr.success("Success", "Schedule Added");
-        if (this.isModal) {
-          this.activeModal.close(this.model.schedulerName);
+    this._scheduleService.addScheduler(this.model).subscribe(
+      (ok) => {
+        console.log(ok);
+        if (ok == "OK") {
+          this.toastr.success("Success", "Schedule Added");
+          if (this.isModal) {
+            this.activeModal.close(this.model.schedulerName);
+          } else {
+            this._location.back();
+          }
         } else {
-          this._location.back();
+          this.toastr.error("Failed", "Failed to update Schedule");
         }
-      } else {
-        this.toastr.error("Failed", "Failed to update Schedule");
+      },
+      (err) => {
+        console.log(err);
+        this.toastr.error("Failed", err.error.message);
       }
-    });
+    );
   }
 
   onUpdate(form: any) {
@@ -82,15 +88,21 @@ export class AddscheduleComponent implements OnInit {
 
     console.log(this.model);
     // this.submitted = true;
-    this._scheduleService.updateScheduler(this.model).subscribe((ok) => {
-      console.log(ok);
-      if (ok == "OK") {
-        this.toastr.success("Success", "Schedule Updated");
-        this._location.back();
-      } else {
-        this.toastr.error("Failed", "Failed to update Schedule");
+    this._scheduleService.updateScheduler(this.model).subscribe(
+      (ok) => {
+        console.log(ok);
+        if (ok == "OK") {
+          this.toastr.success("Success", "Schedule Updated");
+          this._location.back();
+        } else {
+          this.toastr.error("Failed", "Failed to update Schedule");
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.toastr.error("Failed", err.error.message);
       }
-    });
+    );
   }
   getSchedulesById() {
     const dta = {

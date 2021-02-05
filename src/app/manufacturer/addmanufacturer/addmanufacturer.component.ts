@@ -52,19 +52,25 @@ export class AddmanufacturerComponent implements OnInit {
 
     console.log(this.model);
     // this.submitted = true;
-    this._manfService.addManfacture(this.model).subscribe((ok) => {
-      console.log(ok);
-      if (ok == "OK") {
-        this.toastr.success("Success", "Stock Updated");
-        if (this.isModal) {
-          this.activeModal.close(this.model.manufacturerName);
+    this._manfService.addManfacture(this.model).subscribe(
+      (ok) => {
+        console.log(ok);
+        if (ok == "OK") {
+          this.toastr.success("Success", "Stock Updated");
+          if (this.isModal) {
+            this.activeModal.close(this.model.manufacturerName);
+          } else {
+            this._location.back();
+          }
         } else {
-          this._location.back();
+          this.toastr.error("Failed", "Failed to update Stock");
         }
-      } else {
-        this.toastr.error("Failed", "Failed to update Stock");
+      },
+      (err) => {
+        console.log(err);
+        this.toastr.error("Failed", err.error.message);
       }
-    });
+    );
   }
 
   onUpdate(form: any) {
@@ -72,15 +78,21 @@ export class AddmanufacturerComponent implements OnInit {
 
     console.log(this.model);
     // this.submitted = true;
-    this._manfService.updateManfacture(this.model).subscribe((ok) => {
-      console.log(ok);
-      if (ok == "OK") {
-        this.toastr.success("Success", "Stock Updated");
-        this._location.back();
-      } else {
-        this.toastr.error("Failed", "Failed to update Stock");
+    this._manfService.updateManfacture(this.model).subscribe(
+      (ok) => {
+        console.log(ok);
+        if (ok == "OK") {
+          this.toastr.success("Success", "Stock Updated");
+          this._location.back();
+        } else {
+          this.toastr.error("Failed", "Failed to update Stock");
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.toastr.error("Failed", err.error.message);
       }
-    });
+    );
   }
   getManufactureById() {
     const dta = {

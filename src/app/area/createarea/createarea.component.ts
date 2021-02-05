@@ -47,30 +47,42 @@ export class CreateareaComponent implements OnInit {
 
     console.log(this.model);
     // this.submitted = true;
-    this._areaService.addArea(this.model).subscribe((ok) => {
-      console.log(ok);
-      if (ok == "OK") {
-        this.toastr.success("Success", "Area Updated");
-        this._location.back();
-      } else {
-        this.toastr.error("Failed", "Failed to update Area");
+    this._areaService.addArea(this.model).subscribe(
+      (ok) => {
+        console.log(ok);
+        if (ok == "OK") {
+          this.toastr.success("Success", "Area Updated");
+          this._location.back();
+        } else {
+          this.toastr.error("Failed", "Failed to update Area");
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.toastr.error("Failed", err.error.message);
       }
-    });
+    );
   }
   onUpdate(form: any) {
     console.log("clicked");
 
     console.log(this.model);
     // this.submitted = true;
-    this._areaService.updateArea(this.model).subscribe((ok) => {
-      console.log(ok);
-      if (ok == "OK") {
-        this.toastr.success("Success", "Area Updated");
-        this._location.back();
-      } else {
-        this.toastr.error("Failed", "Failed to update Area");
+    this._areaService.updateArea(this.model).subscribe(
+      (ok) => {
+        console.log(ok);
+        if (ok == "OK") {
+          this.toastr.success("Success", "Area Updated");
+          this._location.back();
+        } else {
+          this.toastr.error("Failed", "Failed to update Area");
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.toastr.error("Failed", err.error.message);
       }
-    });
+    );
   }
   getAreaById() {
     const dta = {

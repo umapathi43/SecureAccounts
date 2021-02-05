@@ -99,36 +99,48 @@ export class AddsupplierComponent implements OnInit {
     this.model.openingBalDate = new Date(this.toModel(this.popupModel));
     console.log(this.model);
     // this.submitted = true;
-    this._supplierService.addSupplier(this.model).subscribe((ok) => {
-      console.log(ok);
-      if (ok == "OK") {
-        this.toastr.success("Success", "Supplier Updated");
-        if (this.isModal) {
-          this.activeModal.close(this.model.supplierName);
-        } else if (this.add_supplier) {
-          this.backbutton.emit(true);
+    this._supplierService.addSupplier(this.model).subscribe(
+      (ok) => {
+        console.log(ok);
+        if (ok == "OK") {
+          this.toastr.success("Success", "Supplier Updated");
+          if (this.isModal) {
+            this.activeModal.close(this.model.supplierName);
+          } else if (this.add_supplier) {
+            this.backbutton.emit(true);
+          } else {
+            this._location.back();
+          }
         } else {
-          this._location.back();
+          this.toastr.error("Failed", "Failed to update Supplier");
         }
-      } else {
-        this.toastr.error("Failed", "Failed to update Supplier");
+      },
+      (err) => {
+        console.log(err);
+        this.toastr.error("Failed", err.error.message);
       }
-    });
+    );
   }
   onUpdate(form: any) {
     console.log("clicked");
     this.model.openingBalDate = new Date(this.toModel(this.popupModel));
     console.log(this.model);
     // this.submitted = true;
-    this._supplierService.updateSupplier(this.model).subscribe((ok) => {
-      console.log(ok);
-      if (ok == "OK") {
-        this.toastr.success("Success", "Supplier Updated");
-        this._location.back();
-      } else {
-        this.toastr.error("Failed", "Failed to update Supplier");
+    this._supplierService.updateSupplier(this.model).subscribe(
+      (ok) => {
+        console.log(ok);
+        if (ok == "OK") {
+          this.toastr.success("Success", "Supplier Updated");
+          this._location.back();
+        } else {
+          this.toastr.error("Failed", "Failed to update Supplier");
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.toastr.error("Failed", err.error.message);
       }
-    });
+    );
   }
   getSupplierById() {
     const dta = {

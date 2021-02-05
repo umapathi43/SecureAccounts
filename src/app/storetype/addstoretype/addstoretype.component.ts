@@ -52,19 +52,25 @@ export class AddstoretypeComponent implements OnInit {
 
     console.log(this.model);
     // this.submitted = true;
-    this._storeService.addStoreType(this.model).subscribe((ok) => {
-      console.log(ok);
-      if (ok == "OK") {
-        this.toastr.success("Success", "Storetype Added");
-        if (this.isModal) {
-          this.activeModal.close(this.model.storeTypeName);
+    this._storeService.addStoreType(this.model).subscribe(
+      (ok) => {
+        console.log(ok);
+        if (ok == "OK") {
+          this.toastr.success("Success", "Storetype Added");
+          if (this.isModal) {
+            this.activeModal.close(this.model.storeTypeName);
+          } else {
+            this._location.back();
+          }
         } else {
-          this._location.back();
+          this.toastr.error("Failed", "Failed to update Storetype");
         }
-      } else {
-        this.toastr.error("Failed", "Failed to update Storetype");
+      },
+      (err) => {
+        console.log(err);
+        this.toastr.error("Failed", err.error.message);
       }
-    });
+    );
   }
 
   onUpdate(form: any) {
@@ -72,15 +78,21 @@ export class AddstoretypeComponent implements OnInit {
 
     console.log(this.model);
     // this.submitted = true;
-    this._storeService.updateStoreType(this.model).subscribe((ok) => {
-      console.log(ok);
-      if (ok == "OK") {
-        this.toastr.success("Success", "Storetype Updated");
-        this._location.back();
-      } else {
-        this.toastr.error("Failed", "Failed to update Storetype");
+    this._storeService.updateStoreType(this.model).subscribe(
+      (ok) => {
+        console.log(ok);
+        if (ok == "OK") {
+          this.toastr.success("Success", "Storetype Updated");
+          this._location.back();
+        } else {
+          this.toastr.error("Failed", "Failed to update Storetype");
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.toastr.error("Failed", err.error.message);
       }
-    });
+    );
   }
   getStoreTypeById() {
     const dta = {

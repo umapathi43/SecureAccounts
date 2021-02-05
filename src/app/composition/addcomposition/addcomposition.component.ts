@@ -53,34 +53,46 @@ export class AddcompositionComponent implements OnInit {
 
     console.log(this.model);
     // this.submitted = true;
-    this._compositionService.addComposition(this.model).subscribe((ok) => {
-      console.log(ok);
-      if (ok == "OK") {
-        this.toastr.success("Success", "Composition Added");
-        if (this.isModal) {
-          this.activeModal.close(this.model.cName);
+    this._compositionService.addComposition(this.model).subscribe(
+      (ok) => {
+        console.log(ok);
+        if (ok == "OK") {
+          this.toastr.success("Success", "Composition Added");
+          if (this.isModal) {
+            this.activeModal.close(this.model.cName);
+          } else {
+            this._location.back();
+          }
         } else {
-          this._location.back();
+          this.toastr.error("Failed", "Failed to add Composition");
         }
-      } else {
-        this.toastr.error("Failed", "Failed to add Composition");
+      },
+      (err) => {
+        console.log(err);
+        this.toastr.error("Failed", err.error.message);
       }
-    });
+    );
   }
   onUpdate(form: any) {
     console.log("clicked");
 
     console.log(this.model);
     // this.submitted = true;
-    this._compositionService.updateComposition(this.model).subscribe((ok) => {
-      console.log(ok);
-      if (ok == "OK") {
-        this.toastr.success("Success", "Composition Updated");
-        this._location.back();
-      } else {
-        this.toastr.error("Failed", "Failed to update Composition");
+    this._compositionService.updateComposition(this.model).subscribe(
+      (ok) => {
+        console.log(ok);
+        if (ok == "OK") {
+          this.toastr.success("Success", "Composition Updated");
+          this._location.back();
+        } else {
+          this.toastr.error("Failed", "Failed to update Composition");
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.toastr.error("Failed", err.error.message);
       }
-    });
+    );
   }
   getCompositionById() {
     const dta = {

@@ -46,15 +46,21 @@ export class AddstockComponent implements OnInit {
 
     console.log(this.model);
     // this.submitted = true;
-    this._stockService.addStock(this.model).subscribe((ok) => {
-      console.log(ok);
-      if (ok == "OK") {
-        this.toastr.success("Success", "Stock Updated");
-        this._location.back();
-      } else {
-        this.toastr.error("Failed", "Failed to update Stock");
+    this._stockService.addStock(this.model).subscribe(
+      (ok) => {
+        console.log(ok);
+        if (ok == "OK") {
+          this.toastr.success("Success", "Stock Updated");
+          this._location.back();
+        } else {
+          this.toastr.error("Failed", "Failed to update Stock");
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.toastr.error("Failed", err.error.message);
       }
-    });
+    );
   }
   getBranches() {
     this._branchService.getBranchs().subscribe((ok) => {
@@ -67,15 +73,21 @@ export class AddstockComponent implements OnInit {
 
     console.log(this.model);
     // this.submitted = true;
-    this._stockService.updateStock(this.model).subscribe((ok) => {
-      console.log(ok);
-      if (ok == "OK") {
-        this.toastr.success("Success", "Stock Updated");
-        this._location.back();
-      } else {
-        this.toastr.error("Failed", "Failed to update Stock");
+    this._stockService.updateStock(this.model).subscribe(
+      (ok) => {
+        console.log(ok);
+        if (ok == "OK") {
+          this.toastr.success("Success", "Stock Updated");
+          this._location.back();
+        } else {
+          this.toastr.error("Failed", "Failed to update Stock");
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.toastr.error("Failed", err.error.message);
       }
-    });
+    );
   }
   getStockById() {
     const dta = {

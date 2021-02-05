@@ -48,14 +48,20 @@ export class CreateaccountComponent implements OnInit {
   createAcount() {
     this.model.openingBalDate = new Date(this.toModel(this.popupModel));
     var req = this.model;
-    this.account_service.addAccount(req).subscribe((ok: any) => {
-      if (ok == "OK") {
-        this.toastr.success("Success", "Account Updated");
-        this._location.back();
-      } else {
-        this.toastr.error("Failed", "Failed to update Account");
+    this.account_service.addAccount(req).subscribe(
+      (ok: any) => {
+        if (ok == "OK") {
+          this.toastr.success("Success", "Account Updated");
+          this._location.back();
+        } else {
+          this.toastr.error("Failed", "Failed to update Account");
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.toastr.error("Failed", err.error.message);
       }
-    });
+    );
   }
   getAccountDetailsById() {
     this.account_service.getAccountById(this.CustomeId).subscribe((ok: any) => {
@@ -64,15 +70,21 @@ export class CreateaccountComponent implements OnInit {
     });
   }
   onUpdate() {
-    this.account_service.updateAccount(this.model).subscribe((ok) => {
-      console.log(ok);
-      if (ok == "OK") {
-        this.toastr.success("Success", "Account Slab Updated");
-        this._location.back();
-      } else {
-        this.toastr.error("Failed", "Failed to update Account Slab");
+    this.account_service.updateAccount(this.model).subscribe(
+      (ok) => {
+        console.log(ok);
+        if (ok == "OK") {
+          this.toastr.success("Success", "Account Slab Updated");
+          this._location.back();
+        } else {
+          this.toastr.error("Failed", "Failed to update Account Slab");
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.toastr.error("Failed", err.error.message);
       }
-    });
+    );
   }
   accountHeaddetails() {
     this.account_service.getAccountHead().subscribe((ok: any) => {

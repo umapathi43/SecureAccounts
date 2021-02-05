@@ -41,30 +41,42 @@ export class AddbranchComponent implements OnInit {
 
     console.log(this.model);
     // this.submitted = true;
-    this._branchService.addBranch(this.model).subscribe((ok) => {
-      console.log(ok);
-      if (ok == "OK") {
-        this.toastr.success("Success", "Branch Added");
-        this._location.back();
-      } else {
-        this.toastr.error("Failed", "Failed to add Branch");
+    this._branchService.addBranch(this.model).subscribe(
+      (ok) => {
+        console.log(ok);
+        if (ok == "OK") {
+          this.toastr.success("Success", "Branch Added");
+          this._location.back();
+        } else {
+          this.toastr.error("Failed", "Failed to add Branch");
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.toastr.error("Failed", err.error.message);
       }
-    });
+    );
   }
   onUpdate(form: any) {
     console.log("clicked");
 
     console.log(this.model);
     // this.submitted = true;
-    this._branchService.updateBranch(this.model).subscribe((ok) => {
-      console.log(ok);
-      if (ok == "OK") {
-        this.toastr.success("Success", "Branch Updated");
-        this._location.back();
-      } else {
-        this.toastr.error("Failed", "Failed to update Branch");
+    this._branchService.updateBranch(this.model).subscribe(
+      (ok) => {
+        console.log(ok);
+        if (ok == "OK") {
+          this.toastr.success("Success", "Branch Updated");
+          this._location.back();
+        } else {
+          this.toastr.error("Failed", "Failed to update Branch");
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.toastr.error("Failed", err.error.message);
       }
-    });
+    );
   }
   getBranchById() {
     const dta = {

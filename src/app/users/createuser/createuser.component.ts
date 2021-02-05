@@ -75,30 +75,42 @@ export class CreateuserComponent implements OnInit {
     this.model.openingBalDate = new Date(this.toModel(this.popupModel));
     console.log(this.model);
     // this.submitted = true;
-    this._userService.addUser(this.model).subscribe((ok) => {
-      console.log(ok);
-      if (ok == "OK") {
-        this.toastr.success("Success", "User Updated");
-        this._location.back();
-      } else {
-        this.toastr.error("Failed", "Failed to update User");
+    this._userService.addUser(this.model).subscribe(
+      (ok) => {
+        console.log(ok);
+        if (ok == "OK") {
+          this.toastr.success("Success", "User Updated");
+          this._location.back();
+        } else {
+          this.toastr.error("Failed", "Failed to update User");
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.toastr.error("Failed", err.error.message);
       }
-    });
+    );
   }
   onUpdate(form: any) {
     console.log("clicked");
     this.model.openingBalDate = new Date(this.toModel(this.popupModel));
     console.log(this.model);
     // this.submitted = true;
-    this._userService.updateUser(this.model).subscribe((ok) => {
-      console.log(ok);
-      if (ok == "OK") {
-        this.toastr.success("Success", "User Updated");
-        this._location.back();
-      } else {
-        this.toastr.error("Failed", "Failed to update User");
+    this._userService.updateUser(this.model).subscribe(
+      (ok) => {
+        console.log(ok);
+        if (ok == "OK") {
+          this.toastr.success("Success", "User Updated");
+          this._location.back();
+        } else {
+          this.toastr.error("Failed", "Failed to update User");
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.toastr.error("Failed", err.error.message);
       }
-    });
+    );
   }
   getUserById() {
     const dta = {
@@ -126,5 +138,12 @@ export class CreateuserComponent implements OnInit {
     return date
       ? date.day + this.DELIMITER + date.month + this.DELIMITER + date.year
       : null;
+  }
+  mobileNumber(event) {
+    const pattern = /^[0-9]$/;
+    let input = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(input)) {
+      event.preventDefault();
+    }
   }
 }
