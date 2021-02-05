@@ -170,4 +170,11 @@ export class AddsupplierComponent implements OnInit {
       ? date.day + this.DELIMITER + date.month + this.DELIMITER + date.year
       : null;
   }
+  mobileNumber(event) {
+    const pattern = /^[0-9]$/;
+    let input = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(input)) {
+      event.preventDefault();
+    }
+  }
 }

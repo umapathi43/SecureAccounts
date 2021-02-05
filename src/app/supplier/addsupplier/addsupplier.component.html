@@ -35,6 +35,8 @@
                   name="mobile"
                   [(ngModel)]="model.mobileNo"
                   #mobile="ngModel"
+                  (keypress)="mobileNumber($event)"
+                  maxlength="13"
                   [ngClass]="{
                     'is-invalid': userForm.submitted && mobile.invalid
                   }"
