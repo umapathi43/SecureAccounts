@@ -1,3 +1,4 @@
+import { CounterSaleModule } from "./../../counter-sale/counter-sale.module";
 import { Routes, RouterModule } from "@angular/router";
 
 //Route for content layout with sidebar, navbar and footer.
@@ -140,6 +141,20 @@ export const Full_ROUTES: Routes = [
     loadChildren: () =>
       import("../../batch-details/batch-details.module").then(
         (m) => m.BatchDetailsModule
+      ),
+  },
+  {
+    path: "receipt-entry",
+    loadChildren: () =>
+      import("../../receipt-entry/receipt-entry.module").then(
+        (m) => m.ReceiptEntryModule
+      ),
+  },
+  {
+    path: "counter-sale",
+    loadChildren: () =>
+      import("../../counter-sale/counter-sale.module").then(
+        (m) => m.CounterSaleModule
       ),
   },
 ];
