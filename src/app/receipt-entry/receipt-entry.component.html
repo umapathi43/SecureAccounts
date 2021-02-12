@@ -236,6 +236,19 @@
                   />
                 </ng-template>
               </ngx-datatable-column>
+              <ngx-datatable-column name="Actions">
+                <ng-template
+                  let-item="row"
+                  ngx-datatable-cell-template
+                  let-rowIndex="rowIndex"
+                >
+                  <a
+                    *ngIf="rowIndex != Items.length - 1 || Items.length > 1"
+                    (click)="removeItem(rowIndex)"
+                    ><i class="ft-trash text-danger cursor-pointer"></i
+                  ></a>
+                </ng-template>
+              </ngx-datatable-column>
             </ngx-datatable>
             <button
               type="button"
