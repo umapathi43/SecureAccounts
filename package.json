@@ -66,6 +66,7 @@
     "ng2-dragula": "2.1.1",
     "ng2-file-upload": "1.4.0",
     "ng2-nouislider": "1.8.2",
+    "ngx-bootstrap": "^6.2.0",
     "ngx-chips": "2.1.0",
     "ngx-custom-validators": "9.1.0",
     "ngx-device-detector": "1.4.0",

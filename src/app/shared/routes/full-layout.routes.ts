@@ -157,4 +157,18 @@ export const Full_ROUTES: Routes = [
         (m) => m.CounterSaleModule
       ),
   },
+  {
+    path: "sales-order",
+    loadChildren: () =>
+      import("../../sales-order/sales-order.module").then(
+        (m) => m.SalesOrderModule
+      ),
+  },
+  {
+    path: "shortage-entry",
+    loadChildren: () =>
+      import("../../shortage-entry/shortage-entry.module").then(
+        (m) => m.ShortageEntryModule
+      ),
+  },
 ];
