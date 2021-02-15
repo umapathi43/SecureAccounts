@@ -28,6 +28,9 @@ const appRoutes: Routes = [
     data: { title: "content Views" },
     children: CONTENT_ROUTES,
   },
+  { path: 'stockAdjustmentEntry', loadChildren: () => import('./stock-adjustment-entry/stock-adjustment-entry.module').then(m => m.StockAdjustmentEntryModule) },
+  { path: 'cashWithdraw', loadChildren: () => import('./cash-withdraw/cash-withdraw.module').then(m => m.CashWithdrawModule) },
+  { path: 'cashDeposit', loadChildren: () => import('./cash-deposit/cash-deposit.module').then(m => m.CashDepositModule) },
   {
     path: "**",
     redirectTo: "pages/error",

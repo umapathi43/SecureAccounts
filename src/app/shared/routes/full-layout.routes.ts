@@ -171,4 +171,25 @@ export const Full_ROUTES: Routes = [
         (m) => m.ShortageEntryModule
       ),
   },
+  {
+    path: "stock-adjustment-entry",
+    loadChildren: () =>
+      import("../../stock-adjustment-entry/stock-adjustment-entry.module").then(
+        (m) => m.StockAdjustmentEntryModule
+      ),
+  },
+  {
+    path: "cash-withdraw",
+    loadChildren: () =>
+      import("../../cash-withdraw/cash-withdraw.module").then(
+        (m) => m.CashWithdrawModule
+      ),
+  },
+  {
+    path: "cash-deposit",
+    loadChildren: () =>
+      import("../../cash-deposit/cash-deposit.module").then(
+        (m) => m.CashDepositModule
+      ),
+  },
 ];
