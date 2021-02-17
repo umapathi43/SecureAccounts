@@ -1,3 +1,4 @@
+import { PurchaseEntryService } from "./../services/purchase-entry.service";
 import { AddsupplierComponent } from "./../supplier/addsupplier/addsupplier.component";
 import { ItemService } from "./../services/item.service";
 import { UserService } from "app/services/user.service";
@@ -20,6 +21,7 @@ import {
   NgbDateStruct,
   NgbModal,
 } from "@ng-bootstrap/ng-bootstrap";
+import { ToastrService } from "ngx-toastr";
 
 export class Purchase {
   public sname: string;
@@ -82,6 +84,7 @@ export class PurchaseComponent implements OnInit {
   itemSelect: any[];
   itemName: any;
   itemNameSelect: any = "Net Amount";
+  itemNameSelect1: any;
   popUpselect: boolean = false;
   isNavbarSeachTextEmpty: boolean;
   constructor(
@@ -92,7 +95,9 @@ export class PurchaseComponent implements OnInit {
     public itenService: ItemService,
     private modalService: NgbModal,
     private el: ElementRef,
-    private renderer: Renderer2
+    private _purchaseService: PurchaseEntryService,
+    private renderer: Renderer2,
+    private toastr: ToastrService
   ) {
     this.config = this.templateConf;
     this.isOpen = !this.config.layout.customizer.hidden;
@@ -226,12 +231,13 @@ export class PurchaseComponent implements OnInit {
     this.getGstTpes();
     this.getItemDetails();
     this.getBestBeforeDetails();
+    this.getSettingsDetails();
     this.itemFilter = this.Items;
     this.itemSelect = [
-      { itemName: "Item Name", id: 1 },
-      { itemName: "Batch", id: 2 },
-      { itemName: "Expiry Date", id: 3 },
-      { itemName: "MFG Date", id: 4 },
+      // { itemName: "Item Name", id: 1 },
+      // { itemName: "Batch", id: 2 },
+      // { itemName: "Expiry Date", id: 3 },
+      // { itemName: "MFG Date", id: 4 },
       { itemName: "Best Before", id: 5 },
       { itemName: "Quantty", id: 6 },
       { itemName: "free Qty", id: 7 },
@@ -241,7 +247,7 @@ export class PurchaseComponent implements OnInit {
       { itemName: "Discount Amount", id: 11 },
       { itemName: "Schedule Discount Amount", id: 12 },
       { itemName: "Tax Amount", id: 13 },
-      { itemName: "quantity per Pack", id: 14 },
+      { itemName: "Quantity Per Pack", id: 14 },
       { itemName: "SRT", id: 15 },
       { itemName: "Gross Amount", id: 16 },
       { itemName: "Net Amount", id: 17 },
@@ -612,6 +618,27 @@ export class PurchaseComponent implements OnInit {
       this.getSuppliers();
     }
     this.closeCustomizer();
+  }
+  getSettingsDetails() {
+    this._purchaseService.getSettingsDetails().subscribe((ok: any) => {
+      this.itemNameSelect = ok[0].settingName;
+      this.itemNameSelect1 = this.itemNameSelect;
+    });
+  }
+  updatteSetting() {
+    var req = {
+      id: 1,
+      settingName: this.itemNameSelect,
+    };
+    this.itemNameSelect1 = this.itemNameSelect;
+    this._purchaseService.updateSettingsDetails(req).subscribe((ok: any) => {
+      if (ok.toLowerCase() === "ok") {
+        setTimeout(() => {
+          this.itemNameSelect1 = this.itemNameSelect;
+        }, 10);
+        this.toastr.success("Success", "Updated");
+      }
+    });
   }
 }
 
