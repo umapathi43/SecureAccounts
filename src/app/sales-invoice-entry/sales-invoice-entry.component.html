@@ -244,7 +244,7 @@
                           <div class="col-md-12 mb-1 form-group">
                             <label for="validationTooltip04">Remainder</label>
                             <div class="row">
-                              <div class="col-md-4">
+                              <div class="col-md-5">
                                 <input
                                   type="number"
                                   name="Remainder"
@@ -262,7 +262,7 @@
                                   (change)="remainderDate(model.RemainderDays)"
                                 />
                               </div>
-                              <div class="col-md-8 input-group">
+                              <div class="col-md-7 input-group">
                                 <input
                                   class="form-control"
                                   placeholder="yyyy-mm-dd"
@@ -945,6 +945,29 @@
                     [(ngModel)]="invoice.netAmount"
                   />
                 </div>
+                <div class="col-md-4 form-group">
+                  <label for="form-7">Other Expenses</label>
+                  <select
+                    id="basic-form-6"
+                    name="otherExpenses"
+                    class="form-control round"
+                    [(ngModel)]="invoice.otherExpenses"
+                    #otherExpenses="ngModel"
+                  >
+                    <option value="cash">Select Expenses</option>
+                  </select>
+                </div>
+                <div class="col-md-4 form-group">
+                  <label for="form-7">Expenses</label>
+                  <input
+                    type="number"
+                    id="form-8"
+                    class="form-control round"
+                    name="expenses"
+                    #expenses="ngModel"
+                    [(ngModel)]="invoice.expenses"
+                  />
+                </div>
               </div>
               <button type="button" class="btn btn-primary mr-2">
                 <i class="ft-check-square mr-1"></i>Save
@@ -963,33 +986,6 @@
       <div class="card">
         <div class="card-content">
           <div class="card-body">
-            <!-- <ngx-datatable-column name="Item Name" prop="itemName" [width]="50">
-            </ngx-datatable-column>
-            <ngx-datatable-column name="Qty" prop="qty" [width]="150">
-            </ngx-datatable-column>
-            <ngx-datatable-column
-              name="Net Rate"
-              prop="netRate"
-              [width]="150"
-            >
-            <ngx-datatable-column
-              name="Discount"
-              prop="discount"
-              [width]="150"
-            >
-            </ngx-datatable-column>
-            <ngx-datatable-column name="Actions" [width]="50">
-              <ng-template let-row="row" ngx-datatable-cell-template>
-                <a
-                  [routerLink]="['/hsnsac/edit-hsnsac/', row.id]"
-                  class="mr-1"
-                  ><i class="ft-edit text-primary cursor-pointer"></i
-                ></a>
-                <a (click)="Confirm(row.id)"
-                  ><i class="ft-trash text-danger cursor-pointer"></i
-                ></a>
-              </ng-template>
-            </ngx-datatable-column> -->
             <ngx-datatable
               #tableRowDetails
               class="bootstrap core-bootstrap"

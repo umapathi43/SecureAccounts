@@ -57,6 +57,8 @@ export class AmountDetails {
   public gstamount: number;
   public roundAmount: number;
   public roundOffAmt: string;
+  public otherExpenses: string;
+  public expenses: string;
 }
 
 @Component({
