@@ -315,6 +315,16 @@ export const ROUTES: RouteInfo[] = [
         submenu: [],
       },
       {
+        path: "/sales-invoice-entry",
+        title: "Sales Invoice Entry",
+        icon: "ft-arrow-right submenu-icon",
+        class: "",
+        badge: "",
+        badgeClass: "",
+        isExternalLink: false,
+        submenu: [],
+      },
+      {
         path: "/shortage-entry",
         title: "Shortage Entry",
         icon: "ft-arrow-right submenu-icon",

@@ -192,4 +192,11 @@ export const Full_ROUTES: Routes = [
         (m) => m.CashDepositModule
       ),
   },
+  {
+    path: "sales-invoice-entry",
+    loadChildren: () =>
+      import("../../sales-invoice-entry/sales-invoice-entry.module").then(
+        (m) => m.SalesInvoiceEntryModule
+      ),
+  },
 ];
