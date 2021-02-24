@@ -243,50 +243,53 @@
                           </div>
                           <div class="col-md-12 mb-1 form-group">
                             <label for="validationTooltip04">Remainder</label>
-                            <div class="row">
-                              <div class="col-md-5">
-                                <input
-                                  type="number"
-                                  name="Remainder"
-                                  class="form-control round"
-                                  [(ngModel)]="model.RemainderDays"
-                                  #Remainder="ngModel"
-                                  min="0"
-                                  [ngClass]="{
-                                    'is-invalid':
-                                      userForm.submitted && Remainder.invalid,
-                                    'is-valid':
-                                      userForm.submitted && !Remainder.invalid
-                                  }"
-                                  required
-                                  (change)="remainderDate(model.RemainderDays)"
-                                />
-                              </div>
-                              <div class="col-md-7 input-group">
-                                <input
-                                  class="form-control"
-                                  placeholder="yyyy-mm-dd"
-                                  name="RemainderDate"
-                                  #RemainderDate="ngModel"
-                                  [(ngModel)]="duedateCurrent"
-                                  ngbDatepicker
-                                  #d2="ngbDatepicker"
-                                  required
-                                  [disabled]="remainderDta"
-                                />
-                                <div class="input-group-append">
-                                  <div
-                                    class="input-group-text"
-                                    (click)="d2.toggle()"
-                                  >
-                                    <i
-                                      class="fa fa-calendar"
-                                      style="cursor: pointer"
-                                    ></i>
-                                  </div>
+                            <div class="form-check-inline">
+                              <input
+                                type="number"
+                                name="Remainder"
+                                class="form-control round"
+                                [(ngModel)]="model.RemainderDays"
+                                #Remainder="ngModel"
+                                min="0"
+                                [ngClass]="{
+                                  'is-invalid':
+                                    userForm.submitted && Remainder.invalid,
+                                  'is-valid':
+                                    userForm.submitted && !Remainder.invalid
+                                }"
+                                required
+                                (change)="
+                                  remainderDate(model.RemainderDays, 'num')
+                                "
+                              />
+                              <input
+                                class="form-control round"
+                                placeholder="yyyy-mm-dd"
+                                name="RemainderDate"
+                                #RemainderDate="ngModel"
+                                [(ngModel)]="duedateCurrent"
+                                ngbDatepicker
+                                #d2="ngbDatepicker"
+                                required
+                                [minDate]="minDate"
+                                (ngModelChange)="
+                                  remainderDate(duedateCurrent, 'date')
+                                "
+                                (click)="d2.toggle()"
+                              />
+                              <!-- <div class="input-group-append">
+                                <div
+                                  class="input-group-text"
+                                  (click)="d2.toggle()"
+                                >
+                                  <i
+                                    class="fa fa-calendar"
+                                    style="cursor: pointer"
+                                  ></i>
                                 </div>
-                              </div>
+                              </div> -->
                             </div>
+
                             <div
                               *ngIf="
                                 userForm.submitted &&
@@ -448,41 +451,36 @@
                             <label for="validationTooltip04"
                               >Points to Redeem</label
                             >
-                            <div class="row">
-                              <div class="col-md-6">
-                                <input
-                                  type="text"
-                                  name="pointsRed"
-                                  class="form-control round"
-                                  [(ngModel)]="model.radeemEntry"
-                                  #pointsRed="ngModel"
-                                  [ngClass]="{
-                                    'is-invalid':
-                                      userForm.submitted && pointsRed.invalid,
-                                    'is-valid':
-                                      userForm.submitted && !pointsRed.invalid
-                                  }"
-                                  required
-                                />
-                              </div>
-                              <div class="col-md-6">
-                                <input
-                                  type="text"
-                                  name="pointsRed"
-                                  class="form-control round"
-                                  [(ngModel)]="model.pointsAvriable"
-                                  #pointsRed="ngModel"
-                                  [ngClass]="{
-                                    'is-invalid':
-                                      userForm.submitted && pointsRed.invalid,
-                                    'is-valid':
-                                      userForm.submitted && !pointsRed.invalid
-                                  }"
-                                  required
-                                />
-                              </div>
+                            <div class="form-check-inline">
+                              <input
+                                type="text"
+                                name="pointsRed"
+                                class="form-control round"
+                                [(ngModel)]="model.radeemEntry"
+                                #pointsRed="ngModel"
+                                [ngClass]="{
+                                  'is-invalid':
+                                    userForm.submitted && pointsRed.invalid,
+                                  'is-valid':
+                                    userForm.submitted && !pointsRed.invalid
+                                }"
+                                required
+                              />
+                              <input
+                                type="text"
+                                name="pointsRed"
+                                class="form-control round"
+                                [(ngModel)]="model.pointsAvriable"
+                                #pointsRed="ngModel"
+                                [ngClass]="{
+                                  'is-invalid':
+                                    userForm.submitted && pointsRed.invalid,
+                                  'is-valid':
+                                    userForm.submitted && !pointsRed.invalid
+                                }"
+                                required
+                              />
                             </div>
-
                             <div
                               *ngIf="
                                 userForm.submitted &&
@@ -843,7 +841,7 @@
                     type="text"
                     class="form-control"
                     [(ngModel)]="item.marginper"
-                    (keydown.Tab)="defaultChange('Margin per')"
+                    (keydown.Tab)="addItem()"
                     name="marginper{{ rowIndex }}"
                     placeholder="marginper"
                   />

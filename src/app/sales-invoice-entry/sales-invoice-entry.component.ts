@@ -18,6 +18,7 @@ import { ColumnMode, DatatableComponent } from "@swimlane/ngx-datatable";
 import { NgxSpinnerService } from "ngx-spinner";
 import {
   NgbCalendar,
+  NgbDatepickerConfig,
   NgbDateStruct,
   NgbModal,
 } from "@ng-bootstrap/ng-bootstrap";
@@ -101,7 +102,10 @@ export class SalesInvoiceEntryComponent implements OnInit {
   popUpselect: boolean = false;
   isNavbarSeachTextEmpty: boolean;
   remainderDta: boolean = false;
+  remainderNum: boolean;
+  minDate: any;
   constructor(
+    private configu: NgbDatepickerConfig,
     private spinner: NgxSpinnerService,
     private _supplierService: SupplierService,
     private _userService: UserService,
@@ -113,6 +117,12 @@ export class SalesInvoiceEntryComponent implements OnInit {
     private renderer: Renderer2,
     private toastr: ToastrService
   ) {
+    const current = new Date();
+    this.minDate = {
+      year: current.getFullYear(),
+      month: current.getMonth() + 1,
+      day: current.getDate(),
+    };
     this.config = this.templateConf;
     this.isOpen = !this.config.layout.customizer.hidden;
 
@@ -259,13 +269,13 @@ export class SalesInvoiceEntryComponent implements OnInit {
   OnpriorityChange(event) {
     this.itemName = event.term;
   }
-  remainderDate(action) {
+  remainderDate(action, data) {
     var current = {
       day: 0,
       month: 0,
       year: 0,
     };
-    if (action) {
+    if (data == "num") {
       var date = new Date();
       let act = action;
       date.setDate(date.getDate() + act);
@@ -278,6 +288,16 @@ export class SalesInvoiceEntryComponent implements OnInit {
       current.year = year;
       this.remainderDta = true;
       this.duedateCurrent = current;
+    } else {
+      this.remainderNum = true;
+      var sent = new Date(this.toModel(action));
+      var currt = new Date();
+      var nub = Math.floor(
+        (Date.UTC(sent.getFullYear(), sent.getMonth(), sent.getDate()) -
+          Date.UTC(currt.getFullYear(), currt.getMonth(), currt.getDate())) /
+          (1000 * 60 * 60 * 24)
+      );
+      this.model.RemainderDays = nub.toString();
     }
   }
   addItem() {
@@ -327,7 +347,7 @@ export class SalesInvoiceEntryComponent implements OnInit {
   }
   toModel(date: NgbDateStruct | null): string | null {
     return date
-      ? date.day + this.DELIMITER + date.month + this.DELIMITER + date.year
+      ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day
       : null;
   }
   duedateChange(action) {
