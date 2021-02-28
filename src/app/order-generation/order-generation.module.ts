@@ -6,9 +6,10 @@ import { OrderGenerationComponent } from "./order-generation.component";
 import { FormsModule } from "@angular/forms";
 import { NgxSpinnerModule } from "ngx-spinner";
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
+import { OrderGenerationTableComponent } from './order-generation-table/order-generation-table.component';
 
 @NgModule({
-  declarations: [OrderGenerationComponent],
+  declarations: [OrderGenerationComponent, OrderGenerationTableComponent],
   imports: [
     CommonModule,
     OrderGenerationRoutingModule,

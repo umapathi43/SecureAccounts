@@ -9,9 +9,10 @@ import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { NgxSpinnerModule } from "ngx-spinner";
 import { NgSelectModule } from "@ng-select/ng-select";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { PurchaseTableComponent } from './purchase-table/purchase-table.component';
 
 @NgModule({
-  declarations: [PurchaseComponent],
+  declarations: [PurchaseComponent, PurchaseTableComponent],
   imports: [
     CommonModule,
     PurchaseRoutingModule,

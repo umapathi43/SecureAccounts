@@ -6,9 +6,10 @@ import { PurchaseOrderComponent } from "./purchase-order.component";
 import { FormsModule } from "@angular/forms";
 import { NgxSpinnerModule } from "ngx-spinner";
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
+import { PurchaseOrderTableComponent } from './purchase-order-table/purchase-order-table.component';
 
 @NgModule({
-  declarations: [PurchaseOrderComponent],
+  declarations: [PurchaseOrderComponent, PurchaseOrderTableComponent],
   imports: [
     CommonModule,
     PurchaseOrderRoutingModule,
