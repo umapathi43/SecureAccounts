@@ -1,3 +1,5 @@
+import { AreaService } from "./../../services/area.service";
+import { PurchaseEntryService } from "./../../services/entryServices/purchase-entry.service";
 import { Component, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
 import { DatatableComponent, ColumnMode } from "@swimlane/ngx-datatable";
 import swal from "sweetalert2";
@@ -32,14 +34,23 @@ export class PurchaseTableComponent implements OnInit {
   // column header
   public columns = [
     { name: "ID", prop: "id" },
-    { name: "Name", prop: "areaName" },
-    { name: "route", prop: "route" },
+    { name: "No of Items", prop: "noItems" },
+    { name: "Discount %", prop: "discount" },
+    { name: "Discount Amount", prop: "discAmount" },
+    { name: "Gross Amounts", prop: "grossAmounts" },
+    { name: "Net Amount", prop: "netAmount" },
   ];
 
   // private
   private tempData = [];
 
-  constructor(private spinner: NgxSpinnerService) {}
+  constructor(
+    private spinner: NgxSpinnerService,
+    public _areaService: AreaService,
+    public _purchaseEntryService: PurchaseEntryService
+  ) {
+    this.getpurchaseEntry();
+  }
 
   // Public Methods
   // -----------------------------------------------------------------------------------------------------
@@ -54,7 +65,7 @@ export class PurchaseTableComponent implements OnInit {
 
     // filter our data
     const temp = this.tempData.filter(function (d) {
-      return d.areaName.toLowerCase().indexOf(val) !== -1 || !val;
+      return d.invoiceNo.toLowerCase().indexOf(val) !== -1 || !val;
     });
 
     // update the rows
@@ -103,7 +114,7 @@ export class PurchaseTableComponent implements OnInit {
                 confirmButton: "btn btn-success",
               },
             });
-            that.getAreas();
+            // that.getAreas();
           });
         } else if (result.dismiss === swal.DismissReason.cancel) {
           swal.fire({
@@ -151,5 +162,16 @@ export class PurchaseTableComponent implements OnInit {
       data,
       fileName + "_export_" + new Date().getTime() + EXCEL_EXTENSION
     );
+  }
+  getpurchaseEntry() {
+    this.spinner.show(undefined, {
+      type: "ball-triangle-path",
+      size: "medium",
+    });
+    this._purchaseEntryService.getpurchaseEntry().subscribe((ok: any) => {
+      this.rows = ok;
+      this.table.element.click();
+      this.spinner.hide();
+    });
   }
 }

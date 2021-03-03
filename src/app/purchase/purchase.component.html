@@ -4,18 +4,14 @@
       <div class="card">
         <div class="card-content">
           <div class="card-body">
-            <form
-              class="needs-validation"
-              #userForm="ngForm"
-              (ngSubmit)="userForm.form.valid && onSubmit(userForm)"
-            >
+            <form class="needs-validation" #userForm="ngForm">
               <div class="form-row">
                 <div class="col-md-3 mb-1 form-group">
                   <label for="validationTooltip01">Supplier Name</label>
                   <ng-select
                     [items]="supplierdata"
                     bindLabel="supplierName"
-                    bindValue="supplierName"
+                    bindValue="id"
                     [(ngModel)]="model.sname"
                     name="fname"
                     #fname="ngModel"
@@ -38,7 +34,7 @@
                     type="text"
                     name="invoiceNo"
                     class="form-control round"
-                    [(ngModel)]="invoice.invoiceNo"
+                    [(ngModel)]="model.invoiceNo"
                     #invoiceNo="ngModel"
                     [ngClass]="{
                       'is-invalid': userForm.submitted && invoiceNo.invalid,
@@ -133,7 +129,7 @@
                     type="text"
                     name="discount"
                     class="form-control round"
-                    [(ngModel)]="invoice.discount"
+                    [(ngModel)]="model.discount"
                     #discount="ngModel"
                     [ngClass]="{
                       'is-invalid': userForm.submitted && discount.invalid,
@@ -157,9 +153,9 @@
                     type="text"
                     name="dueday"
                     class="form-control round"
-                    [(ngModel)]="invoice.dueday"
+                    [(ngModel)]="model.dueday"
                     #dueday="ngModel"
-                    (change)="duedateChange(invoice.dueday)"
+                    (change)="duedateChange(model.dueday)"
                     [ngClass]="{
                       'is-invalid': userForm.submitted && dueday.invalid,
                       'is-valid': userForm.submitted && !dueday.invalid
@@ -223,13 +219,13 @@
                     type="number"
                     name="srtMargin"
                     class="form-control round"
-                    [(ngModel)]="invoice.srtMargin"
+                    [(ngModel)]="model.srtMargin"
                     #srtMargin="ngModel"
                     [ngClass]="{
                       'is-invalid': userForm.submitted && srtMargin.invalid,
                       'is-valid': userForm.submitted && !srtMargin.invalid
                     }"
-                    (change)="srtMarginValue(invoice.srtMargin)"
+                    (change)="srtMarginValue(model.srtMargin)"
                     required
                   />
                   <div
@@ -387,7 +383,7 @@
                     class="form-control"
                     placeholder="yyyy-mm-dd"
                     name="mfgDate{{ rowIndex }}"
-                    [(ngModel)]="item.mfgDate"
+                    [(ngModel)]="item.mfgDatePicker"
                     ngbDatepicker
                     #m="ngbDatepicker"
                     (click)="m.toggle()"
@@ -1072,7 +1068,7 @@
                     class="form-control round"
                     name="grossAmounts"
                     #grossAmounts="ngModel"
-                    [(ngModel)]="invoice.grossAmounts"
+                    [(ngModel)]="model.grossAmounts"
                   />
                 </div>
                 <div class="col-md-4 form-group">
@@ -1083,7 +1079,7 @@
                     class="form-control round"
                     name="discAmount"
                     #discAmount="ngModel"
-                    [(ngModel)]="invoice.discAmount"
+                    [(ngModel)]="model.discAmount"
                   />
                 </div>
                 <div class="col-md-4 form-group">
@@ -1094,7 +1090,7 @@
                     class="form-control round"
                     name="noItems"
                     #noItems="ngModel"
-                    [(ngModel)]="invoice.noItems"
+                    [(ngModel)]="model.noItems"
                   />
                 </div>
                 <div class="col-md-4 form-group position-relative">
@@ -1105,7 +1101,7 @@
                     class="form-control round"
                     name="dicper"
                     #dicper="ngModel"
-                    [(ngModel)]="invoice.disPercentage"
+                    [(ngModel)]="model.disPercentage"
                   />
                   <!-- <div class="input-group-append">
                     <div class="input-group-text" (click)="f.toggle()">
@@ -1121,7 +1117,7 @@
                     class="form-control round"
                     name="gstamount"
                     #gstamount="ngModel"
-                    [(ngModel)]="invoice.gstamount"
+                    [(ngModel)]="model.gstamount"
                   />
                 </div>
 
@@ -1133,7 +1129,7 @@
                     class="form-control round"
                     name="roundAmount"
                     #roundAmount="ngModel"
-                    [(ngModel)]="invoice.roundAmount"
+                    [(ngModel)]="model.roundAmount"
                     (change)="roundOffAmt()"
                   />
                 </div>
@@ -1145,7 +1141,7 @@
                     class="form-control round"
                     name="otherExp"
                     #otherExp="ngModel"
-                    [(ngModel)]="invoice.otherExp"
+                    [(ngModel)]="model.otherExp"
                     (change)="roundOffAmt()"
                   />
                 </div>
@@ -1157,17 +1153,21 @@
                     class="form-control round"
                     name="netAmount"
                     #netAmount="ngModel"
-                    [(ngModel)]="invoice.netAmount"
+                    [(ngModel)]="model.netAmount"
                   />
                 </div>
               </div>
-              <button type="button" class="btn btn-primary mr-2">
-                <i class="ft-check-square mr-1"></i>Save
-              </button>
-              <button type="button" class="btn btn-secondary">
-                <i class="ft-x mr-1"></i>Cancel
-              </button>
             </form>
+            <button
+              type="button"
+              class="btn btn-primary mr-2"
+              (click)="onSubmit()"
+            >
+              <i class="ft-check-square mr-1"></i>Save
+            </button>
+            <button type="button" class="btn btn-secondary" (click)="goBack()">
+              <i class="ft-x mr-1"></i>Cancel
+            </button>
           </div>
         </div>
       </div>

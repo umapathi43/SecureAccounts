@@ -69,23 +69,30 @@
               [rows]="rows"
               [columns]="columns"
             >
-              <ngx-datatable-column name="ID" prop="id" [width]="50">
+              <ngx-datatable-column name="ID" prop="id"> </ngx-datatable-column>
+              <ngx-datatable-column name="No Iteams" prop="noItems">
               </ngx-datatable-column>
-              <ngx-datatable-column name="Name" prop="areaName" [width]="150">
+              <ngx-datatable-column name="Invoice No" prop="invoiceNo">
               </ngx-datatable-column>
               <ngx-datatable-column
-                name="route"
-                prop="route"
-                [width]="150"
+                name="Discount%"
+                prop="discount"
               ></ngx-datatable-column>
-
-              <ngx-datatable-column name="Actions" [width]="50">
+              <ngx-datatable-column name="Discount Amount" prop="discAmount">
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Gross Amounts" prop="grossAmounts">
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Net Amount" prop="netAmount">
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Actions">
                 <ng-template let-row="row" ngx-datatable-cell-template>
-                  <a [routerLink]="['/area/edit-area/', row.id]" class="mr-1"
+                  <a
+                    [routerLink]="[
+                      '/purchase-entry/purchase-entry-details/',
+                      row.invoiceNo
+                    ]"
+                    class="mr-1"
                     ><i class="ft-edit text-primary cursor-pointer"></i
-                  ></a>
-                  <a (click)="Confirm(row.id)"
-                    ><i class="ft-trash text-danger cursor-pointer"></i
                   ></a>
                 </ng-template>
               </ngx-datatable-column>

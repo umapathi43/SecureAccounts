@@ -1,4 +1,4 @@
-import { PurchaseEntryService } from "./../services/purchase-entry.service";
+import { PurchaseEntryService } from "./../services/entryServices/purchase-entry.service";
 import { AddsupplierComponent } from "./../supplier/addsupplier/addsupplier.component";
 import { ItemService } from "./../services/item.service";
 import { UserService } from "app/services/user.service";

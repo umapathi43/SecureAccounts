@@ -7,6 +7,7 @@ import { PurchaseComponent } from "./purchase.component";
 const routes: Routes = [
   { path: "", component: PurchaseTableComponent },
   { path: "purchase-entry-details", component: PurchaseComponent },
+  { path: "purchase-entry-details/:id", component: PurchaseComponent },
 ];
 
 @NgModule({

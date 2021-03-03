@@ -1,3 +1,4 @@
+import { AreaService } from "./../../services/area.service";
 import { Component, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
 import { DatatableComponent, ColumnMode } from "@swimlane/ngx-datatable";
 import swal from "sweetalert2";
@@ -39,7 +40,10 @@ export class PaymentEntryTableComponent implements OnInit {
   // private
   private tempData = [];
 
-  constructor(private spinner: NgxSpinnerService) {}
+  constructor(
+    private spinner: NgxSpinnerService,
+    public _areaService: AreaService
+  ) {}
 
   // Public Methods
   // -----------------------------------------------------------------------------------------------------
