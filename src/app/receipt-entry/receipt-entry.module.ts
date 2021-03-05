@@ -8,9 +8,10 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { NgSelectModule } from "@ng-select/ng-select";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { ReceiptEntryTableComponent } from './receipt-entry-table/receipt-entry-table.component';
 
 @NgModule({
-  declarations: [ReceiptEntryComponent],
+  declarations: [ReceiptEntryComponent, ReceiptEntryTableComponent],
   imports: [
     CommonModule,
     ReceiptEntryRoutingModule,

@@ -1,12 +1,16 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
+import { ReceiptEntryTableComponent } from "./receipt-entry-table/receipt-entry-table.component";
 
-import { ReceiptEntryComponent } from './receipt-entry.component';
+import { ReceiptEntryComponent } from "./receipt-entry.component";
 
-const routes: Routes = [{ path: '', component: ReceiptEntryComponent }];
+const routes: Routes = [
+  { path: "", component: ReceiptEntryTableComponent },
+  { path: "receipt-entry-details", component: ReceiptEntryComponent },
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ReceiptEntryRoutingModule { }
+export class ReceiptEntryRoutingModule {}

@@ -8,9 +8,13 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { NgSelectModule } from "@ng-select/ng-select";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { StockAdjustmentEntryTableComponent } from "./stock-adjustment-entry-table/stock-adjustment-entry-table.component";
 
 @NgModule({
-  declarations: [StockAdjustmentEntryComponent],
+  declarations: [
+    StockAdjustmentEntryComponent,
+    StockAdjustmentEntryTableComponent,
+  ],
   imports: [
     CommonModule,
     StockAdjustmentEntryRoutingModule,

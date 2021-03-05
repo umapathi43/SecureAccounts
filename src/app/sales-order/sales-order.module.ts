@@ -8,9 +8,10 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { NgSelectModule } from "@ng-select/ng-select";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { SalesOrderTableComponent } from './sales-order-table/sales-order-table.component';
 
 @NgModule({
-  declarations: [SalesOrderComponent],
+  declarations: [SalesOrderComponent, SalesOrderTableComponent],
   imports: [
     CommonModule,
     SalesOrderRoutingModule,

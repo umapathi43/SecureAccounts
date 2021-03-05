@@ -3,6 +3,7 @@ import { ColumnMode, DatatableComponent } from "@swimlane/ngx-datatable";
 
 export class OrderGeneration {
   public orderDate: string;
+  public srt: number;
 }
 @Component({
   selector: "app-opening-stock-entry",

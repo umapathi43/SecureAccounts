@@ -8,9 +8,10 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { NgSelectModule } from "@ng-select/ng-select";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { ShortageEntryTableComponent } from './shortage-entry-table/shortage-entry-table.component';
 
 @NgModule({
-  declarations: [ShortageEntryComponent],
+  declarations: [ShortageEntryComponent, ShortageEntryTableComponent],
   imports: [
     CommonModule,
     ShortageEntryRoutingModule,

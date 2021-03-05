@@ -1,12 +1,16 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { ShortageEntryTableComponent } from "./shortage-entry-table/shortage-entry-table.component";
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
 
-import { ShortageEntryComponent } from './shortage-entry.component';
+import { ShortageEntryComponent } from "./shortage-entry.component";
 
-const routes: Routes = [{ path: '', component: ShortageEntryComponent }];
+const routes: Routes = [
+  { path: "", component: ShortageEntryTableComponent },
+  { path: "shortage-entry-details", component: ShortageEntryComponent },
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ShortageEntryRoutingModule { }
+export class ShortageEntryRoutingModule {}

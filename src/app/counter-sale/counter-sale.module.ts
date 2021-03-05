@@ -8,9 +8,10 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { NgSelectModule } from "@ng-select/ng-select";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { CounterSaleTableComponent } from './counter-sale-table/counter-sale-table.component';
 
 @NgModule({
-  declarations: [CounterSaleComponent],
+  declarations: [CounterSaleComponent, CounterSaleTableComponent],
   imports: [
     CommonModule,
     CounterSaleRoutingModule,

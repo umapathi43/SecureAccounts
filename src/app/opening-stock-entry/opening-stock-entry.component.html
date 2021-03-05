@@ -38,9 +38,22 @@
                     Load From Negative Stock
                   </button>
                 </div>
-                <div class="col-md-4 mb-1 mt-3 form-group">
+                <div class="col-md-4 mb-1 form-group">
                   <div>
                     <label>Srt%:</label>
+                    <input
+                      type="number"
+                      name="srtn"
+                      class="form-control round"
+                      id="validationTooltip02"
+                      [(ngModel)]="model.srt"
+                      #srtn="ngModel"
+                      [ngClass]="{
+                        'is-invalid': orderForm.submitted && srtn.invalid,
+                        'is-valid': orderForm.submitted && !srtn.invalid
+                      }"
+                      required
+                    />
                   </div>
                 </div>
               </div>
