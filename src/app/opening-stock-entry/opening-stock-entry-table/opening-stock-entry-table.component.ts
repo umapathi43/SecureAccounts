@@ -5,6 +5,7 @@ import swal from "sweetalert2";
 import * as xlsx from "xlsx";
 import * as FileSaver from "file-saver";
 import { NgxSpinnerService } from "ngx-spinner";
+import { PurchaseEntryService } from "app/services/entryServices/purchase-entry.service";
 declare var jsPDF: any;
 
 @Component({
@@ -45,7 +46,8 @@ export class OpeningStockEntryTableComponent implements OnInit {
 
   constructor(
     private spinner: NgxSpinnerService,
-    public _areaService: AreaService
+    public _areaService: AreaService,
+    private _purchaseService: PurchaseEntryService
   ) {}
 
   // Public Methods
@@ -129,6 +131,7 @@ export class OpeningStockEntryTableComponent implements OnInit {
       title: col.name,
       dataKey: col.prop,
     }));
+    this.getOpenStock();
   }
 
   exportPdf() {
@@ -158,5 +161,10 @@ export class OpeningStockEntryTableComponent implements OnInit {
       data,
       fileName + "_export_" + new Date().getTime() + EXCEL_EXTENSION
     );
+  }
+  getOpenStock() {
+    this._purchaseService.getOpenStockEntry().subscribe((ok: any) => {
+      const res = ok;
+    });
   }
 }

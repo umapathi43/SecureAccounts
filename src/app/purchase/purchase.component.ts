@@ -29,11 +29,11 @@ export class Purchase {
   public sname: string;
   public saddress: string;
   public GSTNo: string;
-  public MobileNo: string;
+  public MobileNo: number;
   public entrydate: string;
-  public discount: string;
+  public discount: number;
   public dueday: string;
-  public srtMargin: string;
+  public srtMargin: number;
   public duedate: string;
   public invoiceNo: string;
   public grossAmounts: number;
@@ -61,7 +61,7 @@ export class PurchaseComponent implements OnInit {
   public templateConf: ITemplateConfig = this.setConfigValue();
   duedateCurrent: NgbDateStruct;
   showFields: any;
-  duedateInvoice: any;
+  duedateInvoice: NgbDateStruct;
   inVoiceDate: NgbDateStruct;
   footerdate: any;
   entrydateInvoice: NgbDateStruct;
@@ -87,6 +87,7 @@ export class PurchaseComponent implements OnInit {
   popUpselect: boolean = false;
   isNavbarSeachTextEmpty: boolean;
   CustomeId: any;
+  updatedRes: any;
   constructor(
     private _location: Location,
     private spinner: NgxSpinnerService,
@@ -103,7 +104,6 @@ export class PurchaseComponent implements OnInit {
   ) {
     this.config = this.templateConf;
     this.isOpen = !this.config.layout.customizer.hidden;
-    debugger;
     this.CustomeId = this.actRoute.snapshot.params.id;
     console.log(this.CustomeId);
     if (this.CustomeId) {
@@ -211,6 +211,7 @@ export class PurchaseComponent implements OnInit {
       grossAmt: "",
       netAmt: "",
       mfgdateFlag: false,
+      id: 0,
     },
   ];
   columns2 = [
@@ -261,6 +262,7 @@ export class PurchaseComponent implements OnInit {
       { itemName: "Net Amount", id: 17 },
       { itemName: "GST", id: 18 },
     ];
+    document.getElementById("ngx-datatable-filter").onclick;
   }
 
   getSuppliers() {
@@ -307,6 +309,7 @@ export class PurchaseComponent implements OnInit {
       grossAmt: "",
       netAmt: "",
       mfgdateFlag: false,
+      id: 0,
     });
     this.Items = [...this.Items];
     this.itemFilter = this.Items;
@@ -473,7 +476,7 @@ export class PurchaseComponent implements OnInit {
           if (i == ind) {
             this.model.srtMargin = this.model.srtMargin
               ? this.model.srtMargin
-              : "0";
+              : 0;
             e.srt =
               e.purchaseRate +
               e.purchaseRate * (e.gst / 100) +
@@ -651,19 +654,19 @@ export class PurchaseComponent implements OnInit {
     var req = this.model;
     req["purchaseDetails"] = this.Items;
     req["purchaseDetails"].forEach((e) => {
-      var dat = new Date(this.toModel(e.mfgDatePicker));
-      e.mfgDate = dat;
+      e.mfgDate = this.toModel(e.mfgDatePicker);
       delete e.mfgDatePicker;
+      delete e.id;
       e["invoiceNo"] = this.model.invoiceNo;
       // delete e.maxdate;
       // delete e.mfgdateFlag;
     });
-    req["entrydateInvoice"] = new Date(this.toModel(this.entrydateInvoice));
-    req["invoiceDate"] = new Date(this.toModel(this.inVoiceDate));
+    req["entrydate"] = this.toModel(this.entrydateInvoice);
+    req["invoiceDate"] = this.toModel(this.inVoiceDate);
+    req["duedate"] = this.toModel(this.duedateInvoice);
     console.log(req);
     this._purchaseService.addPurchaseEntry(req).subscribe(
       (ok: any) => {
-        debugger;
         if (ok == "OK") {
           this.toastr.success("Success", "SuccessFully Entry Created");
           this._location.back();
@@ -678,9 +681,49 @@ export class PurchaseComponent implements OnInit {
     );
   }
   getPurchaseId() {
-    this._purchaseService
-      .getPurchaseId(this.CustomeId)
-      .subscribe((ok: any) => {});
+    this._purchaseService.getPurchaseId(this.CustomeId).subscribe((ok: any) => {
+      this.updatedRes = ok;
+      this.model = this.updatedRes;
+      this.Items = this.updatedRes.purchaseDetails;
+      this.Items.forEach((t) => {
+        if (t.name) {
+          t.name = +t.name;
+        }
+      });
+    });
+  }
+  onUpdate() {
+    var req = this.model;
+    req["purchaseDetails"] = this.Items;
+    req["purchaseDetails"].forEach((e) => {
+      // var dat = this.toModel(e.mfgDatePicker);
+      // e.mfgDate = dat;
+      e.mfgDate = this.toModel(e.mfgDatePicker);
+
+      delete e.mfgDatePicker;
+      e["invoiceNo"] = this.model.invoiceNo;
+      // delete e.maxdate;
+      // delete e.mfgdateFlag;
+    });
+    req["entrydate"] = this.toModel(this.entrydateInvoice);
+    req["invoiceDate"] = this.toModel(this.inVoiceDate);
+    req["duedate"] = this.toModel(this.duedateInvoice);
+    req["footerDate"] = "2021-1-23";
+    console.log("rerere", req);
+    this._purchaseService.updatePurchaseEntry(req).subscribe(
+      (ok: any) => {
+        if (ok == "OK") {
+          this.toastr.success("Success", "SuccessFully Updated");
+          this._location.back();
+        } else {
+          this.toastr.error("Failed", "Failed to update Entry");
+        }
+      }
+      // (err) => {
+      //   console.log(err);
+      //   this.toastr.error("Failed", err.error.message);
+      // }
+    );
   }
   goBack() {
     this._location.back();

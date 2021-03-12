@@ -62,7 +62,7 @@ export class PurchaseTableComponent implements OnInit {
    */
   filterUpdate(event) {
     const val = event.target.value.toLowerCase();
-
+    debugger;
     // filter our data
     const temp = this.tempData.filter(function (d) {
       return d.invoiceNo.toLowerCase().indexOf(val) !== -1 || !val;
@@ -170,6 +170,7 @@ export class PurchaseTableComponent implements OnInit {
     });
     this._purchaseEntryService.getpurchaseEntry().subscribe((ok: any) => {
       this.rows = ok;
+      this.tempData = this.rows;
       this.table.element.click();
       this.spinner.hide();
     });

@@ -388,6 +388,7 @@
                     #m="ngbDatepicker"
                     (click)="m.toggle()"
                     required
+                    [footerTemplate]="footerTemplate"
                     (keydown.Tab)="defaultChange('MFG Date')"
                     (ngModelChange)="mfgDateChange(item, rowIndex)"
                     [disabled]="item.mfgdateFlag === true"
@@ -1162,8 +1163,17 @@
               type="button"
               class="btn btn-primary mr-2"
               (click)="onSubmit()"
+              *ngIf="!CustomeId"
             >
               <i class="ft-check-square mr-1"></i>Save
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary mr-2"
+              (click)="onUpdate()"
+              *ngIf="CustomeId"
+            >
+              <i class="ft-check-square mr-1"></i>Update
             </button>
             <button type="button" class="btn btn-secondary" (click)="goBack()">
               <i class="ft-x mr-1"></i>Cancel
