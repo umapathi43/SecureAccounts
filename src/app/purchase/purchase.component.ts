@@ -478,10 +478,12 @@ export class PurchaseComponent implements OnInit {
               ? this.model.srtMargin
               : 0;
             e.srt =
-              e.purchaseRate +
-              e.purchaseRate * (e.gst / 100) +
-              (e.purchaseRate +
-                e.purchaseRate * (e.gst / 100) * (+this.model.srtMargin / 100));
+              e.purchaseRate + e.purchaseRate * (+this.model.srtMargin / 100);
+            // e.srt =
+            //   e.purchaseRate +
+            //   e.purchaseRate * (e.gst / 100) +
+            //   (e.purchaseRate +
+            //     e.purchaseRate * (e.gst / 100) * (+this.model.srtMargin / 100));
           }
         });
       }

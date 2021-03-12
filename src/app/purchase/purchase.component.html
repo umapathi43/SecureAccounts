@@ -1065,6 +1065,7 @@
                   <input
                     (click)="totalGross()"
                     type="number"
+                    disabled
                     id="form-1"
                     class="form-control round"
                     name="grossAmounts"
@@ -1091,6 +1092,7 @@
                     class="form-control round"
                     name="noItems"
                     #noItems="ngModel"
+                    disabled
                     [(ngModel)]="model.noItems"
                   />
                 </div>
@@ -1116,6 +1118,7 @@
                     type="number"
                     id="form-5"
                     class="form-control round"
+                    disabled
                     name="gstamount"
                     #gstamount="ngModel"
                     [(ngModel)]="model.gstamount"
@@ -1154,6 +1157,7 @@
                     class="form-control round"
                     name="netAmount"
                     #netAmount="ngModel"
+                    disabled
                     [(ngModel)]="model.netAmount"
                   />
                 </div>

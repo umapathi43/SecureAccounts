@@ -27,7 +27,7 @@ import { ToastrService } from "ngx-toastr";
 export class Purchase {
   public mobileNo: string;
   public custmorAddress: string;
-  public custmorName: string;
+  public custmorName: number;
   public doctor: string;
   public doctorAddress: string;
   public billDate: string;
@@ -104,6 +104,7 @@ export class SalesInvoiceEntryComponent implements OnInit {
   remainderDta: boolean = false;
   remainderNum: boolean;
   minDate: any;
+  customerNameArray: any[];
   constructor(
     private configu: NgbDatepickerConfig,
     private spinner: NgxSpinnerService,
@@ -210,9 +211,10 @@ export class SalesInvoiceEntryComponent implements OnInit {
       mrp: "",
       discount: "",
       marginper: "",
+      gst: "",
       marginAmount: "",
       taxAmount: "",
-
+      salesRate: "",
       grossAmt: "",
       netAmt: "",
     },
@@ -238,8 +240,8 @@ export class SalesInvoiceEntryComponent implements OnInit {
   ngOnInit(): void {
     this.getGstTpes();
     this.getItemDetails();
-    this.getBestBeforeDetails();
     this.getSettingsDetails();
+    this.getUsers();
     this.itemFilter = this.Items;
     this.itemSelect = [
       // { itemName: "Item Name", id: 1 },
@@ -311,7 +313,8 @@ export class SalesInvoiceEntryComponent implements OnInit {
       marginper: "",
       marginAmount: "",
       taxAmount: "",
-
+      gast: "",
+      salesRate: "",
       grossAmt: "",
       netAmt: "",
     });
@@ -329,16 +332,7 @@ export class SalesInvoiceEntryComponent implements OnInit {
     this.showFields = index;
     console.log(this.showFields);
   }
-  OnSupplierChange(event) {
-    this.supplierName = event.term;
-    this.supFlag = event.items.length == 0 ? true : false;
-  }
 
-  getBestBeforeDetails() {
-    this._userService.getBestBeforeDetails().subscribe((ok: any) => {
-      this.beforeDetails = ok;
-    });
-  }
   getGstTpes() {
     this._userService.getGstTypes().subscribe((ok) => {
       console.log("GST TYPES >>", ok);
@@ -373,162 +367,16 @@ export class SalesInvoiceEntryComponent implements OnInit {
       this.itemArray = ok.filter((t) => t.status == "A");
     });
   }
-  mgdChange(date, ind) {
-    // let arr = date.split("-");
-    // var l = { year: 0, month: 0, day: 0 };
-    // l.day = 1;
-    // arr[0].substring(1);
-    // l.month = +arr[0];
-    // l.year = +arr[1];
-    // this.Items.forEach((v, i) => {
-    //   if (i == ind) {
-    //     v.maxdate = l;
-    //   }
-    // });
-    if (date) {
-      this.Items.forEach((v, i) => {
-        if (i == ind) {
-          v.mfgdateFlag = true;
-        }
-      });
-    } else {
-      this.Items.forEach((v, i) => {
-        if (i == ind) {
-          v.mfgdateFlag = false;
-        }
-      });
-    }
-  }
-  limitDecimalPlaces(e, count) {
-    if (e.target.value.indexOf(".") == -1) {
-      return;
-    }
-    if (e.target.value.length - e.target.value.indexOf(".") > count) {
-      e.target.value = parseFloat(e.target.value).toFixed(count);
-    }
-  }
-  discountAmountChange(action, ind, val) {
-    if (action.purchaseRate) {
-      if (action.discAmount || action.discount) {
-        if (val == "amt" || val == "rate" || val == "qyt") {
-          this.Items.forEach((e, i) => {
-            if (i == ind) {
-              e.discount = (e.discAmount * 100) / (e.qty * e.purchaseRate);
-            }
-          });
-        } else if (val == "dis" || val == "rate" || val == "qyt") {
-          this.Items.forEach((e, i) => {
-            if (i == ind) {
-              e.discAmount = (e.qty * e.purchaseRate * e.discount) / 100;
-            }
-          });
-        }
-      }
-    }
-  }
+
   onWrapperClick() {
     this.isNavbarSeachTextEmpty = true;
   }
 
-  taxAmount(action, ind) {
-    if (action) {
-      if (action.qty && action.purchaseRate) {
-        this.Items.forEach((e, i) => {
-          if (i == ind) {
-            e.discAmount = e.discAmount ? e.discAmount : 0;
-            e.taxAmount =
-              (e.qty * e.purchaseRate - e.discAmount) * (e.gst / 100);
-          }
-        });
-      }
-    }
-  }
-  srtAmount(action, ind) {
-    if (action) {
-      if (action.purchaseRate) {
-        this.Items.forEach((e, i) => {
-          if (i == ind) {
-            this.invoice.srtMargin = this.invoice.srtMargin
-              ? this.invoice.srtMargin
-              : "0";
-            e.srt =
-              e.purchaseRate +
-              e.purchaseRate * (e.gst / 100) +
-              (e.purchaseRate +
-                e.purchaseRate *
-                  (e.gst / 100) *
-                  (+this.invoice.srtMargin / 100));
-          }
-        });
-      }
-    }
-  }
-  srtMarginValue(action) {
-    this.Items.forEach((e, i) => {
-      if (e.purchaseRate) {
-        e.srt =
-          e.purchaseRate +
-          e.purchaseRate * (e.gst / 100) +
-          (e.purchaseRate + e.purchaseRate * (e.gst / 100) * (+action / 100));
-      }
+  getUsers() {
+    this._userService.getUsers().subscribe((ok) => {
+      this.customerNameArray = ok;
     });
   }
-  grossAmount(action, ind) {
-    if (action) {
-      if (action.purchaseRate && action.qty) {
-        this.Items.forEach((e, i) => {
-          if (i == ind) {
-            e.grossAmt = e.purchaseRate * e.qty;
-          }
-        });
-      }
-    }
-  }
-  netAmountChange(action, ind) {
-    if (action) {
-      if (action.grossAmt && action.taxAmount) {
-        this.Items.forEach((e, i) => {
-          if (i == ind) {
-            e.discAmount = e.discAmount ? e.discAmount : 0;
-            e.schdiscAmount = e.schdiscAmount ? e.schdiscAmount : 0;
-            e.netAmt =
-              e.grossAmt - e.discAmount - e.schdiscAmount + e.taxAmount;
-          }
-        });
-      }
-    }
-  }
-  mfgDateChange(action, ind) {
-    if (action.mfgDate && action.bestBefore) {
-      let dat: Date;
-      let arr: any;
-      this.Items.forEach((e, i) => {
-        if (i == ind) {
-          var datt =
-            e.mfgDate.year + "-" + e.mfgDate.month + "-" + e.mfgDate.day;
-          dat = new Date(datt);
-          arr = e.bestBefore.split(" ");
-          if (arr[1] == "Days") {
-            dat.setDate(dat.getDate() + +arr[0]);
-          } else if (arr[1] == "Months") {
-            dat.setMonth(dat.getMonth() + +arr[0]);
-          } else if (arr[1] == "Years") {
-            dat.setFullYear(dat.getFullYear() + +arr[0]);
-          }
-          var moth = new String(dat.getMonth() + 1);
-          if (moth.length == 1) {
-            moth = "0" + moth;
-          }
-          var year = new String(dat.getFullYear());
-          e.expiryDate = moth + "-" + year;
-          // e.mfgDate.day = dat.getDate();
-          // e.mfgDate.month = dat.getMonth();
-          // e.mfgDate.year = dat.getFullYear();
-        }
-      });
-    }
-  }
-
   filterUpdate(event) {
     const val = event.target.value.toLowerCase()
       ? event.target.value.toLowerCase()
@@ -579,6 +427,47 @@ export class SalesInvoiceEntryComponent implements OnInit {
       }
     });
   }
+  taxAmountChange(action, ind) {
+    action.discount = action.discount ? action.discount : 0;
+    action.gst = action.gst ? action.gst : 0;
+    this.Items.forEach((e, i) => {
+      if (i == ind) {
+        const tot = +action.qtyStrip * +action.salesRate;
+        const gt = tot - (tot * +action.discount) / 100;
+        e.taxAmount =
+          tot - (tot * +action.discount) / 100 + gt * (action.gst / 100);
+      }
+    });
+    this.totalNetAmount(action, ind);
+    this.totalGrossAmount(action, ind);
+  }
+  totalNetAmount(action, ind) {
+    if (action.taxAmount && action.grossAmt) {
+      this.Items.forEach((e, i) => {
+        if (i == ind) {
+          e.netAmt = action.grossAmt + action.taxAmount;
+        }
+      });
+    }
+  }
+  totalGrossAmount(action, ind) {
+    if (action.qtyStrip && action.salesRate) {
+      this.Items.forEach((e, i) => {
+        if (i == ind) {
+          e.grossAmt = action.qtyStrip + action.salesRate;
+        }
+      });
+    }
+  }
+  // qtyStrip: "",
+  // mrp: "",
+  // discount: "",
+  // marginper: "",
+  // marginAmount: "",
+  // taxAmount: "",
+  // salesRate:"",
+  // grossAmt: "",
+  // netAmt: "",
 }
 
 export interface ITemplateConfig {

@@ -45,12 +45,14 @@
                             <label for="validationTooltip04"
                               >Custmor Name</label
                             >
-                            <input
-                              type="text"
+                            <ng-select
+                              [items]="customerNameArray"
+                              bindLabel="customerName"
+                              bindValue="id"
                               name="custmorName"
-                              class="form-control round"
                               [(ngModel)]="model.custmorName"
                               #custmorName="ngModel"
+                              placeholder="Select Custmor"
                               [ngClass]="{
                                 'is-invalid':
                                   userForm.submitted && custmorName.invalid,
@@ -58,7 +60,9 @@
                                   userForm.submitted && !custmorName.invalid
                               }"
                               required
-                            />
+                            >
+                            </ng-select>
+
                             <div
                               *ngIf="
                                 userForm.submitted &&
@@ -339,8 +343,10 @@
                       <div class="card-body">
                         <div class="form-row">
                           <div class="col-md-12 mb-1 form-group">
-                            <label for="validationTooltip04">Tax</label>
-                            <div
+                            <label for="validationTooltip04" class="mb-2"
+                              >Tax</label
+                            ><br />
+                            <!-- <div
                               class="custom-switch custom-switch-primary mt-2 mb-3"
                             >
                               <input
@@ -365,34 +371,27 @@
                               >
                                 <span>No</span>
                               </label>
-                            </div>
-                            <!-- <div class="radio" style="display: flex">
-                              <input
-                                type="radio"
-                                name="basic-radio-1"
-                                id="radio1"
-                                value="Yes"
-                                [(ngModel)]="model.tax"
-                              />
-                              <label for="radio1">Yes</label>
-                              <input
-                                type="radio"
-                                name="basic-radio-1"
-                                id="radio2"
-                                value="No"
-                                [(ngModel)]="model.tax"
-                              />
-                              <label for="radio2">No</label>
                             </div> -->
-                            <div
-                              *ngIf="
-                                userForm.submitted &&
-                                (mobileNo.invalid || mobileNo.errors?.required)
-                              "
-                              class="invalid-tooltip"
-                            >
-                              Please provide a valid Mobile No.
-                            </div>
+                            <!-- <div class="radio" style="display: flex"> -->
+                            <input
+                              class="mr-1"
+                              type="radio"
+                              name="basicRadio"
+                              id="Yes"
+                              value="Yes"
+                              [(ngModel)]="model.tax"
+                            />
+                            <label for="Yes" class="mr-2">Yes</label>
+                            <input
+                              class="mr-1"
+                              type="radio"
+                              name="basicRadio"
+                              id="No"
+                              value="No"
+                              [(ngModel)]="model.tax"
+                            />
+                            <label for="No">No</label>
+                            <!-- </div> -->
                           </div>
                           <div class="col-md-12 mb-1 form-group">
                             <label for="validationTooltip04">Sell No</label>
@@ -453,7 +452,7 @@
                             >
                             <div class="form-check-inline">
                               <input
-                                type="text"
+                                type="number"
                                 name="pointsRed"
                                 class="form-control round"
                                 [(ngModel)]="model.radeemEntry"
@@ -467,7 +466,7 @@
                                 required
                               />
                               <input
-                                type="text"
+                                type="number"
                                 name="pointsRed"
                                 class="form-control round"
                                 [(ngModel)]="model.pointsAvriable"
@@ -598,24 +597,6 @@
                     (ngModelChange)="packageChange(item, rowIndex)"
                   >
                   </ng-select>
-                  <!-- <ng-select
-                    #MyNgSelect
-                    bindLabel="name"
-                    appendTo="body"
-                    [searchable]="true"
-                    [clearable]="true"
-                    [closeOnSelect]="false"
-                    [(ngModel)]="item.name"
-                    style="width: 119px"
-                    name="itemName{{ rowIndex }} "
-                    #itemName="ngModel"
-                    placeholder="No Item selected"
-                    keydown.Tab
-                  >
-                    <ng-option [value]="item.id" *ngFor="let item of itemArray">
-                      {{ item.itemName }}
-                    </ng-option>
-                  </ng-select> -->
                 </ng-template>
               </ngx-datatable-column>
               <ngx-datatable-column name="Batch" prop="batch">
@@ -672,6 +653,7 @@
                     [(ngModel)]="item.qtyStrip"
                     name="qtyStrip{{ rowIndex }}"
                     placeholder="00.00"
+                    (change)="taxAmountChange(item, rowIndex)"
                   />
                   <!-- <div class="input-group-append">
                     <div class="input-group-text" (click)="m.toggle()">
@@ -715,10 +697,11 @@
                   <input
                     type="number"
                     class="form-control"
-                    [(ngModel)]="item.saleRate"
+                    [(ngModel)]="item.salesRate"
                     name="saleRate{{ rowIndex }}"
                     placeholder="sale Rate"
                     (keydown.Tab)="defaultChange('SaleRate')"
+                    (change)="taxAmountChange(item, rowIndex)"
                   />
                 </ng-template>
               </ngx-datatable-column>
@@ -735,10 +718,11 @@
                   <input
                     type="number"
                     class="form-control"
-                    [(ngModel)]="item.Discount"
+                    [(ngModel)]="item.discount"
                     name="Discount{{ rowIndex }}"
                     placeholder="Discount"
                     (keydown.Tab)="defaultChange('Discount')"
+                    (change)="taxAmountChange(item, rowIndex)"
                   />
                 </ng-template>
               </ngx-datatable-column>
@@ -749,14 +733,26 @@
                   ngx-datatable-cell-template
                   let-rowIndex="rowIndex"
                 >
-                  <input
-                    type="number"
-                    class="form-control"
+                  <ng-select
+                    #MyNgSelect
+                    bindLabel="gstTypeName"
+                    appendTo="body"
+                    [searchable]="true"
+                    [clearable]="true"
+                    [closeOnSelect]="false"
+                    style="width: 70px"
                     [(ngModel)]="item.gst"
                     name="gst{{ rowIndex }}"
-                    placeholder="gst"
+                    (change)="taxAmountChange(item, rowIndex)"
                     (keydown.Tab)="defaultChange('GST')"
-                  />
+                  >
+                    <ng-option
+                      [value]="item.gstTypeName"
+                      *ngFor="let item of gstTypeList"
+                    >
+                      {{ item.gstTypeName }}
+                    </ng-option>
+                  </ng-select>
                 </ng-template>
               </ngx-datatable-column>
 
@@ -776,7 +772,6 @@
                     [(ngModel)]="item.taxAmount"
                     name="taxAmount{{ rowIndex }}"
                     placeholder="Tax Amount"
-                    (change)="netAmountChange(item, rowIndex)"
                     (keydown.Tab)="defaultChange('Tax Amount')"
                   />
                 </ng-template>
@@ -789,7 +784,7 @@
                   let-rowIndex="rowIndex"
                 >
                   <input
-                    type="text"
+                    type="number"
                     class="form-control"
                     [(ngModel)]="item.grossAmt"
                     name="grossAmt{{ rowIndex }}"
@@ -806,7 +801,7 @@
                   let-rowIndex="rowIndex"
                 >
                   <input
-                    type="text"
+                    type="number"
                     class="form-control"
                     [(ngModel)]="item.netAmt"
                     (keydown.Tab)="defaultChange('Net Amount')"
@@ -822,7 +817,7 @@
                   let-rowIndex="rowIndex"
                 >
                   <input
-                    type="text"
+                    type="number"
                     class="form-control"
                     [(ngModel)]="item.marginAmount"
                     (keydown.Tab)="defaultChange('Margin Amount')"
@@ -838,7 +833,7 @@
                   let-rowIndex="rowIndex"
                 >
                   <input
-                    type="text"
+                    type="numder"
                     class="form-control"
                     [(ngModel)]="item.marginper"
                     (keydown.Tab)="addItem()"
@@ -879,6 +874,35 @@
 
 <section id="basic-form-layouts">
   <div class="row match-height">
+    <div class="col-lg-6 col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+            <ngx-datatable
+              #tableRowDetails
+              class="bootstrap core-bootstrap"
+              [columnMode]="ColumnMode.force"
+              [footerHeight]="50"
+              rowHeight="auto"
+              [limit]="10"
+              [rows]="rows"
+              [columns]="columns"
+            >
+              <ngx-datatable-column name="Item Name" prop="itemName">
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Qty" prop="qty">
+              </ngx-datatable-column>
+              <ngx-datatable-column
+                name="Net Rate"
+                prop="netRate"
+              ></ngx-datatable-column>
+              <ngx-datatable-column name="Discount" prop="discount">
+              </ngx-datatable-column>
+            </ngx-datatable>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- Basic Form starts -->
     <div class="col-lg-6 col-12">
       <div class="card">
@@ -980,35 +1004,7 @@
     </div>
     <!-- Basic Form ends -->
     <!-- Hidden Label starts -->
-    <div class="col-lg-6 col-12">
-      <div class="card">
-        <div class="card-content">
-          <div class="card-body">
-            <ngx-datatable
-              #tableRowDetails
-              class="bootstrap core-bootstrap"
-              [columnMode]="ColumnMode.force"
-              [footerHeight]="50"
-              rowHeight="auto"
-              [limit]="10"
-              [rows]="rows"
-              [columns]="columns"
-            >
-              <ngx-datatable-column name="Item Name" prop="itemName">
-              </ngx-datatable-column>
-              <ngx-datatable-column name="Qty" prop="qty">
-              </ngx-datatable-column>
-              <ngx-datatable-column
-                name="Net Rate"
-                prop="netRate"
-              ></ngx-datatable-column>
-              <ngx-datatable-column name="Discount" prop="discount">
-              </ngx-datatable-column>
-            </ngx-datatable>
-          </div>
-        </div>
-      </div>
-    </div>
+
     <!-- Hidden Label ends -->
   </div>
 </section>
