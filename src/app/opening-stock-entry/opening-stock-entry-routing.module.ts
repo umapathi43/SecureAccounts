@@ -10,6 +10,10 @@ const routes: Routes = [
     path: "opening-stock-entry-details",
     component: OpeningStockEntryComponent,
   },
+  {
+    path: "opening-stock-entry-details/:id",
+    component: OpeningStockEntryComponent,
+  },
 ];
 
 @NgModule({

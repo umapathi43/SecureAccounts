@@ -3,6 +3,7 @@ import { AddsupplierComponent } from "./../supplier/addsupplier/addsupplier.comp
 import { ItemService } from "./../services/item.service";
 import { UserService } from "app/services/user.service";
 import { SupplierService } from "./../services/supplier.service";
+import { Location } from "@angular/common";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -23,35 +24,34 @@ import {
   NgbModal,
 } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
+import { ActivatedRoute } from "@angular/router";
 
-export class Purchase {
+export class SalesInvoiceEntry {
   public mobileNo: string;
-  public custmorAddress: string;
-  public custmorName: number;
+  public customerAddress: string;
+  public customerName: number;
   public doctor: string;
   public doctorAddress: string;
   public billDate: string;
   public discount: number;
   public discountAmount: number;
-  public RemainderDays: string;
+  public remainderDays: string;
   public RemainderDate: Date;
   public homeDelivery: string;
   public tax: string;
   public sellNo: string;
   public sellMargin: string;
-  public radeemEntry: string;
-  public pointsAvriable: string;
+  public radeemToEntry: string;
+  public radeemFromEntry: string;
   public poinmodepaymenttsRed: string;
-  public modepayment: string;
-}
-export class AmountDetails {
+  public modePayment: string;
   public invoiceDate: string;
   public entrydate: string;
-  public discount: string;
+  public discountAmt: number;
   public dueday: string;
   public srtMargin: string;
   public duedate: string;
-  public netAmount: string;
+  public netAmount: number;
   public grossAmounts: number;
   public discAmount: number;
   public noItems: number;
@@ -75,6 +75,7 @@ export class AmountDetails {
 export class SalesInvoiceEntryComponent implements OnInit {
   public templateConf: ITemplateConfig = this.setConfigValue();
   duedateCurrent: NgbDateStruct;
+  billDate: NgbDateStruct;
   showFields: any;
   duedateInvoice: any;
   inVoiceDate: any;
@@ -105,7 +106,10 @@ export class SalesInvoiceEntryComponent implements OnInit {
   remainderNum: boolean;
   minDate: any;
   customerNameArray: any[];
+  CustomeId: any;
+  entryRes: any;
   constructor(
+    private _location: Location,
     private configu: NgbDatepickerConfig,
     private spinner: NgxSpinnerService,
     private _supplierService: SupplierService,
@@ -116,7 +120,8 @@ export class SalesInvoiceEntryComponent implements OnInit {
     private el: ElementRef,
     private _purchaseService: PurchaseEntryService,
     private renderer: Renderer2,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private actRoute: ActivatedRoute
   ) {
     const current = new Date();
     this.minDate = {
@@ -129,6 +134,11 @@ export class SalesInvoiceEntryComponent implements OnInit {
 
     if (this.config.layout.sidebar.size) {
       this.size = this.config.layout.sidebar.size;
+    }
+    this.CustomeId = this.actRoute.snapshot.params.id;
+    console.log(this.CustomeId);
+    if (this.CustomeId) {
+      this.getSalesInvoiceEntryById();
     }
   }
   @Output() directionEvent = new EventEmitter<Object>();
@@ -204,7 +214,7 @@ export class SalesInvoiceEntryComponent implements OnInit {
 
   public Items: any[] = [
     {
-      name: "",
+      name: 0,
       batch: "",
       expiryDate: "",
       qtyStrip: "",
@@ -216,6 +226,7 @@ export class SalesInvoiceEntryComponent implements OnInit {
       taxAmount: "",
       salesRate: "",
       grossAmt: "",
+      id: 0,
       netAmt: "",
     },
   ];
@@ -235,8 +246,7 @@ export class SalesInvoiceEntryComponent implements OnInit {
     { name: "marginAmount", prop: "marginAmount" },
     { name: "marginper", prop: "marginper" },
   ];
-  model = new Purchase();
-  invoice = new AmountDetails();
+  model = new SalesInvoiceEntry();
   ngOnInit(): void {
     this.getGstTpes();
     this.getItemDetails();
@@ -299,12 +309,12 @@ export class SalesInvoiceEntryComponent implements OnInit {
           Date.UTC(currt.getFullYear(), currt.getMonth(), currt.getDate())) /
           (1000 * 60 * 60 * 24)
       );
-      this.model.RemainderDays = nub.toString();
+      this.model.remainderDays = nub.toString();
     }
   }
   addItem() {
     this.Items.push({
-      name: "",
+      name: 0,
       batch: "",
       expiryDate: "",
       qtyStrip: "",
@@ -317,6 +327,7 @@ export class SalesInvoiceEntryComponent implements OnInit {
       salesRate: "",
       grossAmt: "",
       netAmt: "",
+      id: 0,
     });
     this.Items = [...this.Items];
     this.itemFilter = this.Items;
@@ -459,15 +470,85 @@ export class SalesInvoiceEntryComponent implements OnInit {
       });
     }
   }
-  // qtyStrip: "",
-  // mrp: "",
-  // discount: "",
-  // marginper: "",
-  // marginAmount: "",
-  // taxAmount: "",
-  // salesRate:"",
-  // grossAmt: "",
-  // netAmt: "",
+  totalGrossFooter() {
+    let gross = 0;
+    let disAmount = 0;
+    let gstAmt = 0;
+    let netAmt = 0;
+    if (this.Items.length > 0) {
+      this.Items.forEach((e) => {
+        e.discAmount = e.discAmount ? e.discAmount : 0;
+        gross = gross + e.grossAmt;
+        // disAmount = disAmount + e.discAmount;
+        // gstAmt = gstAmt + e.taxAmount;
+        netAmt = netAmt + e.netAmt;
+      });
+      this.model.grossAmounts = gross;
+      // this.model.discountAmt = disAmount;
+      // this.model.gstamount = gstAmt;
+      this.model.roundAmount = netAmt;
+      // this.model.netAmount = netAmt;
+      this.model.noItems = this.Items.length;
+    }
+  }
+  saveSalesEntry() {
+    this.model.billDate = this.toModel(this.billDate);
+    var req = this.model;
+    req["stockinvoiceDetails"] = this.Items;
+    this._purchaseService.saveSalesInvoiceEntryEntry(req).subscribe(
+      (ok: any) => {
+        if (ok == "OK") {
+          this.toastr.success("Success", "SuccessFully Entry Created");
+          this._location.back();
+        } else {
+          this.toastr.error("Failed", "Failed to update Schedule");
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.toastr.error("Failed", err.error.message);
+      }
+    );
+  }
+  UpdateSalesEntry() {
+    this.model.billDate = this.toModel(this.billDate);
+    var req = this.model;
+    req["stockinvoiceDetails"] = this.Items;
+    this._purchaseService.updateSalesInvoiceEntryEntry(req).subscribe(
+      (ok: any) => {
+        if (ok == "OK") {
+          this.toastr.success("Success", "SuccessFully Entry Updated");
+          this._location.back();
+        } else {
+          this.toastr.error("Failed", "Failed to update Schedule");
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.toastr.error("Failed", err.error.message);
+      }
+    );
+  }
+  getSalesInvoiceEntryById() {
+    this._purchaseService
+      .getSalesInvoiceEntryById(this.CustomeId)
+      .subscribe((ok: any) => {
+        this.entryRes = ok;
+        this.model = this.entryRes;
+        this.Items = this.entryRes.stockinvoiceDetails;
+        this.Items.forEach((t) => {
+          if (t.name) {
+            t.name = +t.name;
+          }
+        });
+        document.getElementById("tooltip-validation").click();
+        document.getElementById("ngx-datatable-filter").click();
+        document.getElementById("basic-form-layouts").click();
+      });
+  }
+  goBack() {
+    this._location.back();
+  }
 }
 
 export interface ITemplateConfig {

@@ -7,6 +7,7 @@ import { ShortageEntryComponent } from "./shortage-entry.component";
 const routes: Routes = [
   { path: "", component: ShortageEntryTableComponent },
   { path: "shortage-entry-details", component: ShortageEntryComponent },
+  { path: "shortage-entry-details/:id", component: ShortageEntryComponent },
 ];
 
 @NgModule({

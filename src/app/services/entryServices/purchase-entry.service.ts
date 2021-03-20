@@ -25,7 +25,7 @@ export class PurchaseEntryService {
   }
 
   updatePurchaseEntry(value): Observable<any> {
-    return this.http.post("PurchaseEntry/Update/" + value.id, value);
+    return this.http.put("PurchaseEntry/Update/" + value.id, value);
   }
   getPurchaseId(value): Observable<any> {
     return this.http.get("PurchaseEntry/getPurchaseInvoice/" + value);
@@ -51,5 +51,25 @@ export class PurchaseEntryService {
   }
   getShortageEntryById(value): Observable<any> {
     return this.http.get("ShortageEntry/getShortageDetails/" + value);
+  }
+  saveShortageEntry(value): Observable<any> {
+    return this.http.post("ShortageEntry/Shortage", value);
+  }
+  updateShortageEntryById(value): Observable<any> {
+    return this.http.put("ShortageEntry/UpdateShortage/" + value.id, value);
+  }
+
+  /// sales invoice entry //////
+  getSalesInvoiceEntry(): Observable<any> {
+    return this.http.get("SalesInvoice/getAllDetails");
+  }
+  getSalesInvoiceEntryById(value): Observable<any> {
+    return this.http.get("SalesInvoice/getSalesInvoice/" + value);
+  }
+  saveSalesInvoiceEntryEntry(value): Observable<any> {
+    return this.http.post("SalesInvoice/SaleInvoice", value);
+  }
+  updateSalesInvoiceEntryEntry(value): Observable<any> {
+    return this.http.post("SalesInvoice/UpdateSalesInvoice/" + value.id, value);
   }
 }

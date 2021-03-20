@@ -16,9 +16,10 @@
                       <div class="card-body">
                         <div class="form-row">
                           <div class="col-md-12 mb-1 form-group">
-                            <label for="validationTooltip03">Mobile No</label>
+                            <label>Mobile No</label>
                             <input
-                              type="number"
+                              id="tooltip-validation"
+                              type="text"
                               name="mobileNo"
                               class="form-control round"
                               [(ngModel)]="model.mobileNo"
@@ -48,9 +49,9 @@
                             <ng-select
                               [items]="customerNameArray"
                               bindLabel="customerName"
-                              bindValue="id"
+                              bindValue="customerName"
                               name="custmorName"
-                              [(ngModel)]="model.custmorName"
+                              [(ngModel)]="model.customerName"
                               #custmorName="ngModel"
                               placeholder="Select Custmor"
                               [ngClass]="{
@@ -80,7 +81,7 @@
                               type="text"
                               name="custmorAddress"
                               class="form-control round"
-                              [(ngModel)]="model.custmorAddress"
+                              [(ngModel)]="model.customerAddress"
                               #custmorAddress="ngModel"
                               [ngClass]="{
                                 'is-invalid':
@@ -170,20 +171,21 @@
                               type="date"
                               name="billDate"
                               class="form-control round"
-                              [(ngModel)]="model.billDate"
-                              #billDate="ngModel"
+                              [(ngModel)]="billDate"
+                              #billDate1="ngModel"
                               [ngClass]="{
                                 'is-invalid':
-                                  userForm.submitted && billDate.invalid,
+                                  userForm.submitted && billDate1.invalid,
                                 'is-valid':
-                                  userForm.submitted && !billDate.invalid
+                                  userForm.submitted && !billDate1.invalid
                               }"
                               required
                             />
                             <div
                               *ngIf="
                                 userForm.submitted &&
-                                (billDate.invalid || billDate.errors?.required)
+                                (billDate1.invalid ||
+                                  billDate1.errors?.required)
                               "
                               class="invalid-tooltip"
                             >
@@ -252,7 +254,7 @@
                                 type="number"
                                 name="Remainder"
                                 class="form-control round"
-                                [(ngModel)]="model.RemainderDays"
+                                [(ngModel)]="model.remainderDays"
                                 #Remainder="ngModel"
                                 min="0"
                                 [ngClass]="{
@@ -263,7 +265,7 @@
                                 }"
                                 required
                                 (change)="
-                                  remainderDate(model.RemainderDays, 'num')
+                                  remainderDate(model.remainderDays, 'num')
                                 "
                               />
                               <input
@@ -403,9 +405,9 @@
                               class="form-control"
                               #sellNo="ngModel"
                             >
-                              <option value="cost">Net Cost</option>
-                              <option value="srt">SRT</option>
-                              <option value="mrp">MRP</option>
+                              <option value="1">Net Cost</option>
+                              <option value="2">SRT</option>
+                              <option value="3">MRP</option>
                             </select>
                             <div
                               *ngIf="
@@ -455,7 +457,7 @@
                                 type="number"
                                 name="pointsRed"
                                 class="form-control round"
-                                [(ngModel)]="model.radeemEntry"
+                                [(ngModel)]="model.radeemToEntry"
                                 #pointsRed="ngModel"
                                 [ngClass]="{
                                   'is-invalid':
@@ -469,7 +471,7 @@
                                 type="number"
                                 name="pointsRed"
                                 class="form-control round"
-                                [(ngModel)]="model.pointsAvriable"
+                                [(ngModel)]="model.radeemFromEntry"
                                 #pointsRed="ngModel"
                                 [ngClass]="{
                                   'is-invalid':
@@ -499,7 +501,7 @@
                               id="basic-form-6"
                               name="modepayment"
                               class="form-control round"
-                              [(ngModel)]="model.modepayment"
+                              [(ngModel)]="model.modePayment"
                               #modepayment="ngModel"
                             >
                               <option value="cash">Cash</option>
@@ -914,11 +916,12 @@
                   <label for="form-1">Gross Amount</label>
                   <input
                     type="number"
+                    (click)="totalGrossFooter()"
                     id="form-1"
                     class="form-control round"
                     name="grossAmounts"
                     #grossAmounts="ngModel"
-                    [(ngModel)]="invoice.grossAmounts"
+                    [(ngModel)]="model.grossAmounts"
                   />
                 </div>
                 <div class="col-md-4 form-group">
@@ -929,7 +932,7 @@
                     class="form-control round"
                     name="discAmount"
                     #discAmount="ngModel"
-                    [(ngModel)]="invoice.discAmount"
+                    [(ngModel)]="model.discountAmt"
                   />
                 </div>
                 <div class="col-md-4 form-group">
@@ -940,7 +943,7 @@
                     class="form-control round"
                     name="gstamount"
                     #gstamount="ngModel"
-                    [(ngModel)]="invoice.gstamount"
+                    [(ngModel)]="model.gstamount"
                   />
                 </div>
 
@@ -952,7 +955,7 @@
                     class="form-control round"
                     name="roundAmount"
                     #roundAmount="ngModel"
-                    [(ngModel)]="invoice.roundAmount"
+                    [(ngModel)]="model.roundAmount"
                   />
                 </div>
 
@@ -964,20 +967,19 @@
                     class="form-control round"
                     name="netAmount"
                     #netAmount="ngModel"
-                    [(ngModel)]="invoice.netAmount"
+                    [(ngModel)]="model.netAmount"
                   />
                 </div>
                 <div class="col-md-4 form-group">
                   <label for="form-7">Other Expenses</label>
-                  <select
-                    id="basic-form-6"
-                    name="otherExpenses"
+                  <input
+                    type="number"
+                    id="form-8"
                     class="form-control round"
-                    [(ngModel)]="invoice.otherExpenses"
-                    #otherExpenses="ngModel"
-                  >
-                    <option value="cash">Select Expenses</option>
-                  </select>
+                    name="netAmount"
+                    #netAmount="ngModel"
+                    [(ngModel)]="model.otherExpenses"
+                  />
                 </div>
                 <div class="col-md-4 form-group">
                   <label for="form-7">Expenses</label>
@@ -987,14 +989,31 @@
                     class="form-control round"
                     name="expenses"
                     #expenses="ngModel"
-                    [(ngModel)]="invoice.expenses"
+                    [(ngModel)]="model.expenses"
                   />
                 </div>
               </div>
-              <button type="button" class="btn btn-primary mr-2">
+              <button
+                type="button"
+                class="btn btn-primary mr-2"
+                (click)="saveSalesEntry()"
+                *ngIf="!CustomeId"
+              >
                 <i class="ft-check-square mr-1"></i>Save
               </button>
-              <button type="button" class="btn btn-secondary">
+              <button
+                type="button"
+                class="btn btn-primary mr-2"
+                (click)="UpdateSalesEntry()"
+                *ngIf="CustomeId"
+              >
+                <i class="ft-check-square mr-1"></i>Update
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                (click)="goBack()"
+              >
                 <i class="ft-x mr-1"></i>Cancel
               </button>
             </form>

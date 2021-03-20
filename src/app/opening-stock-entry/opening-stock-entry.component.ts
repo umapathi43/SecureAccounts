@@ -1,6 +1,13 @@
 import { ActivatedRoute } from "@angular/router";
 import { PurchaseEntryService } from "./../services/entryServices/purchase-entry.service";
-import { Component, ElementRef, OnInit, Renderer2, ViewChild, ViewEncapsulation } from "@angular/core";
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  Renderer2,
+  ViewChild,
+  ViewEncapsulation,
+} from "@angular/core";
 import { NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
 import { ColumnMode, DatatableComponent } from "@swimlane/ngx-datatable";
 import { ItemService } from "app/services/item.service";
@@ -41,7 +48,7 @@ export class OpeningStockEntryComponent implements OnInit {
     private toastr: ToastrService,
     private _location: Location,
     private actRoute: ActivatedRoute,
-    private renderer: Renderer2,
+    private renderer: Renderer2
   ) {
     this.config = this.templateConf;
     this.isOpen = !this.config.layout.customizer.hidden;
@@ -219,7 +226,8 @@ export class OpeningStockEntryComponent implements OnInit {
   }
   onSubmit() {
     var req = {};
-    this.model.orderDate = this.toModel(this.orginDate);
+    // this.model.orderDate = this.toModel(this.orginDate);
+    this.model.orderDate = null;
     req = this.model;
     req["openStockDetails"] = this.Items;
     // req["salesVal"] = this.salesVal;
@@ -278,6 +286,9 @@ export class OpeningStockEntryComponent implements OnInit {
       }
     );
   }
+  goBack() {
+    this._location.back();
+  }
   DisplayFileds(index) {
     this.showFields = index;
     console.log(this.showFields);
@@ -307,4 +318,3 @@ export interface ITemplateConfig {
     };
   };
 }
-

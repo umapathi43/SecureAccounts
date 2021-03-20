@@ -6,6 +6,7 @@ import * as xlsx from "xlsx";
 import * as FileSaver from "file-saver";
 import { NgxSpinnerService } from "ngx-spinner";
 import { PurchaseEntryService } from "app/services/entryServices/purchase-entry.service";
+import { renderFlagCheckIfStmt } from "@angular/compiler/src/render3/view/template";
 declare var jsPDF: any;
 
 @Component({
@@ -163,8 +164,16 @@ export class OpeningStockEntryTableComponent implements OnInit {
     );
   }
   getOpenStock() {
+    this.spinner.show(undefined, {
+      type: "ball-triangle-path",
+      size: "medium",
+    });
     this._purchaseService.getOpenStockEntry().subscribe((ok: any) => {
       const res = ok;
+      this.rows = ok;
+      this.tempData = this.rows;
+      this.table.element.click();
+      this.spinner.hide();
     });
   }
 }

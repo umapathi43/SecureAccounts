@@ -7,6 +7,10 @@ import { SalesInvoiceEntryComponent } from "./sales-invoice-entry.component";
 const routes: Routes = [
   { path: "", component: SalesInvoiceEntryTableComponent },
   { path: "sales-invoice-entry-table", component: SalesInvoiceEntryComponent },
+  {
+    path: "sales-invoice-entry-table/:id",
+    component: SalesInvoiceEntryComponent,
+  },
 ];
 
 @NgModule({

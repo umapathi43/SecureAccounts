@@ -1,13 +1,15 @@
+import { ActivatedRoute } from "@angular/router";
 import { Component, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
 import { ColumnMode, DatatableComponent } from "@swimlane/ngx-datatable";
+import { PurchaseEntryService } from "app/services/entryServices/purchase-entry.service";
+import { NgxSpinnerService } from "ngx-spinner";
+import { Location } from "@angular/common";
+import { ToastrService } from "ngx-toastr";
 
 export class ShortageEntry {
   public entryDate: Date;
-  public referenceNumber: number;
-  public referenceDate: Date;
-  public cash: string;
-  public amount: string;
-  public Remarks: string;
+  public totalQty: number;
+  public totalItems: number;
 }
 @Component({
   selector: "app-shortage-entry",
@@ -20,7 +22,19 @@ export class ShortageEntry {
 })
 export class ShortageEntryComponent implements OnInit {
   showFields: any;
-  constructor() {}
+  CustomeId: any;
+  constructor(
+    public actRoute: ActivatedRoute,
+    private spinner: NgxSpinnerService,
+    private _purchaseService: PurchaseEntryService,
+    private _location: Location,
+    private toastr: ToastrService
+  ) {
+    this.CustomeId = this.actRoute.snapshot.params.id;
+    if (this.CustomeId) {
+      this.getShortageByID();
+    }
+  }
   @ViewChild(DatatableComponent) table: DatatableComponent;
   @ViewChild("tableRowDetails") tableRowDetails: any;
   // row data
@@ -55,8 +69,9 @@ export class ShortageEntryComponent implements OnInit {
 
   public Items: any[] = [
     {
-      item: "",
+      itemName: "",
       qty: "",
+      id: 0,
     },
   ];
   columns2 = [
@@ -65,13 +80,12 @@ export class ShortageEntryComponent implements OnInit {
   ];
   model = new ShortageEntry();
   ngOnInit(): void {}
-  onSubmit(form) {
-    console.log(form.value);
-  }
+
   addItem() {
     this.Items.push({
-      item: "",
+      itemName: "",
       qty: "",
+      id: 0,
     });
     this.Items = [...this.Items];
   }
@@ -83,5 +97,65 @@ export class ShortageEntryComponent implements OnInit {
   DisplayFileds(index) {
     this.showFields = index;
     console.log(this.showFields);
+  }
+  getShortageByID() {
+    this.spinner.show(undefined, {
+      type: "ball-triangle-path",
+      size: "medium",
+    });
+    this._purchaseService
+      .getShortageEntryById(this.CustomeId)
+      .subscribe((ok) => {
+        this.model = ok;
+        this.Items = ok.shortageDetails;
+        this.spinner.hide();
+      });
+  }
+  goBack() {
+    this._location.back();
+  }
+  totalCount() {
+    let tot = 0;
+    this.model.totalItems = this.Items.length;
+    this.Items.forEach((e) => {
+      if (e.qty) {
+        tot = tot + e.qty;
+      }
+    });
+    this.model.totalQty = tot;
+  }
+  onSubmit() {
+    var req = this.model;
+    req["shortageDetails"] = this.Items;
+    this._purchaseService.updateShortageEntryById(req).subscribe(
+      (ok) => {
+        if (ok == "OK") {
+          this.toastr.success("Success", "SuccessFully Stock Created");
+          this._location.back();
+        } else {
+          this.toastr.error("Failed", "Failed to update Schedule");
+        }
+      },
+      (err) => {
+        this.toastr.error("Failed", err.error.message);
+      }
+    );
+  }
+  updateShortage() {
+    var req = this.model;
+    req["shortageDetails"] = this.Items;
+    this._purchaseService.updateShortageEntryById(req).subscribe(
+      (ok) => {
+        if (ok == "OK") {
+          this.toastr.success("Success", "SuccessFully Stock Created");
+          this._location.back();
+        } else {
+          this.toastr.error("Failed", "Failed to update Schedule");
+        }
+      },
+      (err) => {
+        this.toastr.error("Failed", err.error.message);
+      }
+    );
   }
 }

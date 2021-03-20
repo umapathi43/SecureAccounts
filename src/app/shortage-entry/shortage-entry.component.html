@@ -88,9 +88,10 @@
                   <input
                     type="text"
                     class="form-control"
-                    [(ngModel)]="item.item"
+                    [(ngModel)]="item.itemName"
                     name="item{{ rowIndex }}"
                     placeholder="selectItem"
+                    (change)="totalCount()"
                   />
                 </ng-template>
               </ngx-datatable-column>
@@ -106,6 +107,7 @@
                     [(ngModel)]="item.qty"
                     name="qty{{ rowIndex }}"
                     placeholder="Qty"
+                    (change)="totalCount()"
                     (keydown.Tab)="addItem()"
                   />
                 </ng-template>
@@ -148,13 +150,37 @@
         <div class="card-content">
           <div class="card-body">
             <div class="form-row">
-              <div class="col-md-3">Total Items:</div>
-              <div class="col-md-3">Total Qty:</div>
+              <div class="col-md-3">
+                <label class="mr-2">Total Items:</label>{{ model.totalItems }}
+              </div>
+              <div class="col-md-3">
+                <label class="mr-2">Total Qty:</label>{{ model.totalQty }}
+              </div>
             </div>
+            <button
+              class="btn btn-primary mt-2"
+              type="submit"
+              *ngIf="!CustomeId"
+              (click)="onSubmit()"
+            >
+              Save
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary mr-2"
+              (click)="updateShortage()"
+              *ngIf="CustomeId"
+            >
+              <i class="ft-check-square mr-1"></i>Update
+            </button>
+            <button type="button" class="btn btn-secondary" (click)="goBack()">
+              <i class="ft-x mr-1"></i>Cancel
+            </button>
           </div>
         </div>
       </div>
     </div>
+
     <!-- Hidden Label ends -->
   </div>
 </section>
