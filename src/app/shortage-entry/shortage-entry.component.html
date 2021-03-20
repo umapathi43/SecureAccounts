@@ -7,7 +7,7 @@
             <form
               class="needs-validation"
               #orderForm="ngForm"
-              (ngSubmit)="orderForm.form.valid && onSubmit(orderForm)"
+              (ngSubmit)="(orderForm.form.valid)"
             >
               <div class="form-row">
                 <div class="col-md-5 mb-1 form-group">
