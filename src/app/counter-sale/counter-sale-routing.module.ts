@@ -7,6 +7,7 @@ import { CounterSaleComponent } from "./counter-sale.component";
 const routes: Routes = [
   { path: "", component: CounterSaleTableComponent },
   { path: "counter-sale-details", component: CounterSaleComponent },
+  { path: "counter-sale-details/:id", component: CounterSaleComponent },
 ];
 
 @NgModule({

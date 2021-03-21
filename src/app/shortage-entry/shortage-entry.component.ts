@@ -5,6 +5,7 @@ import { PurchaseEntryService } from "app/services/entryServices/purchase-entry.
 import { NgxSpinnerService } from "ngx-spinner";
 import { Location } from "@angular/common";
 import { ToastrService } from "ngx-toastr";
+import { NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
 
 export class ShortageEntry {
   public entryDate: Date;
@@ -23,6 +24,7 @@ export class ShortageEntry {
 export class ShortageEntryComponent implements OnInit {
   showFields: any;
   CustomeId: any;
+  readonly DELIMITER = "-";
   constructor(
     public actRoute: ActivatedRoute,
     private spinner: NgxSpinnerService,
@@ -127,7 +129,7 @@ export class ShortageEntryComponent implements OnInit {
   onSubmit() {
     var req = this.model;
     req["shortageDetails"] = this.Items;
-    this._purchaseService.updateShortageEntryById(req).subscribe(
+    this._purchaseService.saveShortageEntry(req).subscribe(
       (ok) => {
         if (ok == "OK") {
           this.toastr.success("Success", "SuccessFully Stock Created");
@@ -157,5 +159,10 @@ export class ShortageEntryComponent implements OnInit {
         this.toastr.error("Failed", err.error.message);
       }
     );
+  }
+  toModel(date: NgbDateStruct | null): string | null {
+    return date
+      ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day
+      : null;
   }
 }

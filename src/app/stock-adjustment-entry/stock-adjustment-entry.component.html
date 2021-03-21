@@ -7,7 +7,7 @@
             <form
               class="needs-validation"
               #orderForm="ngForm"
-              (ngSubmit)="orderForm.form.valid && onSubmit(orderForm)"
+              (ngSubmit)="(orderForm.form.valid)"
             >
               <div class="form-row">
                 <div class="col-md-5 mb-1 form-group">
@@ -85,7 +85,7 @@
                   ngx-datatable-cell-template
                   let-rowIndex="rowIndex"
                 >
-                  <ng-select
+                  <!-- <ng-select
                     [items]="itemArray"
                     bindLabel="itemName"
                     bindValue="id"
@@ -98,7 +98,15 @@
                     style="width: 119px"
                     #select9
                   >
-                  </ng-select>
+                  </ng-select> -->
+                  <input
+                    type="text"
+                    autofocus
+                    class="form-control"
+                    [(ngModel)]="item.itemName"
+                    name="batch{{ rowIndex }}"
+                    placeholder="Branch"
+                  />
                 </ng-template>
               </ngx-datatable-column>
               <ngx-datatable-column name="Batch" prop="batch">
@@ -141,7 +149,7 @@
                   <input
                     type="text"
                     class="form-control mr-1"
-                    [(ngModel)]="item.currentstock"
+                    [(ngModel)]="item.currentStock"
                     name="currentstock{{ rowIndex }}"
                     placeholder="Current Stock"
                   />
@@ -156,7 +164,7 @@
                   <input
                     type="text"
                     class="form-control"
-                    [(ngModel)]="item.adjustmentQty"
+                    [(ngModel)]="item.agjustmentQty"
                     name="adjustmentQty{{ rowIndex }}"
                     placeholder="Adjustment Qty"
                   />
@@ -231,8 +239,33 @@
         <div class="card-content">
           <div class="card-body">
             <div class="form-row">
-              <div class="col-md-6">Total Adjusted:</div>
+              <div class="col-md-6">
+                <label class="mr-2">Total Adjusted:</label>{{ model.totalAdj }}
+              </div>
             </div>
+            <button
+              class="btn btn-primary mt-2 mr-2"
+              type="submit"
+              *ngIf="!CustomeId"
+              (click)="onSubmit()"
+            >
+              Save
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary mt-2 mr-2"
+              (click)="Updatestock()"
+              *ngIf="CustomeId"
+            >
+              <i class="ft-check-square mr-1"></i>Update
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary mt-2"
+              (click)="goBack()"
+            >
+              <i class="ft-x mr-1"></i>Cancel
+            </button>
           </div>
         </div>
       </div>

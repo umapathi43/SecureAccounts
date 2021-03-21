@@ -1,14 +1,23 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { PurchaseEntryService } from "./../services/entryServices/purchase-entry.service";
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  Renderer2,
+  ViewChild,
+  ViewEncapsulation,
+} from "@angular/core";
+import { NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
 import { ColumnMode, DatatableComponent } from "@swimlane/ngx-datatable";
 import { ItemService } from "app/services/item.service";
+import { ToastrService } from "ngx-toastr";
+import { Location } from "@angular/common";
 
 export class RecepitEntry {
   public entryDate: Date;
-  public referenceNumber: number;
-  public referenceDate: Date;
-  public cash: string;
-  public amount: string;
-  public Remarks: string;
+  public id: any;
+  public totalAdj: any;
 }
 @Component({
   selector: "app-stock-adjustment-entry",
@@ -21,7 +30,20 @@ export class RecepitEntry {
 export class StockAdjustmentEntryComponent implements OnInit {
   showFields: any;
   itemArray: any[];
-  constructor(public itenService: ItemService) {}
+  CustomeId: any;
+  updatedRes: any;
+  constructor(
+    public itenService: ItemService,
+    private _purchaseService: PurchaseEntryService,
+    private toastr: ToastrService,
+    private _location: Location,
+    private actRoute: ActivatedRoute
+  ) {
+    this.CustomeId = this.actRoute.snapshot.params.id;
+    if (this.CustomeId) {
+      this.getStockByID();
+    }
+  }
   @ViewChild(DatatableComponent) table: DatatableComponent;
   @ViewChild("tableRowDetails") tableRowDetails: any;
   // row data
@@ -61,13 +83,14 @@ export class StockAdjustmentEntryComponent implements OnInit {
 
   public Items: any[] = [
     {
-      name: "",
+      itemName: "",
       batch: "",
       expiry: "",
-      currentstock: "",
-      adjustmentQty: "",
+      currentStock: "",
+      agjustmentQty: "",
       mrp: "",
       rate: "",
+      id: 0,
     },
   ];
   columns2 = [
@@ -80,24 +103,25 @@ export class StockAdjustmentEntryComponent implements OnInit {
   ];
   model = new RecepitEntry();
   ngOnInit(): void {}
-  onSubmit(form) {
-    console.log(form.value);
-  }
+
   addItem() {
     this.Items.push({
-      name: "",
+      itemName: "",
       batch: "",
       expiry: "",
-      currentstock: "",
-      adjustmentQty: "",
+      currentStock: "",
+      agjustmentQty: "",
       mrp: "",
       rate: "",
+      id: 0,
     });
     this.Items = [...this.Items];
+    this.model.totalAdj = this.Items.length;
   }
 
   removeItem(i: number) {
     this.Items.splice(i, 1);
+    this.model.totalAdj = this.Items.length;
   }
 
   DisplayFileds(index) {
@@ -108,5 +132,63 @@ export class StockAdjustmentEntryComponent implements OnInit {
     this.itenService.getItemDetails().subscribe((ok: any) => {
       this.itemArray = ok.filter((t) => t.status == "A");
     });
+  }
+  getStockByID() {
+    this._purchaseService
+      .getStockAdjustId(this.CustomeId)
+      .subscribe((ok: any) => {
+        this.updatedRes = ok;
+        this.model = this.updatedRes;
+        this.Items = this.updatedRes.stockAdjDetails;
+      });
+  }
+  onSubmit() {
+    var req = {};
+    // this.model.orderDate = this.toModel(this.orginDate);
+    this.model.entryDate = null;
+    req = this.model;
+    req["stockAdjDetails"] = this.Items;
+    this.Items.forEach((t) => {
+      // t.enterexpiryDate = this.toModel(t.expiryDate);
+      delete t.id;
+      // delete t.expiry;
+    });
+    this._purchaseService.addStockAdjust(req).subscribe(
+      (ok: any) => {
+        if (ok == "OK") {
+          this.toastr.success("Success", "SuccessFully Stock Created");
+          this._location.back();
+        } else {
+          this.toastr.error("Failed", "Failed to update Schedule");
+        }
+      },
+      (err) => {
+        this.toastr.error("Failed", err.error.message);
+      }
+    );
+  }
+  Updatestock() {
+    var req = {};
+    // this.model.orderDate = this.toModel(this.orginDate);
+    this.model.entryDate = null;
+    req = this.model;
+    req["stockAdjDetails"] = this.Items;
+    this._purchaseService.updateStockAdjust(req).subscribe(
+      (ok: any) => {
+        if (ok == "OK") {
+          this.toastr.success("Success", "SuccessFully Stock Created");
+          this._location.back();
+        } else {
+          this.toastr.error("Failed", "Failed to update Schedule");
+        }
+      },
+      (err) => {
+        this.toastr.error("Failed", err.error.message);
+      }
+    );
+  }
+
+  goBack() {
+    this._location.back();
   }
 }

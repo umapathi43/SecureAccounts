@@ -1,12 +1,16 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
 import { ColumnMode, DatatableComponent } from "@swimlane/ngx-datatable";
-export class RecepitEntry {
-  public entryDate: Date;
-  public referenceNumber: number;
-  public referenceDate: Date;
-  public cash: string;
-  public amount: string;
-  public Remarks: string;
+import { PurchaseEntryService } from "app/services/entryServices/purchase-entry.service";
+import { NgxSpinnerService } from "ngx-spinner";
+import { Location } from "@angular/common";
+import { ToastrService } from "ngx-toastr";
+import { ActivatedRoute } from "@angular/router";
+import { NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
+export class CounterSales {
+  public entryDate: NgbDateStruct;
+  public totalItems: number;
+  public totalVal: number;
+  public id: any;
 }
 
 @Component({
@@ -16,10 +20,24 @@ export class RecepitEntry {
     "./counter-sale.component.scss",
     "../../assets/sass/libs/datatables.scss",
   ],
+  encapsulation: ViewEncapsulation.None,
 })
 export class CounterSaleComponent implements OnInit {
   showFields: any;
-  constructor() {}
+  CustomeId: any;
+  readonly DELIMITER = "-";
+  constructor(
+    private _location: Location,
+    public actRoute: ActivatedRoute,
+    private toastr: ToastrService,
+    private _purchaseService: PurchaseEntryService,
+    private spinner: NgxSpinnerService
+  ) {
+    this.CustomeId = this.actRoute.snapshot.params.id;
+    if (this.CustomeId) {
+      this.getCounterSalesID();
+    }
+  }
   @ViewChild(DatatableComponent) table: DatatableComponent;
   @ViewChild("tableRowDetails") tableRowDetails: any;
   // row data
@@ -77,11 +95,9 @@ export class CounterSaleComponent implements OnInit {
     { name: "loosQty", prop: "rate" },
     { name: "Amount", prop: "amount" },
   ];
-  model = new RecepitEntry();
+  model = new CounterSales();
   ngOnInit(): void {}
-  onSubmit(form) {
-    console.log(form.value);
-  }
+
   addItem() {
     this.Items.push({
       itemName: "",
@@ -93,14 +109,73 @@ export class CounterSaleComponent implements OnInit {
       Amount: "",
     });
     this.Items = [...this.Items];
+    this.model.totalItems = this.Items.length;
   }
 
   removeItem(i: number) {
     this.Items.splice(i, 1);
+    this.model.totalItems = this.Items.length;
   }
 
   DisplayFileds(index) {
     this.showFields = index;
     console.log(this.showFields);
+  }
+  getCounterSalesID() {
+    this.spinner.show(undefined, {
+      type: "ball-triangle-path",
+      size: "medium",
+    });
+    this._purchaseService.getCountersaleById(this.CustomeId).subscribe((ok) => {
+      this.model = ok;
+      this.Items = ok.counteSaleDetails;
+      this.spinner.hide();
+    });
+  }
+  goBack() {
+    this._location.back();
+  }
+  onSubmit() {
+    this.model.entryDate = null;
+    var req = this.model;
+    req["counteSaleDetails"] = this.Items;
+    this._purchaseService.addCountersale(req).subscribe(
+      (ok) => {
+        if (ok == "OK") {
+          this.toastr.success("Success", "SuccessFully counter Created");
+          this._location.back();
+        } else {
+          this.toastr.error("Failed", "Failed to update Schedule");
+        }
+      },
+      (err) => {
+        this.toastr.error("Failed", err.error.message);
+      }
+    );
+  }
+  updatecounter() {
+    this.model.entryDate = null;
+    // const dat: any = this.toModel(this.model.entryDate);
+    var req = this.model;
+    // req["entryDate"] = dat;
+    req["counteSaleDetails"] = this.Items;
+    this._purchaseService.updateCountersale(req).subscribe(
+      (ok) => {
+        if (ok == "OK") {
+          this.toastr.success("Success", "SuccessFully counter Created");
+          this._location.back();
+        } else {
+          this.toastr.error("Failed", "Failed to update Schedule");
+        }
+      },
+      (err) => {
+        this.toastr.error("Failed", err.error.message);
+      }
+    );
+  }
+  toModel(date: NgbDateStruct | null): string | null {
+    return date
+      ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day
+      : null;
   }
 }

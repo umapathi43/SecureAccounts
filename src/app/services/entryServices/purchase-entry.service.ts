@@ -72,4 +72,46 @@ export class PurchaseEntryService {
   updateSalesInvoiceEntryEntry(value): Observable<any> {
     return this.http.post("SalesInvoice/UpdateSalesInvoice/" + value.id, value);
   }
+
+  ////////cash withdraw////////////////
+  getCashWithdraw(): Observable<any> {
+    return this.http.get("CashService/getAllDetails");
+  }
+  getCashWithdrawById(value): Observable<any> {
+    return this.http.get("CashService/getCashWithdraw/" + value);
+  }
+  addCashWithdraw(value): Observable<any> {
+    return this.http.post("CashService/CashWithdraw", value);
+  }
+  updateCashWithdraw(value): Observable<any> {
+    return this.http.post("CashService/UpdateCashWithdraw/" + value.id, value);
+  }
+
+  ////////counter sales////////////////
+  getCountersale(): Observable<any> {
+    return this.http.get("CounterSale/getAllDetails");
+  }
+  getCountersaleById(value): Observable<any> {
+    return this.http.get("CounterSale/getCounterSale/" + value);
+  }
+  addCountersale(value): Observable<any> {
+    return this.http.post("CounterSale/CounterSale", value);
+  }
+  updateCountersale(value): Observable<any> {
+    return this.http.post("CounterSale/UpdateCounterSales/" + value.id, value);
+  }
+
+  ////////stock Adjust////////////////
+  getStockAdjust(): Observable<any> {
+    return this.http.get("StockAdj/getAllDetails");
+  }
+  getStockAdjustId(value): Observable<any> {
+    return this.http.get("StockAdj/getStockAdjustment/" + value);
+  }
+  addStockAdjust(value): Observable<any> {
+    return this.http.post("StockAdj/StockAdjustment", value);
+  }
+  updateStockAdjust(value): Observable<any> {
+    return this.http.post("StockAdj/UpdateStockAdjustment/" + value.id, value);
+  }
 }

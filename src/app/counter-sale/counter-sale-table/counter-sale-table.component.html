@@ -71,21 +71,32 @@
             >
               <ngx-datatable-column name="ID" prop="id" [width]="50">
               </ngx-datatable-column>
-              <ngx-datatable-column name="Name" prop="areaName" [width]="150">
+              <ngx-datatable-column
+                name="Total Items"
+                prop="totalItems"
+                [width]="150"
+              >
               </ngx-datatable-column>
               <ngx-datatable-column
-                name="route"
-                prop="route"
+                name="total Value"
+                prop="totalVal"
+                [width]="150"
+              ></ngx-datatable-column>
+              <ngx-datatable-column
+                name="Entry Date"
+                prop="entryDate"
                 [width]="150"
               ></ngx-datatable-column>
 
               <ngx-datatable-column name="Actions" [width]="50">
                 <ng-template let-row="row" ngx-datatable-cell-template>
-                  <a [routerLink]="['/area/edit-area/', row.id]" class="mr-1"
+                  <a
+                    [routerLink]="[
+                      '/counter-sale/counter-sale-details/',
+                      row.id
+                    ]"
+                    class="mr-1"
                     ><i class="ft-edit text-primary cursor-pointer"></i
-                  ></a>
-                  <a (click)="Confirm(row.id)"
-                    ><i class="ft-trash text-danger cursor-pointer"></i
                   ></a>
                 </ng-template>
               </ngx-datatable-column>

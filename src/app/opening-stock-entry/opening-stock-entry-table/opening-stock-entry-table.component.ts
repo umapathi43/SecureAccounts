@@ -81,52 +81,7 @@ export class OpeningStockEntryTableComponent implements OnInit {
   updateLimit(limit) {
     this.limitRef = limit.target.value;
   }
-  Confirm(data) {
-    let that = this;
-    swal
-      .fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#2F8BE6",
-        cancelButtonColor: "#F55252",
-        confirmButtonText: "Yes, delete it!",
-        customClass: {
-          confirmButton: "btn btn-warning",
-          cancelButton: "btn btn-danger ml-1",
-        },
-        buttonsStyling: false,
-      })
-      .then(function (result) {
-        if (result.value) {
-          const dta = {
-            id: data,
-          };
-          that._areaService.deleteAreaById(dta).subscribe((ok) => {
-            console.log(ok);
-            swal.fire({
-              icon: "success",
-              title: "Deleted!",
-              text: "Your record has been deleted.",
-              customClass: {
-                confirmButton: "btn btn-success",
-              },
-            });
-            // that.getAreas();
-          });
-        } else if (result.dismiss === swal.DismissReason.cancel) {
-          swal.fire({
-            title: "Cancelled",
-            text: "Your record is safe :)",
-            icon: "error",
-            customClass: {
-              confirmButton: "btn btn-success",
-            },
-          });
-        }
-      });
-  }
+
   ngOnInit(): void {
     this.exportColumns = this.columns.map((col) => ({
       title: col.name,
