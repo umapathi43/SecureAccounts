@@ -205,11 +205,6 @@ export class OpeningStockEntryComponent implements OnInit {
     this.Items.splice(i, 1);
     this.totalItems = this.Items.length;
   }
-  toModel(date: NgbDateStruct | null): string | null {
-    return date
-      ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day
-      : null;
-  }
   getStockByID() {
     this._purchaseService
       .getOpenStockEntryById(this.CustomeId)
@@ -226,8 +221,7 @@ export class OpeningStockEntryComponent implements OnInit {
   }
   onSubmit() {
     var req = {};
-    // this.model.orderDate = this.toModel(this.orginDate);
-    this.model.orderDate = null;
+    this.model.orderDate = this._purchaseService.toModel(this.orginDate);
     req = this.model;
     req["openStockDetails"] = this.Items;
     // req["salesVal"] = this.salesVal;
@@ -237,7 +231,7 @@ export class OpeningStockEntryComponent implements OnInit {
     req["totalItems"] = this.totalItems;
     this.Items.forEach((t) => {
       if (t.expiryDate) {
-        t.enterexpiryDate = this.toModel(t.expiryDate);
+        t.enterexpiryDate = this._purchaseService.toModel(t.expiryDate);
         delete t.expiryDate;
         delete t.id;
       }
@@ -258,7 +252,7 @@ export class OpeningStockEntryComponent implements OnInit {
   }
   updateStock() {
     var req = {};
-    this.model.orderDate = this.toModel(this.orginDate);
+    this.model.orderDate = this._purchaseService.toModel(this.orginDate);
     req = this.model;
     req["openStockDetails"] = this.Items;
     // req["salesVal"] = this.salesVal;
@@ -268,7 +262,7 @@ export class OpeningStockEntryComponent implements OnInit {
     req["totalItems"] = this.totalItems;
     this.Items.forEach((t) => {
       if (t.expiryDate) {
-        t.enterexpiryDate = this.toModel(t.expiryDate);
+        t.enterexpiryDate = this._purchaseService.toModel(t.expiryDate);
         delete t.expiryDate;
       }
     });

@@ -9,9 +9,10 @@ import { renderFlagCheckIfStmt } from "@angular/compiler/src/render3/view/templa
 declare var jsPDF: any;
 import { Location } from "@angular/common";
 import { ToastrService } from "ngx-toastr";
+import { NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
 
 export class CashWithdraw {
-  public entryDate: Date;
+  public entryDate: string;
   public amount: number;
   public bankName: Date;
   public id: any;
@@ -36,6 +37,7 @@ export class CashWithdrawComponent implements OnInit {
   private tempData = [];
   gettable: boolean;
   CustomeId: any;
+  entryDatemodel: NgbDateStruct;
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -137,10 +139,10 @@ export class CashWithdrawComponent implements OnInit {
       });
   }
   onSubmit() {
-    this.model.entryDate = null;
+    this.model.entryDate = this._purchaseService.toModel(this.entryDatemodel);
     var req = this.model;
     req["status"] = "yes";
-    this._purchaseService.updateCashWithdraw(req).subscribe(
+    this._purchaseService.addCashWithdraw(req).subscribe(
       (ok: any) => {
         if (ok == "OK") {
           this.toastr.success("Success", "SuccessFully Cash Widthdraw");
@@ -157,10 +159,10 @@ export class CashWithdrawComponent implements OnInit {
     );
   }
   updateCashe() {
-    this.model.entryDate = null;
+    this.model.entryDate = this._purchaseService.toModel(this.entryDatemodel);
     var req = this.model;
     req["status"] = "yes";
-    this._purchaseService.addCashWithdraw(req).subscribe(
+    this._purchaseService.updateCashWithdraw(req).subscribe(
       (ok: any) => {
         if (ok == "OK") {
           this.CustomeId = null;

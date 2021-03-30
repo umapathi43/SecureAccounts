@@ -62,22 +62,23 @@ button {
 }
 
 // Buttons
-.btn-group, .input-group {
-  span{
+.btn-group,
+.input-group {
+  span {
     &:first-child:not(:last-child) {
-      .btn.dropdown-toggle{
+      .btn.dropdown-toggle {
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
       }
     }
     &:last-child:not(:first-child) {
-      .btn.dropdown-toggle{
+      .btn.dropdown-toggle {
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
       }
     }
     &:not(:last-child):not(:first-child) {
-      .btn.dropdown-toggle{
+      .btn.dropdown-toggle {
         border-radius: 0;
       }
     }

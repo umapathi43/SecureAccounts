@@ -34,13 +34,15 @@ table.dataTable {
 
       td {
         &.details-control {
-          background: url("../img/datatables/details_open.png") no-repeat center center;
+          background: url("../img/datatables/details_open.png") no-repeat center
+            center;
         }
       }
 
       &.shown {
         td.details-control {
-          background: url("../img/datatables/details_close.png") no-repeat center center;
+          background: url("../img/datatables/details_close.png") no-repeat
+            center center;
         }
       }
 
@@ -52,7 +54,7 @@ table.dataTable {
 
   tfoot {
     th {
-      font-size: 1rem;
+      font-size: 0.75rem;
       font-weight: 600;
     }
   }

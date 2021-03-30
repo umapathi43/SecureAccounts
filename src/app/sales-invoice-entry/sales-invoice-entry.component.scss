@@ -1,0 +1,8 @@
+.ng-select.select_width {
+  border: 0px;
+  min-height: 0px;
+  border-radius: 0;
+}
+.ng-select.select_width ::ng-deep .ng-select-container {
+  height: 25px !important;
+}

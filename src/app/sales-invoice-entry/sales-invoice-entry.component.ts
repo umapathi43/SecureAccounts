@@ -36,7 +36,7 @@ export class SalesInvoiceEntry {
   public discount: number;
   public discountAmount: number;
   public remainderDays: string;
-  public RemainderDate: Date;
+  public remainderDate: string;
   public homeDelivery: string;
   public tax: string;
   public sellNo: string;
@@ -492,7 +492,10 @@ export class SalesInvoiceEntryComponent implements OnInit {
     }
   }
   saveSalesEntry() {
-    this.model.billDate = this.toModel(this.billDate);
+    this.model.billDate = this._purchaseService.toModel(this.billDate);
+    this.model.remainderDate = this._purchaseService.toModel(
+      this.duedateCurrent
+    );
     var req = this.model;
     req["stockinvoiceDetails"] = this.Items;
     this._purchaseService.saveSalesInvoiceEntryEntry(req).subscribe(
@@ -511,7 +514,7 @@ export class SalesInvoiceEntryComponent implements OnInit {
     );
   }
   UpdateSalesEntry() {
-    this.model.billDate = this.toModel(this.billDate);
+    this.model.billDate = this._purchaseService.toModel(this.billDate);
     var req = this.model;
     req["stockinvoiceDetails"] = this.Items;
     this._purchaseService.updateSalesInvoiceEntryEntry(req).subscribe(

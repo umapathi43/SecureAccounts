@@ -8,7 +8,7 @@ import { ToastrService } from "ngx-toastr";
 import { NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
 
 export class ShortageEntry {
-  public entryDate: Date;
+  public entryDate: string;
   public totalQty: number;
   public totalItems: number;
 }
@@ -25,6 +25,7 @@ export class ShortageEntryComponent implements OnInit {
   showFields: any;
   CustomeId: any;
   readonly DELIMITER = "-";
+  entryDatemodel: NgbDateStruct;
   constructor(
     public actRoute: ActivatedRoute,
     private spinner: NgxSpinnerService,
@@ -127,8 +128,13 @@ export class ShortageEntryComponent implements OnInit {
     this.model.totalQty = tot;
   }
   onSubmit() {
+    this.model.entryDate = this._purchaseService.toModel(this.entryDatemodel);
     var req = this.model;
     req["shortageDetails"] = this.Items;
+    req["shortageDetails"].forEach((e) => {
+      delete e.id;
+    });
+    req["status"] = "Y";
     this._purchaseService.saveShortageEntry(req).subscribe(
       (ok) => {
         if (ok == "OK") {
@@ -144,6 +150,7 @@ export class ShortageEntryComponent implements OnInit {
     );
   }
   updateShortage() {
+    this.model.entryDate = this._purchaseService.toModel(this.entryDatemodel);
     var req = this.model;
     req["shortageDetails"] = this.Items;
     this._purchaseService.updateShortageEntryById(req).subscribe(

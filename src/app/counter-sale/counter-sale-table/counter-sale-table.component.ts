@@ -10,7 +10,10 @@ import { PurchaseEntryService } from "app/services/entryServices/purchase-entry.
 @Component({
   selector: "app-counter-sale-table",
   templateUrl: "./counter-sale-table.component.html",
-  styleUrls: ["./counter-sale-table.component.scss"],
+  styleUrls: [
+    "./counter-sale-table.component.scss",
+    "../../../assets/sass/libs/datatables.scss",
+  ],
   encapsulation: ViewEncapsulation.None,
 })
 export class CounterSaleTableComponent implements OnInit {

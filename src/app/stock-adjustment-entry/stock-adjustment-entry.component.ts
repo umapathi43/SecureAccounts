@@ -15,7 +15,7 @@ import { ToastrService } from "ngx-toastr";
 import { Location } from "@angular/common";
 
 export class RecepitEntry {
-  public entryDate: Date;
+  public entryDate: any;
   public id: any;
   public totalAdj: any;
 }
@@ -32,6 +32,7 @@ export class StockAdjustmentEntryComponent implements OnInit {
   itemArray: any[];
   CustomeId: any;
   updatedRes: any;
+  orginDate: NgbDateStruct;
   constructor(
     public itenService: ItemService,
     private _purchaseService: PurchaseEntryService,
@@ -144,12 +145,12 @@ export class StockAdjustmentEntryComponent implements OnInit {
   }
   onSubmit() {
     var req = {};
-    // this.model.orderDate = this.toModel(this.orginDate);
+    this.model.entryDate = this._purchaseService.toModel(this.orginDate);
     this.model.entryDate = null;
     req = this.model;
     req["stockAdjDetails"] = this.Items;
-    this.Items.forEach((t) => {
-      // t.enterexpiryDate = this.toModel(t.expiryDate);
+    req["stockAdjDetails"].forEach((t) => {
+      t.enterexpiryDate = this._purchaseService.toModel(t.expiryDate);
       delete t.id;
       // delete t.expiry;
     });
@@ -169,10 +170,15 @@ export class StockAdjustmentEntryComponent implements OnInit {
   }
   Updatestock() {
     var req = {};
-    // this.model.orderDate = this.toModel(this.orginDate);
+    this.model.entryDate = this._purchaseService.toModel(this.orginDate);
     this.model.entryDate = null;
     req = this.model;
     req["stockAdjDetails"] = this.Items;
+    req["stockAdjDetails"].forEach((t) => {
+      t.enterexpiryDate = this._purchaseService.toModel(t.expiryDate);
+      delete t.id;
+      // delete t.expiry;
+    });
     this._purchaseService.updateStockAdjust(req).subscribe(
       (ok: any) => {
         if (ok == "OK") {

@@ -19,7 +19,7 @@
                     placeholder="yyyy-mm-dd"
                     class="form-control round"
                     id="validationTooltip01"
-                    [(ngModel)]="model.entryDate"
+                    [(ngModel)]="entryDatemodel"
                     #fname="ngModel"
                     ngbDatepicker
                     #m="ngbDatepicker"
@@ -250,8 +250,8 @@
                 <i class="ft-check-square mr-1"></i>Update
               </button>
               <button
-                type="button mt-2"
-                class="btn btn-secondary"
+                type="button"
+                class="btn btn-secondary MT-2"
                 (click)="goBack()"
               >
                 <i class="ft-x mr-1"></i>Cancel

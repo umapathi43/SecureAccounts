@@ -6,11 +6,12 @@
           <div class="card-body">
             <form class="needs-validation" #userForm="ngForm">
               <div class="form-row">
-                <div class="col-md-3 mb-1 form-group">
+                <div class="col-md-2 mb-1 form-group">
                   <label for="validationTooltip01">Supplier Name</label>
                   <ng-select
                     [items]="supplierdata"
                     bindLabel="supplierName"
+                    class="selectWidth"
                     bindValue="id"
                     [(ngModel)]="model.sname"
                     name="fname"
@@ -28,12 +29,12 @@
                     Looks good!fname
                   </div>
                 </div>
-                <div class="col-md-3 mb-1 form-group">
+                <div class="col-md-2 mb-1 form-group">
                   <label for="validationTooltip03">Invoice No</label>
                   <input
                     type="text"
                     name="invoiceNo"
-                    class="form-control round"
+                    class="form-control"
                     [(ngModel)]="model.invoiceNo"
                     #invoiceNo="ngModel"
                     [ngClass]="{
@@ -52,11 +53,11 @@
                     Please provide a valid Invoice NO.
                   </div>
                 </div>
-                <div class="col-md-3 mb-1 form-group">
+                <div class="col-md-2 mb-1 form-group">
                   <label for="validationTooltip03">Invoice Date</label>
                   <div class="input-group">
                     <input
-                      class="form-control round"
+                      class="form-control date-font"
                       placeholder="yyyy-mm-dd"
                       name="indate"
                       #indate="ngModel"
@@ -81,11 +82,11 @@
                     Please provide a valid Invoice Date.
                   </div>
                 </div>
-                <div class="col-md-3 mb-1 form-group">
+                <div class="col-md-2 mb-1 form-group">
                   <label for="validationTooltip03">Entry Date</label>
                   <div class="input-group">
                     <input
-                      class="form-control round"
+                      class="form-control date-font"
                       placeholder="yyyy-mm-dd"
                       name="entrydate"
                       #entrydate="ngModel"
@@ -104,7 +105,7 @@
                   <!-- <input
                     type="text"
                     name="entrydate"
-                    class="form-control round"
+                    class="form-control "
                     [(ngModel)]="invoice.entrydate"
                     #entrydate="ngModel"
                     [ngClass]="{
@@ -123,12 +124,12 @@
                     Please provide a valid Entry Date.
                   </div>
                 </div>
-                <div class="col-md-3 mb-1 form-group">
+                <div class="col-md-2 mb-1 form-group">
                   <label for="validationTooltip03">Discount %</label>
                   <input
                     type="text"
                     name="discount"
-                    class="form-control round"
+                    class="form-control"
                     [(ngModel)]="model.discount"
                     #discount="ngModel"
                     [ngClass]="{
@@ -147,12 +148,12 @@
                     Please provide a valid Discount.
                   </div>
                 </div>
-                <div class="col-md-3 mb-1 form-group">
+                <div class="col-md-2 mb-1 form-group">
                   <label for="validationTooltip03">Due Days</label>
                   <input
                     type="text"
                     name="dueday"
-                    class="form-control round"
+                    class="form-control"
                     [(ngModel)]="model.dueday"
                     #dueday="ngModel"
                     (change)="duedateChange(model.dueday)"
@@ -172,11 +173,11 @@
                     Please provide a valid due day.
                   </div>
                 </div>
-                <div class="col-md-3 mb-1 form-group">
+                <div class="col-md-2 mb-1 form-group">
                   <label for="validationTooltip03">Due Date</label>
                   <div class="input-group">
                     <input
-                      class="form-control round"
+                      class="form-control date-font"
                       placeholder="yyyy-mm-dd"
                       name="duedate"
                       #duedate="ngModel"
@@ -194,7 +195,7 @@
                   <!-- <input
                     type="text"
                     name="duedate"
-                    class="form-control round"
+                    class="form-control "
                     [(ngModel)]="invoice.duedate"
                     #duedate="ngModel"
                     [ngClass]="{
@@ -213,12 +214,12 @@
                     Please provide a valid due date.
                   </div>
                 </div>
-                <div class="col-md-3 mb-1 form-group">
+                <div class="col-md-2 mb-1 form-group">
                   <label for="validationTooltip03">SRT Margin %</label>
                   <input
                     type="number"
                     name="srtMargin"
-                    class="form-control round"
+                    class="form-control"
                     [(ngModel)]="model.srtMargin"
                     #srtMargin="ngModel"
                     [ngClass]="{
@@ -289,7 +290,7 @@
               [scrollbarH]="true"
               [scrollbarV]="true"
             >
-              <ngx-datatable-column name="Name" prop="name" [width]="130">
+              <ngx-datatable-column name="Name" prop="name">
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -780,7 +781,7 @@
                   <label for="validationTooltip01">Item Name</label>
                   <input
                     type="text"
-                    class="form-control round"
+                    class="form-control "
                     [(ngModel)]="item.name"
                     name="name{{ i }}"
                   />
@@ -789,7 +790,7 @@
                   <label for="validationTooltip02">Batch</label>
                   <input
                     type="text"
-                    class="form-control round"
+                    class="form-control "
                     [(ngModel)]="item.batch"
                     name="batch{{ i }}"
                   />
@@ -798,7 +799,7 @@
                   <label for="validationTooltip03">Expiry Date</label>
                   <input
                     type="text"
-                    class="form-control round"
+                    class="form-control "
                     [(ngModel)]="item.expiryDate"
                     name="expiryDate{{ i }}"
                     required
@@ -808,7 +809,7 @@
                   <label for="validationTooltip03">Mfg Date</label>
                   <input
                     type="text"
-                    class="form-control round"
+                    class="form-control "
                     [(ngModel)]="item.mfgDate"
                     name="mfgDate{{ i }}"
                     required
@@ -821,7 +822,7 @@
                     [(ngModel)]="item.bestBefore"
                     name="bestBefore{{ i }}"
                     required
-                    class="form-control round"
+                    class="form-control "
                   >
                     <option value="none" selected disabled>
                       Interested in
@@ -837,7 +838,7 @@
                   <label for="validationTooltip03">QTY</label>
                   <input
                     type="text"
-                    class="form-control round"
+                    class="form-control "
                     [(ngModel)]="item.qty"
                     name="qty{{ i }}"
                     required
@@ -848,7 +849,7 @@
                     <label for="validationTooltip03">Free QTY</label>
                     <input
                       type="text"
-                      class="form-control round"
+                      class="form-control "
                       [(ngModel)]="item.freeQty"
                       name="freeQty{{ i }}"
                       required
@@ -859,7 +860,7 @@
                     <input
                       type="text"
                       name="city"
-                      class="form-control round"
+                      class="form-control "
                       [(ngModel)]="item.mrp"
                       name="mrp{{ i }}"
                       required
@@ -869,7 +870,7 @@
                     <label for="validationTooltip03">Purchase Date</label>
                     <input
                       type="text"
-                      class="form-control round"
+                      class="form-control "
                       [(ngModel)]="item.purchaseDate"
                       name="purchaseDate{{ i }}"
                       required
@@ -880,7 +881,7 @@
                     <input
                       type="text"
                       name="city"
-                      class="form-control round"
+                      class="form-control "
                       [(ngModel)]="item.discount"
                       name="discount{{ i }}"
                       required
@@ -890,7 +891,7 @@
                     <label for="validationTooltip03"> Disc Amt</label>
                     <input
                       type="text"
-                      class="form-control round"
+                      class="form-control "
                       [(ngModel)]="item.discAmount"
                       name="discAmount{{ i }}"
                       required
@@ -900,7 +901,7 @@
                     <label for="validationTooltip03">SCH Disc Amt</label>
                     <input
                       type="text"
-                      class="form-control round"
+                      class="form-control "
                       [(ngModel)]="item.schdiscAmount"
                       name="schdiscAmount{{ i }}"
                       required
@@ -910,7 +911,7 @@
                     <label for="validationTooltip03">GST %</label>
                     <input
                       type="text"
-                      class="form-control round"
+                      class="form-control "
                       [(ngModel)]="item.gst"
                       name="gst{{ i }}"
                       required
@@ -920,7 +921,7 @@
                     <label for="validationTooltip03">Tax Amount</label>
                     <input
                       type="text"
-                      class="form-control round"
+                      class="form-control "
                       [(ngModel)]="item.taxAmount"
                       name="taxAmount{{ i }}"
                       required
@@ -930,7 +931,7 @@
                     <label for="validationTooltip03">QPK</label>
                     <input
                       type="text"
-                      class="form-control round"
+                      class="form-control "
                       [(ngModel)]="item.qpk"
                       name="qpk{{ i }}"
                       required
@@ -940,7 +941,7 @@
                     <label for="validationTooltip03">SRT</label>
                     <input
                       type="text"
-                      class="form-control round"
+                      class="form-control "
                       [(ngModel)]="item.srt"
                       name="srt{{ i }}"
                       required
@@ -950,7 +951,7 @@
                     <label for="validationTooltip03">Gross Amt</label>
                     <input
                       type="text"
-                      class="form-control round"
+                      class="form-control "
                       [(ngModel)]="item.grossAmt"
                       name="grossAmt{{ i }}"
                       required
@@ -960,7 +961,7 @@
                     <label for="validationTooltip03">net Amt</label>
                     <input
                       type="text"
-                      class="form-control round"
+                      class="form-control "
                       [(ngModel)]="item.netAmt"
                       (keydown.Tab)="addItem()"
                       name="netAmt{{ i }}"
@@ -1067,7 +1068,7 @@
                     type="number"
                     disabled
                     id="form-1"
-                    class="form-control round"
+                    class="form-control"
                     name="grossAmounts"
                     #grossAmounts="ngModel"
                     [(ngModel)]="model.grossAmounts"
@@ -1078,7 +1079,7 @@
                   <input
                     type="number"
                     id="form-2"
-                    class="form-control round"
+                    class="form-control"
                     name="discAmount"
                     #discAmount="ngModel"
                     [(ngModel)]="model.discAmount"
@@ -1089,7 +1090,7 @@
                   <input
                     type="number"
                     id="form-3"
-                    class="form-control round"
+                    class="form-control"
                     name="noItems"
                     #noItems="ngModel"
                     disabled
@@ -1101,7 +1102,7 @@
                   <input
                     type="number"
                     id="form-9"
-                    class="form-control round"
+                    class="form-control"
                     name="dicper"
                     #dicper="ngModel"
                     [(ngModel)]="model.disPercentage"
@@ -1117,7 +1118,7 @@
                   <input
                     type="number"
                     id="form-5"
-                    class="form-control round"
+                    class="form-control"
                     disabled
                     name="gstamount"
                     #gstamount="ngModel"
@@ -1126,15 +1127,15 @@
                 </div>
 
                 <div class="col-md-4 form-group">
-                  <label for="form-7">Round Off Amount</label>
+                  <label for="form-7"> Off Amount</label>
                   <input
                     type="number"
                     id="form-7"
-                    class="form-control round"
-                    name="roundAmount"
-                    #roundAmount="ngModel"
-                    [(ngModel)]="model.roundAmount"
-                    (change)="roundOffAmt()"
+                    class="form-control"
+                    name="Amount"
+                    #Amount="ngModel"
+                    [(ngModel)]="model.Amount"
+                    (change)="OffAmt()"
                   />
                 </div>
                 <div class="col-md-4 form-group">
@@ -1142,11 +1143,11 @@
                   <input
                     type="number"
                     id="form-7"
-                    class="form-control round"
+                    class="form-control"
                     name="otherExp"
                     #otherExp="ngModel"
                     [(ngModel)]="model.otherExp"
-                    (change)="roundOffAmt()"
+                    (change)="OffAmt()"
                   />
                 </div>
                 <div class="col-md-4 form-group">
@@ -1154,7 +1155,7 @@
                   <input
                     type="number"
                     id="form-8"
-                    class="form-control round"
+                    class="form-control"
                     name="netAmount"
                     #netAmount="ngModel"
                     disabled

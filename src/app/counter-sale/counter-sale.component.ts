@@ -7,7 +7,7 @@ import { ToastrService } from "ngx-toastr";
 import { ActivatedRoute } from "@angular/router";
 import { NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
 export class CounterSales {
-  public entryDate: NgbDateStruct;
+  public entryDate: string;
   public totalItems: number;
   public totalVal: number;
   public id: any;
@@ -26,6 +26,7 @@ export class CounterSaleComponent implements OnInit {
   showFields: any;
   CustomeId: any;
   readonly DELIMITER = "-";
+  entryDatemodel: NgbDateStruct;
   constructor(
     private _location: Location,
     public actRoute: ActivatedRoute,
@@ -96,7 +97,9 @@ export class CounterSaleComponent implements OnInit {
     { name: "Amount", prop: "amount" },
   ];
   model = new CounterSales();
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.model.totalItems = this.Items.length;
+  }
 
   addItem() {
     this.Items.push({
@@ -136,7 +139,7 @@ export class CounterSaleComponent implements OnInit {
     this._location.back();
   }
   onSubmit() {
-    this.model.entryDate = null;
+    this.model.entryDate = this._purchaseService.toModel(this.entryDatemodel);
     var req = this.model;
     req["counteSaleDetails"] = this.Items;
     this._purchaseService.addCountersale(req).subscribe(
@@ -154,8 +157,7 @@ export class CounterSaleComponent implements OnInit {
     );
   }
   updatecounter() {
-    this.model.entryDate = null;
-    // const dat: any = this.toModel(this.model.entryDate);
+    this.model.entryDate = this._purchaseService.toModel(this.entryDatemodel);
     var req = this.model;
     // req["entryDate"] = dat;
     req["counteSaleDetails"] = this.Items;
@@ -172,10 +174,5 @@ export class CounterSaleComponent implements OnInit {
         this.toastr.error("Failed", err.error.message);
       }
     );
-  }
-  toModel(date: NgbDateStruct | null): string | null {
-    return date
-      ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day
-      : null;
   }
 }

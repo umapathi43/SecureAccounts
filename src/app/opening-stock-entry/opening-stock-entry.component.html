@@ -296,7 +296,7 @@
               </div>
             </div>
             <button
-              class="btn btn-primary mt-2"
+              class="btn btn-primary mt-2 mr-2"
               type="submit"
               *ngIf="!CustomeId"
               (click)="onSubmit()"
@@ -305,13 +305,17 @@
             </button>
             <button
               type="button"
-              class="btn btn-primary mr-2"
+              class="btn btn-primary mr-2 mt-2"
               (click)="updateStock()"
               *ngIf="CustomeId"
             >
               <i class="ft-check-square mr-1"></i>Update
             </button>
-            <button type="button" class="btn btn-secondary" (click)="goBack()">
+            <button
+              type="button"
+              class="btn btn-secondary mt-2"
+              (click)="goBack()"
+            >
               <i class="ft-x mr-1"></i>Cancel
             </button>
           </div>

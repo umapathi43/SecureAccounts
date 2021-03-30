@@ -10,14 +10,14 @@
             <button
               type="button"
               (click)="exportPdf()"
-              class="btn btn-primary mr-2"
+              class="btn btn-primary btn-sm mr-2"
             >
               Export Pdf
             </button>
             <button
               type="button"
               (click)="exportExcel()"
-              class="btn btn-primary mr-2"
+              class="btn btn-primary btn-sm mr-2"
             >
               Export Excel
             </button>
@@ -25,7 +25,7 @@
               type="button"
               routerLink="/purchase-entry/purchase-entry-details"
               style="float: right"
-              class="btn btn-primary mr-2"
+              class="btn btn-primary btn-sm mr-2"
             >
               Add Entry
             </button>
@@ -60,6 +60,7 @@
               </label>
             </fieldset>
             <ngx-datatable
+              tableClass="table table-striped table-bordered table-hover"
               #tableRowDetails
               class="bootstrap core-bootstrap"
               [columnMode]="ColumnMode.force"

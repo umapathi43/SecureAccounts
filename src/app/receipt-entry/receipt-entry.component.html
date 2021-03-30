@@ -10,13 +10,13 @@
               (ngSubmit)="orderForm.form.valid && onSubmit(orderForm)"
             >
               <div class="form-row">
-                <div class="col-md-5 mb-1 form-group">
+                <div class="col-md-3 mb-1 form-group">
                   <label for="validationTooltip01">Entry Date</label>
                   <input
                     type="text"
                     name="fname"
                     placeholder="yyyy-mm-dd"
-                    class="form-control round"
+                    class="form-control font-small-2"
                     id="validationTooltip01"
                     [(ngModel)]="model.entryDate"
                     #fname="ngModel"
@@ -41,12 +41,12 @@
                     Looks good!
                   </div>
                 </div>
-                <div class="col-md-5 mb-1 form-group">
+                <div class="col-md-3 mb-1 form-group">
                   <label for="validationTooltip02">Reference Number</label>
                   <input
                     type="number"
                     name="lname"
-                    class="form-control round"
+                    class="form-control font-small-2"
                     id="validationTooltip02"
                     [(ngModel)]="model.referenceNumber"
                     #lname="ngModel"
@@ -73,7 +73,7 @@
                     name="cash"
                     #cash="ngModel"
                     required
-                    class="form-control"
+                    class="form-control font-small-2"
                   >
                     <option value="Cash">Bank</option>
                     <option value="Cash">Cash</option>
@@ -91,7 +91,7 @@
                     type="text"
                     name="referenceDate"
                     placeholder="yyyy-mm-dd"
-                    class="form-control round"
+                    class="form-control font-small-2"
                     id="validationTooltip01"
                     [(ngModel)]="model.referenceDate"
                     #referenceDate="ngModel"
@@ -120,7 +120,7 @@
                     type="number"
                     name="amount"
                     #amount="ngModel"
-                    class="form-control round"
+                    class="form-control font-small-2"
                     id="validationTooltip02"
                     [(ngModel)]="model.amount"
                     #lname="ngModel"
@@ -157,7 +157,7 @@
                 >Search:
                 <input
                   id="ngx-filter-ref"
-                  class="form-control form-control-sm d-inline-block width-200"
+                  class="form-control font-small-2 form-control font-small-2-sm d-inline-block width-200"
                   type="text"
                   placeholder="Filter the Name column..."
                 />
@@ -183,7 +183,7 @@
                 >
                   <input
                     type="text"
-                    class="form-control"
+                    class="form-control font-small-2"
                     [(ngModel)]="item.selectAmount"
                     name="selectAmount{{ rowIndex }}"
                     placeholder="selectAmount"
@@ -198,7 +198,7 @@
                 >
                   <input
                     type="text"
-                    class="form-control"
+                    class="form-control font-small-2"
                     [(ngModel)]="item.entryAmount"
                     name="batch{{ rowIndex }}"
                     placeholder="OrderQty"
@@ -213,7 +213,7 @@
                 >
                   <input
                     type="text"
-                    class="form-control"
+                    class="form-control font-small-2"
                     [(ngModel)]="item.discAmount"
                     name="discAmount{{ rowIndex }}"
                     placeholder="Disc Amount"
@@ -228,7 +228,7 @@
                 >
                   <input
                     type="text"
-                    class="form-control qtyWidth"
+                    class="form-control font-small-2 qtyWidth"
                     [(ngModel)]="item.netAmount"
                     name="netAmount{{ rowIndex }}"
                     placeholder="Net Amount"
@@ -280,7 +280,7 @@
                   type="number"
                   name="Remarks"
                   #Remarks="ngModel"
-                  class="form-control round"
+                  class="form-control font-small-2"
                   id="validationTooltip02"
                   [(ngModel)]="model.Remarks"
                   #lname="ngModel"
@@ -303,7 +303,7 @@
                   type="number"
                   name="amount"
                   #amount="ngModel"
-                  class="form-control round"
+                  class="form-control font-small-2"
                   id="validationTooltip02"
                   [(ngModel)]="model.amount"
                   #lname="ngModel"

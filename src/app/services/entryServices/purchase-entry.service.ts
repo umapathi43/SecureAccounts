@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
 import { Observable } from "rxjs";
 import { ApiService } from "../api.service";
 
@@ -6,7 +7,24 @@ import { ApiService } from "../api.service";
   providedIn: "root",
 })
 export class PurchaseEntryService {
+  readonly DELIMITER = "-";
   constructor(private http: ApiService) {}
+
+  toModel(date: NgbDateStruct | null): string | null {
+    var d = new Date(
+      date
+        ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day
+        : null
+    );
+
+    return (
+      d.getFullYear() +
+      "-" +
+      ("0" + (d.getMonth() + 1)).slice(-2) +
+      "-" +
+      ("0" + d.getDate()).slice(-2)
+    );
+  }
 
   getSettingsDetails(): Observable<any> {
     return this.http.get("PurchaseEntry/getSettingDetails");
@@ -25,7 +43,7 @@ export class PurchaseEntryService {
   }
 
   updatePurchaseEntry(value): Observable<any> {
-    return this.http.put("PurchaseEntry/Update/" + value.id, value);
+    return this.http.post("PurchaseEntry/Update/" + value.id, value);
   }
   getPurchaseId(value): Observable<any> {
     return this.http.get("PurchaseEntry/getPurchaseInvoice/" + value);

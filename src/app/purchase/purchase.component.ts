@@ -45,6 +45,7 @@ export class Purchase {
   public disPercentage: number;
   public otherExp: number;
   public netAmount: number;
+  public Amount: number;
 }
 
 @Component({
@@ -656,17 +657,17 @@ export class PurchaseComponent implements OnInit {
     var req = this.model;
     req["purchaseDetails"] = this.Items;
     req["purchaseDetails"].forEach((e) => {
-      e.mfgDate = this.toModel(e.mfgDatePicker);
+      e.mfgDate = this._purchaseService.toModel(e.mfgDatePicker);
       delete e.mfgDatePicker;
       delete e.id;
       e["invoiceNo"] = this.model.invoiceNo;
       // delete e.maxdate;
       // delete e.mfgdateFlag;
     });
-    req["entrydate"] = this.toModel(this.entrydateInvoice);
-    req["invoiceDate"] = this.toModel(this.inVoiceDate);
-    req["duedate"] = this.toModel(this.duedateInvoice);
-    console.log(req);
+    req["entrydate"] = this._purchaseService.toModel(this.entrydateInvoice);
+    req["invoiceDate"] = this._purchaseService.toModel(this.inVoiceDate);
+    req["duedate"] = this._purchaseService.toModel(this.duedateInvoice);
+    req["footerDate"] = "2021-1-23";
     this._purchaseService.addPurchaseEntry(req).subscribe(
       (ok: any) => {
         if (ok == "OK") {
@@ -700,16 +701,16 @@ export class PurchaseComponent implements OnInit {
     req["purchaseDetails"].forEach((e) => {
       // var dat = this.toModel(e.mfgDatePicker);
       // e.mfgDate = dat;
-      e.mfgDate = this.toModel(e.mfgDatePicker);
+      e.mfgDate = this._purchaseService.toModel(e.mfgDatePicker);
 
       delete e.mfgDatePicker;
       e["invoiceNo"] = this.model.invoiceNo;
       // delete e.maxdate;
       // delete e.mfgdateFlag;
     });
-    req["entrydate"] = this.toModel(this.entrydateInvoice);
-    req["invoiceDate"] = this.toModel(this.inVoiceDate);
-    req["duedate"] = this.toModel(this.duedateInvoice);
+    req["entrydate"] = this._purchaseService.toModel(this.entrydateInvoice);
+    req["invoiceDate"] = this._purchaseService.toModel(this.inVoiceDate);
+    req["duedate"] = this._purchaseService.toModel(this.duedateInvoice);
     req["footerDate"] = "2021-1-23";
     console.log("rerere", req);
     this._purchaseService.updatePurchaseEntry(req).subscribe(
