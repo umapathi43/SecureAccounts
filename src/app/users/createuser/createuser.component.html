@@ -7,14 +7,14 @@
     <div class="card-content" id="frmcard">
       <div class="card-body">
         <form #userForm="ngForm">
-          <div class="row">
-            <div class="col-md-6">
+          <div class="form-row">
+            <div class="col-md-2">
               <div class="form-group">
                 <label for="hidden-label-form-1">Customer Name</label>
                 <input
                   type="text"
                   id="hidden-label-form-1"
-                  class="form-control round"
+                  class="form-control"
                   name="cname"
                   [(ngModel)]="model.customerName"
                   #cname="ngModel"
@@ -24,12 +24,14 @@
                   required
                 />
               </div>
+            </div>
+            <div class="col-md-2">
               <div class="form-group">
                 <label for="hidden-label-form-2">Mobile Number</label>
                 <input
                   type="tel"
                   id="hidden-label-form-2"
-                  class="form-control round"
+                  class="form-control"
                   name="mobile"
                   [(ngModel)]="model.mobileNo"
                   #mobile="ngModel"
@@ -41,12 +43,14 @@
                   required
                 />
               </div>
+            </div>
+            <div class="col-md-2">
               <div class="form-group">
                 <label for="hidden-label-form-3">Address</label>
                 <input
                   type="text"
                   id="hidden-label-form-3"
-                  class="form-control round"
+                  class="form-control"
                   name="address1"
                   [(ngModel)]="model.address1"
                   #address1="ngModel"
@@ -56,11 +60,13 @@
                   required
                 />
               </div>
+            </div>
+            <div class="col-md-2">
               <div class="form-group mb-2">
                 <label for="basic-form-6">GST Type</label>
                 <select
                   id="basic-form-6"
-                  class="form-control round"
+                  class="form-control"
                   name="gstType"
                   [(ngModel)]="model.gstType"
                   #gstType="ngModel"
@@ -77,13 +83,14 @@
                   </option>
                 </select>
               </div>
-
+            </div>
+            <div class="col-md-2">
               <div class="form-group position-relative">
                 <label for="hidden-label-form-4">GSTNo</label>
                 <input
                   type="text"
                   id="hidden-label-form-4"
-                  class="form-control pickadate round"
+                  class="form-control pickadate"
                   name="gstNo"
                   [(ngModel)]="model.gstNo"
                   #gstNo="ngModel"
@@ -93,14 +100,13 @@
                 />
               </div>
             </div>
-
-            <div class="col-md-6">
+            <div class="col-md-2">
               <div class="form-group">
                 <label for="hidden-label-form-5">Discount</label>
                 <input
                   type="number"
                   id="hidden-label-form-5"
-                  class="form-control round"
+                  class="form-control"
                   name="discount"
                   [(ngModel)]="model.discount"
                   #discount="ngModel"
@@ -109,12 +115,14 @@
                   }"
                 />
               </div>
+            </div>
+            <div class="col-md-2">
               <div class="form-group">
                 <label for="hidden-label-form-6">Rate Slab</label>
                 <input
                   type="number"
                   id="hidden-label-form-5"
-                  class="form-control round"
+                  class="form-control"
                   name="rateSlab"
                   [(ngModel)]="model.rateSlab"
                   #rateSlab="ngModel"
@@ -123,12 +131,14 @@
                   }"
                 />
               </div>
+            </div>
+            <div class="col-md-2">
               <div class="form-group mb-2">
                 <label for="basic-form-6">Mode of Payment</label>
                 <select
                   id="basic-form-6"
                   name="interested"
-                  class="form-control round"
+                  class="form-control"
                   name="modeOfPayment"
                   [(ngModel)]="model.modeOfPayment"
                   #modeOfPayment="ngModel"
@@ -147,12 +157,14 @@
                   </option>
                 </select>
               </div>
+            </div>
+            <div class="col-md-2">
               <div class="form-group">
                 <label for="hidden-label-form-7">Opening Balance</label>
                 <input
                   type="number"
                   id="hidden-label-form-5"
-                  class="form-control round"
+                  class="form-control"
                   name="openingBal"
                   [(ngModel)]="model.openingBal"
                   #openingBal="ngModel"
@@ -161,11 +173,13 @@
                   }"
                 />
               </div>
+            </div>
+            <div class="col-md-2">
               <div class="form-group">
                 <label for="hidden-label-form-8">Opening Balance Date</label>
                 <div class="input-group">
                   <input
-                    class="form-control round"
+                    class="form-control"
                     placeholder="yyyy-mm-dd"
                     name="dp"
                     [(ngModel)]="popupModel"
@@ -180,26 +194,28 @@
                 </div>
               </div>
             </div>
-            <button
-              type="button"
-              *ngIf="!CustomeId"
-              class="btn btn-primary mr-2"
-              (click)="onSubmit(userForm)"
-            >
-              Save
-            </button>
-            <button
-              type="button"
-              *ngIf="CustomeId"
-              class="btn btn-primary mr-2"
-              (click)="onUpdate(userForm)"
-            >
-              Update
-            </button>
-            <button type="button" class="btn btn-secondary" (click)="goBack()">
-              <i class="ft-x mr-1"></i>Cancel
-            </button>
           </div>
+          <button
+            type="button"
+            *ngIf="!CustomeId"
+            class="btn btn-primary mr-2"
+            (click)="onSubmit(userForm)"
+          >
+            <i class="ft-check-square mr-1"></i>
+            Save
+          </button>
+          <button
+            type="button"
+            *ngIf="CustomeId"
+            class="btn btn-primary mr-2"
+            (click)="onUpdate(userForm)"
+          >
+            <i class="ft-check-square mr-1"></i>
+            Update
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="goBack()">
+            <i class="ft-x mr-1"></i>Cancel
+          </button>
         </form>
       </div>
     </div>

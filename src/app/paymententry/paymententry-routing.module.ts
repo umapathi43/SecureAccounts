@@ -6,7 +6,8 @@ import { PaymententryComponent } from "./paymententry.component";
 
 const routes: Routes = [
   { path: "", component: PaymentEntryTableComponent },
-  { path: "purchase-details-entry", component: PaymententryComponent },
+  { path: "payment-entry-details", component: PaymententryComponent },
+  { path: "payment-entry-details/:id", component: PaymententryComponent },
 ];
 
 @NgModule({

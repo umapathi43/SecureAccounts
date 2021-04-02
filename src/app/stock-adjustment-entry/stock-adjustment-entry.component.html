@@ -10,7 +10,7 @@
               (ngSubmit)="(orderForm.form.valid)"
             >
               <div class="form-row">
-                <div class="col-md-5 mb-1 form-group">
+                <div class="col-md-3 mb-1 form-group">
                   <label for="validationTooltip01">Entry Date</label>
                   <input
                     type="text"
@@ -79,7 +79,7 @@
               [scrollbarH]="true"
               [scrollbarV]="true"
             >
-              <ngx-datatable-column name="Name" prop="name" [width]="130">
+              <ngx-datatable-column name="Name" prop="name" [width]="90">
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -109,7 +109,7 @@
                   />
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="Batch" prop="batch">
+              <ngx-datatable-column name="Batch" prop="batch" [width]="90">
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -125,7 +125,7 @@
                   />
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="Expiry" prop="expiry">
+              <ngx-datatable-column name="Expiry" prop="expiry" [width]="90">
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -140,7 +140,11 @@
                   />
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="Current Stock" prop="currentstock">
+              <ngx-datatable-column
+                name="Current Stock"
+                prop="currentstock"
+                [width]="90"
+              >
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -155,7 +159,11 @@
                   />
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="AdjustmentQty" prop="adjustmentQty">
+              <ngx-datatable-column
+                name="AdjustmentQty"
+                prop="adjustmentQty"
+                [width]="90"
+              >
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -170,7 +178,7 @@
                   />
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="MRP" prop="mrp">
+              <ngx-datatable-column name="MRP" prop="mrp" [width]="90">
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -185,7 +193,7 @@
                   />
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="Rate" prop="rate">
+              <ngx-datatable-column name="Rate" prop="rate" [width]="90">
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -249,6 +257,7 @@
               *ngIf="!CustomeId"
               (click)="onSubmit()"
             >
+              <i class="ft-check-square mr-1"></i>
               Save
             </button>
             <button

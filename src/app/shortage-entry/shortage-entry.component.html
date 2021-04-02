@@ -10,7 +10,7 @@
               (ngSubmit)="(orderForm.form.valid)"
             >
               <div class="form-row">
-                <div class="col-md-5 mb-1 form-group">
+                <div class="col-md-3 mb-1 form-group">
                   <label for="validationTooltip01"> Date</label>
                   <input
                     type="text"
@@ -79,7 +79,7 @@
               [scrollbarH]="true"
               [scrollbarV]="true"
             >
-              <ngx-datatable-column name="Item" prop="Item">
+              <ngx-datatable-column name="Item" prop="Item" [width]="90">
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -95,7 +95,7 @@
                   />
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="Qty" prop="qty">
+              <ngx-datatable-column name="Qty" prop="qty" [width]="90">
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -163,6 +163,7 @@
               *ngIf="!CustomeId"
               (click)="onSubmit()"
             >
+              <i class="ft-check-square mr-1"></i>
               Save
             </button>
             <button

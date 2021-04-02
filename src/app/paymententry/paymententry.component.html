@@ -10,7 +10,7 @@
               (ngSubmit)="entryForm.form.valid && onSubmit(entryForm)"
             >
               <div class="form-row">
-                <div class="col-md-3 mb-1 form-group">
+                <div class="col-md-2 mb-1 form-group">
                   <label for="validationTooltip01">Payment Date</label>
                   <input
                     type="text"
@@ -32,7 +32,7 @@
                     Looks good!
                   </div>
                 </div>
-                <div class="col-md-3 mb-1 form-group">
+                <div class="col-md-2 mb-1 form-group">
                   <label for="validationTooltip02">Payment Amount</label>
                   <select
                     id="basic-form-6"
@@ -61,10 +61,8 @@
                     Looks good!
                   </div>
                 </div>
-                <div class="col-md-3 mb-1 form-group">
-                  <label for="validationTooltip03"
-                    >Enter Referance Number</label
-                  >
+                <div class="col-md-2 mb-1 form-group">
+                  <label for="validationTooltip03">Referance Number</label>
                   <input
                     type="number"
                     name="city"
@@ -87,7 +85,7 @@
                     Please provide a valid refNumber.
                   </div>
                 </div>
-                <div class="col-md-3 mb-1 form-group">
+                <div class="col-md-2 mb-1 form-group">
                   <label for="validationTooltip03">Enter Reference Date</label>
                   <input
                     type="text"
@@ -153,7 +151,11 @@
               [scrollbarH]="true"
               [scrollbarV]="true"
             >
-              <ngx-datatable-column name="Credit Type" prop="creditType">
+              <ngx-datatable-column
+                name="Credit Type"
+                prop="creditType"
+                [width]="60"
+              >
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -173,7 +175,11 @@
                   </select>
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="EntryAmount" prop="entryAmount">
+              <ngx-datatable-column
+                name="EntryAmount"
+                prop="entryAmount"
+                [width]="40"
+              >
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -188,7 +194,11 @@
                   />
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="Entry discount" prop="entrydiscount">
+              <ngx-datatable-column
+                name="Entry discount"
+                prop="entrydiscount"
+                [width]="40"
+              >
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -203,7 +213,11 @@
                   />
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="Net Amount" prop="netAmount">
+              <ngx-datatable-column
+                name="Net Amount"
+                prop="netAmount"
+                [width]="40"
+              >
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template

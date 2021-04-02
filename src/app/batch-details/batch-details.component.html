@@ -13,11 +13,11 @@
               (ngSubmit)="orderForm.form.valid && onSubmit(orderForm)"
             >
               <div class="form-row">
-                <div class="col-md-4 mb-1 form-group">
+                <div class="col-md-2 mb-1 form-group">
                   <label for="validationTooltip01">Select Item</label>
                   <select
                     name="fname"
-                    class="form-control round"
+                    class="form-control"
                     id="validationTooltip01"
                     [(ngModel)]="model.orderDate"
                     #fname="ngModel"
@@ -37,12 +37,12 @@
                   </div>
                 </div>
 
-                <div class="col-md-4 mb-1 form-group">
-                  <label for="validationTooltip01">Select Batch</label>
+                <div class="col-md-2 mb-1 form-group">
+                  <label for="validationTooltip0">Select Batch</label>
                   <select
                     name="fname"
-                    class="form-control round"
-                    id="validationTooltip01"
+                    class="form-control"
+                    id="validationTooltip0"
                     [(ngModel)]="model.orderDate"
                     #fname="ngModel"
                     [ngClass]="{
@@ -55,13 +55,13 @@
                   </select>
                 </div>
 
-                <div class="col-md-4 mb-1 form-group">
+                <div class="col-md-2 mb-1 form-group">
                   <div class="form-group">
                     <label for="validationTooltip01">Quantity Per Pack</label>
                     <input
                       type="number"
                       id="hidden-label-form-5"
-                      class="form-control round"
+                      class="form-control"
                       name="QtyPerPack"
                       [(ngModel)]="model.QtyPerPack"
                       #QtyPerPack="ngModel"
@@ -69,38 +69,37 @@
                     />
                   </div>
                 </div>
-              </div>
-              <div class="form-row">
-                <div class="col-md-4 mb-1 form-group">
+
+                <div class="col-md-2 mb-1 form-group">
                   <label for="validationTooltip01">Batch No</label>
                   <input
                     type="number"
                     id="hidden-label-form-5"
-                    class="form-control round"
+                    class="form-control"
                     name="batchNo"
                     [(ngModel)]="model.batchNo"
                     #batchNo="ngModel"
                     required
                   />
                 </div>
-                <div class="col-md-4 mb-1 form-group">
+                <div class="col-md-2 mb-1 form-group">
                   <label for="validationTooltip01">Expiry</label>
                   <input
                     type="number"
                     id="hidden-label-form-5"
-                    class="form-control round"
+                    class="form-control"
                     name="expiry"
                     [(ngModel)]="model.expiry"
                     #expiry="ngModel"
                     required
                   />
                 </div>
-                <div class="col-md-4 mb-1 form-group">
+                <div class="col-md-2 mb-1 form-group">
                   <label for="validationTooltip01">MRP</label>
                   <input
                     type="number"
                     id="hidden-label-form-5"
-                    class="form-control round"
+                    class="form-control"
                     name="mrp"
                     [(ngModel)]="model.mrp"
                     #mrp="ngModel"
@@ -109,24 +108,24 @@
                 </div>
               </div>
               <div class="form-row">
-                <div class="col-md-4 mb-1 form-group">
+                <div class="col-md-2 mb-1 form-group">
                   <label for="validationTooltip01">Purchase Rate</label>
                   <input
                     type="number"
                     id="hidden-label-form-5"
-                    class="form-control round"
+                    class="form-control"
                     name="purchaseRate"
                     [(ngModel)]="model.purchaseRate"
                     #purchaseRate="ngModel"
                     required
                   />
                 </div>
-                <div class="col-md-4 mb-1 form-group">
+                <div class="col-md-2 mb-1 form-group">
                   <label for="validationTooltip01">Sale Rate</label>
                   <input
                     type="number"
                     id="hidden-label-form-5"
-                    class="form-control round"
+                    class="form-control"
                     name="saleRate"
                     [(ngModel)]="model.saleRate"
                     #saleRate="ngModel"
@@ -136,8 +135,17 @@
                 <!-- <div class="col-md-3 mb-1 form-group">
                   <label for="validationTooltip01">Special Sale Rate</label>
                 </div> -->
-                <div class="col-md- mb-1 mt-3 form-group">
+                <div class="col-md- mb-1 form-group">
                   <label for="validationTooltip01">Available Stock</label>
+                  <input
+                    type="number"
+                    id="hidden-label-form-5"
+                    class="form-control"
+                    name="available"
+                    [(ngModel)]="model.availableStock"
+                    #available="ngModel"
+                    required
+                  />
                 </div>
               </div>
             </form>

@@ -8,6 +8,7 @@ export class OrderGeneration {
   selector: "app-order-generation",
   templateUrl: "./order-generation.component.html",
   styleUrls: ["./order-generation.component.scss"],
+  encapsulation: ViewEncapsulation.None,
 })
 export class OrderGenerationComponent implements OnInit {
   showFields: any;

@@ -10,7 +10,7 @@
               (ngSubmit)="(orderForm.form.valid)"
             >
               <div class="form-row">
-                <div class="col-md-5 mb-1 form-group">
+                <div class="col-md-4 mb-1 form-group">
                   <label for="validationTooltip01">Select Date</label>
                   <input
                     type="text"
@@ -36,9 +36,7 @@
                     Looks good!
                   </div>
                 </div>
-              </div>
-              <div class="form-row">
-                <div class="col-md-5 mb-1 form-group">
+                <div class="col-md-4 mb-1 form-group">
                   <label for="validationTooltip01">Bank Name</label>
                   <select
                     id="basic-form-6"
@@ -65,9 +63,7 @@
                     Looks good!
                   </div>
                 </div>
-              </div>
-              <div class="form-row">
-                <div class="col-md-5 mb-1 form-group">
+                <div class="col-md-4 mb-1 form-group">
                   <label for="validationTooltip01">Amount</label>
                   <input
                     type="text"
@@ -97,6 +93,7 @@
                 *ngIf="!CustomeId"
                 (click)="onSubmit()"
               >
+                <i class="ft-check-square mr-1"></i>
                 Save
               </button>
               <button

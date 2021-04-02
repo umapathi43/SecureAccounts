@@ -7,10 +7,10 @@
             <form
               class="needs-validation"
               #orderForm="ngForm"
-              (ngSubmit)="orderForm.form.valid && onSubmit(orderForm)"
+              (ngSubmit)="(orderForm.form.valid)"
             >
               <div class="form-row">
-                <div class="col-md-3 mb-1 form-group">
+                <div class="col-md-2 mb-1 form-group">
                   <label for="validationTooltip01">Entry Date</label>
                   <input
                     type="text"
@@ -41,7 +41,7 @@
                     Looks good!
                   </div>
                 </div>
-                <div class="col-md-3 mb-1 form-group">
+                <div class="col-md-2 mb-1 form-group">
                   <label for="validationTooltip02">Reference Number</label>
                   <input
                     type="number"
@@ -63,9 +63,7 @@
                     Looks good!
                   </div>
                 </div>
-              </div>
-              <div class="form-row">
-                <div class="col-md-4 mb-1 form-group">
+                <div class="col-md-2 mb-1 form-group">
                   <label for="validationTooltip02">Select Amount</label>
                   <select
                     id="basic-form-6"
@@ -85,7 +83,7 @@
                     Looks good!
                   </div>
                 </div>
-                <div class="col-md-4 mb-1 form-group">
+                <div class="col-md-2 mb-1 form-group">
                   <label for="validationTooltip01">Reference Date</label>
                   <input
                     type="text"
@@ -114,7 +112,7 @@
                     Looks good!
                   </div>
                 </div>
-                <div class="col-md-4 mb-1 form-group">
+                <div class="col-md-2 mb-1 form-group">
                   <label for="validationTooltip02">Amount</label>
                   <input
                     type="number"
@@ -297,7 +295,7 @@
                   Looks good!
                 </div>
               </div>
-              <div class="col-md-4 mb-1 form-group">
+              <div class="col-md-2 mb-1 form-group">
                 <label for="validationTooltip02">Amount</label>
                 <input
                   type="number"

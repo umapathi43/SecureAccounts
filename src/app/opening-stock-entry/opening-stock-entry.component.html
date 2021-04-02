@@ -6,24 +6,25 @@
           <div class="card-body">
             <form class="needs-validation" #orderForm="ngForm">
               <div class="form-row">
-                <div class="col-md-4 mb-1 form-group">
+                <div class="col-md-2 mb-1 form-group">
                   <label for="validationTooltip01">Order Date</label>
-                  <input
-                    class="form-control round"
-                    placeholder="yyyy-mm-dd"
-                    name="indate"
-                    #indate="ngModel"
-                    [(ngModel)]="orginDate"
-                    ngbDatepicker
-                    #d2="ngbDatepicker"
-                    (click)="d2.toggle()"
-                    required
-                  />
-                  <!-- <div class="input-group-append">
-                    <div class="input-group-text" (click)="d2.toggle()">
-                      <i class="fa fa-calendar" style="cursor: pointer"></i>
+                  <div class="input-group">
+                    <input
+                      class="form-control date-font"
+                      placeholder="yyyy-mm-dd"
+                      name="indate"
+                      #indate="ngModel"
+                      [(ngModel)]="orginDate"
+                      ngbDatepicker
+                      #d2="ngbDatepicker"
+                      required
+                    />
+                    <div class="input-group-append">
+                      <div class="input-group-text" (click)="d2.toggle()">
+                        <i class="fa fa-calendar" style="cursor: pointer"></i>
+                      </div>
                     </div>
-                  </div> -->
+                  </div>
                   <div
                     *ngIf="orderForm.submitted && !indate.errors?.required"
                     class="valid-tooltip"
@@ -32,18 +33,18 @@
                   </div>
                 </div>
 
-                <div class="col-md-4 mb-1 mt-3 form-group">
-                  <button class="btn btn-primary mr-2" type="submit">
+                <div class="col-md-3 mb-1 mt-3 form-group">
+                  <button class="btn btn-primary" type="submit">
                     Load From Negative Stock
                   </button>
                 </div>
-                <div class="col-md-4 mb-1 form-group">
+                <div class="col-md-2 mb-1 form-group">
                   <div>
                     <label>Srt%:</label>
                     <input
                       type="number"
                       name="srtn"
-                      class="form-control round"
+                      class="form-control"
                       id="validationTooltip02"
                       [(ngModel)]="model.srt"
                       #srtn="ngModel"
@@ -296,12 +297,12 @@
               </div>
             </div>
             <button
-              class="btn btn-primary mt-2 mr-2"
-              type="submit"
-              *ngIf="!CustomeId"
+              type="button"
+              class="btn btn-primary mr-2 mt-2"
               (click)="onSubmit()"
+              *ngIf="!CustomeId"
             >
-              Save
+              <i class="ft-check-square mr-1"></i>Save
             </button>
             <button
               type="button"

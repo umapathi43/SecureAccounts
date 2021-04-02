@@ -9,6 +9,7 @@ export class OrderGeneration {
   public mrp: string;
   public purchaseRate: string;
   public saleRate: string;
+  public availableStock: string;
 }
 @Component({
   selector: "app-batch-details",

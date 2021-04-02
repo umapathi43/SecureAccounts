@@ -29,7 +29,7 @@
                     Looks good!fname
                   </div>
                 </div>
-                <div class="col-md-2 mb-1 form-group">
+                <div class="col-md-1 mb-1 form-group">
                   <label for="validationTooltip03">Invoice No</label>
                   <input
                     type="text"
@@ -124,7 +124,7 @@
                     Please provide a valid Entry Date.
                   </div>
                 </div>
-                <div class="col-md-2 mb-1 form-group">
+                <div class="col-md-1 mb-1 form-group">
                   <label for="validationTooltip03">Discount %</label>
                   <input
                     type="text"
@@ -148,7 +148,7 @@
                     Please provide a valid Discount.
                   </div>
                 </div>
-                <div class="col-md-2 mb-1 form-group">
+                <div class="col-md-1 mb-1 form-group">
                   <label for="validationTooltip03">Due Days</label>
                   <input
                     type="text"
@@ -214,8 +214,8 @@
                     Please provide a valid due date.
                   </div>
                 </div>
-                <div class="col-md-2 mb-1 form-group">
-                  <label for="validationTooltip03">SRT Margin %</label>
+                <div class="col-md-1 mb-1 form-group">
+                  <label for="validationTooltip03">SRTMargin%</label>
                   <input
                     type="number"
                     name="srtMargin"
@@ -241,14 +241,15 @@
                 </div>
               </div>
               <div class="d-flex">
-                <div class="p-2 ml-1">
-                  <button class="btn btn-primary mr-2" type="submit">
+                <div class="p-2">
+                  <button class="btn btn-primary" type="button">
+                    <i class="icon-support mr-1"></i>
                     Import from CSV
                   </button>
                 </div>
                 <div class="p-2">
-                  <button class="btn btn-primary ml-2" type="submit">
-                    Load PO
+                  <button class="btn btn-primary" type="button">
+                    <i class="icon-reload mr-1"></i>Load PO
                   </button>
                 </div>
               </div>
@@ -312,27 +313,9 @@
                     (ngModelChange)="packageChange(item, rowIndex)"
                   >
                   </ng-select>
-                  <!-- <ng-select
-                    #MyNgSelect
-                    bindLabel="name"
-                    appendTo="body"
-                    [searchable]="true"
-                    [clearable]="true"
-                    [closeOnSelect]="false"
-                    [(ngModel)]="item.name"
-                    style="width: 119px"
-                    name="itemName{{ rowIndex }} "
-                    #itemName="ngModel"
-                    placeholder="No Item selected"
-                    keydown.Tab
-                  >
-                    <ng-option [value]="item.id" *ngFor="let item of itemArray">
-                      {{ item.itemName }}
-                    </ng-option>
-                  </ng-select> -->
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="Batch" prop="batch">
+              <ngx-datatable-column name="Batch" prop="batch" [width]="90">
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -349,7 +332,11 @@
                   />
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="Expiry Date" prop="expiryDate">
+              <ngx-datatable-column
+                name="Expiry Date"
+                prop="expiryDate"
+                [width]="110"
+              >
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -374,7 +361,11 @@
                   /> -->
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="Mfg Date" prop="mfgDate">
+              <ngx-datatable-column
+                name="Mfg Date"
+                prop="mfgDate"
+                [width]="110"
+              >
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -408,7 +399,11 @@
                   /> -->
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="Best Before" prop="bestBefore">
+              <ngx-datatable-column
+                name="Best Before"
+                prop="bestBefore"
+                [width]="110"
+              >
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -433,7 +428,7 @@
                   </select>
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="Qty" prop="qty" [width]="100">
+              <ngx-datatable-column name="Qty" prop="qty" [width]="80">
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -455,11 +450,7 @@
                   />
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column
-                name="Free Qty"
-                prop="freeQty"
-                [width]="100"
-              >
+              <ngx-datatable-column name="Free Qty" prop="freeQty" [width]="80">
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -476,7 +467,7 @@
                   />
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="MRP" prop="mrp" [width]="100">
+              <ngx-datatable-column name="MRP" prop="mrp" [width]="80">
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -494,7 +485,11 @@
                 </ng-template>
               </ngx-datatable-column>
 
-              <ngx-datatable-column name="Purchase Rate" prop="purchaseRate">
+              <ngx-datatable-column
+                name="Purchase Rate"
+                prop="purchaseRate"
+                [width]="110"
+              >
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -520,7 +515,7 @@
               <ngx-datatable-column
                 name="Discount%"
                 prop="discount"
-                [width]="100"
+                [width]="80"
               >
                 <ng-template
                   let-item="row"
@@ -545,7 +540,7 @@
               <ngx-datatable-column
                 name="Disc Amount"
                 prop="discAmount"
-                [width]="115"
+                [width]="80"
               >
                 <ng-template
                   let-item="row"
@@ -570,7 +565,7 @@
               <ngx-datatable-column
                 name="Sch Disc Amount"
                 prop="schdiscAmount"
-                [width]="100"
+                [width]="80"
               >
                 <ng-template
                   let-item="row"
@@ -591,7 +586,7 @@
                   />
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="GST" prop="gst" [width]="100">
+              <ngx-datatable-column name="GST" prop="gst" [width]="85">
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -631,7 +626,7 @@
               <ngx-datatable-column
                 name="Tax Amount"
                 prop="taxAmount"
-                [width]="115"
+                [width]="110"
               >
                 <ng-template
                   let-item="row"
@@ -649,7 +644,7 @@
                   />
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="QPK" prop="qpk">
+              <ngx-datatable-column name="QPK" prop="qpk" [width]="80">
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -665,7 +660,7 @@
                   />
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="SRT" prop="srt">
+              <ngx-datatable-column name="SRT" prop="srt" [width]="80">
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -681,7 +676,11 @@
                   />
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="Gross Amt" prop="grossAmt">
+              <ngx-datatable-column
+                name="Gross Amt"
+                prop="grossAmt"
+                [width]="110"
+              >
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -698,7 +697,7 @@
                   />
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="Net Amt" prop="netAmt">
+              <ngx-datatable-column name="Net Amt" prop="netAmt" [width]="110">
                 <ng-template
                   let-item="row"
                   ngx-datatable-cell-template
@@ -735,6 +734,7 @@
               class="btn btn-primary btn-sm"
               (click)="addItem()"
             >
+              <i class="icon-plus mr-1"></i>
               Add Item
             </button>
             <!-- ngx-datatable-filter -->
@@ -744,239 +744,6 @@
     </div>
   </div>
 </section>
-<!-- <section id="tooltip-validation">
-  <div class="row">
-    <div class="col-12">
-      <div class="card" *ngFor="let item of Items; let i = index">
-        <div class="card-content">
-          <div class="card-body">
-            <form
-              class="needs-validation"
-              #userForm="ngForm"
-              (ngSubmit)="userForm.form.valid && onSubmit(userForm)"
-            >
-              <div class="form-row">
-                <div class="col-md-6">
-                  <h4>Item {{ i + 1 }}</h4>
-                </div>
-                <div class="col-md-6 text-right">
-                  <button
-                    type="button"
-                    class="btn btn-primary btn-sm mr-2"
-                    (click)="DisplayFileds(i)"
-                  >
-                    View More
-                  </button>
-                  <button
-                    *ngIf="i != Items.length - 1 || Items.length > 1"
-                    type="button"
-                    class="btn btn-danger btn-sm"
-                    (click)="removeItem(i)"
-                  >
-                    Remove
-                  </button>
-                </div>
-
-                <div class="col-md-2 mb-1 form-group">
-                  <label for="validationTooltip01">Item Name</label>
-                  <input
-                    type="text"
-                    class="form-control "
-                    [(ngModel)]="item.name"
-                    name="name{{ i }}"
-                  />
-                </div>
-                <div class="col-md-2 mb-1 form-group">
-                  <label for="validationTooltip02">Batch</label>
-                  <input
-                    type="text"
-                    class="form-control "
-                    [(ngModel)]="item.batch"
-                    name="batch{{ i }}"
-                  />
-                </div>
-                <div class="col-md-2 mb-1 form-group">
-                  <label for="validationTooltip03">Expiry Date</label>
-                  <input
-                    type="text"
-                    class="form-control "
-                    [(ngModel)]="item.expiryDate"
-                    name="expiryDate{{ i }}"
-                    required
-                  />
-                </div>
-                <div class="col-md-2 mb-1 form-group">
-                  <label for="validationTooltip03">Mfg Date</label>
-                  <input
-                    type="text"
-                    class="form-control "
-                    [(ngModel)]="item.mfgDate"
-                    name="mfgDate{{ i }}"
-                    required
-                  />
-                </div>
-                <div class="col-md-2 mb-1 form-group">
-                  <label for="validationTooltip03">Best Before</label>
-                  <select
-                    id="basic-form-6"
-                    [(ngModel)]="item.bestBefore"
-                    name="bestBefore{{ i }}"
-                    required
-                    class="form-control "
-                  >
-                    <option value="none" selected disabled>
-                      Interested in
-                    </option>
-                    <option value="design">Design</option>
-                    <option value="development">Development</option>
-                    <option value="illustration">Illustration</option>
-                    <option value="branding">Branding</option>
-                    <option value="video">Video</option>
-                  </select>
-                </div>
-                <div class="col-md-2 mb-1 form-group">
-                  <label for="validationTooltip03">QTY</label>
-                  <input
-                    type="text"
-                    class="form-control "
-                    [(ngModel)]="item.qty"
-                    name="qty{{ i }}"
-                    required
-                  />
-                </div>
-                <ng-container *ngIf="showFields == i">
-                  <div class="col-md-2 mb-1 form-group">
-                    <label for="validationTooltip03">Free QTY</label>
-                    <input
-                      type="text"
-                      class="form-control "
-                      [(ngModel)]="item.freeQty"
-                      name="freeQty{{ i }}"
-                      required
-                    />
-                  </div>
-                  <div class="col-md-2 mb-1 form-group">
-                    <label for="validationTooltip03">MRP</label>
-                    <input
-                      type="text"
-                      name="city"
-                      class="form-control "
-                      [(ngModel)]="item.mrp"
-                      name="mrp{{ i }}"
-                      required
-                    />
-                  </div>
-                  <div class="col-md-2 mb-1 form-group">
-                    <label for="validationTooltip03">Purchase Date</label>
-                    <input
-                      type="text"
-                      class="form-control "
-                      [(ngModel)]="item.purchaseDate"
-                      name="purchaseDate{{ i }}"
-                      required
-                    />
-                  </div>
-                  <div class="col-md-2 mb-1 form-group">
-                    <label for="validationTooltip03">Discount %</label>
-                    <input
-                      type="text"
-                      name="city"
-                      class="form-control "
-                      [(ngModel)]="item.discount"
-                      name="discount{{ i }}"
-                      required
-                    />
-                  </div>
-                  <div class="col-md-2 mb-1 form-group">
-                    <label for="validationTooltip03"> Disc Amt</label>
-                    <input
-                      type="text"
-                      class="form-control "
-                      [(ngModel)]="item.discAmount"
-                      name="discAmount{{ i }}"
-                      required
-                    />
-                  </div>
-                  <div class="col-md-2 mb-1 form-group">
-                    <label for="validationTooltip03">SCH Disc Amt</label>
-                    <input
-                      type="text"
-                      class="form-control "
-                      [(ngModel)]="item.schdiscAmount"
-                      name="schdiscAmount{{ i }}"
-                      required
-                    />
-                  </div>
-                  <div class="col-md-2 mb-1 form-group">
-                    <label for="validationTooltip03">GST %</label>
-                    <input
-                      type="text"
-                      class="form-control "
-                      [(ngModel)]="item.gst"
-                      name="gst{{ i }}"
-                      required
-                    />
-                  </div>
-                  <div class="col-md-2 mb-1 form-group">
-                    <label for="validationTooltip03">Tax Amount</label>
-                    <input
-                      type="text"
-                      class="form-control "
-                      [(ngModel)]="item.taxAmount"
-                      name="taxAmount{{ i }}"
-                      required
-                    />
-                  </div>
-                  <div class="col-md-2 mb-1 form-group">
-                    <label for="validationTooltip03">QPK</label>
-                    <input
-                      type="text"
-                      class="form-control "
-                      [(ngModel)]="item.qpk"
-                      name="qpk{{ i }}"
-                      required
-                    />
-                  </div>
-                  <div class="col-md-2 mb-1 form-group">
-                    <label for="validationTooltip03">SRT</label>
-                    <input
-                      type="text"
-                      class="form-control "
-                      [(ngModel)]="item.srt"
-                      name="srt{{ i }}"
-                      required
-                    />
-                  </div>
-                  <div class="col-md-2 mb-1 form-group">
-                    <label for="validationTooltip03">Gross Amt</label>
-                    <input
-                      type="text"
-                      class="form-control "
-                      [(ngModel)]="item.grossAmt"
-                      name="grossAmt{{ i }}"
-                      required
-                    />
-                  </div>
-                  <div class="col-md-2 mb-1 form-group">
-                    <label for="validationTooltip03">net Amt</label>
-                    <input
-                      type="text"
-                      class="form-control "
-                      [(ngModel)]="item.netAmt"
-                      (keydown.Tab)="addItem()"
-                      name="netAmt{{ i }}"
-                      required
-                    />
-                  </div>
-                </ng-container>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section> -->
 
 <section id="basic-form-layouts">
   <div class="row match-height">
