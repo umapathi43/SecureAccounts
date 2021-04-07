@@ -19,7 +19,7 @@
       <div class="card-body">
         <form #userForm="ngForm">
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-2">
               <div class="form-group">
                 <label for="hidden-label-form-1"> Name</label>
                 <input
@@ -36,7 +36,7 @@
                 />
               </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-2">
               <div class="form-group">
                 <label for="hidden-label-form-1"> Description</label>
                 <input
@@ -53,27 +53,28 @@
                 />
               </div>
             </div>
-
-            <button
-              type="button"
-              *ngIf="!CustomeId"
-              class="btn btn-primary mr-2"
-              (click)="onSubmit(userForm)"
-            >
-              Save
-            </button>
-            <button
-              type="button"
-              *ngIf="CustomeId"
-              class="btn btn-primary mr-2"
-              (click)="onUpdate(userForm)"
-            >
-              Update
-            </button>
-            <button type="button" class="btn btn-secondary" (click)="goBack()">
-              <i class="ft-x mr-1"></i>Cancel
-            </button>
           </div>
+          <button
+            type="button"
+            *ngIf="!CustomeId"
+            class="btn btn-primary mr-2"
+            (click)="onSubmit(userForm)"
+          >
+            <i class="ft-check-square mr-1"></i>
+            Save
+          </button>
+          <button
+            type="button"
+            *ngIf="CustomeId"
+            class="btn btn-primary mr-2"
+            (click)="onUpdate(userForm)"
+          >
+            <i class="ft-check-square mr-1"></i>
+            Update
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="goBack()">
+            <i class="ft-x mr-1"></i>Cancel
+          </button>
         </form>
       </div>
     </div>

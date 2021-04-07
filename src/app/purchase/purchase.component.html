@@ -64,6 +64,7 @@
                       [(ngModel)]="inVoiceDate"
                       ngbDatepicker
                       #d2="ngbDatepicker"
+                      (click)="d2.toggle()"
                       required
                     />
                     <div class="input-group-append">
@@ -93,6 +94,7 @@
                       [(ngModel)]="entrydateInvoice"
                       ngbDatepicker
                       #d="ngbDatepicker"
+                      (click)="d.toggle()"
                       required
                     />
                     <div class="input-group-append">
@@ -178,12 +180,13 @@
                   <div class="input-group">
                     <input
                       class="form-control date-font"
-                      placeholder="yyyy-mm-dd"
+                      placeholder="yyyy/mm/dd"
                       name="duedate"
                       #duedate="ngModel"
                       [(ngModel)]="duedateInvoice"
                       ngbDatepicker
                       #t="ngbDatepicker"
+                      (click)="t.toggle()"
                       required
                     />
                     <div class="input-group-append">

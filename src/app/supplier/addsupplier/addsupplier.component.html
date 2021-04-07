@@ -8,7 +8,7 @@
       <div class="card-body">
         <form #userForm="ngForm">
           <div class="row">
-            <div class="col-md-6 col-sm-12">
+            <div class="col-md-2 col-sm-12">
               <div class="form-group">
                 <label for="hidden-label-form-1">Supplier Name</label>
                 <input
@@ -25,7 +25,7 @@
                 />
               </div>
             </div>
-            <div class="col-md-6 col-sm-12">
+            <div class="col-md-2 col-sm-12">
               <div class="form-group">
                 <label for="hidden-label-form-2">Mobile Number</label>
                 <input
@@ -44,7 +44,7 @@
                 />
               </div>
             </div>
-            <div class="col-md-6 col-sm-12">
+            <div class="col-md-2 col-sm-12">
               <div class="form-group">
                 <label for="hidden-label-form-3">Address</label>
                 <input
@@ -61,7 +61,7 @@
                 />
               </div>
             </div>
-            <div class="col-md-6 col-sm-12">
+            <div class="col-md-2 col-sm-12">
               <div class="form-group mb-2">
                 <label for="basic-form-6">GST Type</label>
                 <select
@@ -84,7 +84,7 @@
                 </select>
               </div>
             </div>
-            <div class="col-md-6 col-sm-12">
+            <div class="col-md-2 col-sm-12">
               <div class="form-group position-relative">
                 <label for="hidden-label-form-4">GSTNo</label>
                 <input
@@ -100,7 +100,7 @@
                 />
               </div>
             </div>
-            <div class="col-md-6 col-sm-12">
+            <div class="col-md-2 col-sm-12">
               <div class="form-group">
                 <label for="hidden-label-form-5">Discount</label>
                 <input
@@ -116,7 +116,7 @@
                 />
               </div>
             </div>
-            <div class="col-md-6 col-sm-12">
+            <div class="col-md-2 col-sm-12">
               <div class="form-group">
                 <label for="hidden-label-form-6">Rate Slab</label>
                 <input
@@ -132,7 +132,7 @@
                 />
               </div>
             </div>
-            <div class="col-md-6 col-sm-12">
+            <div class="col-md-2 col-sm-12">
               <div class="form-group mb-2">
                 <label for="basic-form-6">Mode of Payment</label>
                 <select
@@ -158,7 +158,7 @@
                 </select>
               </div>
             </div>
-            <div class="col-md-6 col-sm-12">
+            <div class="col-md-2 col-sm-12">
               <div class="form-group">
                 <label for="hidden-label-form-7">Opening Balance</label>
                 <input
@@ -174,7 +174,7 @@
                 />
               </div>
             </div>
-            <div class="col-md-6 col-sm-12">
+            <div class="col-md-2 col-sm-12">
               <div class="form-group">
                 <label for="hidden-label-form-8">Opening Balance Date</label>
                 <div class="input-group">
@@ -185,6 +185,7 @@
                     [(ngModel)]="popupModel"
                     ngbDatepicker
                     #d2="ngbDatepicker"
+                    (click)="d2.toggle()"
                   />
                   <div class="input-group-append">
                     <div class="input-group-text" (click)="d2.toggle()">
@@ -194,26 +195,27 @@
                 </div>
               </div>
             </div>
-            <button
-              type="button"
-              *ngIf="!CustomeId"
-              class="btn btn-primary mr-2"
-              (click)="onSubmit(userForm)"
-            >
-              Save
-            </button>
-            <button
-              type="button"
-              *ngIf="CustomeId"
-              class="btn btn-primary mr-2"
-              (click)="onUpdate(userForm)"
-            >
-              Update
-            </button>
-            <button type="button" class="btn btn-secondary" (click)="goBack()">
-              <i class="ft-x mr-1"></i>Cancel
-            </button>
           </div>
+          <button
+            type="button"
+            *ngIf="!CustomeId"
+            class="btn btn-primary mr-2"
+            (click)="onSubmit(userForm)"
+          >
+            <i class="ft-check-square mr-1"></i>
+            Save
+          </button>
+          <button
+            type="button"
+            *ngIf="CustomeId"
+            class="btn btn-primary mr-2"
+            (click)="onUpdate(userForm)"
+          >
+            Update
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="goBack()">
+            <i class="ft-x mr-1"></i>Cancel
+          </button>
         </form>
       </div>
     </div>

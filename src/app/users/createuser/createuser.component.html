@@ -1,8 +1,8 @@
 <div class="col-lg-12 col-12">
   <div class="card">
     <div class="card-header">
-      <h4 class="card-title" *ngIf="!CustomeId">Add User</h4>
-      <h4 class="card-title" *ngIf="CustomeId">Edit User</h4>
+      <h4 class="card-title" *ngIf="!CustomeId">Add Customer</h4>
+      <h4 class="card-title" *ngIf="CustomeId">Edit Customer</h4>
     </div>
     <div class="card-content" id="frmcard">
       <div class="card-body">
@@ -185,6 +185,7 @@
                     [(ngModel)]="popupModel"
                     ngbDatepicker
                     #d2="ngbDatepicker"
+                    (click)="d2.toggle()"
                   />
                   <div class="input-group-append">
                     <div class="input-group-text" (click)="d2.toggle()">

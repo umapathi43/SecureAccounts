@@ -20,7 +20,7 @@
       <div class="card-body" id="frmcbdy">
         <form #userForm="ngForm">
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-3">
               <div class="form-group">
                 <label for="hidden-label-form-1"> Name</label>
                 <input
@@ -45,6 +45,7 @@
               class="btn btn-primary mr-2"
               (click)="onSubmit(userForm)"
             >
+              <i class="ft-check-square mr-1"></i>
               Save
             </button>
             <button
@@ -53,6 +54,7 @@
               class="btn btn-primary mr-2"
               (click)="onUpdate(userForm)"
             >
+              <i class="ft-check-square mr-1"></i>
               Update
             </button>
             <button type="button" class="btn btn-secondary" (click)="goBack()">

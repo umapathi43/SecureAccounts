@@ -15,9 +15,18 @@
 .ng-select .ng-select-container {
   min-height: 20px;
 }
-
+.ng-dropdown-panel.ng-select-top,
+.ng-dropdown-panel.ng-select-bottom {
+  font-size: 0.75em !important;
+}
+.ng-dropdown-panel.ajustar {
+  font-size: 0.5em !important;
+}
 .ng-select.ng-select-single .ng-select-container {
-  height: 25px;
+  height: 31px;
+}
+.ng-select.ng-select-single .ng-select-container .ng-value-container {
+  font-size: 0.75em;
 }
 .ng-select.ng-select-single
   .ng-select-container
@@ -30,10 +39,10 @@
 }
 .date-font {
   font-size: 0.75em;
-  height: 28px;
+  height: 30.5px;
 }
 .input-group-append {
-  height: 27.5px !important;
+  height: 30.5px !important;
 }
 .btn {
   font-size: 0.75rem;

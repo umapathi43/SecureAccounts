@@ -8,7 +8,7 @@
       <div class="card-body">
         <form #account="ngForm">
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-2">
               <div class="form-group">
                 <label for="hidden-label-form-1"> Name</label>
                 <input
@@ -21,7 +21,8 @@
                   required
                 />
               </div>
-
+            </div>
+            <div class="col-md-2">
               <div class="form-group mb-2">
                 <label for="basic-form-6">Account Head</label>
                 <select
@@ -41,6 +42,8 @@
                   </option>
                 </select>
               </div>
+            </div>
+            <div class="col-md-2">
               <div class="form-group mb-2">
                 <label for="basic-form-6">Account Type</label>
                 <select
@@ -62,7 +65,7 @@
               </div>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-2">
               <div class="form-group">
                 <label for="hidden-label-form-7">Opening Balance</label>
                 <input
@@ -75,6 +78,8 @@
                   required
                 />
               </div>
+            </div>
+            <div class="col-md-3">
               <div class="form-group">
                 <label for="hidden-label-form-8">Opening Balance Date</label>
                 <div class="input-group">
@@ -86,6 +91,7 @@
                     [(ngModel)]="popupModel"
                     ngbDatepicker
                     #d2="ngbDatepicker"
+                    (click)="d2.toggle()"
                     required
                   />
                   <div class="input-group-append">
@@ -96,26 +102,26 @@
                 </div>
               </div>
             </div>
-            <button
-              type="button"
-              class="btn btn-primary mr-2"
-              *ngIf="!CustomeId"
-              (click)="createAcount()"
-            >
-              <i class="ft-check-square mr-1"></i>Save
-            </button>
-            <button
-              type="button"
-              *ngIf="CustomeId"
-              class="btn btn-primary mr-2"
-              (click)="onUpdate(account)"
-            >
-              Update
-            </button>
-            <button type="button" class="btn btn-secondary" (click)="goBack()">
-              <i class="ft-x mr-1"></i>Cancel
-            </button>
           </div>
+          <button
+            type="button"
+            class="btn btn-primary mr-2"
+            *ngIf="!CustomeId"
+            (click)="createAcount()"
+          >
+            <i class="ft-check-square mr-1"></i>Save
+          </button>
+          <button
+            type="button"
+            *ngIf="CustomeId"
+            class="btn btn-primary mr-2"
+            (click)="onUpdate(account)"
+          >
+            Update
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="goBack()">
+            <i class="ft-x mr-1"></i>Cancel
+          </button>
         </form>
       </div>
     </div>

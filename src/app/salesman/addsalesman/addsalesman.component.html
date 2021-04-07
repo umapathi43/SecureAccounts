@@ -8,7 +8,7 @@
       <div class="card-body">
         <form #userForm="ngForm">
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-2">
               <div class="form-group">
                 <label for="hidden-label-form-1"> Name</label>
                 <input
@@ -24,6 +24,8 @@
                   required
                 />
               </div>
+            </div>
+            <div class="col-md-2">
               <div class="form-group">
                 <label for="hidden-label-form-1"> Target</label>
                 <input
@@ -41,7 +43,7 @@
               </div>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-2">
               <div class="form-group">
                 <label for="hidden-label-form-1"> Incentive %</label>
                 <input
@@ -57,6 +59,8 @@
                   required
                 />
               </div>
+            </div>
+            <div class="col-md-2">
               <div class="form-group mb-2">
                 <label for="basic-form-6">Area</label>
                 <select
@@ -77,26 +81,28 @@
                 </select>
               </div>
             </div>
-            <button
-              type="button"
-              *ngIf="!CustomeId"
-              class="btn btn-primary mr-2"
-              (click)="onSubmit(userForm)"
-            >
-              Save
-            </button>
-            <button
-              type="button"
-              *ngIf="CustomeId"
-              class="btn btn-primary mr-2"
-              (click)="onUpdate(userForm)"
-            >
-              Update
-            </button>
-            <button type="button" class="btn btn-secondary" (click)="goBack()">
-              <i class="ft-x mr-1"></i>Cancel
-            </button>
           </div>
+          <button
+            type="button"
+            *ngIf="!CustomeId"
+            class="btn btn-primary mr-2"
+            (click)="onSubmit(userForm)"
+          >
+            <i class="ft-check-square mr-1"></i>
+            Save
+          </button>
+          <button
+            type="button"
+            *ngIf="CustomeId"
+            class="btn btn-primary mr-2"
+            (click)="onUpdate(userForm)"
+          >
+            <i class="ft-check-square mr-1"></i>
+            Update
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="goBack()">
+            <i class="ft-x mr-1"></i>Cancel
+          </button>
         </form>
       </div>
     </div>
