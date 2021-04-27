@@ -1,57 +1,224 @@
-<nav class="navbar navbar-expand-lg navbar-light header-navbar {{transparentBGClass}}"
-  [ngClass]="{'navbar-brand-center': menuPosition === 'Top', 'navbar-static': menuPosition === 'Side' &&
-  config?.layout.navbar.type === 'Static' , 'navbar-sticky': menuPosition === 'Side' &&
-  config?.layout.navbar.type === 'Fixed', 'fixed-top': isSmallScreen && menuPosition === 'Top'}">
+<nav
+  class="navbar navbar-expand-lg navbar-light header-navbar {{
+    transparentBGClass
+  }}"
+  [ngClass]="{
+    'navbar-brand-center': menuPosition === 'Top',
+    'navbar-static':
+      menuPosition === 'Side' && config?.layout.navbar.type === 'Static',
+    'navbar-sticky':
+      menuPosition === 'Side' && config?.layout.navbar.type === 'Fixed',
+    'fixed-top': isSmallScreen && menuPosition === 'Top'
+  }"
+>
   <div class="container-fluid navbar-wrapper">
     <div class="navbar-header d-flex">
-      <div class="navbar-toggle menu-toggle d-xl-none d-block float-left align-items-center justify-content-center"
-        data-toggle="collapse" (click)="toggleSidebar()">
+      <div
+        class="navbar-toggle menu-toggle d-xl-none d-block float-left align-items-center justify-content-center"
+        data-toggle="collapse"
+        (click)="toggleSidebar()"
+      >
         <i class="ft-menu font-medium-3"></i>
       </div>
       <ul class="navbar-nav" (clickOutside)="toggleSearchOpenClass(false)">
         <li class="nav-item mr-2 d-none d-lg-block">
-          <a class="nav-link apptogglefullscreen" id="navbar-fullscreen" href="javascript:;" appToggleFullscreen
-            (click)="ToggleClass()"><i class=" {{toggleClass}} font-medium-3"></i></a>
+          <a
+            class="nav-link apptogglefullscreen"
+            id="navbar-fullscreen"
+            href="javascript:;"
+            appToggleFullscreen
+            (click)="ToggleClass()"
+            ><i class=" {{ toggleClass }} font-medium-3"></i
+          ></a>
         </li>
         <li class="nav-item nav-search">
-          <a class="nav-link nav-link-search" id="navbar-search" href="javascript:" (click)="toggleSearchOpenClass(true)"><i
-              class="ft-search font-medium-3"></i></a>
-          <div class="search-input {{searchOpenClass}}">
+          <a
+            class="nav-link nav-link-search"
+            id="navbar-search"
+            href="javascript:"
+            (click)="toggleSearchOpenClass(true)"
+            ><i class="ft-search font-medium-3"></i
+          ></a>
+          <div class="search-input {{ searchOpenClass }}">
             <div class="search-input-icon">
               <i class="ft-search font-medium-3"></i>
             </div>
-            <input [formControl]="control" #search class="input" type="text" placeholder="Explore Apex..." tabindex="0"
-              autofocus data-search="template-search" [appAutocomplete]="autocomplete" (keyup.enter)="onEnter()" (keydown.esc)="onEscEvent()" (keyup)="onSearchKey($event)" />
-            <div class="search-input-close" (click)="toggleSearchOpenClass(false)">
+            <input
+              [formControl]="control"
+              #search
+              class="input"
+              type="text"
+              placeholder="Explore Apex..."
+              tabindex="0"
+              autofocus
+              data-search="template-search"
+              [appAutocomplete]="autocomplete"
+              (keyup.enter)="onEnter()"
+              (keydown.esc)="onEscEvent()"
+              (keyup)="onSearchKey($event)"
+            />
+            <div
+              class="search-input-close"
+              (click)="toggleSearchOpenClass(false)"
+            >
               <i class="ft-x font-medium-3"></i>
             </div>
 
             <app-autocomplete #autocomplete="appAutocomplete">
-              <ng-template appAutocompleteContent >
-                <ng-container *ngIf="(listItems | filter: control.value) as result">
-                  <app-option #searchResults *ngFor="let option of result" [url]="option.url" [value]="option.name" (click)="redirectTo(option.url);" (mouseenter)="removeActiveClass()"  >
-                    <div class="d-flex align-items-center justify-content-between w-100">
-                      <div class="d-flex align-items-center justify-content-start">
-                        <i class="{{option.icon}} mr-2"></i>
+              <ng-template appAutocompleteContent>
+                <ng-container
+                  *ngIf="listItems | filter: control.value as result"
+                >
+                  <app-option
+                    #searchResults
+                    *ngFor="let option of result"
+                    [url]="option.url"
+                    [value]="option.name"
+                    (click)="redirectTo(option.url)"
+                    (mouseenter)="removeActiveClass()"
+                  >
+                    <div
+                      class="d-flex align-items-center justify-content-between w-100"
+                    >
+                      <div
+                        class="d-flex align-items-center justify-content-start"
+                      >
+                        <i class="{{ option.icon }} mr-2"></i>
                         <span>{{ option.name }}</span>
                       </div>
                     </div>
                   </app-option>
-                  <app-option class="no-result" *ngIf="!result.length">No results found.</app-option>
+                  <app-option class="no-result" *ngIf="!result.length"
+                    >No results found.</app-option
+                  >
                 </ng-container>
               </ng-template>
             </app-autocomplete>
           </div>
         </li>
       </ul>
+      <div class="navbar-nav">
+        <ng-template #content let-c="close" let-d="dismiss">
+          <div class="modal-header">
+            <h4 class="modal-title">Shortcut Keys</h4>
+            <button
+              type="button"
+              class="close"
+              aria-label="Close"
+              (click)="d('Cross click')"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-6 mb-1">
+                <div class="keys border mx-2">
+                  <div class="bg-grey text-center rb text-dark">
+                    Add Sales Order
+                  </div>
+                  <div
+                    class="text-primary text-center rb d-block py-0 bg-white px-3"
+                  >
+                    Alt + S
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 mb-1">
+                <div class="keys border mx-2">
+                  <div class="bg-grey text-center rb text-dark">
+                    Add Purchase Entry
+                  </div>
+                  <div
+                    class="text-primary text-center rb d-block py-0 bg-white px-3"
+                  >
+                    Alt + P
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 mb-1">
+                <div class="keys border mx-2">
+                  <div class="bg-grey text-center rb text-dark">
+                    Purchase Order
+                  </div>
+                  <div
+                    class="text-primary text-center rb d-block py-0 bg-white px-3"
+                  >
+                    Alt + O
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 mb-1">
+                <div class="keys border mx-2">
+                  <div class="bg-grey text-center rb text-dark">
+                    Counter Sales
+                  </div>
+                  <div
+                    class="text-primary text-center rb d-block py-0 bg-white px-3"
+                  >
+                    Alt + C
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 mb-1">
+                <div class="keys border mx-2">
+                  <div class="bg-grey text-center rb text-dark">Back</div>
+                  <div
+                    class="text-primary text-center rb d-block py-0 bg-white px-3"
+                  >
+                    Shift + Esc
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 mb-1">
+                <div class="keys border mx-2">
+                  <div class="bg-grey text-center rb text-dark">
+                    Cash Withdraw
+                  </div>
+                  <div
+                    class="text-primary text-center rb d-block py-0 bg-white px-3"
+                  >
+                    Alt +Shift + C
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="c('Close click')"
+            >
+              Close
+            </button>
+          </div>
+        </ng-template>
+        <div class="col-md-4 col-sm-6 col-12 fonticon-container">
+          <div class="fonticon-wrap" (click)="open(content)">
+            <i class="fa fa-th-list">ShortcutKeys</i>
+          </div>
+
+          <!-- <label class="fonticon-classname">fa-th-list</label> -->
+          <!-- <label class="fonticon-unit">f00b</label> -->
+        </div>
+      </div>
       <div class="navbar-brand-center">
         <div class="navbar-header">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <div class="logo"><a class="logo-text" [routerLink]="['/']" *ngIf="config?.layout.menuPosition === 'Top'">
-                  <div class="logo-img"><img class="logo-img" alt="Apex logo" [src]="logoUrl"></div><span
-                    class="text">APEX</span>
-                </a></div>
+              <div class="logo">
+                <a
+                  class="logo-text"
+                  [routerLink]="['/']"
+                  *ngIf="config?.layout.menuPosition === 'Top'"
+                >
+                  <div class="logo-img">
+                    <img class="logo-img" alt="Apex logo" [src]="logoUrl" />
+                  </div>
+                  <span class="text">APEX</span>
+                </a>
+              </div>
             </li>
           </ul>
         </div>
@@ -60,53 +227,133 @@
     <div class="navbar-container">
       <div class="collapse navbar-collapse d-block" id="navbarSupportedContent">
         <ul class="navbar-nav">
-          <li class="i18n-dropdown dropdown nav-item mr-2" display="dynamic" ngbDropdown >
-            <a class="nav-link d-flex align-items-center dropdown-toggle dropdown-language" id="dropdown-flag"
-              href="javascript:;" data-toggle="dropdown" ngbDropdownToggle><img class="langimg selected-flag"
-                [src]="selectedLanguageFlag" alt="flag" /><span
-                class="selected-language d-md-flex d-none">{{selectedLanguageText}}</span></a>
-            <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right text-left" aria-labelledby="dropdown-flag">
-              <a class="dropdown-item" href="javascript:;" data-language="en" (click)="ChangeLanguage('en')"><img
-                  class="langimg mr-2" src="./assets/img/flags/us.png" alt="flag" /><span
-                  class="font-small-3">English</span></a><a class="dropdown-item" href="javascript:;" data-language="es"
-                (click)="ChangeLanguage('es')"><img class="langimg mr-2" src="./assets/img/flags/es.png"
-                  alt="flag" /><span class="font-small-3">Spanish</span></a><a class="dropdown-item" href="javascript:;"
-                data-language="pt" (click)="ChangeLanguage('pt')"><img class="langimg mr-2"
-                  src="./assets/img/flags/pt.png" alt="flag" /><span class="font-small-3">Portuguese</span></a>
-              <a class="dropdown-item" href="javascript:;" data-language="de" (click)="ChangeLanguage('de')"><img
-                  class="langimg mr-2" src="./assets/img/flags/de.png" alt="flag" /><span
-                  class="font-small-3">German</span></a>
+          <li
+            class="i18n-dropdown dropdown nav-item mr-2"
+            display="dynamic"
+            ngbDropdown
+          >
+            <a
+              class="nav-link d-flex align-items-center dropdown-toggle dropdown-language"
+              id="dropdown-flag"
+              href="javascript:;"
+              data-toggle="dropdown"
+              ngbDropdownToggle
+              ><img
+                class="langimg selected-flag"
+                [src]="selectedLanguageFlag"
+                alt="flag"
+              /><span class="selected-language d-md-flex d-none">{{
+                selectedLanguageText
+              }}</span></a
+            >
+            <div
+              ngbDropdownMenu
+              class="dropdown-menu dropdown-menu-right text-left"
+              aria-labelledby="dropdown-flag"
+            >
+              <a
+                class="dropdown-item"
+                href="javascript:;"
+                data-language="en"
+                (click)="ChangeLanguage('en')"
+                ><img
+                  class="langimg mr-2"
+                  src="./assets/img/flags/us.png"
+                  alt="flag"
+                /><span class="font-small-3">English</span></a
+              ><a
+                class="dropdown-item"
+                href="javascript:;"
+                data-language="es"
+                (click)="ChangeLanguage('es')"
+                ><img
+                  class="langimg mr-2"
+                  src="./assets/img/flags/es.png"
+                  alt="flag"
+                /><span class="font-small-3">Spanish</span></a
+              ><a
+                class="dropdown-item"
+                href="javascript:;"
+                data-language="pt"
+                (click)="ChangeLanguage('pt')"
+                ><img
+                  class="langimg mr-2"
+                  src="./assets/img/flags/pt.png"
+                  alt="flag"
+                /><span class="font-small-3">Portuguese</span></a
+              >
+              <a
+                class="dropdown-item"
+                href="javascript:;"
+                data-language="de"
+                (click)="ChangeLanguage('de')"
+                ><img
+                  class="langimg mr-2"
+                  src="./assets/img/flags/de.png"
+                  alt="flag"
+                /><span class="font-small-3">German</span></a
+              >
             </div>
           </li>
-          <li class="dropdown nav-item" placement="bottom-left" display="static" ngbDropdown >
-            <a class="nav-link dropdown-toggle dropdown-notification p-0 mt-2" id="drp-notification" href="javascript:;"
-              data-toggle="dropdown" ngbDropdownToggle><i class="ft-bell font-medium-3"></i><span
-                class="notification badge badge-pill badge-danger">4</span></a>
-            <ul ngbDropdownMenu
-              class="notification-dropdown dropdown-menu dropdown-menu-media dropdown-menu-right m-0 overflow-hidden">
-
+          <li
+            class="dropdown nav-item"
+            placement="bottom-left"
+            display="static"
+            ngbDropdown
+          >
+            <a
+              class="nav-link dropdown-toggle dropdown-notification p-0 mt-2"
+              id="drp-notification"
+              href="javascript:;"
+              data-toggle="dropdown"
+              ngbDropdownToggle
+              ><i class="ft-bell font-medium-3"></i
+              ><span class="notification badge badge-pill badge-danger"
+                >4</span
+              ></a
+            >
+            <ul
+              ngbDropdownMenu
+              class="notification-dropdown dropdown-menu dropdown-menu-media dropdown-menu-right m-0 overflow-hidden"
+            >
               <li class="dropdown-menu-header">
-                <div class="dropdown-header d-flex justify-content-between m-0 px-3 py-2 white bg-primary">
+                <div
+                  class="dropdown-header d-flex justify-content-between m-0 px-3 py-2 white bg-primary"
+                >
                   <div class="d-flex">
-                    <i class="ft-bell font-medium-3 d-flex align-items-center mr-2"></i><span class="noti-title">7 New
-                      Notification</span>
+                    <i
+                      class="ft-bell font-medium-3 d-flex align-items-center mr-2"
+                    ></i
+                    ><span class="noti-title">7 New Notification</span>
                   </div>
-                  <span class="text-bold-400 cursor-pointer">Mark all as read</span>
+                  <span class="text-bold-400 cursor-pointer"
+                    >Mark all as read</span
+                  >
                 </div>
               </li>
               <li class="scrollable-container" [perfectScrollbar]>
-                <a class="d-flex justify-content-between" href="javascript:void(0)">
+                <a
+                  class="d-flex justify-content-between"
+                  href="javascript:void(0)"
+                >
                   <div class="media d-flex align-items-center">
                     <div class="media-left">
                       <div class="mr-3">
-                        <img class="avatar" src="assets/img/portrait/small/avatar-s-20.png" alt="avatar" height="45"
-                          width="45" />
+                        <img
+                          class="avatar"
+                          src="assets/img/portrait/small/avatar-s-20.png"
+                          alt="avatar"
+                          height="45"
+                          width="45"
+                        />
                       </div>
                     </div>
                     <div class="media-body">
                       <h6 class="m-0">
-                        <span>Kate Young</span><small class="grey lighten-1 font-italic float-right">5 mins
-                          ago</small>
+                        <span>Kate Young</span
+                        ><small class="grey lighten-1 font-italic float-right"
+                          >5 mins ago</small
+                        >
                       </h6>
                       <small class="noti-text">Commented on your photo</small>
                       <h6 class="noti-text font-small-3 m-0">
@@ -116,28 +363,48 @@
                     </div>
                   </div>
                 </a>
-                <a class="d-flex justify-content-between" href="javascript:void(0)">
+                <a
+                  class="d-flex justify-content-between"
+                  href="javascript:void(0)"
+                >
                   <div class="media d-flex align-items-center">
                     <div class="media-left">
                       <div class="mr-3">
-                        <img class="avatar" src="assets/img/portrait/small/avatar-s-11.png" alt="avatar" height="45"
-                          width="45" />
+                        <img
+                          class="avatar"
+                          src="assets/img/portrait/small/avatar-s-11.png"
+                          alt="avatar"
+                          height="45"
+                          width="45"
+                        />
                       </div>
                     </div>
                     <div class="media-body">
                       <h6 class="m-0">
-                        <span>Andrew Watts</span><small class="grey lighten-1 font-italic float-right">49 mins
-                          ago</small>
+                        <span>Andrew Watts</span
+                        ><small class="grey lighten-1 font-italic float-right"
+                          >49 mins ago</small
+                        >
                       </h6>
-                      <small class="noti-text">Liked your album: UI/UX Inspo</small>
+                      <small class="noti-text"
+                        >Liked your album: UI/UX Inspo</small
+                      >
                     </div>
                   </div>
                 </a>
-                <a class="d-flex justify-content-between read-notification" href="javascript:void(0)">
+                <a
+                  class="d-flex justify-content-between read-notification"
+                  href="javascript:void(0)"
+                >
                   <div class="media d-flex align-items-center py-0 pr-0">
                     <div class="media-left">
                       <div class="mr-3">
-                        <img src="assets/img/icons/sketch-mac-icon.png" alt="avatar" height="45" width="45" />
+                        <img
+                          src="assets/img/icons/sketch-mac-icon.png"
+                          alt="avatar"
+                          height="45"
+                          width="45"
+                        />
                       </div>
                     </div>
                     <div class="media-body">
@@ -156,7 +423,10 @@
                     </div>
                   </div>
                 </a>
-                <a class="d-flex justify-content-between read-notification" href="javascript:void(0)">
+                <a
+                  class="d-flex justify-content-between read-notification"
+                  href="javascript:void(0)"
+                >
                   <div class="media d-flex align-items-center">
                     <div class="media-left">
                       <div class="avatar bg-primary bg-lighten-3 mr-3 p-1">
@@ -165,14 +435,18 @@
                     </div>
                     <div class="media-body">
                       <h6 class="m-0">
-                        <span>Registration done</span><small class="grey lighten-1 font-italic float-right">6 hrs
-                          ago</small>
+                        <span>Registration done</span
+                        ><small class="grey lighten-1 font-italic float-right"
+                          >6 hrs ago</small
+                        >
                       </h6>
                     </div>
                   </div>
                 </a>
                 <div class="cursor-pointer">
-                  <div class="media d-flex align-items-center justify-content-between">
+                  <div
+                    class="media d-flex align-items-center justify-content-between"
+                  >
                     <div class="media-left">
                       <div class="media-body">
                         <h6 class="m-0">New Offers</h6>
@@ -180,39 +454,64 @@
                     </div>
                     <div class="media-right">
                       <div class="custom-switch custom-control">
-                        <input type="checkbox" class="custom-control-input" id="custom-switch-1111" checked>
-                        <label class="custom-control-label mr-1" for="custom-switch-1111">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="custom-switch-1111"
+                          checked
+                        />
+                        <label
+                          class="custom-control-label mr-1"
+                          for="custom-switch-1111"
+                        >
                         </label>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="d-flex justify-content-between cursor-pointer read-notification">
+                <div
+                  class="d-flex justify-content-between cursor-pointer read-notification"
+                >
                   <div class="media d-flex align-items-center">
                     <div class="media-left">
                       <div class="avatar bg-danger bg-lighten-4 mr-3 p-1">
-                        <span class="avatar-content font-medium-2"><i class="ft-heart text-danger"></i></span>
+                        <span class="avatar-content font-medium-2"
+                          ><i class="ft-heart text-danger"></i
+                        ></span>
                       </div>
                     </div>
                     <div class="media-body">
                       <h6 class="m-0">
-                        <span>Application approved</span><small class="grey lighten-1 font-italic float-right">18 hrs
-                          ago</small>
+                        <span>Application approved</span
+                        ><small class="grey lighten-1 font-italic float-right"
+                          >18 hrs ago</small
+                        >
                       </h6>
                     </div>
                   </div>
                 </div>
-                <a class="d-flex justify-content-between read-notification" href="javascript:void(0)">
+                <a
+                  class="d-flex justify-content-between read-notification"
+                  href="javascript:void(0)"
+                >
                   <div class="media d-flex align-items-center">
                     <div class="media-left">
                       <div class="mr-3">
-                        <img class="avatar" src="assets/img/portrait/small/avatar-s-6.png" alt="avatar" height="45"
-                          width="45" />
+                        <img
+                          class="avatar"
+                          src="assets/img/portrait/small/avatar-s-6.png"
+                          alt="avatar"
+                          height="45"
+                          width="45"
+                        />
                       </div>
                     </div>
                     <div class="media-body">
                       <h6 class="m-0">
-                        <span>Anna Lee</span><small class="grey lighten-1 font-italic float-right">27 hrs ago</small>
+                        <span>Anna Lee</span
+                        ><small class="grey lighten-1 font-italic float-right"
+                          >27 hrs ago</small
+                        >
                       </h6>
                       <small class="noti-text">Commented on your photo</small>
                       <h6 class="noti-text font-small-3 text-bold-500 m-0">
@@ -221,7 +520,9 @@
                     </div>
                   </div>
                 </a>
-                <div class="d-flex justify-content-between cursor-pointer read-notification">
+                <div
+                  class="d-flex justify-content-between cursor-pointer read-notification"
+                >
                   <div class="media d-flex align-items-center">
                     <div class="media-left">
                       <div class="avatar bg-info bg-lighten-4 mr-3 p-1">
@@ -232,48 +533,85 @@
                     </div>
                     <div class="media-body">
                       <h6 class="m-0">
-                        <span>Report generated</span><small class="grey lighten-1 font-italic float-right">35 hrs
-                          ago</small>
+                        <span>Report generated</span
+                        ><small class="grey lighten-1 font-italic float-right"
+                          >35 hrs ago</small
+                        >
                       </h6>
                     </div>
                   </div>
                 </div>
-                <a class="d-flex justify-content-between read-notification" href="javascript:void(0)">
+                <a
+                  class="d-flex justify-content-between read-notification"
+                  href="javascript:void(0)"
+                >
                   <div class="media d-flex align-items-center">
                     <div class="media-left">
                       <div class="mr-3">
-                        <img class="avatar" src="assets/img/portrait/small/avatar-s-7.png" alt="avatar" height="45"
-                          width="45" />
+                        <img
+                          class="avatar"
+                          src="assets/img/portrait/small/avatar-s-7.png"
+                          alt="avatar"
+                          height="45"
+                          width="45"
+                        />
                       </div>
                     </div>
                     <div class="media-body">
                       <h6 class="m-0">
-                        <span>Oliver Wright</span><small class="grey lighten-1 font-italic float-right">2 days
-                          ago</small>
+                        <span>Oliver Wright</span
+                        ><small class="grey lighten-1 font-italic float-right"
+                          >2 days ago</small
+                        >
                       </h6>
-                      <small class="noti-text">Liked your album: UI/UX Inspo</small>
+                      <small class="noti-text"
+                        >Liked your album: UI/UX Inspo</small
+                      >
                     </div>
                   </div>
                 </a>
               </li>
               <li class="dropdown-menu-footer">
-                <div class="noti-footer text-center cursor-pointer primary border-top text-bold-400 py-1">
+                <div
+                  class="noti-footer text-center cursor-pointer primary border-top text-bold-400 py-1"
+                >
                   Read All Notifications
                 </div>
               </li>
             </ul>
           </li>
-          <li class="dropdown nav-item mr-1" placement="bottom-left" display="static" ngbDropdown >
-            <a class="nav-link dropdown-toggle user-dropdown d-flex align-items-end" id="dropdownBasic2"
-              href="javascript:;" data-toggle="dropdown" ngbDropdownToggle>
+          <li
+            class="dropdown nav-item mr-1"
+            placement="bottom-left"
+            display="static"
+            ngbDropdown
+          >
+            <a
+              class="nav-link dropdown-toggle user-dropdown d-flex align-items-end"
+              id="dropdownBasic2"
+              href="javascript:;"
+              data-toggle="dropdown"
+              ngbDropdownToggle
+            >
               <div class="user d-md-flex d-none mr-2">
-                <span class="text-right">John Doe</span><span
-                  class="text-right text-muted font-small-3">Available</span>
+                <span class="text-right">John Doe</span
+                ><span class="text-right text-muted font-small-3"
+                  >Available</span
+                >
               </div>
-              <img class="avatar" src="assets/img/portrait/small/avatar-s-1.png" alt="avatar" height="35" width="35" />
+              <img
+                class="avatar"
+                src="assets/img/portrait/small/avatar-s-1.png"
+                alt="avatar"
+                height="35"
+                width="35"
+              />
             </a>
-            <div class="dropdown-menu text-left dropdown-menu-right m-0 pb-0" aria-labelledby="dropdownBasic2"
-              ngbDropdownMenu>
+            <div
+              class="dropdown-menu text-left dropdown-menu-right m-0 pb-0"
+              aria-labelledby="dropdownBasic2"
+              ngbDropdownMenu
+            >
               <a class="dropdown-item" routerLink="/chat">
                 <div class="d-flex align-items-center">
                   <i class="ft-message-square mr-2"></i><span>Chat</span>
@@ -305,9 +643,4 @@
       </div>
     </div>
   </div>
-
-
-
-
-
 </nav>

@@ -20,13 +20,13 @@
   font-size: 0.75em !important;
 }
 .ng-dropdown-panel.ajustar {
-  font-size: 0.5em !important;
+  font-size: 0.75em !important;
 }
 .ng-select.ng-select-single .ng-select-container {
   height: 31px;
 }
 .ng-select.ng-select-single .ng-select-container .ng-value-container {
-  font-size: 0.75em;
+  font-size: 1.25em;
 }
 .ng-select.ng-select-single
   .ng-select-container
@@ -45,8 +45,8 @@
   height: 30.5px !important;
 }
 .btn {
-  font-size: 0.75rem;
-  line-height: 0.5rem;
+  font-size: 1rem;
+  line-height: 0.75rem;
 }
 .form-control {
   font-size: 0.75rem !important;

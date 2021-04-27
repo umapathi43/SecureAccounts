@@ -31,6 +31,7 @@ import { FullLayoutComponent } from "./layouts/full/full-layout.component";
 import { AuthService } from "./shared/auth/auth.service";
 import { AuthGuard } from "./shared/auth/auth-guard.service";
 import { WINDOW_PROVIDERS } from "./shared/services/window.service";
+import { KeyboardShortcutsModule } from "ng-keyboard-shortcuts";
 
 var firebaseConfig = {
   apiKey: "YOUR_API_KEY", //YOUR_API_KEY
@@ -60,6 +61,7 @@ export function createTranslateLoader(http: HttpClient) {
     SharedModule,
     HttpClientModule,
     AngularFireModule.initializeApp(firebaseConfig),
+    KeyboardShortcutsModule.forRoot(),
     AngularFireAuthModule,
     ToastrModule.forRoot(),
     NgbModule,

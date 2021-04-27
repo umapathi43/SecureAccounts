@@ -246,7 +246,7 @@
               <div class="d-flex">
                 <div class="p-2">
                   <button class="btn btn-primary" type="button">
-                    <i class="icon-support mr-1"></i>
+                    <input type="file" (change)="onChange($event)" #inputFile />
                     Import from CSV
                   </button>
                 </div>
