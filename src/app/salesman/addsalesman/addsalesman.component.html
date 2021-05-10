@@ -14,7 +14,7 @@
                 <input
                   type="text"
                   id="hidden-label-form-1"
-                  class="form-control round"
+                  class="form-control"
                   name="sname"
                   [(ngModel)]="model.salesManName"
                   #sname="ngModel"
@@ -31,7 +31,7 @@
                 <input
                   type="text"
                   id="hidden-label-form-1"
-                  class="form-control round"
+                  class="form-control"
                   name="target"
                   [(ngModel)]="model.target"
                   #target="ngModel"
@@ -49,7 +49,7 @@
                 <input
                   type="number"
                   id="hidden-label-form-1"
-                  class="form-control round"
+                  class="form-control"
                   name="incentive"
                   [(ngModel)]="model.incentive"
                   #incentive="ngModel"
@@ -72,7 +72,7 @@
                     'is-invalid': userForm.submitted && aname.invalid
                   }"
                   required
-                  class="form-control round"
+                  class="form-control"
                 >
                   <option value="none" selected disabled>Area</option>
                   <option *ngFor="let item of areaList" value="{{ item.id }}">

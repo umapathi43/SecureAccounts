@@ -14,7 +14,7 @@
                 <input
                   type="text"
                   id="hidden-label-form-1"
-                  class="form-control round"
+                  class="form-control"
                   name="aname"
                   [(ngModel)]="model.areaName"
                   #aname="ngModel"
@@ -38,7 +38,7 @@
                     'is-invalid': userForm.submitted && route.invalid
                   }"
                   required
-                  class="form-control round"
+                  class="form-control"
                 >
                   <option value="none" selected disabled>Route</option>
                   <option *ngFor="let item of routeList" value="{{ item.id }}">

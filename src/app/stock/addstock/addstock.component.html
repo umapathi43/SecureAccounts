@@ -14,7 +14,7 @@
                 <input
                   type="text"
                   id="hidden-label-form-1"
-                  class="form-control round"
+                  class="form-control"
                   name="sname"
                   [(ngModel)]="model.stockName"
                   #sname="ngModel"
@@ -38,7 +38,7 @@
                     'is-invalid': userForm.submitted && barnchCreation.invalid
                   }"
                   required
-                  class="form-control round"
+                  class="form-control"
                 >
                   <option value="none" selected disabled>Branch</option>
                   <option *ngFor="let item of branchList" value="{{ item.id }}">

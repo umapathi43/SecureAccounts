@@ -32,11 +32,8 @@
         <i class="ft-x font-medium-3"></i
       ></a>
     </div>
-    <div
-      class="row"
-      [ngStyle]="{ 'background-color': bgColor + '!important' }"
-      style="background-image: url('assets/img/sidebar-bg/01.jpg')"
-    >
+    <div class="row" [ngStyle]="{ 'background-color': bgColor + '!important' }">
+      <!-- style="background-image: url('assets/img/sidebar-bg/01.jpg')" -->
       <ng-container *ngFor="let keys of shortctKeys ? shortctKeys : []">
         <div class="col-md-12">
           <div

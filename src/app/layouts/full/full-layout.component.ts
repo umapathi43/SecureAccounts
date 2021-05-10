@@ -7,26 +7,25 @@ import {
   OnDestroy,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  HostListener
+  HostListener,
 } from "@angular/core";
 import { ConfigService } from "app/shared/services/config.service";
 import { DOCUMENT } from "@angular/common";
 import { Subscription } from "rxjs";
-import { CustomizerService } from 'app/shared/services/customizer.service';
-import { DeviceDetectorService } from 'ngx-device-detector';
-import { LayoutService } from 'app/shared/services/layout.service';
-import { WINDOW } from 'app/shared/services/window.service';
-import { Router, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { CustomizerService } from "app/shared/services/customizer.service";
+import { DeviceDetectorService } from "ngx-device-detector";
+import { LayoutService } from "app/shared/services/layout.service";
+import { WINDOW } from "app/shared/services/window.service";
+import { Router, NavigationEnd } from "@angular/router";
+import { filter } from "rxjs/operators";
 
 @Component({
   selector: "app-full-layout",
   templateUrl: "./full-layout.component.html",
   styleUrls: ["./full-layout.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FullLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
-
   hideSidebar: boolean = true;
   overlayContent = false;
   configSub: Subscription;
@@ -34,7 +33,7 @@ export class FullLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   bgImage: string;
   bgColor: string;
   isSmallScreen = false;
-  menuPosition = 'Side';
+  menuPosition = "Side";
   displayOverlayMenu = false; // Vertical Side menu for screenSize < 1200
   public config: any = {};
   public innerWidth: any;
@@ -54,43 +53,49 @@ export class FullLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
     private cdr: ChangeDetectorRef,
     private deviceService: DeviceDetectorService
   ) {
-
     this.config = this.configService.templateConf;
     this.innerWidth = window.innerWidth;
 
     // On toggle sidebar menu
-    this.layoutSub = layoutService.toggleSidebar$.subscribe(
-      isShow => {
-        this.hideSidebar = !isShow;
-        if(this.hideSidebar) {
-          this.overlayContent = false;
-        } else {
-          this.overlayContent = true;
-        }
-        this.toggleSidebar();
-      });
+    this.layoutSub = layoutService.toggleSidebar$.subscribe((isShow) => {
+      this.hideSidebar = !isShow;
+      if (this.hideSidebar) {
+        this.overlayContent = false;
+      } else {
+        this.overlayContent = true;
+      }
+      this.toggleSidebar();
+    });
   }
 
   ngOnInit() {
-    this.configSub = this.configService.templateConf$.subscribe((templateConf) => {
-      if (templateConf) {
-        this.config = templateConf;
+    this.configSub = this.configService.templateConf$.subscribe(
+      (templateConf) => {
+        if (templateConf) {
+          this.config = templateConf;
+        }
+        //load layout
+        this.loadLayout();
+        this.cdr.markForCheck();
       }
-      //load layout
-      this.loadLayout();
-      this.cdr.markForCheck();
-    });
+    );
 
     //hide overlay class on router change
-    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((routeChange) => {
-      if (this.config.layout.menuPosition === "Side" || this.displayOverlayMenu) { // Vertical Menu
-        if (this.innerWidth < 1200) {
-          this.layoutService.toggleSidebarSmallScreen(false);
-          this.overlayContent = false;
-          this.renderer.removeClass(this.document.body, "overflow-hidden");
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe((routeChange) => {
+        if (
+          this.config.layout.menuPosition === "Side" ||
+          this.displayOverlayMenu
+        ) {
+          // Vertical Menu
+          if (this.innerWidth < 1200) {
+            this.layoutService.toggleSidebarSmallScreen(false);
+            this.overlayContent = false;
+            this.renderer.removeClass(this.document.body, "overflow-hidden");
+          }
         }
-      }
-    });
+      });
   }
 
   ngAfterViewInit() {
@@ -111,8 +116,10 @@ export class FullLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   setMenuLayout() {
     this.overlayContent = false;
     this.renderer.removeClass(this.document.body, "blank-page");
-    if (this.config.layout.menuPosition === "Top") { // Horizontal Menu
-      if (this.innerWidth < 1200) { // Screen size < 1200
+    if (this.config.layout.menuPosition === "Top") {
+      // Horizontal Menu
+      if (this.innerWidth < 1200) {
+        // Screen size < 1200
         this.displayOverlayMenu = true;
         this.hideSidebar = true;
         this.renderer.removeClass(this.document.body, "horizontal-menu");
@@ -124,11 +131,15 @@ export class FullLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
         this.renderer.addClass(this.document.body, "vertical-overlay-menu");
         this.renderer.addClass(this.document.body, "fixed-navbar");
         this.renderer.addClass(this.document.body, "menu-hide");
-      }
-      else { // Screen size > 1200
+      } else {
+        // Screen size > 1200
         this.displayOverlayMenu = false;
         this.hideSidebar = false;
-        this.renderer.setAttribute(this.document.body, "data-menu", "horizontal-menu");
+        this.renderer.setAttribute(
+          this.document.body,
+          "data-menu",
+          "horizontal-menu"
+        );
         this.renderer.removeClass(this.document.body, "vertical-layout");
         this.renderer.removeClass(this.document.body, "vertical-overlay-menu");
         this.renderer.removeClass(this.document.body, "fixed-navbar");
@@ -139,13 +150,17 @@ export class FullLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
         this.renderer.addClass(this.document.body, "horizontal-layout");
         this.renderer.addClass(this.document.body, "horizontal-menu-padding");
       }
-    }
-    else if (this.config.layout.menuPosition === "Side") { // Vertical Menu
-      if (this.innerWidth < 1200) { // If Screen size < 1200
+    } else if (this.config.layout.menuPosition === "Side") {
+      // Vertical Menu
+      if (this.innerWidth < 1200) {
+        // If Screen size < 1200
         this.displayOverlayMenu = true;
         this.renderer.removeClass(this.document.body, "horizontal-layout");
         this.renderer.removeClass(this.document.body, "horizontal-menu");
-        this.renderer.removeClass(this.document.body, "horizontal-menu-padding");
+        this.renderer.removeClass(
+          this.document.body,
+          "horizontal-menu-padding"
+        );
         this.renderer.removeClass(this.document.body, "menu-expanded");
         this.renderer.removeClass(this.document.body, "vertical-menu");
         this.renderer.removeClass(this.document.body, "menu-open");
@@ -153,17 +168,23 @@ export class FullLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
 
         this.renderer.addClass(this.document.body, "vertical-layout");
         this.renderer.addClass(this.document.body, "menu-hide");
-
-      }
-      else { // If Screen size > 1200
+      } else {
+        // If Screen size > 1200
         this.displayOverlayMenu = false;
 
         this.renderer.removeClass(this.document.body, "horizontal-layout");
         this.renderer.removeClass(this.document.body, "horizontal-menu");
-        this.renderer.removeClass(this.document.body, "horizontal-menu-padding");
+        this.renderer.removeClass(
+          this.document.body,
+          "horizontal-menu-padding"
+        );
         // this.renderer.removeClass(this.document.body, "blank-page");
 
-        this.renderer.setAttribute(this.document.body, "data-menu", "vertical-menu");
+        this.renderer.setAttribute(
+          this.document.body,
+          "data-menu",
+          "vertical-menu"
+        );
         this.renderer.addClass(this.document.body, "vertical-layout");
         if (!this.config.layout.sidebar.collapsed) {
           this.renderer.addClass(this.document.body, "menu-expanded");
@@ -176,11 +197,12 @@ export class FullLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-
   loadLayout() {
-
     //menu position "SIDE" or "TOP"
-    if (this.config.layout.menuPosition && this.config.layout.menuPosition.toString().trim() != "") {
+    if (
+      this.config.layout.menuPosition &&
+      this.config.layout.menuPosition.toString().trim() != ""
+    ) {
       this.menuPosition = this.config.layout.menuPosition;
     }
 
@@ -202,8 +224,7 @@ export class FullLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.config.layout.menuPosition === "Side") {
       if (this.config.layout.sidebar.collapsed) {
         this.isMenuCollapsedOnHover = true;
-      }
-      else {
+      } else {
         this.isMenuCollapsedOnHover = true;
       }
       this.toggleSidebar();
@@ -215,12 +236,10 @@ export class FullLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.config.layout.variant === "Light") {
       this.renderer.removeClass(this.document.body, "layout-dark");
       this.renderer.removeClass(this.document.body, "layout-transparent");
-    }
-    else if (this.config.layout.variant === "Dark") {
+    } else if (this.config.layout.variant === "Dark") {
       this.renderer.removeClass(this.document.body, "layout-transparent");
       this.renderer.addClass(this.document.body, "layout-dark");
-    }
-    else if (this.config.layout.variant === "Transparent") {
+    } else if (this.config.layout.variant === "Transparent") {
       this.renderer.addClass(this.document.body, "layout-dark");
       this.renderer.addClass(this.document.body, "layout-transparent");
       this.renderer.addClass(this.document.body, this.bgColor);
@@ -230,45 +249,43 @@ export class FullLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
     this.setMenuLayout();
 
     // For Sidebar width
-    if (this.config.layout.sidebar.size === 'sidebar-sm') {
+    if (this.config.layout.sidebar.size === "sidebar-sm") {
       this.renderer.removeClass(this.document.body, "sidebar-lg");
       this.renderer.addClass(this.document.body, "sidebar-sm");
-    }
-    else if (this.config.layout.sidebar.size === 'sidebar-lg') {
+    } else if (this.config.layout.sidebar.size === "sidebar-lg") {
       this.renderer.removeClass(this.document.body, "sidebar-sm");
       this.renderer.addClass(this.document.body, "sidebar-lg");
-    }
-    else {
+    } else {
       this.renderer.removeClass(this.document.body, "sidebar-sm");
       this.renderer.removeClass(this.document.body, "sidebar-lg");
     }
 
     if (this.config.layout.menuPosition === "Side") {
       // vertical/Side menu expanded/collapse
-      if (this.config.layout.sidebar.collapsed && !this.isSmallScreen) { // collapse side menu
+      if (this.config.layout.sidebar.collapsed && !this.isSmallScreen) {
+        // collapse side menu
         this.renderer.removeClass(this.document.body, "menu-expanded");
         this.renderer.addClass(this.document.body, "nav-collapsed");
-      }
-      else { // expand side menu
+      } else {
+        // expand side menu
         this.renderer.removeClass(this.document.body, "nav-collapsed");
         this.renderer.addClass(this.document.body, "menu-expanded");
       }
     }
 
     //Navbar types
-    if (this.config.layout.navbar.type === 'Static') {
+    if (this.config.layout.navbar.type === "Static") {
       this.renderer.removeClass(this.document.body, "navbar-sticky");
       this.renderer.addClass(this.document.body, "navbar-static");
-    }
-    else if (this.config.layout.navbar.type === 'Fixed') {
+    } else if (this.config.layout.navbar.type === "Fixed") {
       this.renderer.removeClass(this.document.body, "navbar-static");
       this.renderer.addClass(this.document.body, "navbar-sticky");
     }
-
   }
 
   toggleSidebar() {
-    if (this.hideSidebar) { // on sidebar collapse
+    if (this.hideSidebar) {
+      // on sidebar collapse
       this.renderer.removeClass(this.document.body, "menu-expanded");
       this.renderer.removeClass(this.document.body, "vertical-menu");
       this.renderer.removeClass(this.document.body, "menu-open");
@@ -279,15 +296,14 @@ export class FullLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
       if (this.config.layout.menuPosition === "Top") {
         this.renderer.addClass(this.document.body, "vertical-overlay-menu");
       }
-    }
-    else { // on sidebar expand
+    } else {
+      // on sidebar expand
       this.renderer.addClass(this.document.body, "vertical-layout");
       this.renderer.addClass(this.document.body, "menu-expanded");
       this.renderer.addClass(this.document.body, "vertical-menu");
       if (this.config.layout.sidebar.collapsed) {
         this.renderer.removeClass(this.document.body, "menu-open");
-      }
-      else {
+      } else {
         this.renderer.addClass(this.document.body, "menu-open");
       }
       this.renderer.removeClass(this.document.body, "menu-hide");
@@ -296,18 +312,16 @@ export class FullLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   isTouchDevice() {
-
     const isMobile = this.deviceService.isMobile();
     const isTablet = this.deviceService.isTablet();
 
     if (isMobile || isTablet) {
-      if(!this.hideSidebar){
+      if (!this.hideSidebar) {
         this.renderer.addClass(this.document.body, "overflow-hidden");
       } else {
         this.renderer.removeClass(this.document.body, "overflow-hidden");
       }
     }
-
   }
 
   hideCompactMenuOnSmallScreen() {
@@ -320,11 +334,11 @@ export class FullLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //Remove transparent layout classes
   removeTransparentBGClasses() {
-    this.customizerService.transparent_colors.forEach(_ => {
+    this.customizerService.transparent_colors.forEach((_) => {
       this.renderer.removeClass(this.document.body, _.class);
     });
 
-    this.customizerService.transparent_colors_with_shade.forEach(_ => {
+    this.customizerService.transparent_colors_with_shade.forEach((_) => {
       this.renderer.removeClass(this.document.body, _.class);
     });
   }
@@ -348,15 +362,13 @@ export class FullLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
     window.scroll({
       top: 0,
       left: 0,
-      behavior: 'smooth'
+      behavior: "smooth",
     });
   }
 
   onOutsideClick(e) {
     if (this.innerWidth < 1200) {
-      if (
-        !e.target.classList.contains("toggleSidebarNavbarButton")
-      ) {
+      if (!e.target.classList.contains("toggleSidebarNavbarButton")) {
         this.layoutService.toggleSidebarSmallScreen(false);
       }
     }
@@ -370,24 +382,29 @@ export class FullLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
     this.isNavbarSeachTextEmpty = $event;
   }
 
-
-  @HostListener('window:resize', ['$event'])
+  @HostListener("window:resize", ["$event"])
   onResize(event) {
     if (this.resizeTimeout) {
       clearTimeout(this.resizeTimeout);
     }
-    this.resizeTimeout = setTimeout((() => {
-      this.innerWidth = event.target.innerWidth;
-      this.setMenuLayout();
-      this.hideCompactMenuOnSmallScreen();
-    }).bind(this), 500);
+    this.resizeTimeout = setTimeout(
+      (() => {
+        this.innerWidth = event.target.innerWidth;
+        this.setMenuLayout();
+        this.hideCompactMenuOnSmallScreen();
+      }).bind(this),
+      500
+    );
   }
-
 
   //Add/remove classes on page scroll
   @HostListener("window:scroll", [])
   onWindowScroll() {
-    let number = this.window.pageYOffset || this.document.documentElement.scrollTop || this.document.body.scrollTop || 0;
+    let number =
+      this.window.pageYOffset ||
+      this.document.documentElement.scrollTop ||
+      this.document.body.scrollTop ||
+      0;
     if (number > 60) {
       this.renderer.addClass(this.document.body, "navbar-scrolled");
     } else {
@@ -406,5 +423,4 @@ export class FullLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
       this.renderer.removeClass(this.document.body, "page-scrolled");
     }
   }
-
 }
