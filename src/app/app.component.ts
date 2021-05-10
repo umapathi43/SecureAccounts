@@ -58,13 +58,6 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
         preventDefault: true,
       },
       {
-        key: ["up up down down left right left right b a enter"],
-        label: "Sequences",
-        description: "Konami code!",
-        command: (output: ShortcutEventOutput) =>
-          console.log("Konami code!!!", output),
-      },
-      {
         key: ["ctrl  + esc"],
         label: "Help",
         description: "ctrl  + b",
@@ -117,13 +110,6 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
         description: "Sequence ? and a",
         command: (output: ShortcutEventOutput) => console.log("? a", output),
         preventDefault: true,
-      },
-      {
-        key: ["up up down down left right left right b a enter"],
-        label: "Sequences",
-        description: "Konami code!",
-        command: (output: ShortcutEventOutput) =>
-          console.log("Konami code!!!", output),
       },
       {
         key: "alt  + s",
