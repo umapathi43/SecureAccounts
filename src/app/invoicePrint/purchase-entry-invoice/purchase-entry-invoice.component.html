@@ -1,0 +1,934 @@
+<div class="modal-header p-2" id="modal">
+  <h5 class="modal-title" id="exampleModalLabel">Template Review</h5>
+  <div>
+    <button aria-label="Close" class="close" type="button">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+</div>
+
+<div class="modal-body pageClass" id="modal">
+  <div class="row h-100">
+    <div class="col-sm-5 col-md-4 h-100 print-setting-bg mt-n3 py-3">
+      <form
+        class="d-flex flex-column ng-untouched ng-pristine ng-valid"
+        id="templateSettingForm"
+        novalidate=""
+      >
+        <div class="settings">
+          <ul
+            class="nav nav-tabs print-set-tab"
+            id="myTab"
+            role="tablist"
+            style="font-size: 10px"
+          >
+            <li class="nav-item" role="presentation">
+              <a
+                aria-selected="false"
+                class="nav-link active"
+                data-toggle="tab"
+                role="tab"
+                id="general"
+                [ngClass]="{ active: activeTab === 'general' }"
+                (click)="activeswitch('general')"
+                >General</a
+              >
+            </li>
+            <li class="nav-item" role="presentation">
+              <a
+                aria-selected="false"
+                class="nav-link"
+                data-toggle="tab"
+                role="tab"
+                id="company"
+                [ngClass]="{ active: activeTab === 'company' }"
+                (click)="activeswitch('company')"
+                >Company</a
+              >
+            </li>
+            <li class="nav-item" role="presentation">
+              <a
+                aria-selected="false"
+                class="nav-link"
+                data-toggle="tab"
+                role="tab"
+                id="patient"
+                [ngClass]="{ active: activeTab === 'patient' }"
+                (click)="activeswitch('patient')"
+                >Patient</a
+              >
+            </li>
+            <li class="nav-item" role="presentation">
+              <a
+                aria-selected="false"
+                class="nav-link"
+                data-toggle="tab"
+                role="tab"
+                id="itemtable"
+                [ngClass]="{ active: activeTab === 'itemtable' }"
+                (click)="activeswitch('itemtable')"
+                >Item Table</a
+              >
+            </li>
+            <li class="nav-item" role="presentation">
+              <a
+                aria-selected="false"
+                class="nav-link"
+                data-toggle="tab"
+                role="tab"
+                id="footer"
+                [ngClass]="{ active: activeTab === 'footer' }"
+                (click)="activeswitch('footer')"
+                >Footer</a
+              >
+            </li>
+          </ul>
+          <div class="tab-content" id="print-set-tab">
+            <div
+              class="tab-pane fade show active"
+              id="general"
+              [ngClass]="{ active: activeTab === 'general' }"
+            >
+              <div class="print-setting">
+                <div class="row m-0">
+                  <div class="col-lg-6 pl-0">
+                    <div class="form-group">
+                      <label for="">Title Text</label
+                      ><input
+                        autocomplete="off"
+                        class="form-control ng-untouched ng-pristine ng-valid"
+                        formconclass="form-control"
+                        type="text"
+                        name="myTitle"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-lg-2 pl-0">
+                    <div class="form-group">
+                      <label for="">Color</label
+                      ><input
+                        class="
+                          form-control
+                          p-0
+                          ng-untouched ng-pristine ng-valid
+                        "
+                        style="width: 30px"
+                        type="color"
+                        id="tableHeaderColor"
+                        name="tableHeaderColor"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-lg-4 pl-0">
+                    <div class="form-group">
+                      <label for="">Email Color</label
+                      ><input
+                        class="
+                          form-control
+                          p-0
+                          ng-untouched ng-pristine ng-valid
+                        "
+                        style="width: 30px"
+                        type="color"
+                        id="emailColor"
+                        name="emailColor"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-lg-6 pl-0 mt-3">
+                    <div class="form-group">
+                      <label for="">Font Size</label
+                      ><select
+                        class="form-control ng-untouched ng-pristine ng-valid"
+                        id="fontSize"
+                        name="fontSize"
+                        style="display: block"
+                      >
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-lg-12 pl-0">
+                    <div class="form-group">
+                      <label for="">Margin (Inch)</label>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 pl-0">
+                    <div class="form-group">
+                      <label for="">Left</label
+                      ><input
+                        autocomplete="off"
+                        class="form-control ng-untouched ng-pristine ng-valid"
+                        formconclass="form-control"
+                        type="text"
+                        name="leftMargin"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-lg-3 pl-0">
+                    <div class="form-group">
+                      <label for="">Top</label
+                      ><input
+                        autocomplete="off"
+                        class="form-control ng-untouched ng-pristine ng-valid"
+                        formconclass="form-control"
+                        type="text"
+                        name="topMargin"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-lg-3 pl-0">
+                    <div class="form-group">
+                      <label for="">Right</label
+                      ><input
+                        autocomplete="off"
+                        class="form-control ng-untouched ng-pristine ng-valid"
+                        formconclass="form-control"
+                        type="text"
+                        name="rightMargin"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-lg-3">
+                    <div class="form-group">
+                      <label for="">Bottom</label
+                      ><input
+                        autocomplete="off"
+                        class="form-control ng-untouched ng-pristine ng-valid"
+                        formconclass="form-control"
+                        type="text"
+                        name="bottomMargin"
+                      />
+                    </div>
+                  </div>
+                  <div class="custom-control custom-checkbox">
+                    <div class="custom-control py-2 custom-checkbox">
+                      <input
+                        class="
+                          custom-control-input
+                          ng-untouched ng-pristine ng-valid
+                        "
+                        type="checkbox"
+                        name="hideVerticalLine"
+                        id="hideVerticalLine-control"
+                      /><label
+                        class="custom-control-label"
+                        for="hideVerticalLine"
+                        >Hide Vertical Lines
+                      </label>
+                    </div>
+                  </div>
+                  <div class="custom-control custom-checkbox">
+                    <div class="custom-control py-2 custom-checkbox">
+                      <input
+                        class="
+                          custom-control-input
+                          ng-untouched ng-pristine ng-valid
+                        "
+                        type="checkbox"
+                        name="pageBorder"
+                        id="pageBorder-control"
+                      /><label class="custom-control-label" for="pageBorder"
+                        >Repeat header in all page
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="tab-pane fade show"
+              id="company"
+              [ngClass]="{
+                active: activeTab === 'company'
+              }"
+            >
+              <div class="print-setting">
+                <div class="row m-0">
+                  <div class="col-6 pl-0">
+                    <div class="custom-control py-2 custom-checkbox">
+                      <input
+                        class="
+                          custom-control-input
+                          ng-untouched ng-pristine ng-valid
+                        "
+                        type="checkbox"
+                        name="cPhone"
+                        id="cPhone-control"
+                      /><label class="custom-control-label" for="cPhone"
+                        >Mobile No.
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-6 pl-0">
+                    <div class="custom-control py-2 custom-checkbox">
+                      <input
+                        class="
+                          custom-control-input
+                          ng-untouched ng-pristine ng-valid
+                        "
+                        type="checkbox"
+                        name="cAddress"
+                        id="cAddress-control"
+                      /><label class="custom-control-label" for="cAddress"
+                        >Address
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-6 pl-0">
+                    <div class="custom-control py-2 custom-checkbox">
+                      <input
+                        class="
+                          custom-control-input
+                          ng-untouched ng-pristine ng-valid
+                        "
+                        type="checkbox"
+                        name="cGstin"
+                        id="cGstin-control"
+                      /><label class="custom-control-label" for="cGstin"
+                        >GSTIN
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-6 pl-0">
+                    <div class="custom-control py-2 custom-checkbox">
+                      <input
+                        class="
+                          custom-control-input
+                          ng-untouched ng-pristine ng-valid
+                        "
+                        type="checkbox"
+                        name="cEmail"
+                        id="cEmail-control"
+                      /><label class="custom-control-label" for="cEmail"
+                        >Email
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="tab-pane fade show"
+              role="tabpanel"
+              id="patient"
+              [ngClass]="{ active: activeTab === 'patient' }"
+            >
+              <div class="print-setting">
+                <div class="row m-0">
+                  <div class="col-6 pl-0">
+                    <div class="custom-control py-2 custom-checkbox">
+                      <input
+                        class="
+                          custom-control-input
+                          ng-untouched ng-pristine ng-valid
+                        "
+                        type="checkbox"
+                        name="pName"
+                        id="pName-control"
+                      /><label class="custom-control-label" for="pName"
+                        >Patient Name
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-6 pl-0">
+                    <div class="custom-control py-2 custom-checkbox">
+                      <input
+                        class="
+                          custom-control-input
+                          ng-untouched ng-pristine ng-valid
+                        "
+                        type="checkbox"
+                        name="userName"
+                        id="userName-control"
+                      /><label class="custom-control-label" for="userName"
+                        >Address
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-6 pl-0">
+                    <div class="custom-control py-2 custom-checkbox">
+                      <input
+                        class="
+                          custom-control-input
+                          ng-untouched ng-pristine ng-valid
+                        "
+                        type="checkbox"
+                        name="pMobile"
+                        id="pMobile-control"
+                      /><label class="custom-control-label" for="pMobile"
+                        >Mobile No.
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="tab-pane fade show"
+              role="tabpanel"
+              id="itemtable"
+              [ngClass]="{ active: activeTab === 'itemtable' }"
+            >
+              <div class="print-setting">
+                <div class="row m-0">
+                  <div class="col-6 pl-0">
+                    <div class="custom-control py-2 custom-checkbox">
+                      <input
+                        class="
+                          custom-control-input
+                          ng-untouched ng-pristine ng-valid
+                        "
+                        type="checkbox"
+                        name="igstper"
+                        id="igstper-control"
+                      /><label class="custom-control-label" for="igstper"
+                        >Gst
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-6 pl-0">
+                    <div class="custom-control py-2 custom-checkbox">
+                      <input
+                        class="
+                          custom-control-input
+                          ng-untouched ng-pristine ng-valid
+                        "
+                        type="checkbox"
+                        name="salepurchaserate"
+                        id="salepurchaserate-control"
+                      /><label
+                        class="custom-control-label"
+                        for="salepurchaserate"
+                        >Rate
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="tab-pane fade show"
+              role="tabpanel"
+              id="footer"
+              [ngClass]="{ active: activeTab === 'footer' }"
+            >
+              <div class="print-setting">
+                <div class="row m-0">
+                  <div class="col-6 pl-0">
+                    <div class="custom-control py-2 custom-checkbox">
+                      <input
+                        class="
+                          custom-control-input
+                          ng-untouched ng-pristine ng-valid
+                        "
+                        type="checkbox"
+                        name="footerTermsCondition"
+                        id="footerTermsCondition-control"
+                      /><label
+                        class="custom-control-label"
+                        for="footerTermsCondition"
+                        >Terms &amp; Condition
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="col-12 p-0">
+                    <textarea
+                      class="form-control ng-untouched ng-pristine ng-valid"
+                      formcontrolname="terms"
+                      id="txtfooterTermsCondition"
+                      name="terms"
+                      rows="8"
+                      type="text"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="save-temp">
+          <hr />
+          <div class="custom-control custom-checkbox">
+            <input
+              class="custom-control-input ng-untouched ng-pristine ng-valid"
+              formcontrolname="isDefault"
+              id="savetemplate"
+              name="isDefault"
+              type="checkbox"
+            /><label class="custom-control-label" for="savetemplate"
+              >Save as Template</label
+            >
+          </div>
+          <div class="form-group d-flex justify-content-between mt-3">
+            <input
+              class="form-control ng-untouched ng-pristine ng-valid"
+              formcontrolname="name"
+              name="name"
+              style="height: 30px"
+              type="text"
+            /><button class="btn blue-btn ml-3 px-4">Save</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div
+      class="
+        col-sm-9 col-md-8
+        h-100
+        print-pre
+        d-flex
+        justify-content-center
+        align-items-start
+        col-sm-12
+      "
+      style="overflow: auto"
+    >
+      <div
+        class="shadow bg-white"
+        id="template-parent"
+        style="width: 4in; padding: 0.1in"
+      >
+        <div id="innerHTMLParent" style="position: relative">
+          <table
+            id="my-table"
+            #mytable=""
+            width="100%"
+            cellspacing="0"
+            cellpadding="0"
+            style="
+              border: 2px solid #000000;
+              font-family: Arial;
+              color: #000000;
+            "
+          >
+            <tbody>
+              <tr>
+                <td
+                  colspan="2"
+                  style="
+                    font-size: 19px;
+                    -webkit-print-color-adjust: exact;
+                    font-family: Arial;
+                    font-weight: 600;
+                    text-align: center;
+                    border-bottom: 1px solid #000000;
+                    text-transform: uppercase;
+                    height: 25px;
+                    line-height: 25px;
+                  "
+                >
+                  <span id="myTitle" style="display: block">Sale Challan</span>
+                </td>
+              </tr>
+              <tr style="border-bottom: 1px solid #000000">
+                <td
+                  colspan="2"
+                  style="
+                    font-size: 12px;
+                    font-family: Arial;
+                    font-weight: 600;
+                    text-transform: capitalize;
+                    text-align: center;
+                    padding: 3px;
+                    line-height: 1.2;
+                    vertical-align: top;
+                  "
+                >
+                  <b style="font-size: 16px" id="cName">Demo Chemist Shop </b>
+                  <br />
+                  <span id="cAddress" style="display: block"
+                    >Marg Tower, Plot No-7, Wazirpur, <br />
+                    07 Delhi, Delhi-110035 (INDIA)<br
+                  /></span>
+                  <span id="cPhone" style="display: block"
+                    >Phone : 9876543210 <br
+                  /></span>
+                  <span
+                    id="cEmail"
+                    style="color: rgb(9, 72, 179); display: block"
+                    >E-mail :
+                    <span id="myEmail" class="cEmail"
+                      >info@margcompusoft.com
+                    </span>
+                    <br
+                  /></span>
+                  <span id="cGstin" style="display: block">
+                    07ASDFG1234A1ZE
+                  </span>
+                </td>
+              </tr>
+
+              <tr>
+                <td colspan="2">
+                  <table
+                    cellspacing="0"
+                    cellpadding="0"
+                    width="100%"
+                    style="
+                      border-bottom: 1px solid #000000;
+                      border-top: 1px solid #000000;
+                    "
+                  >
+                    <tbody>
+                      <tr>
+                        <td style="padding: 3px; font-size: 12px">
+                          <span id="pName" style="display: block"
+                            >Customer : <b class="pName">PRASHANT</b> <br
+                          /></span>
+                          <span id="pMobile" style="display: block">
+                            Mobile : <b class="pMobile">0000000000</b><br
+                          /></span>
+                          <span id="userName" style="display: block">
+                            User : <b class="userName">Marg</b></span
+                          >
+                        </td>
+
+                        <td
+                          style="
+                            font-size: 12px;
+                            text-align: right;
+                            padding: 3px;
+                          "
+                        >
+                          Bill No. : <b id="entryNo">000040</b> <br />
+                          Date : <b id="entryDate">31-03-2020</b><br />
+                          Time : <b id="entryTime">18:02</b>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+
+              <tr>
+                <td
+                  colspan="2"
+                  style="
+                    font-size: 12px;
+                    font-family: Arial;
+                    font-weight: 600;
+                    -webkit-print-color-adjust: exact;
+                  "
+                >
+                  <table
+                    id="inner-table"
+                    cellspacing="0"
+                    cellpadding="0"
+                    width="100%"
+                  >
+                    <thead
+                      id="myThead"
+                      style="background-color: rgb(255, 255, 255)"
+                    >
+                      <tr id="table-header-parent" style="font-size: 12px">
+                        <th
+                          id="index"
+                          scope="col"
+                          width="20px"
+                          style="
+                            text-align: left;
+                            line-height: 1.5;
+                            padding: 3px;
+                            border-bottom: 1px solid #000000;
+                          "
+                        >
+                          S.n.
+                        </th>
+
+                        <th
+                          id="cus_itemname"
+                          scope="col"
+                          style="
+                            text-align: left;
+                            line-height: 1.5;
+                            padding: 3px;
+                            border-bottom: 1px solid #000000;
+                          "
+                        >
+                          Description
+                        </th>
+                        <th
+                          id="quantity"
+                          scope="col"
+                          width="20px"
+                          style="
+                            text-align: left;
+                            line-height: 1.5;
+                            padding: 3px;
+                            border-bottom: 1px solid #000000;
+                          "
+                        >
+                          Qty.
+                        </th>
+                        <th
+                          id="salePurchaseRate"
+                          scope="col"
+                          width="80px"
+                          style="
+                            text-align: right;
+                            line-height: 1.5;
+                            padding: 3px;
+                            border-bottom: 1px solid rgb(0, 0, 0);
+                            display: table-cell;
+                          "
+                        >
+                          Rate
+                        </th>
+                        <th
+                          id="igstper"
+                          scope="col"
+                          width="20px"
+                          style="
+                            text-align: right;
+                            line-height: 1.5;
+                            padding: 3px;
+                            border-bottom: 1px solid rgb(0, 0, 0);
+                            display: table-cell;
+                          "
+                        >
+                          GST%
+                        </th>
+                        <th
+                          id="amount"
+                          scope="col"
+                          width="90px"
+                          style="
+                            text-align: right;
+                            line-height: 1.5;
+                            padding: 3px;
+                            border-bottom: 1px solid #000000;
+                          "
+                        >
+                          Amount
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody id="rows">
+                      <tr style="height: 21px">
+                        <td
+                          style="
+                            padding: 0px 3px;
+                            height: 5px;
+                            border-right: 1px solid rgb(0, 0, 0);
+                          "
+                        >
+                          1.
+                        </td>
+                        <td
+                          style="
+                            padding: 0px 3px;
+                            border-right: 1px solid rgb(0, 0, 0);
+                          "
+                        >
+                          10% INVERT SUGAR
+                        </td>
+                        <td
+                          style="
+                            text-align: right;
+                            padding: 0px 3px;
+                            border-right: 1px solid rgb(0, 0, 0);
+                          "
+                        >
+                          1
+                        </td>
+                        <td
+                          style="
+                            text-align: right;
+                            padding: 0px 3px;
+                            border-right: 1px solid rgb(0, 0, 0);
+                            display: table-cell;
+                          "
+                        >
+                          500.00
+                        </td>
+                        <td
+                          style="
+                            text-align: right;
+                            padding: 0px 3px;
+                            border-right: 1px solid rgb(0, 0, 0);
+                            display: table-cell;
+                          "
+                        >
+                          12.00
+                        </td>
+                        <td
+                          style="
+                            text-align: right;
+                            padding: 0px 3px;
+                            border-right: 1px solid rgb(0, 0, 0);
+                          "
+                        >
+                          500.00
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <table cellspacing="0" cellpadding="0" width="100%">
+                    <tbody>
+                      <tr>
+                        <td
+                          colspan="2"
+                          style="
+                            padding: 3px;
+                            border-top: 1px solid #000000;
+                            border-bottom: 1px solid #000000;
+                            width: 200px;
+                          "
+                        >
+                          <table
+                            cellspacing="0"
+                            cellpadding="0"
+                            width="100%"
+                            style="
+                              font-size: 15px;
+                              color: #000000;
+                              text-align: right;
+                              font-weight: bold;
+                            "
+                          >
+                            <tbody>
+                              <tr>
+                                <td style="text-align: left">Sub Total</td>
+                                <td style="text-align: right" id="subtotal">
+                                  446.43
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td
+                          style="
+                            vertical-align: top;
+                            padding-top: 3px;
+                            width: 50%;
+                          "
+                        >
+                          <table
+                            cellspacing="0"
+                            cellpadding="0"
+                            width="100%"
+                            style="
+                              font-size: 12px;
+                              font-weight: bold;
+                              padding: 3px;
+                            "
+                          >
+                            <tbody id="additionalexpense">
+                              <tr>
+                                <td>SGST Amt.</td>
+                                <td style="text-align: right">26.79</td>
+                              </tr>
+                              <tr>
+                                <td>CGST Amt.</td>
+                                <td style="text-align: right">26.79</td>
+                              </tr>
+                              <tr>
+                                <td>Roundoff</td>
+                                <td style="text-align: right">0.00</td>
+                              </tr>
+                            </tbody>
+                            <tbody>
+                              <tr>
+                                <td style="font-size: 16px">Grand Total</td>
+                                <td
+                                  style="text-align: right; font-size: 16px"
+                                  id="totalinvoice"
+                                >
+                                  500.00
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          colspan="2"
+                          style="
+                            padding: 3px;
+                            font-size: 14px;
+                            font-weight: bold;
+                            border-top: 1px solid #000000;
+                            border-bottom: 1px solid #000000;
+                          "
+                        >
+                          <b>Rs.</b
+                          ><span id="amountinwords"> Five Hundred Only.</span>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td
+                          colspan="2"
+                          style="
+                            font-size: 14px;
+                            font-weight: 600;
+                            padding-top: 5px;
+                            padding-left: 3px;
+                          "
+                        >
+                          <div id="footerTermsCondition" style="display: block">
+                            <b>Terms &amp; Conditions:-</b><br />
+                            <div
+                              style="
+                                padding: 15px;
+                                margin-left: 5px;
+                                font-size: 12px;
+                              "
+                            >
+                              1) Goods once sold not be taken back &amp; no cash
+                              Refund.<br />2) Good may be exchanged with in week
+                              only on the presentation of Cash Memo(timing:13pm
+                              to 4pm).<br />3) No Gurantee for Colours &amp;
+                              Pillings.
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding: 3px; font-size: 14px; font-weight: bold">
+                  E.&amp;.O.E
+                </td>
+                <td
+                  style="
+                    padding: 3px;
+                    font-size: 14px;
+                    font-weight: bold;
+                    text-align: right;
+                  "
+                >
+                  For "Demo Chemist Shop"
+                  <br />
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2" style="text-align: center">
+                  <!-- <span style="font-family:Georgia, " times="" new="" roman",="" times,="" serif;="" font-style:="" italic;="" font-size:="" 16px;"="">
+              !!! Thanks !!! Visit Again !!!</span> -->
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

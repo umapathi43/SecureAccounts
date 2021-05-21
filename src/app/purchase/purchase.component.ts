@@ -26,6 +26,7 @@ import {
 import { ToastrService } from "ngx-toastr";
 import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
+import { PurchaseEntryInvoiceComponent } from "app/invoicePrint/purchase-entry-invoice/purchase-entry-invoice.component";
 
 export class Purchase {
   public sname: string;
@@ -147,13 +148,15 @@ export class PurchaseComponent implements OnInit {
       },
     });
   }
-  toggleCustomizer() {
+  toggleCustomizer(action?) {
     if (this.isOpen) {
       this.renderer.removeClass(this.customizer.nativeElement, "open");
       this.isOpen = false;
     } else {
-      this.renderer.addClass(this.customizer.nativeElement, "open");
-      this.isOpen = true;
+      if (!action) {
+        this.renderer.addClass(this.customizer.nativeElement, "open");
+        this.isOpen = true;
+      }
     }
   }
 
@@ -449,10 +452,12 @@ export class PurchaseComponent implements OnInit {
     this.isNavbarSeachTextEmpty = true;
   }
   addsupplierPop(action) {
-    this.closeCustomizer();
-    this.popUpselect = true;
-    this.toggleCustomizer();
-    this.model.sname = this.supplierName;
+    if (!action) {
+      this.closeCustomizer();
+      this.popUpselect = true;
+      this.toggleCustomizer(action);
+      this.model.sname = this.supplierName;
+    }
     // if (this.supFlag && (action == undefined || action == "")) {
     //   const modalRef = this.modalService.open(AddsupplierComponent);
     //   modalRef.componentInstance.id = 0; // should be the id
@@ -853,6 +858,25 @@ export class PurchaseComponent implements OnInit {
     } else {
       this.inputFile.nativeElement.value = "";
     }
+  }
+  keytab(event) {
+    debugger;
+    let value = event.srcElement.value; // get the sibling element
+    let element = event.srcElement.nextElementSibling;
+    console.log(event.srcElement.nextElementSibling, "dfghjk");
+    if (event.keyCode === 13 && !value)
+      // check if its null
+      return;
+    else {
+      // element.preventDefault();
+      element.focus();
+    } // focus if not null
+  }
+  openXl(content) {
+    this.modalService.open(PurchaseEntryInvoiceComponent, {
+      size: "xl",
+      scrollable: true,
+    });
   }
 }
 
