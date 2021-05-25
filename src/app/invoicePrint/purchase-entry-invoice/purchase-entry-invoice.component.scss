@@ -1,5 +1,6 @@
 .print-setting-bg {
   background-color: #f1f1f1;
+  height: 100% !important;
 }
 
 .mt-n3,
@@ -77,4 +78,14 @@
   border: none;
   border-bottom: 2px solid var(--primary-color600);
   font-family: RobotoFont-bold, Arial, Helvetica, sans-serif;
+}
+.print-pre .pp-page {
+  overflow: auto;
+  height: 100%;
+}
+.shadow {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+.bg-white {
+  background-color: #fff !important;
 }

@@ -95,11 +95,10 @@
                     <div class="form-group">
                       <label for="">Title Text</label
                       ><input
-                        autocomplete="off"
-                        class="form-control ng-untouched ng-pristine ng-valid"
-                        formconclass="form-control"
                         type="text"
-                        name="myTitle"
+                        name="invoiceNo"
+                        class="form-control"
+                        [(ngModel)]="titleText"
                       />
                     </div>
                   </div>
@@ -116,6 +115,8 @@
                         type="color"
                         id="tableHeaderColor"
                         name="tableHeaderColor"
+                        #tableHeaderColor="ngModel"
+                        [(ngModel)]="headercolor"
                       />
                     </div>
                   </div>
@@ -131,25 +132,28 @@
                         style="width: 30px"
                         type="color"
                         id="emailColor"
-                        name="emailColor"
+                        name="emailColorcode"
+                        #emailColorcode="ngModel"
+                        [(ngModel)]="emailColor"
                       />
                     </div>
                   </div>
                   <div class="col-lg-6 pl-0 mt-3">
                     <div class="form-group">
-                      <label for="">Font Size</label
-                      ><select
+                      <label for="">Font Size</label>
+                      <select
+                        id="basic-form-6"
+                        name="bestBefore"
+                        required
+                        [(ngModel)]="rowFontSize"
                         class="form-control ng-untouched ng-pristine ng-valid"
-                        id="fontSize"
-                        name="fontSize"
-                        style="display: block"
                       >
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
+                        <option value="9px">9</option>
+                        <option value="10px">10</option>
+                        <option value="11px">11</option>
+                        <option value="12px">12</option>
+                        <option value="13px">13</option>
+                        <option value="14px">14</option>
                       </select>
                     </div>
                   </div>
@@ -164,9 +168,10 @@
                       ><input
                         autocomplete="off"
                         class="form-control ng-untouched ng-pristine ng-valid"
-                        formconclass="form-control"
                         type="text"
-                        name="leftMargin"
+                        name="leftMargi"
+                        [(ngModel)]="leftMargin"
+                        (ngModelChange)="marginChange(leftMargin, 'left')"
                       />
                     </div>
                   </div>
@@ -176,9 +181,10 @@
                       ><input
                         autocomplete="off"
                         class="form-control ng-untouched ng-pristine ng-valid"
-                        formconclass="form-control"
                         type="text"
                         name="topMargin"
+                        [(ngModel)]="topMargin"
+                        (ngModelChange)="marginChange(topMargin, 'top')"
                       />
                     </div>
                   </div>
@@ -188,9 +194,10 @@
                       ><input
                         autocomplete="off"
                         class="form-control ng-untouched ng-pristine ng-valid"
-                        formconclass="form-control"
                         type="text"
                         name="rightMargin"
+                        [(ngModel)]="rightMargin"
+                        (ngModelChange)="marginChange(rightMargin, 'right')"
                       />
                     </div>
                   </div>
@@ -200,22 +207,24 @@
                       ><input
                         autocomplete="off"
                         class="form-control ng-untouched ng-pristine ng-valid"
-                        formconclass="form-control"
                         type="text"
                         name="bottomMargin"
+                        [(ngModel)]="bottomMargin"
+                        (ngModelChange)="marginChange(bottomMargin, 'bottom')"
                       />
                     </div>
                   </div>
                   <div class="custom-control custom-checkbox">
                     <div class="custom-control py-2 custom-checkbox">
                       <input
+                        type="checkbox"
+                        checked
+                        name="customCheck"
+                        id="custom-check-1"
                         class="
                           custom-control-input
                           ng-untouched ng-pristine ng-valid
                         "
-                        type="checkbox"
-                        name="hideVerticalLine"
-                        id="hideVerticalLine-control"
                       /><label
                         class="custom-control-label"
                         for="hideVerticalLine"
@@ -491,9 +500,10 @@
       style="overflow: auto"
     >
       <div
-        class="shadow bg-white"
+        class="shadow bg-white pp-page"
         id="template-parent"
-        style="width: 4in; padding: 0.1in"
+        style="width: 4in"
+        [style.padding]="pringPadding"
       >
         <div id="innerHTMLParent" style="position: relative">
           <table
@@ -524,7 +534,9 @@
                     line-height: 25px;
                   "
                 >
-                  <span id="myTitle" style="display: block">Sale Challan</span>
+                  <span id="myTitle" style="display: block">
+                    {{ titleText }}</span
+                  >
                 </td>
               </tr>
               <tr style="border-bottom: 1px solid #000000">
@@ -554,7 +566,7 @@
                     id="cEmail"
                     style="color: rgb(9, 72, 179); display: block"
                     >E-mail :
-                    <span id="myEmail" class="cEmail"
+                    <span id="myEmail" class="cEmail" [style.color]="emailColor"
                       >info@margcompusoft.com
                     </span>
                     <br
@@ -623,10 +635,7 @@
                     cellpadding="0"
                     width="100%"
                   >
-                    <thead
-                      id="myThead"
-                      style="background-color: rgb(255, 255, 255)"
-                    >
+                    <thead id="myThead" [style.background-color]="headercolor">
                       <tr id="table-header-parent" style="font-size: 12px">
                         <th
                           id="index"
@@ -711,7 +720,7 @@
                       </tr>
                     </thead>
                     <tbody id="rows">
-                      <tr style="height: 21px">
+                      <tr style="height: 21px" [style.font-size]="rowFontSize">
                         <td
                           style="
                             padding: 0px 3px;
