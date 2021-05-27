@@ -17,6 +17,22 @@ export class PurchaseEntryInvoiceComponent implements OnInit {
   rightMargin = ".1";
   topMargin = ".1";
   bottomMargin = ".1";
+  compMobileNo: any = true;
+  compAddress: any = true;
+  compGst: any = true;
+  compEmail: any = true;
+  patName: any = true;
+  patAddress: any = true;
+  patMobileNo: any = true;
+  itemName: any = true;
+  itemBatch: any = true;
+  footerCondi: any = true;
+  footerText: any = [
+    "1) Goods once sold not be taken back &amp; no cash  Refund.",
+    "2) Good may be exchanged with in week only on the presentation of Cash Memo(timing:13pm to 4pm).",
+    "3) No Gurantee for Colours &amp; Pillings.",
+  ];
+
   constructor() {}
 
   ngOnInit(): void {}
