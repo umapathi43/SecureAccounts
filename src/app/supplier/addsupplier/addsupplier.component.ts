@@ -17,11 +17,11 @@ export class Supplier {
   public mobileNo: string;
   public address1: string;
   public address2: string;
-  public gstType: string;
+  public gstType: any;
   public gstNo: string;
   public discount: number;
   public rateSlab: number;
-  public modeOfPayment: string;
+  public modeOfPayment: any;
   public creditLimit: number;
   public dueDays: number;
   public openingBal: number;
@@ -85,6 +85,8 @@ export class AddsupplierComponent implements OnInit {
     this._userService.getGstTypes().subscribe((ok) => {
       console.log(ok);
       this.gstTypeList = ok;
+      this.model.gstType = 3;
+      document.getElementById("basic-form-6").click();
     });
   }
 
@@ -92,6 +94,8 @@ export class AddsupplierComponent implements OnInit {
     this._userService.getPaymentModes().subscribe((ok) => {
       console.log(ok);
       this.paymentMethodList = ok;
+      this.model.modeOfPayment = 1;
+      document.getElementById("basic-form-6").click();
     });
   }
   onSubmit(form: any) {

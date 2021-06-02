@@ -93,6 +93,7 @@ export class PurchaseComponent implements OnInit {
   CustomeId: any;
   updatedRes: any;
   arrayList: any = [];
+  uploadFiles: any[];
   constructor(
     private _location: Location,
     private spinner: NgxSpinnerService,
@@ -749,118 +750,28 @@ export class PurchaseComponent implements OnInit {
     this._location.back();
   }
   onChange(evt) {
-    let obj1 = {
-      name: "",
-      batch: "",
-      expiryDate: "",
-      mfgDate: "",
-      mfgDatePicker: "",
-      bestBefore: "",
-      qty: "",
-      freeQty: "",
-      mrp: "",
-      purchaseRate: "",
-      discount: "",
-      discAmount: "",
-      schdiscAmount: "",
-      gst: "",
-      taxAmount: "",
-      qpk: "",
-      maxdate: 0,
-      srt: "",
-      grossAmt: "",
-      netAmt: "",
-      mfgdateFlag: false,
-      id: 0,
+    this.uploadFiles = [];
+    let file = evt.target.files[0];
+    let reader = new FileReader();
+    let filebinary;
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      filebinary = reader.result;
+      this.uploadfile(file, filebinary);
     };
-    // this.Items = [];
-    let data, header;
-    const target: DataTransfer = <DataTransfer>evt.target;
-    this.isExcelFile = !!target.files[0].name.match(/(.xls|.xlsx)/);
-    if (target.files.length > 1) {
-      this.inputFile.nativeElement.value = "";
-    }
-    if (this.isExcelFile) {
-      this.spinner.show(undefined, {
-        type: "ball-triangle-path",
-        size: "medium",
-      });
-      const reader: FileReader = new FileReader();
-      reader.onload = (e: any) => {
-        /* read workbook */
-        const bstr: string = e.target.result;
-        const wb: XLSX.WorkBook = XLSX.read(bstr, { type: "binary" });
-
-        /* grab first sheet */
-        const wsname: string = wb.SheetNames[0];
-        const ws: XLSX.WorkSheet = wb.Sheets[wsname];
-
-        /* save data */
-        data = XLSX.utils.sheet_to_json(ws);
-      };
-
-      reader.readAsBinaryString(target.files[0]);
-
-      reader.onloadend = (e) => {
-        this.spinner.hide();
-        this.keys = Object.keys(data[0]);
-        this.dataSheet.next(data);
-        this.arrayList = data;
-        if (this.arrayList.length > 0) {
-          this.Items = [];
-          this.arrayList.forEach((e) => {
-            let keyss = Object.keys(e);
-            let obj = Object.create(obj1);
-            keyss.forEach((k) => {
-              if (k === "Name") {
-                obj.name = e[k];
-              } else if (k === "Batch") {
-                obj.batch = e[k].toString();
-              } else if (k === "Expiry Date") {
-                obj.expiryDate = e[k];
-              } else if (k === "Mfg Date") {
-                obj.mfgDate = e[k];
-              } else if (k === "Best Before") {
-                obj.bestBefore = e[k].toString();
-              } else if (k === "Qty") {
-                obj.qty = e[k];
-              } else if (k === "Free Qty") {
-                obj.freeQty = e[k];
-              } else if (k === "MRP") {
-                obj.mrp = e[k];
-              } else if (k === "Purchase Rate") {
-                obj.purchaseRate = e[k];
-              } else if (k === "Disc Amount") {
-                obj.discAmount = e[k];
-              } else if (k === "Discount") {
-                obj.discount = e[k];
-              } else if (k === "Sch Disc Amount") {
-                obj.schdiscAmount = e[k];
-              } else if (k === "GST") {
-                obj.gst = e[k];
-              } else if (k === "Tax Amount") {
-                obj.taxAmount = e[k];
-              } else if (k === "QPK") {
-                obj.qpk = e[k].toString();
-              } else if (k === "SRT") {
-                obj.srt = e[k].toString();
-              } else if (k === "Gross Amt") {
-                obj.grossAmt = e[k].toString();
-              } else if (k === "Net Amt") {
-                obj.netAmt = e[k].toString();
-              }
-            });
-            this.addItem(obj);
-          });
-        }
-        console.log(this.Items, "this.items");
-      };
-    } else {
-      this.inputFile.nativeElement.value = "";
-    }
+    evt.target.value = "";
+  }
+  uploadfile(file, fileInBinary) {
+    var req = {
+      file: {
+        fileName: file.name,
+        filetype: file.type,
+        fileContent: fileInBinary.split(",")[1],
+      },
+    };
+    console.log("reeee", req);
   }
   keytab(event) {
-    debugger;
     let value = event.srcElement.value; // get the sibling element
     let element = event.srcElement.nextElementSibling;
     console.log(event.srcElement.nextElementSibling, "dfghjk");

@@ -17,7 +17,7 @@ export class User {
   public gstNo: string;
   public discount: number;
   public rateSlab: number;
-  public modeOfPayment: string;
+  public modeOfPayment: any;
   public creditLimit: number;
   public dueDays: number;
   public openingBal: number;
@@ -36,6 +36,8 @@ export class CreateuserComponent implements OnInit {
   model = new User();
   gstTypeList: any;
   paymentMethodList: any;
+  validationGood: boolean = false;
+  validationdirty: boolean = false;
   // submitted = false;
   constructor(
     private _location: Location,
@@ -61,6 +63,12 @@ export class CreateuserComponent implements OnInit {
     this._userService.getGstTypes().subscribe((ok) => {
       console.log(ok);
       this.gstTypeList = ok;
+      this.gstTypeList.forEach((t) => {
+        if (t.gstTypeName === "Unregister ") {
+          this.model.gstType = t.id;
+          document.getElementById("basic-form-6").click();
+        }
+      });
     });
   }
 
@@ -68,28 +76,35 @@ export class CreateuserComponent implements OnInit {
     this._userService.getPaymentModes().subscribe((ok) => {
       console.log(ok);
       this.paymentMethodList = ok;
+      this.model.modeOfPayment = 1;
+      document.getElementById("basic-form-6").click();
     });
   }
   onSubmit(form: any) {
+    debugger;
     console.log("clicked");
-    this.model.openingBalDate = new Date(this.toModel(this.popupModel));
-    console.log(this.model);
-    // this.submitted = true;
-    this._userService.addUser(this.model).subscribe(
-      (ok) => {
-        console.log(ok);
-        if (ok == "OK") {
-          this.toastr.success("Success", "User Updated");
-          this._location.back();
-        } else {
-          this.toastr.error("Failed", "Failed to update User");
+    if (!form.invalid) {
+      this.model.openingBalDate = new Date(this.toModel(this.popupModel));
+      console.log(this.model);
+      // this.submitted = true;
+      this._userService.addUser(this.model).subscribe(
+        (ok) => {
+          console.log(ok);
+          if (ok == "OK") {
+            this.toastr.success("Success", "User Updated");
+            this._location.back();
+          } else {
+            this.toastr.error("Failed", "Failed to update User");
+          }
+        },
+        (err) => {
+          console.log(err);
+          this.toastr.error("Failed", err.error.message);
         }
-      },
-      (err) => {
-        console.log(err);
-        this.toastr.error("Failed", err.error.message);
-      }
-    );
+      );
+    } else {
+      this.validationdirty = true;
+    }
   }
   onUpdate(form: any) {
     console.log("clicked");

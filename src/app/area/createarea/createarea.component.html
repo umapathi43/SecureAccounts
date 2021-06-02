@@ -6,7 +6,10 @@
     </div>
     <div class="card-content" id="frmcard">
       <div class="card-body">
-        <form #userForm="ngForm">
+        <form
+          #userForm="ngForm"
+          (ngSubmit)="userForm.form.valid && onSubmit(userForm)"
+        >
           <div class="row">
             <div class="col-md-2">
               <div class="form-group">
@@ -19,10 +22,20 @@
                   [(ngModel)]="model.areaName"
                   #aname="ngModel"
                   [ngClass]="{
-                    'is-invalid': userForm.submitted && aname.invalid
+                    'is-invalid': userForm.submitted && aname.invalid,
+                    'is-valid': userForm.submitted && !aname.invalid
                   }"
                   required
                 />
+                <div
+                  *ngIf="
+                    userForm.submitted &&
+                    (aname.invalid || aname.errors?.required)
+                  "
+                  class="invalid-tooltip"
+                >
+                  Please provide a valids Name.
+                </div>
               </div>
             </div>
 
@@ -37,7 +50,6 @@
                   [ngClass]="{
                     'is-invalid': userForm.submitted && route.invalid
                   }"
-                  required
                   class="form-control"
                 >
                   <option value="none" selected disabled>Route</option>
@@ -48,12 +60,7 @@
               </div>
             </div>
           </div>
-          <button
-            type="button"
-            *ngIf="!CustomeId"
-            class="btn btn-primary mr-2"
-            (click)="onSubmit(userForm)"
-          >
+          <button type="submit" *ngIf="!CustomeId" class="btn btn-primary mr-2">
             <i class="ft-check-square mr-1"></i>
             Save
           </button>
