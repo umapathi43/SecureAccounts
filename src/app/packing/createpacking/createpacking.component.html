@@ -17,7 +17,10 @@
     </div>
     <div class="card-content">
       <div class="card-body" id="frmcard">
-        <form #userForm="ngForm">
+        <form
+          #userForm="ngForm"
+          (ngSubmit)="userForm.form.valid && onSubmit(userForm)"
+        >
           <div class="row">
             <div class="col-md-2">
               <div class="form-group">
@@ -30,10 +33,20 @@
                   [(ngModel)]="model.packName"
                   #packName="ngModel"
                   [ngClass]="{
-                    'is-invalid': userForm.submitted && packName.invalid
+                    'is-invalid': userForm.submitted && packName.invalid,
+                    'is-valid': userForm.submitted && !packName.invalid
                   }"
                   required
                 />
+                <div
+                  *ngIf="
+                    userForm.submitted &&
+                    (packName.invalid || packName.errors?.required)
+                  "
+                  class="invalid-tooltip"
+                >
+                  Please provide a valids Name.
+                </div>
               </div>
             </div>
 
@@ -50,17 +63,11 @@
                   [ngClass]="{
                     'is-invalid': userForm.submitted && qty.invalid
                   }"
-                  required
                 />
               </div>
             </div>
           </div>
-          <button
-            type="button"
-            *ngIf="!CustomeId"
-            class="btn btn-primary mr-2"
-            (click)="onSubmit(userForm)"
-          >
+          <button type="submit" *ngIf="!CustomeId" class="btn btn-primary mr-2">
             <i class="ft-check-square mr-1"></i>
             Save
           </button>

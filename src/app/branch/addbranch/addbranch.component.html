@@ -6,7 +6,10 @@
     </div>
     <div class="card-content" id="frmcard">
       <div class="card-body">
-        <form #userForm="ngForm">
+        <form
+          #userForm="ngForm"
+          (ngSubmit)="userForm.form.valid && onSubmit(userForm)"
+        >
           <div class="row">
             <div class="col-md-2">
               <div class="form-group">
@@ -19,10 +22,20 @@
                   [(ngModel)]="model.branchName"
                   #bname="ngModel"
                   [ngClass]="{
-                    'is-invalid': userForm.submitted && bname.invalid
+                    'is-invalid': userForm.submitted && bname.invalid,
+                    'is-valid': userForm.submitted && !bname.invalid
                   }"
                   required
                 />
+                <div
+                  *ngIf="
+                    userForm.submitted &&
+                    (bname.invalid || bname.errors?.required)
+                  "
+                  class="invalid-tooltip"
+                >
+                  Please provide a valids Name.
+                </div>
               </div>
             </div>
             <div class="col-md-2">
@@ -38,7 +51,6 @@
                   [ngClass]="{
                     'is-invalid': userForm.submitted && addreess.invalid
                   }"
-                  required
                 />
               </div>
             </div>
@@ -55,7 +67,6 @@
                   [ngClass]="{
                     'is-invalid': userForm.submitted && contact_name.invalid
                   }"
-                  required
                 />
               </div>
             </div>
@@ -75,7 +86,6 @@
                   [ngClass]="{
                     'is-invalid': userForm.submitted && mobileNo.invalid
                   }"
-                  required
                 />
               </div>
             </div>
@@ -92,17 +102,11 @@
                   [ngClass]="{
                     'is-invalid': userForm.submitted && location.invalid
                   }"
-                  required
                 />
               </div>
             </div>
           </div>
-          <button
-            type="button"
-            *ngIf="!CustomeId"
-            class="btn btn-primary mr-2"
-            (click)="onSubmit(userForm)"
-          >
+          <button type="submit" *ngIf="!CustomeId" class="btn btn-primary mr-2">
             <i class="ft-check-square mr-1"></i>
             Save
           </button>

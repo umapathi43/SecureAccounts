@@ -6,7 +6,10 @@
     </div>
     <div class="card-content">
       <div class="card-body" id="frmcard">
-        <form #itmForm="ngForm">
+        <form
+          #itmForm="ngForm"
+          (ngSubmit)="itmForm.form.valid && createItem(itmForm)"
+        >
           <div class="form-row">
             <div class="col-md-2">
               <div class="form-group">
@@ -18,7 +21,21 @@
                   class="form-control"
                   name="itemname"
                   #itemname="ngModel"
+                  [ngClass]="{
+                    'is-invalid': itmForm.submitted && itemname.invalid,
+                    'is-valid': itmForm.submitted && !itemname.invalid
+                  }"
+                  required
                 />
+                <div
+                  *ngIf="
+                    itmForm.submitted &&
+                    (itemname.invalid || itemname.errors?.required)
+                  "
+                  class="invalid-tooltip"
+                >
+                  Please provide a valids Name.
+                </div>
               </div>
             </div>
             <div class="col-md-2">
@@ -329,12 +346,7 @@
               </div>
             </div>
           </div>
-          <button
-            type="button"
-            class="btn btn-primary mr-2"
-            *ngIf="!CustomeId"
-            (click)="createItem(itmForm)"
-          >
+          <button type="submit" class="btn btn-primary mr-2" *ngIf="!CustomeId">
             <i class="ft-check-square mr-1"></i>Save
           </button>
           <button

@@ -148,6 +148,8 @@ export class AdditemComponent implements OnInit {
     this._userService.getGstTypes().subscribe((ok) => {
       console.log("GST TYPES >>", ok);
       this.gstTypeList = ok;
+      this.model.gst = "Unregister ";
+      document.getElementById("frmcard").click();
     });
   }
 
