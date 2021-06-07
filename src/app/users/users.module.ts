@@ -1,13 +1,13 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { UsersRoutingModule } from './users-routing.module';
-import { UsersComponent } from './users.component';
-import { CreateuserComponent } from './createuser/createuser.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
-import { NgxSpinnerModule } from 'ngx-spinner';
-
+import { SharedModule } from "./../shared/shared.module";
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { NgxDatatableModule } from "@swimlane/ngx-datatable";
+import { UsersRoutingModule } from "./users-routing.module";
+import { UsersComponent } from "./users.component";
+import { CreateuserComponent } from "./createuser/createuser.component";
+import { NgbDateParserFormatter, NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { FormsModule } from "@angular/forms";
+import { NgxSpinnerModule } from "ngx-spinner";
 
 @NgModule({
   declarations: [UsersComponent, CreateuserComponent],
@@ -17,7 +17,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     UsersRoutingModule,
     NgxDatatableModule,
     NgbModule,
-    NgxSpinnerModule
-  ]
+    NgxSpinnerModule,
+    SharedModule,
+  ],
 })
-export class UsersModule { }
+export class UsersModule {}

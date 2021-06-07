@@ -181,4 +181,12 @@ export class AddsupplierComponent implements OnInit {
       event.preventDefault();
     }
   }
+  gstValidation(action) {
+    if (!action) {
+      this.model.gstType = 1;
+      document.getElementById("basic-form-6").click();
+    } else {
+      this.model.gstType = 3;
+    }
+  }
 }

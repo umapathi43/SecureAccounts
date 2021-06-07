@@ -64,7 +64,7 @@
                   <div class="input-group">
                     <input
                       class="form-control date-font"
-                      placeholder="yyyy-mm-dd"
+                      placeholder="dd-mm-yyyy"
                       name="indate"
                       #indate="ngModel"
                       [(ngModel)]="inVoiceDate"
@@ -95,7 +95,7 @@
                   <div class="input-group">
                     <input
                       class="form-control date-font"
-                      placeholder="yyyy-mm-dd"
+                      placeholder="dd-mm-yyyy"
                       name="entrydate"
                       #entrydate="ngModel"
                       [(ngModel)]="entrydateInvoice"
@@ -190,7 +190,7 @@
                   <div class="input-group">
                     <input
                       class="form-control date-font"
-                      placeholder="yyyy/mm/dd"
+                      placeholder="dd/mm/yyyy"
                       name="duedate"
                       #duedate="ngModel"
                       [(ngModel)]="duedateInvoice"
@@ -413,7 +413,7 @@
                 >
                   <input
                     class="form-control"
-                    placeholder="yyyy-mm-dd"
+                    placeholder="dd-mm-yyyy"
                     name="mfgDate{{ rowIndex }}"
                     [(ngModel)]="item.mfgDatePicker"
                     ngbDatepicker

@@ -15,7 +15,7 @@
                   <input
                     type="text"
                     name="fname"
-                    placeholder="yyyy-mm-dd"
+                    placeholder="dd-mm-yyyy"
                     class="form-control"
                     id="validationTooltip01"
                     [(ngModel)]="entryDatemodel"
@@ -159,7 +159,14 @@
                 >Show
                 <select
                   name="users-list-select"
-                  class="form-control form-control-sm d-inline-block width-100 p-right-25 pl-4 mx-1"
+                  class="
+                    form-control form-control-sm
+                    d-inline-block
+                    width-100
+                    p-right-25
+                    pl-4
+                    mx-1
+                  "
                   (click)="updateLimit($event)"
                 >
                   <option value="10">10</option>
@@ -173,7 +180,12 @@
                 >Search:
                 <input
                   id="ngx-filter-ref"
-                  class="form-control form-control-sm d-inline-block width-200 ml-1"
+                  class="
+                    form-control form-control-sm
+                    d-inline-block
+                    width-200
+                    ml-1
+                  "
                   type="text"
                   (keyup)="filterUpdate($event)"
                 />

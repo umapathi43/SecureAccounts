@@ -11,7 +11,7 @@
                   <div class="input-group">
                     <input
                       class="form-control date-font"
-                      placeholder="yyyy-mm-dd"
+                      placeholder="dd-mm-yyyy"
                       name="indate"
                       #indate="ngModel"
                       [(ngModel)]="orginDate"
@@ -128,7 +128,7 @@
                 >
                   <input
                     class="form-control"
-                    placeholder="yyyy-mm-dd"
+                    placeholder="dd-mm-yyyy"
                     name="enterexpiry{{ rowIndex }}"
                     [(ngModel)]="item.expiryDate"
                     ngbDatepicker

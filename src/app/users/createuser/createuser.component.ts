@@ -8,12 +8,14 @@ import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
 import { UserService } from "app/services/user.service";
 import { ToastrService } from "ngx-toastr";
+import { NgbDateParserFormatter, NgbDate } from "@ng-bootstrap/ng-bootstrap";
+import { NgbDateCustomParserFormatter } from "./../../services/date.service";
 export class User {
   public customerName: string;
   public mobileNo: string;
   public address1: string;
   public address2: string;
-  public gstType: string;
+  public gstType: any;
   public gstNo: string;
   public discount: number;
   public rateSlab: number;
@@ -24,6 +26,13 @@ export class User {
   public openingBalDate: any;
   public id: number;
 }
+function padNumber(value: number | null) {
+  if (!isNaN(value) && value !== null) {
+    return `0${value}`.slice(-2);
+  }
+  return "";
+}
+
 @Component({
   selector: "app-createuser",
   templateUrl: "./createuser.component.html",
@@ -36,8 +45,6 @@ export class CreateuserComponent implements OnInit {
   model = new User();
   gstTypeList: any;
   paymentMethodList: any;
-  validationGood: boolean = false;
-  validationdirty: boolean = false;
   // submitted = false;
   constructor(
     private _location: Location,
@@ -55,6 +62,9 @@ export class CreateuserComponent implements OnInit {
   ngOnInit(): void {
     this.getGstTpes();
     this.getPaymentModes();
+  }
+  onDateSelection(date: NgbDate) {
+    let selectedDate = NgbDateCustomParserFormatter.formatDate(date);
   }
   goBack() {
     this._location.back();
@@ -81,30 +91,24 @@ export class CreateuserComponent implements OnInit {
     });
   }
   onSubmit(form: any) {
-    debugger;
-    console.log("clicked");
-    if (!form.invalid) {
-      this.model.openingBalDate = new Date(this.toModel(this.popupModel));
-      console.log(this.model);
-      // this.submitted = true;
-      this._userService.addUser(this.model).subscribe(
-        (ok) => {
-          console.log(ok);
-          if (ok == "OK") {
-            this.toastr.success("Success", "User Updated");
-            this._location.back();
-          } else {
-            this.toastr.error("Failed", "Failed to update User");
-          }
-        },
-        (err) => {
-          console.log(err);
-          this.toastr.error("Failed", err.error.message);
+    this.model.openingBalDate = new Date(this.toModel(this.popupModel));
+    console.log(this.model);
+    // this.submitted = true;
+    this._userService.addUser(this.model).subscribe(
+      (ok) => {
+        console.log(ok);
+        if (ok) {
+          this.toastr.success("Success", "User Updated");
+          this._location.back();
+        } else {
+          this.toastr.error("Failed", "Failed to update User");
         }
-      );
-    } else {
-      this.validationdirty = true;
-    }
+      },
+      (err) => {
+        console.log(err);
+        this.toastr.error("Failed", err.error.message);
+      }
+    );
   }
   onUpdate(form: any) {
     console.log("clicked");
@@ -159,6 +163,14 @@ export class CreateuserComponent implements OnInit {
     let input = String.fromCharCode(event.charCode);
     if (event.keyCode != 8 && !pattern.test(input)) {
       event.preventDefault();
+    }
+  }
+  gstValidation(action) {
+    if (!action) {
+      this.model.gstType = 1;
+      document.getElementById("basic-form-6").click();
+    } else {
+      this.model.gstType = 3;
     }
   }
 }

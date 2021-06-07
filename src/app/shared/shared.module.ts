@@ -4,7 +4,7 @@ import { RouterModule } from "@angular/router";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { OverlayModule } from "@angular/cdk/overlay";
 
-import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { NgbDateParserFormatter, NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { TranslateModule } from "@ngx-translate/core";
 import { PerfectScrollbarModule } from "ngx-perfect-scrollbar";
 import { ClickOutsideModule } from "ng-click-outside";
@@ -31,6 +31,7 @@ import { TopMenuLinkDirective } from "./directives/topmenu-link.directive";
 import { TopMenuDropdownDirective } from "./directives/topmenu-dropdown.directive";
 import { TopMenuAnchorToggleDirective } from "./directives/topmenu-anchor-toggle.directive";
 import { PurchaseEntryInvoiceComponent } from "app/invoicePrint/purchase-entry-invoice/purchase-entry-invoice.component";
+import { NgbDateCustomParserFormatter } from "app/services/date.service";
 
 @NgModule({
   exports: [
@@ -79,5 +80,8 @@ import { PurchaseEntryInvoiceComponent } from "app/invoicePrint/purchase-entry-i
     PurchaseEntryInvoiceComponent,
   ],
   entryComponents: [PurchaseEntryInvoiceComponent],
+  providers: [
+    { provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter },
+  ],
 })
 export class SharedModule {}
