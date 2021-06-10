@@ -1,27 +1,29 @@
-import { Router } from '@angular/router';
-import { Injectable } from '@angular/core';
+import { HttpClient, HttpHandler, HttpHeaders } from "@angular/common/http";
+import { Router } from "@angular/router";
+import { Injectable } from "@angular/core";
 import { AngularFireAuth } from "@angular/fire/auth";
-import { User } from 'firebase';
-import { Observable } from 'rxjs';
+import { User } from "firebase";
+import { Observable } from "rxjs";
+import { ApiService } from "app/services/api.service";
 
 @Injectable()
 export class AuthService {
   private user: Observable<firebase.User>;
   private userDetails: firebase.User = null;
 
-  constructor(public _firebaseAuth: AngularFireAuth, public router: Router) {
+  constructor(
+    public _firebaseAuth: AngularFireAuth,
+    public router: Router,
+    public http: ApiService
+  ) {
     this.user = _firebaseAuth.authState;
-    this.user.subscribe(
-      (user) => {
-        if (user) {
-          this.userDetails = user;
-        }
-        else {
-          this.userDetails = null;
-        }
+    this.user.subscribe((user) => {
+      if (user) {
+        this.userDetails = user;
+      } else {
+        this.userDetails = null;
       }
-    );
-
+    });
   }
 
   signupUser(email: string, password: string) {
@@ -33,17 +35,24 @@ export class AuthService {
     // return this._firebaseAuth.signInWithEmailAndPassword(email, password)
 
     //uncomment above firebase auth code and remove this temp code
-    return new Promise(function(resolve, reject) {
-      setTimeout(function() {
-        resolve(true);
-      }, 1000);
-    });
-
+    // return new Promise(function(resolve, reject) {
+    //   setTimeout(function() {
+    //     resolve(true);
+    //   }, 1000);
+    // });
+    var httpoptions = {
+      header: new HttpHeaders({ Accept: "application/json" }),
+    };
+    var req = {
+      userName: email,
+      password: password,
+    };
+    return this.http.post("authenticate", req);
   }
 
   logout() {
     this._firebaseAuth.signOut();
-    this.router.navigate(['YOUR_LOGOUT_URL']);
+    this.router.navigate(["YOUR_LOGOUT_URL"]);
   }
 
   isAuthenticated() {
