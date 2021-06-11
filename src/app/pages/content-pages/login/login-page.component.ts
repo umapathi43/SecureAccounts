@@ -44,12 +44,12 @@ export class LoginPageComponent {
       color: "#fff",
       fullScreen: true,
     });
-    debugger;
     this.authService
       .signinUser(this.loginForm.value.username, this.loginForm.value.password)
-      .subscribe((res) => {
-        debugger;
+      .subscribe((res: any) => {
         if (res) {
+          debugger;
+          localStorage.setItem("token", res.token);
           this.spinner.hide();
           this.router.navigate(["/dashboard/dashboard1"]);
         }

@@ -32,6 +32,9 @@ import { TopMenuDropdownDirective } from "./directives/topmenu-dropdown.directiv
 import { TopMenuAnchorToggleDirective } from "./directives/topmenu-anchor-toggle.directive";
 import { PurchaseEntryInvoiceComponent } from "app/invoicePrint/purchase-entry-invoice/purchase-entry-invoice.component";
 import { NgbDateCustomParserFormatter } from "app/services/date.service";
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
+import { BasicAuthInterceptor } from "./interceptor/basic.interceptor";
+import { ErrorInterceptor } from "./interceptor/error.interceptor";
 
 @NgModule({
   exports: [
@@ -82,6 +85,8 @@ import { NgbDateCustomParserFormatter } from "app/services/date.service";
   entryComponents: [PurchaseEntryInvoiceComponent],
   providers: [
     { provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter },
+    // { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
 })
 export class SharedModule {}

@@ -1,3 +1,5 @@
+import { HttpHeaders } from "@angular/common/http";
+import { AuthService } from "./../shared/auth/auth.service";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { ApiService } from "./api.service";
@@ -6,9 +8,15 @@ import { ApiService } from "./api.service";
   providedIn: "root",
 })
 export class AccountService {
-  constructor(private http: ApiService) {}
+  userToken: any;
+  constructor(private http: ApiService, public auth: AuthService) {
+    this.userToken = this.auth.forLocalstorage();
+  }
+
   getAccounts(): Observable<any> {
-    return this.http.get("AccountSetup/getAccountDetails");
+    debugger;
+    let headers = new HttpHeaders().set("Authorization", this.userToken);
+    return this.http.get("AccountSetup/getAccountDetails", headers);
   }
 
   addAccount(data: any): Observable<any> {

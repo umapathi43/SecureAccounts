@@ -41,13 +41,13 @@ export class AuthService {
     //   }, 1000);
     // });
     var httpoptions = {
-      header: new HttpHeaders({ Accept: "application/json" }),
+      header: new HttpHeaders({ responseType: "text" as "json" }),
     };
     var req = {
       userName: email,
       password: password,
     };
-    return this.http.post("authenticate", req);
+    return this.http.post("authenticate", req, httpoptions);
   }
 
   logout() {
@@ -57,5 +57,9 @@ export class AuthService {
 
   isAuthenticated() {
     return true;
+  }
+  forLocalstorage() {
+    let token = localStorage.getItem("token");
+    return "Bearer " + token;
   }
 }

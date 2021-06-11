@@ -8,22 +8,24 @@ import {
 
 import { Router } from "@angular/router";
 import { environment } from "../../environments/environment";
+import { AuthService } from "app/shared/auth/auth.service";
 
 @Injectable({
   providedIn: "root",
 })
 export class ApiService {
   ApiUrl: string;
+  userToken: any;
   constructor(private http: HttpClient, private router: Router) {
+    // this.userToken = this.auth.forLocalstorage();
     this.ApiUrl = environment.ApiURL;
   }
-
   // http get method
-  get(url) {
+  get(url, headers?) {
     let httpOptions = {
       headers: new HttpHeaders({}),
     };
-    return this.http.get(this.ApiUrl + "/" + url, httpOptions);
+    return this.http.get(this.ApiUrl + "/" + url, headers);
   }
   delete(url) {
     let httpOptions = {
@@ -39,10 +41,10 @@ export class ApiService {
   }
 
   // http post method
-  post(url, data) {
+  post(url, data, headers?) {
     let httpOptions = {
-      headers: new HttpHeaders({}),
+      headers: new HttpHeaders({ Accept: "application/json" }),
     };
-    return this.http.post(this.ApiUrl + "/" + url, data, httpOptions);
+    return this.http.post(this.ApiUrl + "/" + url, data, headers);
   }
 }
