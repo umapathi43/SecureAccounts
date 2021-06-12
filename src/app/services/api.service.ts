@@ -21,11 +21,11 @@ export class ApiService {
     this.ApiUrl = environment.ApiURL;
   }
   // http get method
-  get(url, headers?) {
+  get(url) {
     let httpOptions = {
       headers: new HttpHeaders({}),
     };
-    return this.http.get(this.ApiUrl + "/" + url, headers);
+    return this.http.get(this.ApiUrl + "/" + url, httpOptions);
   }
   delete(url) {
     let httpOptions = {
@@ -41,10 +41,10 @@ export class ApiService {
   }
 
   // http post method
-  post(url, data, headers?) {
+  post(url, data) {
     let httpOptions = {
-      headers: new HttpHeaders({ Accept: "application/json" }),
+      headers: new HttpHeaders({}),
     };
-    return this.http.post(this.ApiUrl + "/" + url, data, headers);
+    return this.http.post(this.ApiUrl + "/" + url, data, httpOptions);
   }
 }

@@ -14,9 +14,8 @@ export class AccountService {
   }
 
   getAccounts(): Observable<any> {
-    debugger;
-    let headers = new HttpHeaders().set("Authorization", this.userToken);
-    return this.http.get("AccountSetup/getAccountDetails", headers);
+    // let headers = new HttpHeaders().set("Authorization", this.userToken);
+    return this.http.get("AccountSetup/getAccountDetails");
   }
 
   addAccount(data: any): Observable<any> {

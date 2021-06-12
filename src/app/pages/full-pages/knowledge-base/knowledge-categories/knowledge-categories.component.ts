@@ -1,16 +1,16 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { KBCategory } from '../knowledge-base.model';
-import { KnowledgeBaseService } from '../knowledge-base.service';
+import { Component } from "@angular/core";
+import { Router } from "@angular/router";
+import { KBCategory } from "../knowledge-base.model";
+import { KnowledgeBaseService } from "../knowledge-base.service";
 
 @Component({
-  selector: 'app-knowledge-categories',
-  templateUrl: './knowledge-categories.component.html',
-  styleUrls: ['./knowledge-categories.component.scss']
+  selector: "app-knowledge-categories",
+  templateUrl: "./knowledge-categories.component.html",
+  styleUrls: ["./knowledge-categories.component.scss"],
 })
-export class KnowledgeCategoriesComponent  {
+export class KnowledgeCategoriesComponent {
   kbCategories: KBCategory[] = [];
-  searchQuery: string = '';
+  searchQuery: string = "";
   page = 1;
   isShowCategory = false;
 
@@ -19,7 +19,6 @@ export class KnowledgeCategoriesComponent  {
   }
 
   viewQuestions(category: any) {
-    this.router.navigate(['/pages/kb/questions']);
+    this.router.navigate(["/kb/questions"]);
   }
-
 }

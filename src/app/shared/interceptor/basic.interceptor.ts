@@ -18,8 +18,6 @@ export class BasicAuthInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    debugger;
-    // const userToken = localStorage.getItem("token");
     if (
       req.url == "http://54.157.75.0:9191/authenticate" &&
       req.method === "POST"

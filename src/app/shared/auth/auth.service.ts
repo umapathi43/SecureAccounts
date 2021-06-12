@@ -47,12 +47,12 @@ export class AuthService {
       userName: email,
       password: password,
     };
-    return this.http.post("authenticate", req, httpoptions);
+    return this.http.post("authenticate", req);
   }
 
   logout() {
     this._firebaseAuth.signOut();
-    this.router.navigate(["YOUR_LOGOUT_URL"]);
+    this.router.navigate(["/login"]);
   }
 
   isAuthenticated() {

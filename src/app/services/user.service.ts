@@ -14,10 +14,8 @@ export class UserService {
   }
 
   getUsers(): Observable<any> {
-    let headers = new HttpHeaders().set("Authorization", this.userToken);
-    return this.http.get("AccountSetup/getCustomerDetails", {
-      headers,
-    });
+    // let headers = new HttpHeaders().set("Authorization", this.userToken);
+    return this.http.get("AccountSetup/getCustomerDetails");
   }
 
   addUser(data: any): Observable<any> {
