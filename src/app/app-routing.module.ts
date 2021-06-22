@@ -49,6 +49,7 @@ const appRoutes: Routes = [
         (m) => m.CashDepositModule
       ),
   },
+  { path: 'reports', loadChildren: () => import('./reports/reports.module').then(m => m.ReportsModule) },
   {
     path: "**",
     redirectTo: "pages/error",

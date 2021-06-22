@@ -1,0 +1,815 @@
+<div class="row h-100">
+  <div class="col-sm-12 col-md-12 h-100 mt-n3 py-3">
+    <div class="settings">
+      <ul
+        class="nav nav-tabs print-set-tab"
+        id="myTab"
+        role="tablist"
+        style="font-size: 10px"
+      >
+        <li class="nav-item" role="presentation">
+          <a
+            aria-selected="false"
+            class="nav-link active"
+            data-toggle="tab"
+            role="tab"
+            id="general"
+            [ngClass]="{ active: activeTab === 'account' }"
+            (click)="activeswitch('account')"
+            >Accounts Report</a
+          >
+        </li>
+        <li class="nav-item" role="presentation">
+          <a
+            aria-selected="false"
+            class="nav-link"
+            data-toggle="tab"
+            role="tab"
+            id="company"
+            [ngClass]="{ active: activeTab === 'invertory' }"
+            (click)="activeswitch('invertory')"
+            >Inventory Report
+          </a>
+        </li>
+      </ul>
+      <div class="tab-content" id="print-set-tab">
+        <div
+          class="tab-pane fade show active"
+          id="general"
+          [ngClass]="{ active: activeTab === 'account' }"
+        >
+          <div
+            class="tab-pane fade show active"
+            role="tabpanel"
+            id="menu100380659"
+            aria-labelledby="menu100380659"
+          >
+            <div class="pb-2 pb-md-4">
+              <div class="row">
+                <div class="col-xl-3 col-lg-6 col-md-6 col-12">
+                  <ul class="mgc">
+                    <li class="mgc-col item1">
+                      <div class="mgc-cont">
+                        <div class="mgc-shd"></div>
+                        <div class="d-flex align-items-center">
+                          <span class="atf-icn"
+                            ><a href="" [routerLink]="['/reports/details']"
+                              ><div class="fonticon-wrap">
+                                <i class="ft-star"></i></div></a></span
+                          ><a
+                            href="javascript:void(0);"
+                            [routerLink]="['/reports/details']"
+                            id="menu868441141"
+                            >Ledger</a
+                          >
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="mgc-cont">
+                        <div class="mgc-shd"></div>
+                        <div class="d-flex align-items-center">
+                          <span class="atf-icn"
+                            ><a href=""
+                              ><div class="fonticon-wrap">
+                                <i class="ft-star"></i></div></a></span
+                          ><a href="javascript:void(0);;" id="menu148333703"
+                            >Day Book</a
+                          >
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="mgc-cont">
+                        <div class="mgc-shd"></div>
+                        <div class="d-flex align-items-center">
+                          <span class="atf-icn"
+                            ><a href=""
+                              ><div class="fonticon-wrap">
+                                <i class="ft-star"></i></div></a></span
+                          ><a href="javascript:void(0);;" id="menu102118335"
+                            >Trial Balance</a
+                          >
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="mgc-cont">
+                        <div class="mgc-shd"></div>
+                        <div class="d-flex align-items-center">
+                          <span class="atf-icn"
+                            ><a href=""
+                              ><div class="fonticon-wrap">
+                                <i class="ft-star"></i></div></a></span
+                          ><a href="javascript:void(0);;" id="menu265760485"
+                            >Cash/Bank Books</a
+                          >
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="mgc-cont">
+                        <div class="mgc-shd"></div>
+                        <div class="d-flex align-items-center">
+                          <span class="atf-icn"
+                            ><a href=""
+                              ><div class="fonticon-wrap">
+                                <i class="ft-star"></i></div></a></span
+                          ><a href="javascript:void(0);;" id="menu895417243"
+                            >Group Summary</a
+                          >
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-xl-3 col-lg-6 col-md-6 col-12">
+                  <ul class="mgc">
+                    <h6>Outstanding Report</h6>
+                    <li class="">
+                      <ul class="mgc">
+                        Receivable
+                        <li class="inner">
+                          <div class="">
+                            <div class="mgc-shd"></div>
+                            <div class="d-flex align-items-center">
+                              <span class="atf-icn"
+                                ><a href=""
+                                  ><div class="fonticon-wrap">
+                                    <i class="ft-star"></i></div></a></span
+                              ><a href="javascript:void(0);;" id="menu868441141"
+                                >Ledger wise</a
+                              >
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="">
+                            <div class="mgc-shd"></div>
+                            <div class="d-flex align-items-center">
+                              <span class="atf-icn"
+                                ><a href=""
+                                  ><div class="fonticon-wrap">
+                                    <i class="ft-star"></i></div></a></span
+                              ><a href="javascript:void(0);;" id="menu868441141"
+                                >Area wise</a
+                              >
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="">
+                            <div class="mgc-shd"></div>
+                            <div class="d-flex align-items-center">
+                              <span class="atf-icn"
+                                ><a href=""
+                                  ><div class="fonticon-wrap">
+                                    <i class="ft-star"></i></div></a></span
+                              ><a href="javascript:void(0);;" id="menu868441141"
+                                >M.R wise</a
+                              >
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="">
+                            <div class="mgc-shd"></div>
+                            <div class="d-flex align-items-center">
+                              <span class="atf-icn"
+                                ><a href=""
+                                  ><div class="fonticon-wrap">
+                                    <i class="ft-star"></i></div></a></span
+                              ><a href="javascript:void(0);;" id="menu868441141"
+                                >Route wise</a
+                              >
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                      <ul class="mgc">
+                        Payable
+                        <li>
+                          <div class="">
+                            <div class="mgc-shd"></div>
+                            <div class="d-flex align-items-center">
+                              <span class="atf-icn"
+                                ><a href=""
+                                  ><div class="fonticon-wrap">
+                                    <i class="ft-star"></i></div></a></span
+                              ><a href="javascript:void(0);;" id="menu868441141"
+                                >Ledger wise</a
+                              >
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="">
+                            <div class="mgc-shd"></div>
+                            <div class="d-flex align-items-center">
+                              <span class="atf-icn"
+                                ><a href=""
+                                  ><div class="fonticon-wrap">
+                                    <i class="ft-star"></i></div></a></span
+                              ><a href="javascript:void(0);;" id="menu868441141"
+                                >Area wise</a
+                              >
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="">
+                            <div class="mgc-shd"></div>
+                            <div class="d-flex align-items-center">
+                              <span class="atf-icn"
+                                ><a href=""
+                                  ><div class="fonticon-wrap">
+                                    <i class="ft-star"></i></div></a></span
+                              ><a href="javascript:void(0);;" id="menu868441141"
+                                >M.R wise</a
+                              >
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="">
+                            <div class="mgc-shd"></div>
+                            <div class="d-flex align-items-center">
+                              <span class="atf-icn"
+                                ><a href=""
+                                  ><div class="fonticon-wrap">
+                                    <i class="ft-star"></i></div></a></span
+                              ><a href="javascript:void(0);;" id="menu868441141"
+                                >Route wise</a
+                              >
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <ul class="mgc">
+                    <h6>Misc Report</h6>
+                    <li class="">
+                      <div class="">
+                        <div class="mgc-shd"></div>
+                        <div class="d-flex align-items-center">
+                          <span class="atf-icn"
+                            ><a href=""
+                              ><div class="fonticon-wrap">
+                                <i class="ft-star"></i></div></a></span
+                          ><a href="javascript:void(0);;" id="menu868441141"
+                            >Internal Check</a
+                          >
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-xl-3 col-lg-6 col-md-6 col-12">
+                  <ul class="mgc">
+                    <li>
+                      <ul class="mgc">
+                        Receivable
+                        <li>
+                          <div class="">
+                            <div class="mgc-shd"></div>
+                            <div class="d-flex align-items-center">
+                              <span class="atf-icn"
+                                ><a href=""
+                                  ><div class="fonticon-wrap">
+                                    <i class="ft-star"></i></div></a></span
+                              ><a href="javascript:void(0);;" id="menu868441141"
+                                >Ledger wise</a
+                              >
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="">
+                            <div class="mgc-shd"></div>
+                            <div class="d-flex align-items-center">
+                              <span class="atf-icn"
+                                ><a href=""
+                                  ><div class="fonticon-wrap">
+                                    <i class="ft-star"></i></div></a></span
+                              ><a href="javascript:void(0);;" id="menu868441141"
+                                >Area wise</a
+                              >
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="">
+                            <div class="mgc-shd"></div>
+                            <div class="d-flex align-items-center">
+                              <span class="atf-icn"
+                                ><a href=""
+                                  ><div class="fonticon-wrap">
+                                    <i class="ft-star"></i></div></a></span
+                              ><a href="javascript:void(0);;" id="menu868441141"
+                                >M.R wise</a
+                              >
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="">
+                            <div class="mgc-shd"></div>
+                            <div class="d-flex align-items-center">
+                              <span class="atf-icn"
+                                ><a href=""
+                                  ><div class="fonticon-wrap">
+                                    <i class="ft-star"></i></div></a></span
+                              ><a href="javascript:void(0);;" id="menu868441141"
+                                >Route wise</a
+                              >
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-xl-3 col-lg-6 col-md-6 col-12">
+                  <ul class="mgc">
+                    <li>
+                      <ul class="mgc">
+                        Receivable
+                        <li>
+                          <div class="">
+                            <div class="mgc-shd"></div>
+                            <div class="d-flex align-items-center">
+                              <span class="atf-icn"
+                                ><a href=""
+                                  ><div class="fonticon-wrap">
+                                    <i class="ft-star"></i></div></a></span
+                              ><a href="javascript:void(0);;" id="menu868441141"
+                                >Ledger wise</a
+                              >
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="">
+                            <div class="mgc-shd"></div>
+                            <div class="d-flex align-items-center">
+                              <span class="atf-icn"
+                                ><a href=""
+                                  ><div class="fonticon-wrap">
+                                    <i class="ft-star"></i></div></a></span
+                              ><a href="javascript:void(0);;" id="menu868441141"
+                                >Area wise</a
+                              >
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="">
+                            <div class="mgc-shd"></div>
+                            <div class="d-flex align-items-center">
+                              <span class="atf-icn"
+                                ><a href=""
+                                  ><div class="fonticon-wrap">
+                                    <i class="ft-star"></i></div></a></span
+                              ><a href="javascript:void(0);;" id="menu868441141"
+                                >M.R wise</a
+                              >
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="">
+                            <div class="mgc-shd"></div>
+                            <div class="d-flex align-items-center">
+                              <span class="atf-icn"
+                                ><a href=""
+                                  ><div class="fonticon-wrap">
+                                    <i class="ft-star"></i></div></a></span
+                              ><a href="javascript:void(0);;" id="menu868441141"
+                                >Route wise</a
+                              >
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="tab-pane fade show active"
+          [ngClass]="{
+            active: activeTab === 'invertory'
+          }"
+          role="tabpanel"
+          id="menu581486297"
+          aria-labelledby="menu581486297"
+        >
+          <div class="pb-2 pb-md-4">
+            <div class="row">
+              <div class="col-xl-3 col-lg-6 col-md-6 col-12">
+                <ul class="mgc">
+                  <li class="mgc-col item1">
+                    <div class="mgc-cont">
+                      <div class="mgc-shd"></div>
+                      <div class="d-flex align-items-center">
+                        <span class="atf-icn"
+                          ><a href="javascript:void(0)"
+                            ><img
+                              alt=""
+                              src="../../../../assets/images/svg/star-u.svg" /></a></span
+                        ><a href="javascript:void(0);;" id="menu130314246"
+                          >Re-Order</a
+                        >
+                      </div>
+                    </div>
+
+                    <div class="mgc-cont">
+                      <div class="mgc-shd"></div>
+                      <div class="d-flex align-items-center">
+                        <span class="atf-icn"
+                          ><a href="javascript:void(0)"
+                            ><img
+                              alt=""
+                              src="../../../../assets/images/svg/star-u.svg" /></a></span
+                        ><a href="javascript:void(0);;" id="menu102554666"
+                          >Stock Statement</a
+                        >
+                      </div>
+                    </div>
+
+                    <div class="mgc-cont">
+                      <div class="mgc-shd"></div>
+                      <div class="d-flex align-items-center">
+                        <span class="atf-icn"
+                          ><a href="javascript:void(0)"
+                            ><img
+                              alt=""
+                              src="../../../../assets/images/svg/star-u.svg" /></a></span
+                        ><a href="javascript:void(0);;" id="menu826089311"
+                          >Stock Summary</a
+                        >
+                      </div>
+                    </div>
+
+                    <div class="mgc-cont">
+                      <div class="mgc-shd"></div>
+                      <div class="d-flex align-items-center">
+                        <span class="atf-icn"
+                          ><a href="javascript:void(0)"
+                            ><img
+                              alt=""
+                              src="../../../../assets/images/svg/star-u.svg" /></a></span
+                        ><a href="javascript:void(0);;" id="menu581963432801075"
+                          >Shortage Reports</a
+                        >
+                      </div>
+                    </div>
+
+                    <div class="mgc-cont">
+                      <div class="mgc-shd"></div>
+                      <div class="d-flex align-items-center">
+                        <span class="atf-icn"
+                          ><a href="javascript:void(0)"
+                            ><img
+                              alt=""
+                              src="../../../../assets/images/svg/star-u.svg" /></a></span
+                        ><a
+                          href="javascript:void(0);;"
+                          class="text-danger"
+                          id="menu878899838"
+                          >M.I.S. Report</a
+                        >
+                      </div>
+                    </div>
+
+                    <div class="mgc-cont">
+                      <div class="mgc-shd"></div>
+                      <div class="d-flex align-items-center">
+                        <span class="atf-icn"
+                          ><a href="javascript:void(0)"
+                            ><img
+                              alt=""
+                              src="../../../../assets/images/svg/star-u.svg" /></a></span
+                        ><a
+                          href="javascript:void(0);;"
+                          class="text-danger"
+                          id="menu145889433"
+                          >Analysis (Pivot Table)</a
+                        >
+                      </div>
+                    </div>
+
+                    <div class="mgc-cont">
+                      <div class="mgc-shd"></div>
+                      <div class="d-flex align-items-center">
+                        <span class="atf-icn"
+                          ><a href="javascript:void(0)"
+                            ><img
+                              alt=""
+                              src="../../../../assets/images/svg/star-u.svg" /></a></span
+                        ><a
+                          href="javascript:void(0);;"
+                          class="text-danger"
+                          id="menu984542162"
+                          >Misc. Inventory Report</a
+                        >
+                      </div>
+                    </div>
+
+                    <div class="mgc-cont">
+                      <div class="mgc-shd"></div>
+                      <div class="d-flex align-items-center">
+                        <span class="atf-icn"
+                          ><a href="javascript:void(0)"
+                            ><img
+                              alt=""
+                              src="../../../../assets/images/svg/star-u.svg" /></a></span
+                        ><a
+                          href="javascript:void(0);;"
+                          class="text-danger"
+                          id="menu948885295"
+                          >Books of Inventory</a
+                        >
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-xl-3 col-lg-6 col-md-6 col-12">
+                <ul class="mgc">
+                  <h6>Sales Reports</h6>
+
+                  <li class="inner">
+                    <div class="">
+                      <div class="mgc-shd"></div>
+                      <div class="d-flex align-items-center">
+                        <span class="atf-icn"
+                          ><a href=""
+                            ><div class="fonticon-wrap">
+                              <i class="ft-star"></i></div></a></span
+                        ><a href="javascript:void(0);;" id="menu868441141"
+                          >Sales - Register(All)</a
+                        >
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="">
+                      <div class="mgc-shd"></div>
+                      <div class="d-flex align-items-center">
+                        <span class="atf-icn"
+                          ><a href=""
+                            ><div class="fonticon-wrap">
+                              <i class="ft-star"></i></div></a></span
+                        ><a href="javascript:void(0);;" id="menu868441141"
+                          >Sales - Party Wise</a
+                        >
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="">
+                      <div class="mgc-shd"></div>
+                      <div class="d-flex align-items-center">
+                        <span class="atf-icn"
+                          ><a href=""
+                            ><div class="fonticon-wrap">
+                              <i class="ft-star"></i></div></a></span
+                        ><a href="javascript:void(0);;" id="menu868441141"
+                          >Sales - Area Wise</a
+                        >
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="">
+                      <div class="mgc-shd"></div>
+                      <div class="d-flex align-items-center">
+                        <span class="atf-icn"
+                          ><a href=""
+                            ><div class="fonticon-wrap">
+                              <i class="ft-star"></i></div></a></span
+                        ><a href="javascript:void(0);;" id="menu868441141"
+                          >Sales - Route Wise</a
+                        >
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="">
+                      <div class="mgc-shd"></div>
+                      <div class="d-flex align-items-center">
+                        <span class="atf-icn"
+                          ><a href=""
+                            ><div class="fonticon-wrap">
+                              <i class="ft-star"></i></div></a></span
+                        ><a href="javascript:void(0);;" id="menu868441141"
+                          >Sales - M.R. Wise</a
+                        >
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="">
+                      <div class="mgc-shd"></div>
+                      <div class="d-flex align-items-center">
+                        <span class="atf-icn"
+                          ><a href=""
+                            ><div class="fonticon-wrap">
+                              <i class="ft-star"></i></div></a></span
+                        ><a href="javascript:void(0);;" id="menu868441141"
+                          >Sales - Agency wise</a
+                        >
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="">
+                      <div class="mgc-shd"></div>
+                      <div class="d-flex align-items-center">
+                        <span class="atf-icn"
+                          ><a href=""
+                            ><div class="fonticon-wrap">
+                              <i class="ft-star"></i></div></a></span
+                        ><a href="javascript:void(0);;" id="menu868441141"
+                          >Sales - Category Wise</a
+                        >
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="">
+                      <div class="mgc-shd"></div>
+                      <div class="d-flex align-items-center">
+                        <span class="atf-icn"
+                          ><a href=""
+                            ><div class="fonticon-wrap">
+                              <i class="ft-star"></i></div></a></span
+                        ><a href="javascript:void(0);;" id="menu868441141"
+                          >Sales Analyis</a
+                        >
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-xl-3 col-lg-6 col-md-6 col-12">
+                <ul class="mgc">
+                  <li class="mgc-col item5">
+                    <div class="mgc-cont">
+                      <div class="mgc-shd"></div>
+                      <div class="d-flex align-items-center">
+                        <a>Purchase Report</a>
+                      </div>
+                      <ul class="p-0">
+                        <li class="sub-label"></li>
+
+                        <li>
+                          <div class="d-flex align-items-center">
+                            <span class="atf-icn"
+                              ><a href="javascript:void(0)"
+                                ><img
+                                  alt=""
+                                  src="../../../../assets/images/svg/star-u.svg" /></a></span
+                            ><a href="javascript:void(0);;" id="menu855210112"
+                              >Purchase - Register(All)</a
+                            >
+                          </div>
+                        </li>
+                        <li>
+                          <div class="d-flex align-items-center">
+                            <span class="atf-icn"
+                              ><a href="javascript:void(0)"
+                                ><img
+                                  alt=""
+                                  src="../../../../assets/images/svg/star-u.svg" /></a></span
+                            ><a href="javascript:void(0);;" id="menu148827863"
+                              >Purchase - Party Wise</a
+                            >
+                          </div>
+                        </li>
+                        <li>
+                          <div class="d-flex align-items-center">
+                            <span class="atf-icn"
+                              ><a href="javascript:void(0)"
+                                ><img
+                                  alt=""
+                                  src="../../../../assets/images/svg/star-u.svg" /></a></span
+                            ><a href="javascript:void(0);;" id="menu615481422"
+                              >Purchase - Area Wise</a
+                            >
+                          </div>
+                        </li>
+                        <li>
+                          <div class="d-flex align-items-center">
+                            <span class="atf-icn"
+                              ><a href="javascript:void(0)"
+                                ><img
+                                  alt=""
+                                  src="../../../../assets/images/svg/star-u.svg" /></a></span
+                            ><a href="javascript:void(0);;" id="menu888989278"
+                              >Purchase - Route Wise</a
+                            >
+                          </div>
+                        </li>
+                        <li>
+                          <div class="d-flex align-items-center">
+                            <span class="atf-icn"
+                              ><a href="javascript:void(0)"
+                                ><img
+                                  alt=""
+                                  src="../../../../assets/images/svg/star-u.svg" /></a></span
+                            ><a href="javascript:void(0);;" id="menu545543677"
+                              >Purchase - M.R. Wise</a
+                            >
+                          </div>
+                        </li>
+                        <li>
+                          <div class="d-flex align-items-center">
+                            <span class="atf-icn"
+                              ><a href="javascript:void(0)"
+                                ><img
+                                  alt=""
+                                  src="../../../../assets/images/svg/star-u.svg" /></a></span
+                            ><a
+                              href="javascript:void(0);;"
+                              class="text-danger"
+                              id="menu586049341"
+                              >Sales - Agency Wise</a
+                            >
+                          </div>
+                        </li>
+                        <li>
+                          <div class="d-flex align-items-center">
+                            <span class="atf-icn"
+                              ><a href="javascript:void(0)"
+                                ><img
+                                  alt=""
+                                  src="../../../../assets/images/svg/star-u.svg" /></a></span
+                            ><a
+                              href="javascript:void(0);;"
+                              class="text-danger"
+                              id="menu137871315"
+                              >Purchase - Category Wise</a
+                            >
+                          </div>
+                        </li>
+                        <li>
+                          <div class="d-flex align-items-center">
+                            <span class="atf-icn"
+                              ><a href="javascript:void(0)"
+                                ><img
+                                  alt=""
+                                  src="../../../../assets/images/svg/star-u.svg" /></a></span
+                            ><a
+                              href="javascript:void(0);;"
+                              class="text-danger"
+                              id="menu552953794"
+                              >Purchase Analyis</a
+                            >
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-xl-3 col-lg-6 col-md-6 col-12">
+                <ul class="mgc">
+                  <li class="mgc-col item6">
+                    <div class="mgc-cont">
+                      <div class="mgc-shd"></div>
+                      <div class="d-flex align-items-center">
+                        <a>Trade Specific Report</a>
+                      </div>
+                      <ul class="p-0">
+                        <li class="sub-label"></li>
+
+                        <li>
+                          <div class="d-flex align-items-center">
+                            <span class="atf-icn"
+                              ><a href="javascript:void(0)"
+                                ><img
+                                  alt=""
+                                  src="../../../../assets/images/svg/star-u.svg" /></a></span
+                            ><a href="javascript:void(0);;" id="menu163562835"
+                              >Customer Wise Sale</a
+                            >
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

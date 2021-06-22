@@ -1,3 +1,4 @@
+import { ReportsModule } from "./../../reports/reports.module";
 import { CounterSaleModule } from "./../../counter-sale/counter-sale.module";
 import { Routes, RouterModule } from "@angular/router";
 
@@ -198,5 +199,10 @@ export const Full_ROUTES: Routes = [
       import("../../sales-invoice-entry/sales-invoice-entry.module").then(
         (m) => m.SalesInvoiceEntryModule
       ),
+  },
+  {
+    path: "reports",
+    loadChildren: () =>
+      import("../../reports/reports.module").then((m) => m.ReportsModule),
   },
 ];
